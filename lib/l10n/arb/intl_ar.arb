@@ -1,0 +1,10 @@
+{
+    "@@locale": "ar",
+    "language":"اللغة",
+    "en":"English",
+    "ar":"عربي",
+    "location" : "العنوان",
+    "hello" : "مرحبا",
+    "helloWorld": "Hello World!"
+
+ }

@@ -1,0 +1,15 @@
+{
+    "@@locale": "en",
+    "language":"Language",
+    "@language": {},
+    "en":"English",
+    "@en": {},
+    "ar":"عربي",
+    "@ar": {},
+    "location" : "Location",
+    "hello" : "hello",
+    "helloWorld": "Hello World!"
+
+
+ 
+ }
