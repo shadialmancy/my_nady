@@ -37,7 +37,7 @@ class _CustomAppbarState extends State<CustomAppbar> {
       height: 76,
       decoration: BoxDecoration(
         color: theme.backgroundColor,
-        border: Border(bottom: BorderSide(color: theme.grey78, width: 1)),
+        border: Border(bottom: BorderSide(color: theme.grey87, width: 1)),
       ),
       child: Row(
         children: [
@@ -111,7 +111,7 @@ class _CustomAppbarState extends State<CustomAppbar> {
                     margin: EdgeInsets.only(right: 24),
                     width: 1,
                     height: 22,
-                    color: theme.grey78,
+                    color: theme.grey87,
                   ),
                 SvgPicture.asset(
                   AppConstants.settingsImage,
@@ -130,7 +130,7 @@ class _CustomAppbarState extends State<CustomAppbar> {
                   margin: EdgeInsets.only(right: 24, left: 24),
                   width: 1,
                   height: 22,
-                  color: theme.grey78,
+                  color: theme.grey87,
                 ),
               ],
             ),

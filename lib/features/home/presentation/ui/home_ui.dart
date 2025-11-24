@@ -24,7 +24,17 @@ class _HomeUiState extends ConsumerState<HomeUi> {
         children: [
           Row(
             children: [
-              Column(children: [Text(l10n.hello)]),
+              Column(
+                children: [
+                  Text(
+                    l10n.location,
+                    style: theme.bodyMedium.copyWith(
+                      color: theme.grey87,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ],
