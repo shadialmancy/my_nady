@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
+import '../widgets/widgets.dart';
 
 class HomeUi extends ConsumerStatefulWidget {
   const HomeUi({super.key});
@@ -12,31 +13,23 @@ class HomeUi extends ConsumerStatefulWidget {
 }
 
 class _HomeUiState extends ConsumerState<HomeUi> {
-  final TextEditingController searchController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
-    final (theme, l10n) = appSettingsRecord(context);
-
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 1.sw),
+      padding: .only(top: 6.sh),
       child: Column(
         children: [
-          Row(
-            children: [
-              Column(
-                children: [
-                  Text(
-                    l10n.location,
-                    style: theme.bodyMedium.copyWith(
-                      color: theme.grey87,
-                      fontSize: 18,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+          AppBarWithSearchTextField(),
+          gapH24,
+          CategorySection(),
+          gapH24,
+          GymBanner(),
+          gapH24,
+          MixGymSection(),
+          MaleGymSection(),
+          FemaleGymSection(),
+          KidsGymSection(),
+          FamilyGymSection(),
         ],
       ),
     );

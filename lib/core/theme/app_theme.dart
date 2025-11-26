@@ -45,6 +45,7 @@ abstract class FlutterFlowTheme {
   late final Color primary;
   late final Color whiteColor;
   late final Color whiteF2;
+  late final Color secondary;
   late final Color whiteE7;
   late final Color greyFA;
   late final Color greyE6;
@@ -55,10 +56,13 @@ abstract class FlutterFlowTheme {
   late final Color grey;
   late final Color greyD8;
   late final Color grey87;
+  late final Color dark18;
+
   late final Color borderGrey;
   late final Color greyD9D9;
   late final Color lightBlue;
   late final Color blue15;
+  late final Color blue006;
   late final Color greenff;
   late final Color primaryText;
   late final Color secondaryText;
@@ -102,6 +106,7 @@ abstract class FlutterFlowTheme {
   late final Color greenAE;
   late final Color yellowFF;
   late final Color yellowB5;
+  late final Color yellowEA;
 
   late final Color brightBlue;
   late final Color celadon;
@@ -111,12 +116,12 @@ abstract class FlutterFlowTheme {
   late final Color gunmetal;
   late final Color grayIcon;
   late final Color darkText;
-  late final Color fullDark;
+  late final Color fullBlack;
   late final Color grey8080;
   late final Color grey99;
   late final Color grayButton;
-  late final Color dark2E;
-  late final Color dark18;
+  late final Color black1E;
+  late final Color ark18;
   late final Color dark52;
   late final Color dark40;
   late final Color dark48;
@@ -235,7 +240,9 @@ class LightModeTheme extends FlutterFlowTheme {
   Color get borderGreyColor => borderGrey;
 
   @override
-  final Color primary = const Color(0xff2057A4);
+  final Color primary = const Color(0xff152A61);
+  @override
+  final Color secondary = const Color(0xffFF6B2C);
   @override
   final Color whiteColor = const Color(0xFFFFFFFF);
   @override
@@ -277,7 +284,7 @@ class LightModeTheme extends FlutterFlowTheme {
   @override
   final Color secondaryText = const Color(0xff79797A);
   @override
-  final Color primaryBackground = const Color(0xffF6F8FD);
+  final Color primaryBackground = const Color(0xffFFFFFF);
   @override
   final Color primaryHomeCareBackground = const Color(0xfff6fdfd);
   @override
@@ -296,6 +303,7 @@ class LightModeTheme extends FlutterFlowTheme {
   final Color accent3 = const Color(0xFFE0E0E0);
   @override
   final Color accent4 = const Color(0xFFEEEEEE);
+
   @override
   final Color online = const Color(0xFF01E195);
   @override
@@ -324,6 +332,8 @@ class LightModeTheme extends FlutterFlowTheme {
   final Color lightBlueBorderColor = const Color(0xFF4D79B6);
   @override
   final Color blue15 = const Color(0xFF15379A);
+  @override
+  final Color blue006 = const Color(0xFF006FCF);
   @override
   final Color greenff = const Color(0xFFDCF9F6);
 
@@ -358,6 +368,8 @@ class LightModeTheme extends FlutterFlowTheme {
   @override
   final Color yellowB5 = const Color(0xffB58900);
   @override
+  final Color yellowEA = const Color(0xffEAC046);
+  @override
   final Color disabledBlue = const Color(0xFFA3BADB);
   @override
   final Color turquoise = const Color(0xFF39D2C0);
@@ -372,7 +384,7 @@ class LightModeTheme extends FlutterFlowTheme {
   @override
   final Color darkText = const Color(0xFF1E2429);
   @override
-  final Color fullDark = const Color(0xFF000000);
+  final Color fullBlack = const Color(0xFF000000);
   @override
   final Color grey8080 = const Color(0xFF808080);
   @override
@@ -380,7 +392,7 @@ class LightModeTheme extends FlutterFlowTheme {
   @override
   final Color lightBlue = const Color(0xffEDF5FF);
   @override
-  final Color dark2E = const Color(0xFF2E2E2E);
+  final Color black1E = const Color(0xFF1E1E1E);
   @override
   final Color dark18 = const Color(0xFF181C1F);
   @override
@@ -410,8 +422,7 @@ class LightModeTheme extends FlutterFlowTheme {
   final Color primaryBtnText = const Color(0xFFFFFFFF);
   @override
   final Color lineColor = const Color(0xFFE0E3E7);
-  @override
-  final Color blue013 = const Color(0xff013E7D);
+
   @override
   final Color customColor3 = const Color(0xff4DC3D0);
   @override
@@ -494,13 +505,13 @@ class ThemeTypography extends Typography {
   @override
   String get displayLargeFamily => 'Readex Pro';
   @override
-  TextStyle get displayLarge => GoogleFonts.notoKufiArabic(
+  TextStyle get displayLarge => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.normal,
     fontSize: 57.0,
   );
   @override
-  TextStyle get displayLargeSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get displayLargeSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.normal,
     fontSize: 57.0,
@@ -508,13 +519,13 @@ class ThemeTypography extends Typography {
   @override
   String get displayMediumFamily => 'Readex Pro';
   @override
-  TextStyle get displayMedium => GoogleFonts.notoKufiArabic(
+  TextStyle get displayMedium => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.normal,
     fontSize: 45.0,
   );
   @override
-  TextStyle get displayMediumSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get displayMediumSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.normal,
     fontSize: 45.0,
@@ -522,19 +533,19 @@ class ThemeTypography extends Typography {
   @override
   String get displaySmallFamily => 'Urbanist';
   @override
-  TextStyle get displaySmall => GoogleFonts.notoKufiArabic(
+  TextStyle get displaySmall => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.w600,
     fontSize: 24.0,
   );
   @override
-  TextStyle get displaySmallWhite30 => GoogleFonts.notoKufiArabic(
+  TextStyle get displaySmallWhite30 => GoogleFonts.dmSans(
     color: theme.white,
     fontWeight: FontWeight.w600,
     fontSize: 30.0,
   );
   @override
-  TextStyle get displaySmallSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get displaySmallSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.w600,
     fontSize: 24.0,
@@ -542,13 +553,13 @@ class ThemeTypography extends Typography {
   @override
   String get headlineLargeFamily => 'Readex Pro';
   @override
-  TextStyle get headlineLarge => GoogleFonts.notoKufiArabic(
+  TextStyle get headlineLarge => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.normal,
     fontSize: 32.0,
   );
   @override
-  TextStyle get headlineLargeSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get headlineLargeSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.normal,
     fontSize: 32.0,
@@ -556,13 +567,13 @@ class ThemeTypography extends Typography {
   @override
   String get headlineMediumFamily => 'Urbanist';
   @override
-  TextStyle get headlineMedium => GoogleFonts.notoKufiArabic(
+  TextStyle get headlineMedium => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.w500,
     fontSize: 22.0,
   );
   @override
-  TextStyle get headlineMediumSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get headlineMediumSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.w500,
     fontSize: 22.0,
@@ -570,13 +581,13 @@ class ThemeTypography extends Typography {
   @override
   String get headlineSmallFamily => 'Urbanist';
   @override
-  TextStyle get headlineSmall => GoogleFonts.notoKufiArabic(
+  TextStyle get headlineSmall => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.bold,
     fontSize: 20.0,
   );
   @override
-  TextStyle get headlineSmallSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get headlineSmallSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.bold,
     fontSize: 20.0,
@@ -584,13 +595,13 @@ class ThemeTypography extends Typography {
   @override
   String get titleLargeFamily => 'Readex Pro';
   @override
-  TextStyle get titleLarge => GoogleFonts.notoKufiArabic(
+  TextStyle get titleLarge => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.w500,
     fontSize: 22.0,
   );
   @override
-  TextStyle get titleLargeSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get titleLargeSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.w500,
     fontSize: 22.0,
@@ -598,43 +609,42 @@ class ThemeTypography extends Typography {
   @override
   String get titleMediumFamily => 'Urbanist';
   @override
-  TextStyle get titleMedium => GoogleFonts.notoKufiArabic(
+  TextStyle get titleMedium => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.w500,
     fontSize: 18.0,
   );
   @override
-  TextStyle get titleMediumSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get titleMediumSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.w500,
     fontSize: 18.0,
   );
   @override
-  String get titleSmallFamily =>
-      GoogleFonts.notoKufiArabic().fontFamily ?? 'Urbanist';
+  String get titleSmallFamily => GoogleFonts.dmSans().fontFamily ?? 'Urbanist';
   @override
-  TextStyle get titleSmall => GoogleFonts.notoKufiArabic(
+  TextStyle get titleSmall => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.w600,
     fontSize: 16.0,
   );
   @override
-  TextStyle get titleSmallSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get titleSmallSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.w600,
     fontSize: 16.0,
   );
   @override
   String get labelLargeFamily =>
-      GoogleFonts.notoKufiArabic().fontFamily ?? 'Readex Pro';
+      GoogleFonts.dmSans().fontFamily ?? 'Readex Pro';
   @override
-  TextStyle get labelLarge => GoogleFonts.notoKufiArabic(
+  TextStyle get labelLarge => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.w500,
     fontSize: 14.0,
   );
   @override
-  TextStyle get labelLargeSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get labelLargeSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.w500,
     fontSize: 14.0,
@@ -642,13 +652,13 @@ class ThemeTypography extends Typography {
   @override
   String get labelMediumFamily => 'Readex Pro';
   @override
-  TextStyle get labelMedium => GoogleFonts.notoKufiArabic(
+  TextStyle get labelMedium => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.w500,
     fontSize: 12.0,
   );
   @override
-  TextStyle get labelMediumSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get labelMediumSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.w500,
     fontSize: 12.0,
@@ -656,13 +666,13 @@ class ThemeTypography extends Typography {
   @override
   String get labelSmallFamily => 'Readex Pro';
   @override
-  TextStyle get labelSmall => GoogleFonts.notoKufiArabic(
+  TextStyle get labelSmall => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.w500,
     fontSize: 10.0,
   );
   @override
-  TextStyle get labelSmallSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get labelSmallSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.w500,
     fontSize: 10.0,
@@ -670,13 +680,13 @@ class ThemeTypography extends Typography {
   @override
   String get bodyLargeFamily => 'Readex Pro';
   @override
-  TextStyle get bodyLarge => GoogleFonts.notoKufiArabic(
+  TextStyle get bodyLarge => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.normal,
     fontSize: 20.0,
   );
   @override
-  TextStyle get bodyLargeSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get bodyLargeSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.normal,
     fontSize: 16.0,
@@ -684,13 +694,13 @@ class ThemeTypography extends Typography {
   @override
   String get bodyMediumFamily => 'Urbanist';
   @override
-  TextStyle get bodyMedium => GoogleFonts.notoKufiArabic(
+  TextStyle get bodyMedium => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.w700,
     fontSize: 16.0,
   );
   @override
-  TextStyle get bodyMediumSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get bodyMediumSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.w500,
     fontSize: 14.0,
@@ -698,13 +708,13 @@ class ThemeTypography extends Typography {
   @override
   String get bodySmallFamily => 'Urbanist';
   @override
-  TextStyle get bodySmall => GoogleFonts.notoKufiArabic(
+  TextStyle get bodySmall => GoogleFonts.dmSans(
     color: theme.primaryText,
     fontWeight: FontWeight.w400,
     fontSize: 14.0,
   );
   @override
-  TextStyle get bodySmallSecondary => GoogleFonts.notoKufiArabic(
+  TextStyle get bodySmallSecondary => GoogleFonts.dmSans(
     color: theme.secondaryText,
     fontWeight: FontWeight.w400,
     fontSize: 14.0,
@@ -724,6 +734,8 @@ class DarkModeTheme extends FlutterFlowTheme {
 
   @override
   final Color primary = const Color(0xff2057A4);
+  @override
+  final Color secondary = const Color(0xffFF6B2C);
   @override
   final Color whiteColor = const Color(0xFF14181B);
   @override
@@ -813,6 +825,8 @@ class DarkModeTheme extends FlutterFlowTheme {
   @override
   final Color blue15 = const Color(0xFF15379A);
   @override
+  final Color blue006 = const Color(0xFF006FCF);
+  @override
   final Color greenff = const Color(0xFFDCF9F6);
   @override
   final Color white = Colors.white;
@@ -843,6 +857,8 @@ class DarkModeTheme extends FlutterFlowTheme {
   @override
   final Color yellowB5 = const Color(0xffB58900);
   @override
+  final Color yellowEA = const Color(0xffEAC046);
+  @override
   final Color disabledBlue = const Color(0xFFA3BADB);
   @override
   final Color turquoise = const Color(0xFF39D2C0);
@@ -857,13 +873,13 @@ class DarkModeTheme extends FlutterFlowTheme {
   @override
   final Color darkText = const Color(0xFFFFFFFF);
   @override
-  final Color fullDark = const Color(0xFF000000);
+  final Color fullBlack = const Color(0xFF000000);
   @override
   final Color grey8080 = const Color(0xFF808080);
   @override
   final Color grey99 = const Color(0xFF999999);
   @override
-  final Color dark2E = const Color(0xFF2E2E2E);
+  final Color black1E = const Color(0xFF1E1E1E);
   @override
   final Color dark18 = const Color(0xFF181C1F);
   @override

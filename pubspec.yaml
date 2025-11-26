@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  ##################CORE Packages##################
   flutter_riverpod: ^3.0.3
   json_annotation: ^4.9.0
   freezed_annotation: ^3.0.0
@@ -31,7 +32,7 @@ dependencies:
   flutter_hooks: ^0.20.5
   auto_route: ^10.2.0
   riverpod_annotation: ^3.0.3
-  flutter_svg: ^2.2.1
+  flutter_svg: ^2.2.3
   responsive_builder: ^0.7.1
   google_fonts: ^6.3.2
   logger: ^2.6.2
@@ -39,9 +40,13 @@ dependencies:
   intl: ^0.20.2
   intl_utils: ^2.8.12
   flutter_localization: ^0.3.3
+
+  ##################UI Packages##################
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^6.0.0
   build_runner: ^2.4.13
   json_serializable: ^6.8.0
   freezed: ^3.0.0
@@ -51,7 +56,7 @@ flutter:
   generate: true
 
   uses-material-design: true
-  # assets:
-  #   - assets/images/
-  #   - assets/data/
-  #   - assets/icons/
+  assets:
+    - assets/images/
+    #   - assets/data/
+    - assets/icons/

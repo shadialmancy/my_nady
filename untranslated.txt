@@ -1,1 +1,17 @@
-{}
+{
+  "ar": [
+    "searchForGym",
+    "filter",
+    "categories",
+    "seeAll",
+    "gym",
+    "yoga",
+    "football",
+    "swimming",
+    "cardio",
+    "male",
+    "female",
+    "mix",
+    "kids"
+  ]
+}

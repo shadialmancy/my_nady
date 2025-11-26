@@ -15,6 +15,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _TripScreenState extends ConsumerState<HomeScreen> {
+  double horizontalPadding = 50;
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
