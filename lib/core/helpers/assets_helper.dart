@@ -17,4 +17,12 @@ class AssetsHelper {
   static const String searchIcon = 'assets/icons/search.svg';
   static const String gymBanner = 'assets/images/gym banner.jpg';
   static const String locationIcon = 'assets/icons/location.svg';
+  static const String authenticaionBanner =
+      'assets/images/authentication_banner.png';
+  static const String backIcon = 'assets/icons/back.svg';
+  static const String forgotPasswordBanner =
+      'assets/images/forgot_password.png';
+  static const String locationPermissionBanner =
+      'assets/images/location_permission.png';
+  static const String resetPasswordBanner = 'assets/images/reset_password.png';
 }

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_nady_project/core/constants/app_sizes.dart';
 import 'package:my_nady_project/core/helpers/assets_helper.dart';
 import 'package:my_nady_project/core/router/app_router.dart';
 
@@ -14,6 +15,13 @@ class DashboardLayoutScreen extends StatefulWidget {
 
 class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
     with TickerProviderStateMixin {
+  List routes = const [
+    HomeRoute(),
+    HomeRoute(),
+    HomeRoute(),
+    HomeRoute(),
+    HomeRoute(),
+  ];
   List<String> icons = [
     AssetsHelper.homeIcon,
     AssetsHelper.heart2Icon,
@@ -34,6 +42,9 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
       vsync: this,
       duration: const Duration(milliseconds: 375),
     );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.router.replace(routes[0]);
+    });
 
     super.initState();
   }
@@ -76,83 +87,82 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
 
   @override
   Widget build(BuildContext context) {
-    // remove the autotabescaffold and use body and stack instead and navigate normally instead of this
-    return Stack(
-      children: [
-        AutoTabsScaffold(
-          backgroundColor: Colors.transparent,
-          routes: const [
-            HomeRoute(),
-            HomeRoute(),
-            HomeRoute(),
-            HomeRoute(),
-            HomeRoute(),
-          ],
+    final (theme, _) = appSettingsRecord(context);
+    return Scaffold(
+      backgroundColor: theme.primaryBackground,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            AutoRouter(),
+            Positioned(
+              bottom: 0,
+              child: AnimatedBuilder(
+                animation: controller,
+                builder: (context, child) {
+                  return CustomPaint(
+                    painter: AppBarPainter(animation.value),
+                    size: Size(MediaQuery.of(context).size.width, 80.0),
+                    child: SizedBox(
+                      height: 120.0,
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: horizontalPadding,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: icons.map<Widget>((icon) {
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  animateDrop(icons.indexOf(icon));
+                                  selected = icons.indexOf(icon);
+                                });
+                                context.router.replace(routes[selected]);
+                              },
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 375),
 
-          bottomNavigationBuilder: (context, tabsRouter) {
-            return AnimatedBuilder(
-              animation: controller,
-              builder: (context, child) {
-                return CustomPaint(
-                  painter: AppBarPainter(animation.value),
-                  size: Size(MediaQuery.of(context).size.width - (2), 80.0),
-                  child: SizedBox(
-                    height: 120.0,
-                    width: MediaQuery.of(context).size.width - (2),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: horizontalPadding,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: icons.map<Widget>((icon) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                animateDrop(icons.indexOf(icon));
-                                selected = icons.indexOf(icon);
-                              });
-                            },
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 375),
-
-                              curve: Curves.ease,
-                              height: 105,
-                              width:
-                                  (MediaQuery.of(context).size.width -
-                                      (2 * horizontalPadding)) /
-                                  5,
-                              padding: const EdgeInsets.only(
-                                top: 17.5,
-                                bottom: 22.5,
-                              ),
-                              alignment: selected == icons.indexOf(icon)
-                                  ? Alignment.topCenter
-                                  : Alignment.bottomCenter,
-                              child: SizedBox(
-                                height: 35.0,
-                                width: 35.0,
-                                child: Center(
-                                  child: AnimatedSwitcher(
-                                    duration: const Duration(milliseconds: 575),
-                                    switchInCurve: Curves.ease,
-                                    switchOutCurve: Curves.ease,
-                                    child: SvgPicture.asset(icon),
+                                curve: Curves.ease,
+                                height: 105,
+                                width:
+                                    (MediaQuery.of(context).size.width -
+                                        (2 * horizontalPadding)) /
+                                    5,
+                                padding: const EdgeInsets.only(
+                                  top: 17.5,
+                                  bottom: 22.5,
+                                ),
+                                alignment: selected == icons.indexOf(icon)
+                                    ? Alignment.topCenter
+                                    : Alignment.bottomCenter,
+                                child: SizedBox(
+                                  height: 35.0,
+                                  width: 35.0,
+                                  child: Center(
+                                    child: AnimatedSwitcher(
+                                      duration: const Duration(
+                                        milliseconds: 575,
+                                      ),
+                                      switchInCurve: Curves.ease,
+                                      switchOutCurve: Curves.ease,
+                                      child: SvgPicture.asset(icon),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        }).toList(),
+                            );
+                          }).toList(),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-            );
-          },
+                  );
+                },
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

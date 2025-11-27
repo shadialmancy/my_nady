@@ -280,7 +280,7 @@ class LightModeTheme extends FlutterFlowTheme {
   final Color greyD9D9 = const Color(0xffD9D9D9);
 
   @override
-  final Color primaryText = const Color(0xff1B1F25);
+  final Color primaryText = const Color(0xff292D32);
   @override
   final Color secondaryText = const Color(0xff79797A);
   @override

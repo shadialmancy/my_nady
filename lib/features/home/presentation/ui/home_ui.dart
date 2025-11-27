@@ -16,7 +16,7 @@ class _HomeUiState extends ConsumerState<HomeUi> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: .only(top: 6.sh),
+      padding: .only(top: 6.sh, bottom: 10.sh),
       child: Column(
         children: [
           AppBarWithSearchTextField(),

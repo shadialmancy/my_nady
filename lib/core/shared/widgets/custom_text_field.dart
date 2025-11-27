@@ -34,12 +34,14 @@ class CustomTextField extends StatefulWidget {
     this.suffix,
     this.prefixText,
     this.hintStyle,
+    this.labelStyle,
     this.fillColor,
   });
   final TextEditingController? controller;
   final Widget? prefix;
   final String? hint;
   final TextStyle? hintStyle;
+  final TextStyle? labelStyle;
   final TextStyle? style;
   final Function(String?)? onChanged;
   final Function(String?)? onDone;
@@ -117,6 +119,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
           floatingLabelBehavior: FloatingLabelBehavior.always,
           prefixText: widget.prefixText,
           labelText: widget.label,
+          labelStyle:
+              widget.labelStyle ??
+              theme.bodyMedium.copyWith(color: theme.black1E),
           prefix: widget.prefix,
           prefixStyle: theme.bodyMedium.copyWith(color: theme.black1E),
           hintText: widget.hint,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_nady_project/screens/home_screen.dart';
 
 import '../../dashboard/dashboard.dart';
+import '../../screens/screens.dart';
 import '../constants/app_constants.dart';
 
 part 'app_router.gr.dart';
@@ -11,13 +12,14 @@ part 'app_router.gr.dart';
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
+    AutoRoute(page: OnboardingRoute.page, initial: true),
+    AutoRoute(page: LoginRoute.page),
+    AutoRoute(page: RegisterRoute.page),
     CustomRoute(
       page: DashboardLayoutRoute.page,
-      initial: true,
+
       transitionsBuilder: TransitionsBuilders.fadeIn,
-      children: [
-        CustomRoute(page: HomeRoute.page),
-      ],
+      children: [CustomRoute(page: HomeRoute.page)],
     ),
     // AutoRoute(page: HomeRoute.page),
   ];

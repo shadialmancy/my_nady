@@ -199,6 +199,242 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Kids'**
   String get kids;
+
+  /// No description provided for @welcomeTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to '**
+  String get welcomeTo;
+
+  /// No description provided for @myNady.
+  ///
+  /// In en, this message translates to:
+  /// **'My Nady'**
+  String get myNady;
+
+  /// No description provided for @yourFitnessJourneyBeginsHereWhereDisciplineMeetsPassion.
+  ///
+  /// In en, this message translates to:
+  /// **'Your fitness journey begins here, where discipline meets passion.'**
+  String get yourFitnessJourneyBeginsHereWhereDisciplineMeetsPassion;
+
+  /// No description provided for @letsGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Let’s Get Started'**
+  String get letsGetStarted;
+
+  /// No description provided for @alreadyHaveAnAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get alreadyHaveAnAccount;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @welcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Back!'**
+  String get welcomeBack;
+
+  /// No description provided for @loginToYourAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Login to your account'**
+  String get loginToYourAccount;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @enterYourEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email'**
+  String get enterYourEmail;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @enterYourPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get enterYourPassword;
+
+  /// No description provided for @rememberMe.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember Me'**
+  String get rememberMe;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get forgotPassword;
+
+  /// No description provided for @or.
+  ///
+  /// In en, this message translates to:
+  /// **'Or'**
+  String get or;
+
+  /// No description provided for @dontHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get dontHaveAccount;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signUp;
+
+  /// No description provided for @invalidCredentialsPleaseTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid credentials. Please try again.'**
+  String get invalidCredentialsPleaseTryAgain;
+
+  /// No description provided for @createNewAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new account'**
+  String get createNewAccount;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @gender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get gender;
+
+  /// No description provided for @phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get phone;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @enterDateofBirth.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your Date of Birth'**
+  String get enterDateofBirth;
+
+  /// No description provided for @yourAgeInformationWillBeUpdatedOnYourProfilePageAndThisWillDisplayedPubliclyOnYourDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Your age information will be updated on your profile page and this will displayed publicly on your dashboard.'**
+  String
+  get yourAgeInformationWillBeUpdatedOnYourProfilePageAndThisWillDisplayedPubliclyOnYourDashboard;
+
+  /// No description provided for @month.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get month;
+
+  /// No description provided for @day.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get day;
+
+  /// No description provided for @year.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get year;
+
+  /// No description provided for @continueTxt.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueTxt;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @allowingLocationHelpsUsServeYouBetter.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowing location helps us serve you better.'**
+  String get allowingLocationHelpsUsServeYouBetter;
+
+  /// No description provided for @itIsVeryImportantThatYouChooseTheAlwaysAllowOptionInTheNextDialogItMakesTheSystemWorkBetterThankYou.
+  ///
+  /// In en, this message translates to:
+  /// **'It is very important that you choose the \'Always Allow\' option in the next dialog. It makes the system work better. Thank you!'**
+  String
+  get itIsVeryImportantThatYouChooseTheAlwaysAllowOptionInTheNextDialogItMakesTheSystemWorkBetterThankYou;
+
+  /// No description provided for @grantAccessToLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant Access to Location'**
+  String get grantAccessToLocation;
+
+  /// No description provided for @dontWorryItOccursPleaseEnterEmailAddressLinkedWithYourAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t worry, it occurs! Please enter the email address linked with your account.'**
+  String get dontWorryItOccursPleaseEnterEmailAddressLinkedWithYourAccount;
+
+  /// No description provided for @yourNewPasswordMustUniqueFromThosePreviouslyUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Your new password must be unique from those previously used.'**
+  String get yourNewPasswordMustUniqueFromThosePreviouslyUsed;
+
+  /// No description provided for @byGivingYourInformationYouAgreeToOur.
+  ///
+  /// In en, this message translates to:
+  /// **'By giving your information, you agree to our'**
+  String get byGivingYourInformationYouAgreeToOur;
+
+  /// No description provided for @termsConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get termsConditions;
+
+  /// No description provided for @and.
+  ///
+  /// In en, this message translates to:
+  /// **'and'**
+  String get and;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
 }
 
 class _AppLocalizationsDelegate

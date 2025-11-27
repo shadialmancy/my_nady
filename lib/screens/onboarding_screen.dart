@@ -1,30 +1,29 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:my_nady_project/core/constants/app_sizes.dart';
-import 'package:my_nady_project/features/home/presentation/ui/home_ui.dart';
 
 import '../core/constants/adaptive.dart';
+import '../features/onboarding/presentation/onboarding_ui.dart';
 
 @RoutePage()
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
   double horizontalPadding = 50;
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
     return Scaffold(
       backgroundColor: theme.primaryBackground,
-
       body: CustomAdaptiveScreen.builder(
-        mobile: const HomeUi(),
-        tablet: const HomeUi(),
-        desktop: const HomeUi(),
+        mobile: const OnboardingUi(),
+        tablet: const OnboardingUi(),
+        desktop: const OnboardingUi(),
       ),
     );
   }
