@@ -185,4 +185,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get enterYourName => 'Enter your name';
+
+  @override
+  String get selectYourGender => 'Select your gender';
+
+  @override
+  String get send => 'Send';
 }

@@ -111,7 +111,13 @@
     "and" : "and",
     "@and" : {},
     "privacyPolicy" : "Privacy Policy",
-    "@privacyPolicy" : {}
+    "@privacyPolicy" : {},
+    "enterYourName":"Enter your name",
+    "@enterYourName": {},
+    "selectYourGender":"Select your gender",
+    "@selectYourGender": {},
+    "send":"Send",
+    "@send": {}
 
 
 

@@ -52,7 +52,7 @@ class CustomButton extends StatelessWidget {
   final Color? disabledColor;
 
   ShapeBorder get _shape =>
-      shape ?? RoundedRectangleBorder(borderRadius: BorderRadius.circular(24));
+      shape ?? RoundedRectangleBorder(borderRadius: BorderRadius.circular(10));
 
   BoxConstraints get _constraints =>
       BoxConstraints.tightFor(width: width, height: height);

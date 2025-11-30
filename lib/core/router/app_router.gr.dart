@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [ChangePasswordScreen]
+class ChangePasswordRoute extends PageRouteInfo<void> {
+  const ChangePasswordRoute({List<PageRouteInfo>? children})
+    : super(ChangePasswordRoute.name, initialChildren: children);
+
+  static const String name = 'ChangePasswordRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ChangePasswordScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [DashboardLayoutScreen]
 class DashboardLayoutRoute extends PageRouteInfo<void> {
   const DashboardLayoutRoute({List<PageRouteInfo>? children})
@@ -22,6 +38,22 @@ class DashboardLayoutRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const DashboardLayoutScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ForgetPasswordScreen]
+class ForgetPasswordRoute extends PageRouteInfo<void> {
+  const ForgetPasswordRoute({List<PageRouteInfo>? children})
+    : super(ForgetPasswordRoute.name, initialChildren: children);
+
+  static const String name = 'ForgetPasswordRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ForgetPasswordScreen();
     },
   );
 }
@@ -86,6 +118,22 @@ class RegisterRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const RegisterScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [VerificationCodeScreen]
+class VerificationCodeRoute extends PageRouteInfo<void> {
+  const VerificationCodeRoute({List<PageRouteInfo>? children})
+    : super(VerificationCodeRoute.name, initialChildren: children);
+
+  static const String name = 'VerificationCodeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const VerificationCodeScreen();
     },
   );
 }

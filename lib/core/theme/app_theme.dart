@@ -430,7 +430,7 @@ class LightModeTheme extends FlutterFlowTheme {
   @override
   final Color customColor5 = const Color(0xff22A55F);
   @override
-  final Color dividerColor = const Color(0xFF565656);
+  final Color dividerColor = const Color(0xFF2C2F35);
 
   @override
   final Color homeCardBlue = const Color(0xff75B6D2);

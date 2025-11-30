@@ -51,6 +51,9 @@
     "byGivingYourInformationYouAgreeToOur",
     "termsConditions",
     "and",
-    "privacyPolicy"
+    "privacyPolicy",
+    "enterYourName",
+    "selectYourGender",
+    "send"
   ]
 }

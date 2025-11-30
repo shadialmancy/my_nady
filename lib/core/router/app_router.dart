@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:my_nady_project/screens/home_screen.dart';
 
 import '../../dashboard/dashboard.dart';
 import '../../screens/screens.dart';
@@ -15,6 +14,9 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: OnboardingRoute.page, initial: true),
     AutoRoute(page: LoginRoute.page),
     AutoRoute(page: RegisterRoute.page),
+    AutoRoute(page: ForgetPasswordRoute.page),
+    AutoRoute(page: ChangePasswordRoute.page),
+    AutoRoute(page: VerificationCodeRoute.page),
     CustomRoute(
       page: DashboardLayoutRoute.page,
 

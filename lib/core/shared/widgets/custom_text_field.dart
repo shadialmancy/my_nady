@@ -78,100 +78,103 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     final (theme, _) = appSettingsRecord(context);
 
-    return SizedBox(
-      // height: 56.h,
-      width: widget.width ?? double.infinity,
-      child: TextFormField(
-        scrollPadding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        inputFormatters: widget.inputFormatters,
-        textAlign: widget.textAlign ?? TextAlign.start,
-        onChanged: widget.onChanged,
-        controller: widget.controller,
-        onTapOutside: (event) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        },
-        onFieldSubmitted: widget.onDone != null
-            ? widget.onDone as Function(String)
-            : null,
-        enabled: widget.isEnabled ?? true,
-        //   keyboardType: widget.keyboardType,
-        style:
-            widget.style ??
-            theme.bodyMediumSecondary.copyWith(color: theme.black1E),
-        maxLines: widget.maxLines ?? 1,
-        maxLength: widget.length,
-        onTap: widget.onTap != null ? widget.onTap as Function() : null,
-        readOnly: widget.readOnly ?? false,
-        validator: widget.validator,
-        obscureText: widget.isPasswordField!
-            ? _showPassword
-                  ? true
-                  : false
-            : false,
-        keyboardType: widget.keyboardType,
-        decoration: InputDecoration(
-          fillColor: widget.fillColor ?? theme.white,
-          filled: true,
-          hintStyle:
-              widget.hintStyle ?? theme.bodySmall.copyWith(color: theme.grey99),
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          prefixText: widget.prefixText,
-          labelText: widget.label,
-          labelStyle:
-              widget.labelStyle ??
-              theme.bodyMedium.copyWith(color: theme.black1E),
-          prefix: widget.prefix,
-          prefixStyle: theme.bodyMedium.copyWith(color: theme.black1E),
-          hintText: widget.hint,
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 4,
-            horizontal: 12,
-          ),
-          suffixIcon: widget.isPasswordField!
-              ? IconButton(
-                  icon: Icon(
-                    _showPassword ? Icons.visibility : Icons.visibility_off,
-                  ),
-                  onPressed: () =>
-                      setState(() => _showPassword = !_showPassword),
-                )
-              : widget.suffix,
-          errorMaxLines: 1,
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: theme.error,
-              style: BorderStyle.solid,
+    return TextFormField(
+      scrollPadding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+
+      inputFormatters: widget.inputFormatters,
+      textAlign: widget.textAlign ?? TextAlign.start,
+      onChanged: widget.onChanged,
+      controller: widget.controller,
+      onTapOutside: (event) {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      onFieldSubmitted: widget.onDone != null
+          ? widget.onDone as Function(String)
+          : null,
+      enabled: widget.isEnabled ?? true,
+      //   keyboardType: widget.keyboardType,
+      style:
+          widget.style ??
+          theme.bodyMediumSecondary.copyWith(color: theme.black1E),
+      maxLines: widget.maxLines ?? 1,
+      maxLength: widget.length,
+      onTap: widget.onTap != null ? widget.onTap as Function() : null,
+      readOnly: widget.readOnly ?? false,
+      validator: widget.validator,
+      obscureText: widget.isPasswordField!
+          ? _showPassword
+                ? true
+                : false
+          : false,
+      keyboardType: widget.keyboardType,
+      decoration: InputDecoration(
+        fillColor: widget.fillColor ?? theme.white,
+        filled: true,
+        hintStyle:
+            widget.hintStyle ?? theme.bodySmall.copyWith(color: theme.grey99),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        prefixText: widget.prefixText,
+        labelText: widget.label,
+        labelStyle:
+            widget.labelStyle ??
+            theme.bodyMedium.copyWith(
+              color: theme.primary,
+              fontWeight: .normal,
             ),
-          ),
-          border:
-              widget.border ??
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(radius8),
-                borderSide: BorderSide(color: theme.grey),
-              ),
-          enabledBorder:
-              widget.enabledBorder ??
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(radius8),
-                borderSide: BorderSide(color: theme.grey),
-              ),
-          focusedBorder:
-              widget.focusedBorder ??
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(radius8),
-                borderSide: BorderSide(color: theme.grey),
-              ),
-          disabledBorder:
-              widget.border ??
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(radius8),
-                borderSide: BorderSide(
-                  color: theme.black1E.withValues(alpha: 0.4),
+        prefix: widget.prefix,
+        prefixStyle: theme.bodyMedium.copyWith(color: theme.black1E),
+        hintText: widget.hint,
+        contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+        suffixIcon: widget.isPasswordField!
+            ? IconButton(
+                icon: Icon(
+                  _showPassword ? Icons.visibility : Icons.visibility_off,
                 ),
-              ),
+                onPressed: () => setState(() => _showPassword = !_showPassword),
+              )
+            : widget.suffix,
+        errorMaxLines: 1,
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: theme.error, style: BorderStyle.solid),
         ),
+        border:
+            widget.border ??
+            OutlineInputBorder(
+              borderSide: BorderSide(
+                color: theme.primary.withValues(alpha: 0.6),
+                width: 1,
+              ),
+              borderRadius: .circular(16),
+            ),
+        enabledBorder:
+            widget.enabledBorder ??
+            OutlineInputBorder(
+              borderSide: BorderSide(
+                color: theme.primary.withValues(alpha: 0.6),
+                width: 1,
+              ),
+              borderRadius: .circular(16),
+            ),
+        focusedBorder:
+            widget.focusedBorder ??
+            OutlineInputBorder(
+              borderSide: BorderSide(
+                color: theme.primary.withValues(alpha: 0.6),
+                width: 1,
+              ),
+              borderRadius: .circular(16),
+            ),
+        disabledBorder:
+            widget.border ??
+            OutlineInputBorder(
+              borderSide: BorderSide(
+                color: theme.primary.withValues(alpha: 0.6),
+                width: 1,
+              ),
+              borderRadius: .circular(16),
+            ),
       ),
     );
   }

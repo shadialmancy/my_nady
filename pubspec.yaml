@@ -40,7 +40,7 @@ dependencies:
   intl: ^0.20.2
   intl_utils: ^2.8.12
   flutter_localization: ^0.3.3
-
+  phone_text_field: ^2.0.0
   ##################UI Packages##################
 
 dev_dependencies:
