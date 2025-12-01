@@ -24,8 +24,11 @@ class AssetsHelper {
       'assets/images/forgot_password.png';
   static const String locationPermissionBanner =
       'assets/images/location_permission.png';
-  static const String resetPasswordBanner = 'assets/images/reset_password.png';
+  static const String changePasswordBanner = 'assets/images/reset_password.png';
   static const String googleLogo = 'assets/images/google_logo.png';
   static const String facebookLogo = 'assets/images/facebook_logo.png';
   static const String appleLogo = 'assets/images/apple_logo.png';
+
+  // IMAGES HOLDER REMOVE LATER
+  static const String gymImageHolder = 'assets/images/gym_image_holder.png';
 }

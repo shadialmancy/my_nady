@@ -91,6 +91,7 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
     return Scaffold(
       backgroundColor: theme.primaryBackground,
       body: SafeArea(
+        top: false,
         child: Stack(
           children: [
             AutoRouter(),

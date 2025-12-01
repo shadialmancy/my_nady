@@ -194,4 +194,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get send => 'Send';
+
+  @override
+  String get changePassword => 'Change Password';
+
+  @override
+  String get enterVerificationCode => 'Enter Verification Code';
+
+  @override
+  String get enterTheOTPSentToYourMobileNumber =>
+      'Enter the OTP sent to your mobile number';
+
+  @override
+  String get toProceed => 'to proceed';
+
+  @override
+  String get theOTPValidForRemainingTimeOf =>
+      'The OTP is valid for the remaining time of';
+
+  @override
+  String get seconds => 'seconds';
+
+  @override
+  String get resendCode => 'Resend Code';
+
+  @override
+  String get family => 'Family';
 }

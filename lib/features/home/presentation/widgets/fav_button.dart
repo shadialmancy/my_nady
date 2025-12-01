@@ -23,10 +23,10 @@ class _FavoriteButtonState extends State<FavoriteButton> {
       }),
       child: CircleAvatar(
         radius: 15,
-        backgroundColor: theme.white,
+        backgroundColor: isFav ? theme.secondary : theme.white,
         child: SvgPicture.asset(
           AssetsHelper.heart1Icon,
-          colorFilter: isFav ? .mode(theme.secondary, .srcIn) : null,
+          colorFilter: isFav ? .mode(theme.white, .srcIn) : null,
         ),
       ),
     );

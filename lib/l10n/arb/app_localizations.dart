@@ -453,6 +453,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Send'**
   String get send;
+
+  /// No description provided for @changePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get changePassword;
+
+  /// No description provided for @enterVerificationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Verification Code'**
+  String get enterVerificationCode;
+
+  /// No description provided for @enterTheOTPSentToYourMobileNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the OTP sent to your mobile number'**
+  String get enterTheOTPSentToYourMobileNumber;
+
+  /// No description provided for @toProceed.
+  ///
+  /// In en, this message translates to:
+  /// **'to proceed'**
+  String get toProceed;
+
+  /// No description provided for @theOTPValidForRemainingTimeOf.
+  ///
+  /// In en, this message translates to:
+  /// **'The OTP is valid for the remaining time of'**
+  String get theOTPValidForRemainingTimeOf;
+
+  /// No description provided for @seconds.
+  ///
+  /// In en, this message translates to:
+  /// **'seconds'**
+  String get seconds;
+
+  /// No description provided for @resendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Code'**
+  String get resendCode;
+
+  /// No description provided for @family.
+  ///
+  /// In en, this message translates to:
+  /// **'Family'**
+  String get family;
 }
 
 class _AppLocalizationsDelegate

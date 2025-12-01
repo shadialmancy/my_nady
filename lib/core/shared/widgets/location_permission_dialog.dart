@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:my_nady_project/core/helpers/assets_helper.dart';
+import 'package:my_nady_project/core/router/app_router.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../constants/app_sizes.dart';
@@ -69,6 +70,8 @@ Future<void> showLocationPerimssionDialog(BuildContext context) {
                 fontWeight: .w600,
               ),
               width: double.infinity,
+              onPressed: () =>
+                  context.router.push(const VerificationCodeRoute()),
             ),
             gapH12,
             GestureDetector(

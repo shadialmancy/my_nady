@@ -70,6 +70,7 @@ abstract class FlutterFlowTheme {
   late final Color primaryHomeCareBackground;
   late final Color secondaryBackground;
   late final Color grey82;
+  late final Color grey90;
   late final Color secondaryBusinessBackground;
   late final Color secondaryBlue;
   late final Color greyB3B;
@@ -84,6 +85,8 @@ abstract class FlutterFlowTheme {
   late final Color info;
 
   late final Color borderColor;
+  late final Color verificationCodeBorderColor;
+
   late final Color secondaryBorderColor;
   late final Color homeCareBorderColor;
   late final Color radioBorderColor;
@@ -292,6 +295,8 @@ class LightModeTheme extends FlutterFlowTheme {
   @override
   final Color grey82 = const Color(0xFF828282);
   @override
+  final Color grey90 = const Color(0xFF909090);
+  @override
   final Color secondaryBusinessBackground = const Color(0xffFFFFFF);
   // 0xFFededed
   @override
@@ -324,6 +329,8 @@ class LightModeTheme extends FlutterFlowTheme {
   final Color borderColor = const Color(0xFFE4D9D9);
   @override
   final Color secondaryBorderColor = const Color(0xFFE9EEF6);
+  @override
+  final Color verificationCodeBorderColor = const Color(0xFFDCE2EF);
   @override
   final Color homeCareBorderColor = const Color(0xFF23C5B3);
   @override
@@ -786,6 +793,8 @@ class DarkModeTheme extends FlutterFlowTheme {
   final Color secondaryBackground = const Color(0xFF14181B);
   @override
   final Color grey82 = const Color(0xFF828282);
+  @override
+  final Color grey90 = const Color(0xFF909090);
   @override
   final Color secondaryBusinessBackground = const Color(0xffFFFFFF);
 

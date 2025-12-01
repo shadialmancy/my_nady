@@ -20,11 +20,11 @@ class _HomeUiState extends ConsumerState<HomeUi> {
       child: Column(
         children: [
           AppBarWithSearchTextField(),
-          gapH24,
+          gapH16,
           CategorySection(),
-          gapH24,
+          gapH16,
           GymBanner(),
-          gapH24,
+          gapH16,
           MixGymSection(),
           MaleGymSection(),
           FemaleGymSection(),

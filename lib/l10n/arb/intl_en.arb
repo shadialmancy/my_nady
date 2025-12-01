@@ -117,7 +117,23 @@
     "selectYourGender":"Select your gender",
     "@selectYourGender": {},
     "send":"Send",
-    "@send": {}
+    "@send": {},
+    "changePassword":"Change Password",
+    "@changePassword": {},
+    "enterVerificationCode":"Enter Verification Code",
+    "@enterVerificationCode": {},
+    "enterTheOTPSentToYourMobileNumber":"Enter the OTP sent to your mobile number",
+    "@enterTheOTPSentToYourMobileNumber": {},
+    "toProceed":"to proceed",
+    "@toProceed": {},
+    "theOTPValidForRemainingTimeOf":"The OTP is valid for the remaining time of",
+    "@theOTPValidForRemainingTimeOf": {},
+    "seconds":"seconds",
+    "@seconds": {},
+    "resendCode":"Resend Code",
+    "@resendCode": {},
+    "family":"Family",
+    "@family": {}
 
 
 

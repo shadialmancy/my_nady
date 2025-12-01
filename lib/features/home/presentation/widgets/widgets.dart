@@ -9,3 +9,4 @@ export 'kids_gym_section.dart';
 export 'fav_button.dart';
 export 'gym_card.dart';
 export 'family_gym_section.dart';
+export 'family_gym_card.dart';

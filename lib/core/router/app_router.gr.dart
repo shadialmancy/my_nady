@@ -59,6 +59,22 @@ class ForgetPasswordRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [GymScreen]
+class GymRoute extends PageRouteInfo<void> {
+  const GymRoute({List<PageRouteInfo>? children})
+    : super(GymRoute.name, initialChildren: children);
+
+  static const String name = 'GymRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const GymScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})

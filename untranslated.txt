@@ -54,6 +54,14 @@
     "privacyPolicy",
     "enterYourName",
     "selectYourGender",
-    "send"
+    "send",
+    "changePassword",
+    "enterVerificationCode",
+    "enterTheOTPSentToYourMobileNumber",
+    "toProceed",
+    "theOTPValidForRemainingTimeOf",
+    "seconds",
+    "resendCode",
+    "family"
   ]
 }

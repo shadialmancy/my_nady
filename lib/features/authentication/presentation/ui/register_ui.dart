@@ -143,7 +143,7 @@ class _RegisterUiState extends State<RegisterUi> {
                   TextSpan(
                     text: ' ${l10n.login}',
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () => context.router.push(LoginRoute()),
+                      ..onTap = () => context.router.push(const LoginRoute()),
                     style: theme.titleSmall.copyWith(
                       fontWeight: .w600,
                       color: theme.primary,

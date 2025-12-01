@@ -5,3 +5,4 @@ export 'register_screen.dart';
 export 'forget_password_screen.dart';
 export 'verification_code_screen.dart';
 export 'change_password_screen.dart';
+export 'gym_screen.dart';

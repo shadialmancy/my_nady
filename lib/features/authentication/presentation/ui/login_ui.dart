@@ -109,7 +109,7 @@ class _LoginUiState extends State<LoginUi> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      context.router.push(ForgetPasswordRoute());
+                      context.router.push(const ForgetPasswordRoute());
                     },
                     child: Align(
                       alignment: Alignment.bottomRight,
@@ -135,6 +135,9 @@ class _LoginUiState extends State<LoginUi> {
                 color: theme.white,
                 fontWeight: .w600,
               ),
+              onPressed: () {
+                context.router.push(const VerificationCodeRoute());
+              },
             ),
             Padding(
               padding: .symmetric(horizontal: 30, vertical: 1.5.sh),
@@ -183,7 +186,8 @@ class _LoginUiState extends State<LoginUi> {
                   TextSpan(
                     text: ' ${l10n.signUp}',
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () => context.router.push(RegisterRoute()),
+                      ..onTap = () =>
+                          context.router.push(const RegisterRoute()),
                     style: theme.titleSmall.copyWith(
                       fontWeight: .w600,
                       color: theme.primary,

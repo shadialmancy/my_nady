@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_nady_project/core/constants/app_sizes.dart';
 import 'package:my_nady_project/core/helpers/assets_helper.dart';
 import 'package:my_nady_project/core/shared/widgets/widgets.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class ForgetPasswordUi extends StatelessWidget {
   const ForgetPasswordUi({super.key});
@@ -11,38 +12,40 @@ class ForgetPasswordUi extends StatelessWidget {
     final (theme, l10n) = appSettingsRecord(context);
     return Center(
       child: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 3.sw),
         child: Column(
           children: [
             Image.asset(
               AssetsHelper.forgotPasswordBanner,
-              width: 359,
-              height: 359,
+              width: 300,
+              fit: BoxFit.contain,
             ),
             gapH32,
             Text(
               "${l10n.forgotPassword}?",
               style: theme.headlineLarge.copyWith(
                 color: theme.primary,
-                fontSize: 36,
+                fontSize: 26,
                 fontWeight: FontWeight.bold,
               ),
             ),
             gapH8,
             Text(
               l10n.dontWorryItOccursPleaseEnterEmailAddressLinkedWithYourAccount,
+              textAlign: .center,
               style: theme.bodyMedium.copyWith(
                 color: theme.grey87,
-                fontSize: 16,
+                fontSize: 12,
                 fontWeight: FontWeight.normal,
               ),
             ),
-            gapH48,
+            gapH20,
             CustomTextField(
               label: l10n.email,
               hint: l10n.enterYourEmail,
               keyboardType: TextInputType.emailAddress,
             ),
-            gapH48,
+            gapH20,
             CustomButton(
               width: double.infinity,
               title: l10n.send,

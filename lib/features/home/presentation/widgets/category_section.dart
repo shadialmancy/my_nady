@@ -24,7 +24,7 @@ class CategorySection extends StatelessWidget {
       padding: .only(left: 3.5.sw, right: 3.5.sw),
       child: Column(
         children: [
-          TitleWithSeeall(title: l10n.categories, onPress: () {}),
+          TitleWithSeeall(title: l10n.categories, onPress: null),
           gapH12,
           Row(
             mainAxisAlignment: .spaceBetween,

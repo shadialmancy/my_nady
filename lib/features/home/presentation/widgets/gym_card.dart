@@ -17,7 +17,7 @@ class GymCard extends StatelessWidget {
       clipBehavior: Clip.none,
       width: (size.width - 20) / 2,
       // height: 150,
-      margin: .only(top: 40, right: marginRight, left: marginLeft, bottom: 40),
+      margin: .only(top: 40, right: marginRight, left: marginLeft, bottom: 25),
       padding: .symmetric(horizontal: 6, vertical: 10),
       decoration: BoxDecoration(
         color: theme.white,
