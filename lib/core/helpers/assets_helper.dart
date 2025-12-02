@@ -28,6 +28,9 @@ class AssetsHelper {
   static const String googleLogo = 'assets/images/google_logo.png';
   static const String facebookLogo = 'assets/images/facebook_logo.png';
   static const String appleLogo = 'assets/images/apple_logo.png';
+  static const String checkIcon = 'assets/icons/check.svg';
+  static const String uncheckIcon = 'assets/icons/uncheck.svg';
+  static const String personIcon = 'assets/icons/person.svg';
 
   // IMAGES HOLDER REMOVE LATER
   static const String gymImageHolder = 'assets/images/gym_image_holder.png';

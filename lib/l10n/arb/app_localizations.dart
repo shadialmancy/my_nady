@@ -501,6 +501,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Family'**
   String get family;
+
+  /// No description provided for @reviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviews'**
+  String get reviews;
+
+  /// No description provided for @nearDistance.
+  ///
+  /// In en, this message translates to:
+  /// **'Near Distance'**
+  String get nearDistance;
+
+  /// No description provided for @branches.
+  ///
+  /// In en, this message translates to:
+  /// **'Branches'**
+  String get branches;
+
+  /// No description provided for @clubContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Club Content'**
+  String get clubContent;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @comments.
+  ///
+  /// In en, this message translates to:
+  /// **'Comments'**
+  String get comments;
+
+  /// No description provided for @subscribeNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe now'**
+  String get subscribeNow;
 }
 
 class _AppLocalizationsDelegate

@@ -220,4 +220,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get family => 'Family';
+
+  @override
+  String get reviews => 'Reviews';
+
+  @override
+  String get nearDistance => 'Near Distance';
+
+  @override
+  String get branches => 'Branches';
+
+  @override
+  String get clubContent => 'Club Content';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get comments => 'Comments';
+
+  @override
+  String get subscribeNow => 'Subscribe now';
 }

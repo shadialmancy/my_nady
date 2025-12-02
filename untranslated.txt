@@ -62,6 +62,13 @@
     "theOTPValidForRemainingTimeOf",
     "seconds",
     "resendCode",
-    "family"
+    "family",
+    "reviews",
+    "nearDistance",
+    "branches",
+    "clubContent",
+    "description",
+    "comments",
+    "subscribeNow"
   ]
 }

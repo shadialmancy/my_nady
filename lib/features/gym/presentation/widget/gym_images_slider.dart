@@ -1,5 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
@@ -59,6 +62,32 @@ class _GymImagesSliderState extends State<GymImagesSlider> {
             viewportFraction: 0.9,
             aspectRatio: 16 / 9,
             initialPage: 0,
+          ),
+        ),
+        Positioned(
+          top: 40,
+          left: 0,
+          child: Row(
+            crossAxisAlignment: .start,
+            children: [
+              Padding(
+                padding: .only(left: 5.sw),
+                child: GestureDetector(
+                  onTap: () {
+                    context.router.maybePop();
+                  },
+                  child: SvgPicture.asset(
+                    AssetsHelper.backIcon,
+                    colorFilter: ColorFilter.mode(theme.white, BlendMode.srcIn),
+                  ),
+                ),
+              ),
+              gapW8,
+              Text(
+                "gym name",
+                style: theme.titleMedium.copyWith(color: theme.white),
+              ),
+            ],
           ),
         ),
         Row(
