@@ -49,7 +49,7 @@ class _GymUiState extends State<GymUi> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          GymImagesSlider(),
+          const GymImagesSlider(),
           gapH32,
           Padding(
             padding: .only(left: 3.sw, right: 3.sw, bottom: 10.sw),
@@ -191,9 +191,8 @@ class _GymUiState extends State<GymUi> {
                     gapH12,
                     AnimatedSwitcher(
                       duration: Duration(milliseconds: 300),
-
                       child: [
-                        PackagesSection(),
+                        const PackagesSection(),
                         Text(
                           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
                           style: theme.titleMedium.copyWith(
@@ -202,7 +201,7 @@ class _GymUiState extends State<GymUi> {
                             fontSize: 12,
                           ),
                         ),
-                        CommentsSection(),
+                        const CommentsSection(),
                       ][selectedTabIndex],
                     ),
                   ],
