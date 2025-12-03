@@ -78,18 +78,6 @@ class _AppBarWithSearchTextFieldState extends State<AppBarWithSearchTextField> {
                     padding: const .only(right: 6),
                     child: SvgPicture.asset(AssetsHelper.searchIcon, width: 12),
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: .circular(12),
-                    borderSide: BorderSide(color: theme.primary, width: 1),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: .circular(12),
-                    borderSide: BorderSide(color: theme.primary, width: 1),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: .circular(12),
-                    borderSide: BorderSide(color: theme.primary, width: 1),
-                  ),
                 ),
               ),
               gapW8,

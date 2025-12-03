@@ -94,7 +94,7 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
         top: false,
         child: Stack(
           children: [
-            AutoRouter(),
+            const AutoRouter(),
             Positioned(
               bottom: 0,
               child: AnimatedBuilder(

@@ -1,5 +1,5 @@
 class AssetsHelper {
-  AssetsHelper._();
+  const AssetsHelper._();
   static const String dumbBellIcon = 'assets/icons/Dumbbell.svg';
   static const String filterIcon = 'assets/icons/Filter.svg';
   static const String footballIcon = 'assets/icons/football.svg';
@@ -31,6 +31,8 @@ class AssetsHelper {
   static const String checkIcon = 'assets/icons/check.svg';
   static const String uncheckIcon = 'assets/icons/uncheck.svg';
   static const String personIcon = 'assets/icons/person.svg';
+  static const String paymentMethodBanner =
+      'assets/images/payment_method_banner.png';
 
   // IMAGES HOLDER REMOVE LATER
   static const String gymImageHolder = 'assets/images/gym_image_holder.png';

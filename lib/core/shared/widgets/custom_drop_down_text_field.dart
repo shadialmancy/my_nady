@@ -13,6 +13,10 @@ class CustomDropDownTextField extends StatelessWidget {
     this.labelStyle,
     required this.hint,
     this.validator,
+    this.border,
+    this.enabledBorder,
+    this.focusedBorder,
+    this.disabledBorder,
   });
   final List<DropdownMenuItem> items;
   final void Function(dynamic)? onChanged;
@@ -22,6 +26,10 @@ class CustomDropDownTextField extends StatelessWidget {
   final String label;
   final TextStyle? labelStyle;
   final String? Function(dynamic)? validator;
+  final InputBorder? border;
+  final InputBorder? enabledBorder;
+  final InputBorder? focusedBorder;
+  final InputBorder? disabledBorder;
   @override
   Widget build(BuildContext context) {
     final (theme, _) = appSettingsRecord(context);
@@ -50,34 +58,42 @@ class CustomDropDownTextField extends StatelessWidget {
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: theme.error, style: BorderStyle.solid),
         ),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: theme.primary.withValues(alpha: 0.6),
-            width: 1,
-          ),
-          borderRadius: .circular(16),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: theme.primary.withValues(alpha: 0.6),
-            width: 1,
-          ),
-          borderRadius: .circular(16),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: theme.primary.withValues(alpha: 0.6),
-            width: 1,
-          ),
-          borderRadius: .circular(16),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: theme.primary.withValues(alpha: 0.6),
-            width: 1,
-          ),
-          borderRadius: .circular(16),
-        ),
+        border:
+            border ??
+            OutlineInputBorder(
+              borderSide: BorderSide(
+                color: theme.primary.withValues(alpha: 0.6),
+                width: 1,
+              ),
+              borderRadius: .circular(16),
+            ),
+        enabledBorder:
+            enabledBorder ??
+            OutlineInputBorder(
+              borderSide: BorderSide(
+                color: theme.primary.withValues(alpha: 0.6),
+                width: 1,
+              ),
+              borderRadius: .circular(16),
+            ),
+        focusedBorder:
+            focusedBorder ??
+            OutlineInputBorder(
+              borderSide: BorderSide(
+                color: theme.primary.withValues(alpha: 0.6),
+                width: 1,
+              ),
+              borderRadius: .circular(16),
+            ),
+        disabledBorder:
+            disabledBorder ??
+            OutlineInputBorder(
+              borderSide: BorderSide(
+                color: theme.primary.withValues(alpha: 0.6),
+                width: 1,
+              ),
+              borderRadius: .circular(16),
+            ),
       ),
       onChanged: onChanged,
       hint: Text(hint),

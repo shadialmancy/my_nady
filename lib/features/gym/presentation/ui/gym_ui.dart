@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:my_nady_project/core/router/app_router.dart';
 import 'package:my_nady_project/features/gym/presentation/widget/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -215,7 +217,9 @@ class _GymUiState extends State<GymUi> {
                     fontSize: 16,
                     fontWeight: .normal,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.router.push(const GymLocationRoute());
+                  },
                 ),
               ],
             ),

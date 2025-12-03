@@ -241,4 +241,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscribeNow => 'Subscribe now';
+
+  @override
+  String get nameOnCard => 'Name on card';
+
+  @override
+  String get cardNumber => 'Card Number';
+
+  @override
+  String get expiryDate => 'Expiry Date';
+
+  @override
+  String get cardSecurityCode => 'Card Security Code';
+
+  @override
+  String get creditCardDetails => 'Credit Card Details';
+
+  @override
+  String get billingAddress => 'Billing Address';
+
+  @override
+  String get country => 'Country';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get city => 'City';
+
+  @override
+  String get state => 'State';
+
+  @override
+  String get zipCode => 'Zip Code';
+
+  @override
+  String get contactInformation => 'Contact Information';
+
+  @override
+  String get pay => 'Pay';
 }

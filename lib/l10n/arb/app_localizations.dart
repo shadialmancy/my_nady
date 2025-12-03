@@ -543,6 +543,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Subscribe now'**
   String get subscribeNow;
+
+  /// No description provided for @nameOnCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Name on card'**
+  String get nameOnCard;
+
+  /// No description provided for @cardNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Card Number'**
+  String get cardNumber;
+
+  /// No description provided for @expiryDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry Date'**
+  String get expiryDate;
+
+  /// No description provided for @cardSecurityCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Card Security Code'**
+  String get cardSecurityCode;
+
+  /// No description provided for @creditCardDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit Card Details'**
+  String get creditCardDetails;
+
+  /// No description provided for @billingAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Billing Address'**
+  String get billingAddress;
+
+  /// No description provided for @country.
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get country;
+
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get address;
+
+  /// No description provided for @city.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get city;
+
+  /// No description provided for @state.
+  ///
+  /// In en, this message translates to:
+  /// **'State'**
+  String get state;
+
+  /// No description provided for @zipCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Zip Code'**
+  String get zipCode;
+
+  /// No description provided for @contactInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Information'**
+  String get contactInformation;
+
+  /// No description provided for @pay.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay'**
+  String get pay;
 }
 
 class _AppLocalizationsDelegate

@@ -18,6 +18,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ChangePasswordRoute.page),
     AutoRoute(page: VerificationCodeRoute.page),
     AutoRoute(page: GymRoute.page),
+    AutoRoute(page: GymLocationRoute.page),
+    AutoRoute(page: AddContactInformationRoute.page),
+    AutoRoute(page: AddBillingAddressRoute.page),
+    AutoRoute(page: AddCreditCardRoute.page),
     CustomRoute(
       page: DashboardLayoutRoute.page,
       initial: true,

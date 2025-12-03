@@ -20,7 +20,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final (theme, l10n) = appSettingsRecord(context);
     return Scaffold(
       backgroundColor: theme.primaryBackground,
-
       body: CustomAdaptiveScreen.builder(
         mobile: const RegisterUi(),
         tablet: const RegisterUi(),

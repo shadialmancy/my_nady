@@ -11,6 +11,54 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AddBillingAddressScreen]
+class AddBillingAddressRoute extends PageRouteInfo<void> {
+  const AddBillingAddressRoute({List<PageRouteInfo>? children})
+    : super(AddBillingAddressRoute.name, initialChildren: children);
+
+  static const String name = 'AddBillingAddressRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AddBillingAddressScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [AddContactInformationScreen]
+class AddContactInformationRoute extends PageRouteInfo<void> {
+  const AddContactInformationRoute({List<PageRouteInfo>? children})
+    : super(AddContactInformationRoute.name, initialChildren: children);
+
+  static const String name = 'AddContactInformationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AddContactInformationScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [AddCreditCardScreen]
+class AddCreditCardRoute extends PageRouteInfo<void> {
+  const AddCreditCardRoute({List<PageRouteInfo>? children})
+    : super(AddCreditCardRoute.name, initialChildren: children);
+
+  static const String name = 'AddCreditCardRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AddCreditCardScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [ChangePasswordScreen]
 class ChangePasswordRoute extends PageRouteInfo<void> {
   const ChangePasswordRoute({List<PageRouteInfo>? children})
@@ -54,6 +102,22 @@ class ForgetPasswordRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ForgetPasswordScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [GymLocationScreen]
+class GymLocationRoute extends PageRouteInfo<void> {
+  const GymLocationRoute({List<PageRouteInfo>? children})
+    : super(GymLocationRoute.name, initialChildren: children);
+
+  static const String name = 'GymLocationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const GymLocationScreen();
     },
   );
 }

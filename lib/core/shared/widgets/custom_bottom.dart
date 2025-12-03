@@ -89,7 +89,13 @@ class CustomButton extends StatelessWidget {
                   icon!,
                   if (title != null) SizedBox(width: gap),
                 ],
-                if (title != null) Text(title!, style: titleStyle),
+                if (title != null)
+                  Text(
+                    title!,
+                    style:
+                        titleStyle ??
+                        theme.bodyMedium.copyWith(color: theme.whiteColor),
+                  ),
               ],
             ),
           ),

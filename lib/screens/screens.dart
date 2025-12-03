@@ -6,3 +6,7 @@ export 'forget_password_screen.dart';
 export 'verification_code_screen.dart';
 export 'change_password_screen.dart';
 export 'gym_screen.dart';
+export 'gym_location_screen.dart';
+export 'add_contact_information_screen.dart';
+export 'add_billing_address_screen.dart';
+export 'add_credit_card_screen.dart';

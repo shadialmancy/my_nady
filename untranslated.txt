@@ -69,6 +69,19 @@
     "clubContent",
     "description",
     "comments",
-    "subscribeNow"
+    "subscribeNow",
+    "nameOnCard",
+    "cardNumber",
+    "expiryDate",
+    "cardSecurityCode",
+    "creditCardDetails",
+    "billingAddress",
+    "country",
+    "address",
+    "city",
+    "state",
+    "zipCode",
+    "contactInformation",
+    "pay"
   ]
 }
