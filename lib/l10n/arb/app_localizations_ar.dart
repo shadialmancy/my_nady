@@ -280,4 +280,35 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pay => 'Pay';
+
+  @override
+  String get paymentSuccess => 'Payment Success';
+
+  @override
+  String get yourPaymentHasBeenSuccessfullyDone =>
+      'Your payment has been successfully done.';
+
+  @override
+  String get totalPayment => 'Total Payment';
+
+  @override
+  String get refNumber => 'Ref Number';
+
+  @override
+  String get paymentDate => 'Payment Date';
+
+  @override
+  String get paymentMethod => 'Payment Method';
+
+  @override
+  String get senderName => 'Sender Name';
+
+  @override
+  String get getPDFReceipt => 'Get PDF Receipt';
+
+  @override
+  String get paymentFailure => 'Payment Failure';
+
+  @override
+  String get yourPaymentHasBeenFailure => 'Your payment has been failure';
 }

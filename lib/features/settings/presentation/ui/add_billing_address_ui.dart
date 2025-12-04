@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
@@ -52,8 +54,11 @@ class AddBillingAddressUi extends StatelessWidget {
           gapH64,
           CustomButton(
             title: l10n.continueTxt,
+            width: .infinity,
             backgroundColor: theme.primary,
-            onPressed: () {},
+            onPressed: () {
+              context.router.push(const AddContactInformationRoute());
+            },
           ),
         ],
       ),

@@ -621,6 +621,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pay'**
   String get pay;
+
+  /// No description provided for @paymentSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Success'**
+  String get paymentSuccess;
+
+  /// No description provided for @yourPaymentHasBeenSuccessfullyDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment has been successfully done.'**
+  String get yourPaymentHasBeenSuccessfullyDone;
+
+  /// No description provided for @totalPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Payment'**
+  String get totalPayment;
+
+  /// No description provided for @refNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Ref Number'**
+  String get refNumber;
+
+  /// No description provided for @paymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date'**
+  String get paymentDate;
+
+  /// No description provided for @paymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get paymentMethod;
+
+  /// No description provided for @senderName.
+  ///
+  /// In en, this message translates to:
+  /// **'Sender Name'**
+  String get senderName;
+
+  /// No description provided for @getPDFReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'Get PDF Receipt'**
+  String get getPDFReceipt;
+
+  /// No description provided for @paymentFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Failure'**
+  String get paymentFailure;
+
+  /// No description provided for @yourPaymentHasBeenFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment has been failure'**
+  String get yourPaymentHasBeenFailure;
 }
 
 class _AppLocalizationsDelegate

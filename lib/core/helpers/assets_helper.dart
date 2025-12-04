@@ -31,8 +31,13 @@ class AssetsHelper {
   static const String checkIcon = 'assets/icons/check.svg';
   static const String uncheckIcon = 'assets/icons/uncheck.svg';
   static const String personIcon = 'assets/icons/person.svg';
+  static const String paymentSuccessBanner =
+      'assets/images/payment_success_banner_dialog.png';
+  static const String paymentFailedBanner =
+      'assets/images/payment_failed_banner_dialog.png';
   static const String paymentMethodBanner =
       'assets/images/payment_method_banner.png';
+  static const String downloadIcon = 'assets/icons/download.svg';
 
   // IMAGES HOLDER REMOVE LATER
   static const String gymImageHolder = 'assets/images/gym_image_holder.png';

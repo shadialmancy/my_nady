@@ -46,6 +46,7 @@ class AddCreditCardUi extends StatelessWidget {
           gapH64,
           CustomButton(
             title: l10n.continueTxt,
+            width: .infinity,
             backgroundColor: theme.primary,
             onPressed: () {
               context.router.push(const AddBillingAddressRoute());

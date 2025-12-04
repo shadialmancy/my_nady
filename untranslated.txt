@@ -82,6 +82,16 @@
     "state",
     "zipCode",
     "contactInformation",
-    "pay"
+    "pay",
+    "paymentSuccess",
+    "yourPaymentHasBeenSuccessfullyDone",
+    "totalPayment",
+    "refNumber",
+    "paymentDate",
+    "paymentMethod",
+    "senderName",
+    "getPDFReceipt",
+    "paymentFailure",
+    "yourPaymentHasBeenFailure"
   ]
 }
