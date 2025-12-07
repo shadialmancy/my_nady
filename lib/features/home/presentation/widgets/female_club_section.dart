@@ -6,8 +6,8 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/router/app_router.dart';
 import 'widgets.dart';
 
-class FemaleGymSection extends StatelessWidget {
-  const FemaleGymSection({super.key});
+class FemaleClubSection extends StatelessWidget {
+  const FemaleClubSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,9 @@ class FemaleGymSection extends StatelessWidget {
             children: List.generate(4, (index) {
               return GestureDetector(
                 onTap: () {
-                  context.router.push(const GymRoute());
+                  context.router.push(const ClubRoute());
                 },
-                child: GymCard(
+                child: ClubCard(
                   marginLeft: index == 0 ? 3.5.sw : 6,
                   marginRight: index == 3 ? 3.5.sw : 6,
                 ),

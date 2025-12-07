@@ -193,5 +193,13 @@
     "paymentFailure": "Payment Failure",
     "@paymentFailure": {},
     "yourPaymentHasBeenFailure": "Your payment has been failure",
-    "@yourPaymentHasBeenFailure": {}
+    "@yourPaymentHasBeenFailure": {},
+    "resources": "Resources",
+    "@resources": {},
+    "fliter": "Fliter",
+    "@fliter": {},
+    "type": "Type",
+    "@type": {},
+    "apply": "Apply",
+    "@apply": {}
 }

@@ -7,14 +7,14 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 
-class GymImagesSlider extends StatefulWidget {
-  const GymImagesSlider({super.key});
+class ClubImagesSlider extends StatefulWidget {
+  const ClubImagesSlider({super.key});
 
   @override
-  State<GymImagesSlider> createState() => _GymImagesSliderState();
+  State<ClubImagesSlider> createState() => _ClubImagesSliderState();
 }
 
-class _GymImagesSliderState extends State<GymImagesSlider> {
+class _ClubImagesSliderState extends State<ClubImagesSlider> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {

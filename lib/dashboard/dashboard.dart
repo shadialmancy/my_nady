@@ -17,10 +17,10 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
     with TickerProviderStateMixin {
   List routes = const [
     HomeRoute(),
+    FavoriteClubRoute(),
     HomeRoute(),
-    HomeRoute(),
-    HomeRoute(),
-    HomeRoute(),
+    ResourcesClubRoute(),
+    ProfileRoute(),
   ];
   List<String> icons = [
     AssetsHelper.homeIcon,

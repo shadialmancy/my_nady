@@ -311,4 +311,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get yourPaymentHasBeenFailure => 'Your payment has been failure';
+
+  @override
+  String get resources => 'Resources';
+
+  @override
+  String get fliter => 'Fliter';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String get apply => 'Apply';
 }

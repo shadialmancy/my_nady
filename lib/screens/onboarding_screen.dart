@@ -14,10 +14,9 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  double horizontalPadding = 50;
   @override
   Widget build(BuildContext context) {
-    final (theme, l10n) = appSettingsRecord(context);
+    final (theme, _) = appSettingsRecord(context);
     return Scaffold(
       backgroundColor: theme.primaryBackground,
       body: CustomAdaptiveScreen.builder(

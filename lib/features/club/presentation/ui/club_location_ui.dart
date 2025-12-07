@@ -9,14 +9,14 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 
-class GymLocationUi extends ConsumerStatefulWidget {
-  const GymLocationUi({super.key});
+class ClubLocationUi extends ConsumerStatefulWidget {
+  const ClubLocationUi({super.key});
 
   @override
-  ConsumerState<GymLocationUi> createState() => _GymLocationUiState();
+  ConsumerState<ClubLocationUi> createState() => _GymLocationUiState();
 }
 
-class _GymLocationUiState extends ConsumerState<GymLocationUi> {
+class _GymLocationUiState extends ConsumerState<ClubLocationUi> {
   final TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {

@@ -681,6 +681,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your payment has been failure'**
   String get yourPaymentHasBeenFailure;
+
+  /// No description provided for @resources.
+  ///
+  /// In en, this message translates to:
+  /// **'Resources'**
+  String get resources;
+
+  /// No description provided for @fliter.
+  ///
+  /// In en, this message translates to:
+  /// **'Fliter'**
+  String get fliter;
+
+  /// No description provided for @type.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get type;
+
+  /// No description provided for @apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
 }
 
 class _AppLocalizationsDelegate

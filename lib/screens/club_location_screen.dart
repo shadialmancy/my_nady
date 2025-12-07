@@ -6,17 +6,17 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../core/constants/adaptive.dart';
 import '../core/constants/app_sizes.dart';
 import '../core/helpers/assets_helper.dart';
-import '../features/gym/presentation/ui/gym_location_ui.dart';
+import '../features/club/presentation/ui/club_location_ui.dart';
 
 @RoutePage()
-class GymLocationScreen extends StatefulWidget {
-  const GymLocationScreen({super.key});
+class ClubLocationScreen extends StatefulWidget {
+  const ClubLocationScreen({super.key});
 
   @override
-  State<GymLocationScreen> createState() => _GymLocationScreenState();
+  State<ClubLocationScreen> createState() => _ClubLocationScreenState();
 }
 
-class _GymLocationScreenState extends State<GymLocationScreen> {
+class _ClubLocationScreenState extends State<ClubLocationScreen> {
   double horizontalPadding = 50;
   @override
   Widget build(BuildContext context) {
@@ -43,9 +43,9 @@ class _GymLocationScreenState extends State<GymLocationScreen> {
         ),
       ),
       body: CustomAdaptiveScreen.builder(
-        mobile: const GymLocationUi(),
-        tablet: const GymLocationUi(),
-        desktop: const GymLocationUi(),
+        mobile: const ClubLocationUi(),
+        tablet: const ClubLocationUi(),
+        desktop: const ClubLocationUi(),
       ),
     );
   }

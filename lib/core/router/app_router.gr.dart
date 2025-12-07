@@ -75,6 +75,38 @@ class ChangePasswordRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ClubLocationScreen]
+class ClubLocationRoute extends PageRouteInfo<void> {
+  const ClubLocationRoute({List<PageRouteInfo>? children})
+    : super(ClubLocationRoute.name, initialChildren: children);
+
+  static const String name = 'ClubLocationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ClubLocationScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ClubScreen]
+class ClubRoute extends PageRouteInfo<void> {
+  const ClubRoute({List<PageRouteInfo>? children})
+    : super(ClubRoute.name, initialChildren: children);
+
+  static const String name = 'ClubRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ClubScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [DashboardLayoutScreen]
 class DashboardLayoutRoute extends PageRouteInfo<void> {
   const DashboardLayoutRoute({List<PageRouteInfo>? children})
@@ -91,6 +123,22 @@ class DashboardLayoutRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FavoriteClubScreen]
+class FavoriteClubRoute extends PageRouteInfo<void> {
+  const FavoriteClubRoute({List<PageRouteInfo>? children})
+    : super(FavoriteClubRoute.name, initialChildren: children);
+
+  static const String name = 'FavoriteClubRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FavoriteClubScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [ForgetPasswordScreen]
 class ForgetPasswordRoute extends PageRouteInfo<void> {
   const ForgetPasswordRoute({List<PageRouteInfo>? children})
@@ -102,38 +150,6 @@ class ForgetPasswordRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ForgetPasswordScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [GymLocationScreen]
-class GymLocationRoute extends PageRouteInfo<void> {
-  const GymLocationRoute({List<PageRouteInfo>? children})
-    : super(GymLocationRoute.name, initialChildren: children);
-
-  static const String name = 'GymLocationRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const GymLocationScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [GymScreen]
-class GymRoute extends PageRouteInfo<void> {
-  const GymRoute({List<PageRouteInfo>? children})
-    : super(GymRoute.name, initialChildren: children);
-
-  static const String name = 'GymRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const GymScreen();
     },
   );
 }
@@ -187,6 +203,22 @@ class OnboardingRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ProfileScreen]
+class ProfileRoute extends PageRouteInfo<void> {
+  const ProfileRoute({List<PageRouteInfo>? children})
+    : super(ProfileRoute.name, initialChildren: children);
+
+  static const String name = 'ProfileRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProfileScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [RegisterScreen]
 class RegisterRoute extends PageRouteInfo<void> {
   const RegisterRoute({List<PageRouteInfo>? children})
@@ -198,6 +230,22 @@ class RegisterRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const RegisterScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ResourcesClubScreen]
+class ResourcesClubRoute extends PageRouteInfo<void> {
+  const ResourcesClubRoute({List<PageRouteInfo>? children})
+    : super(ResourcesClubRoute.name, initialChildren: children);
+
+  static const String name = 'ResourcesClubRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ResourcesClubScreen();
     },
   );
 }

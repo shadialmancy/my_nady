@@ -8,21 +8,21 @@ import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 
-class GymBanner extends StatefulWidget {
-  const GymBanner({super.key});
+class ClubBanner extends StatefulWidget {
+  const ClubBanner({super.key});
 
   @override
-  State<GymBanner> createState() => _GymBannerState();
+  State<ClubBanner> createState() => _ClubBannerState();
 }
 
-class _GymBannerState extends State<GymBanner> {
+class _ClubBannerState extends State<ClubBanner> {
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
 
     return GestureDetector(
       onTap: () {
-        context.router.push(const GymRoute());
+        context.router.push(const ClubRoute());
       },
       child: Container(
         width: .infinity,

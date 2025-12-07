@@ -4,8 +4,8 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../core/constants/app_sizes.dart';
 import 'widgets.dart';
 
-class FamilyGymSection extends StatelessWidget {
-  const FamilyGymSection({super.key});
+class FamilyClubSection extends StatelessWidget {
+  const FamilyClubSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class FamilyGymSection extends StatelessWidget {
           padding: .only(top: 40, bottom: 40, left: 3.5.sw, right: 3.5.sw),
           child: Column(
             children: List.generate(4, (index) {
-              return FamilyGymCard();
+              return FamilyClubCard();
             }),
           ),
         ),

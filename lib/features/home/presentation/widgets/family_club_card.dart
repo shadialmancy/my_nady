@@ -5,8 +5,8 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import 'widgets.dart';
 
-class FamilyGymCard extends StatelessWidget {
-  const FamilyGymCard({super.key});
+class FamilyClubCard extends StatelessWidget {
+  const FamilyClubCard({super.key});
 
   @override
   Widget build(BuildContext context) {

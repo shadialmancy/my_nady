@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_nady_project/core/router/app_router.dart';
-import 'package:my_nady_project/features/gym/presentation/widget/widgets.dart';
+import 'package:my_nady_project/features/club/presentation/widget/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
@@ -10,14 +10,14 @@ import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 import '../../../home/presentation/widgets/widgets.dart';
 
-class GymUi extends StatefulWidget {
-  const GymUi({super.key});
+class ClubUi extends StatefulWidget {
+  const ClubUi({super.key});
 
   @override
-  State<GymUi> createState() => _GymUiState();
+  State<ClubUi> createState() => _ClubUiState();
 }
 
-class _GymUiState extends State<GymUi> {
+class _ClubUiState extends State<ClubUi> {
   List<Map<String, dynamic>> gymTabList = [];
 
   final PageController pageController = PageController();
@@ -51,7 +51,7 @@ class _GymUiState extends State<GymUi> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const GymImagesSlider(),
+          const ClubImagesSlider(),
           gapH32,
           Padding(
             padding: .only(left: 3.sw, right: 3.sw, bottom: 10.sw),
@@ -218,7 +218,7 @@ class _GymUiState extends State<GymUi> {
                     fontWeight: .normal,
                   ),
                   onPressed: () {
-                    context.router.push(const GymLocationRoute());
+                    context.router.push(const ClubLocationRoute());
                   },
                 ),
               ],

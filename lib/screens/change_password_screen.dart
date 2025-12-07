@@ -18,10 +18,9 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  double horizontalPadding = 50;
   @override
   Widget build(BuildContext context) {
-    final (theme, l10n) = appSettingsRecord(context);
+    final (theme, _) = appSettingsRecord(context);
     return Scaffold(
       backgroundColor: theme.primaryBackground,
       extendBody: true,

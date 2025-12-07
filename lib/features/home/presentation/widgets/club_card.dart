@@ -5,8 +5,8 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import 'widgets.dart';
 
-class GymCard extends StatelessWidget {
-  const GymCard({this.marginLeft = 6, this.marginRight = 6, super.key});
+class ClubCard extends StatelessWidget {
+  const ClubCard({this.marginLeft = 6, this.marginRight = 6, super.key});
   final double marginRight;
   final double marginLeft;
   @override

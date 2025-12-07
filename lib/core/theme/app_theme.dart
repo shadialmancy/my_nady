@@ -46,6 +46,10 @@ abstract class FlutterFlowTheme {
   late final Color whiteColor;
   late final Color whiteF2;
   late final Color secondary;
+  late final Color green12;
+  late final Color blue03;
+  late final Color blue006;
+  late final Color purpleCA;
   late final Color whiteE7;
   late final Color greyFA;
   late final Color greyE6;
@@ -65,7 +69,6 @@ abstract class FlutterFlowTheme {
   late final Color greyD9D9;
   late final Color lightBlue;
   late final Color blue15;
-  late final Color blue006;
   late final Color greenff;
   late final Color primaryText;
   late final Color secondaryText;
@@ -257,6 +260,12 @@ class LightModeTheme extends FlutterFlowTheme {
   @override
   final Color whiteF2 = const Color(0xFFF2F2F2);
   @override
+  final Color green12 = const Color(0xFF12A705);
+  @override
+  final Color blue03 = const Color(0xFF039F98);
+  @override
+  final Color blue006 = const Color(0xFF006FCF);
+  @override
   final Color whiteE7 = const Color(0xFFE7E7E7);
   @override
   final Color whiteFC = const Color(0xFFFCFCFC);
@@ -354,7 +363,7 @@ class LightModeTheme extends FlutterFlowTheme {
   @override
   final Color blue15 = const Color(0xFF15379A);
   @override
-  final Color blue006 = const Color(0xFF006FCF);
+  final Color purpleCA = const Color(0xFFCA07BD);
   @override
   final Color greenff = const Color(0xFFDCF9F6);
 
@@ -766,6 +775,12 @@ class DarkModeTheme extends FlutterFlowTheme {
   @override
   final Color whiteF2 = const Color(0xFFF2F2F2);
   @override
+  final Color green12 = const Color(0xFF12A705);
+  @override
+  final Color blue03 = const Color(0xFF039F98);
+  @override
+  final Color blue006 = const Color(0xFF006FCF);
+  @override
   final Color whiteE7 = const Color(0xFFE7E7E7);
   @override
   final Color whiteFC = const Color(0xFFFCFCFC);
@@ -858,7 +873,7 @@ class DarkModeTheme extends FlutterFlowTheme {
   @override
   final Color blue15 = const Color(0xFF15379A);
   @override
-  final Color blue006 = const Color(0xFF006FCF);
+  final Color purpleCA = const Color(0xFFCA07BD);
   @override
   final Color greenff = const Color(0xFFDCF9F6);
   @override

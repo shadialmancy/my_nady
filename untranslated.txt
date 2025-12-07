@@ -92,6 +92,10 @@
     "senderName",
     "getPDFReceipt",
     "paymentFailure",
-    "yourPaymentHasBeenFailure"
+    "yourPaymentHasBeenFailure",
+    "resources",
+    "fliter",
+    "type",
+    "apply"
   ]
 }

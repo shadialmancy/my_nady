@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:my_nady_project/core/constants/app_sizes.dart';
 
 import '../core/constants/adaptive.dart';
-import '../features/gym/presentation/ui/gym_ui.dart';
+import '../features/club/presentation/ui/club_ui.dart';
 
 @RoutePage()
-class GymScreen extends StatefulWidget {
-  const GymScreen({super.key});
+class ClubScreen extends StatefulWidget {
+  const ClubScreen({super.key});
 
   @override
-  State<GymScreen> createState() => _GymScreenState();
+  State<ClubScreen> createState() => _ClubScreenState();
 }
 
-class _GymScreenState extends State<GymScreen> {
+class _ClubScreenState extends State<ClubScreen> {
   double horizontalPadding = 50;
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,9 @@ class _GymScreenState extends State<GymScreen> {
     return Scaffold(
       backgroundColor: theme.primaryBackground,
       body: CustomAdaptiveScreen.builder(
-        mobile: const GymUi(),
-        tablet: const GymUi(),
-        desktop: const GymUi(),
+        mobile: const ClubUi(),
+        tablet: const ClubUi(),
+        desktop: const ClubUi(),
       ),
     );
   }
