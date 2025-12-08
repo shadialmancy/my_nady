@@ -13,3 +13,4 @@ export 'add_credit_card_screen.dart';
 export 'favorite_club_screen.dart';
 export 'profile_screen.dart';
 export 'resources_club_screen.dart';
+export 'filter_screen.dart';

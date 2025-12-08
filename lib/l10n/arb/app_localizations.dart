@@ -688,6 +688,12 @@ abstract class AppLocalizations {
   /// **'Resources'**
   String get resources;
 
+  /// No description provided for @favorite.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorite'**
+  String get favorite;
+
   /// No description provided for @fliter.
   ///
   /// In en, this message translates to:
@@ -705,6 +711,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Apply'**
   String get apply;
+
+  /// No description provided for @gymclubName.
+  ///
+  /// In en, this message translates to:
+  /// **'Gym/Club Name'**
+  String get gymclubName;
+
+  /// No description provided for @searchGymName.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Gym Name'**
+  String get searchGymName;
+
+  /// No description provided for @gymClubType.
+  ///
+  /// In en, this message translates to:
+  /// **'Gym/Club Type'**
+  String get gymClubType;
+
+  /// No description provided for @gymClubArea.
+  ///
+  /// In en, this message translates to:
+  /// **'Gym/Club Area'**
+  String get gymClubArea;
+
+  /// No description provided for @gymClubFacilities.
+  ///
+  /// In en, this message translates to:
+  /// **'Gym/Club Facilities'**
+  String get gymClubFacilities;
+
+  /// No description provided for @priceRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Price Range'**
+  String get priceRange;
+
+  /// No description provided for @subscriptionType.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Type'**
+  String get subscriptionType;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @includesOffer.
+  ///
+  /// In en, this message translates to:
+  /// **'Includes Offer'**
+  String get includesOffer;
 }
 
 class _AppLocalizationsDelegate

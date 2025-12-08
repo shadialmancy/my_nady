@@ -22,6 +22,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: AddCreditCardRoute.page),
     AutoRoute(page: ClubRoute.page),
     AutoRoute(page: ClubLocationRoute.page),
+    AutoRoute(page: FilterRoute.page),
     CustomRoute(
       page: DashboardLayoutRoute.page,
       initial: true,

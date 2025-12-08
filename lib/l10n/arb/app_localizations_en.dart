@@ -316,6 +316,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resources => 'Resources';
 
   @override
+  String get favorite => 'Favorite';
+
+  @override
   String get fliter => 'Fliter';
 
   @override
@@ -323,4 +326,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get apply => 'Apply';
+
+  @override
+  String get gymclubName => 'Gym/Club Name';
+
+  @override
+  String get searchGymName => 'Search Gym Name';
+
+  @override
+  String get gymClubType => 'Gym/Club Type';
+
+  @override
+  String get gymClubArea => 'Gym/Club Area';
+
+  @override
+  String get gymClubFacilities => 'Gym/Club Facilities';
+
+  @override
+  String get priceRange => 'Price Range';
+
+  @override
+  String get subscriptionType => 'Subscription Type';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get includesOffer => 'Includes Offer';
 }

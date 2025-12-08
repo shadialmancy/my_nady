@@ -94,8 +94,18 @@
     "paymentFailure",
     "yourPaymentHasBeenFailure",
     "resources",
+    "favorite",
     "fliter",
     "type",
-    "apply"
+    "apply",
+    "gymclubName",
+    "searchGymName",
+    "gymClubType",
+    "gymClubArea",
+    "gymClubFacilities",
+    "priceRange",
+    "subscriptionType",
+    "reset",
+    "includesOffer"
   ]
 }

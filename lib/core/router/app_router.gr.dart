@@ -139,6 +139,22 @@ class FavoriteClubRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FilterScreen]
+class FilterRoute extends PageRouteInfo<void> {
+  const FilterRoute({List<PageRouteInfo>? children})
+    : super(FilterRoute.name, initialChildren: children);
+
+  static const String name = 'FilterRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FilterScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [ForgetPasswordScreen]
 class ForgetPasswordRoute extends PageRouteInfo<void> {
   const ForgetPasswordRoute({List<PageRouteInfo>? children})

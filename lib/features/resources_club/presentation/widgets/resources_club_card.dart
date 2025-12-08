@@ -14,7 +14,7 @@ class ResourcesClubCard extends StatelessWidget {
   });
   final double marginRight;
   final double marginLeft;
-  final Map<String, dynamic> data;
+  final Map<String, dynamic>? data;
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
@@ -60,20 +60,20 @@ class ResourcesClubCard extends StatelessWidget {
                       padding: .symmetric(vertical: 2, horizontal: 8),
                       decoration: BoxDecoration(
                         color:
-                            (data["category"].toString().toLowerCase() ==
+                            (data?["category"].toString().toLowerCase() ==
                                 "kids")
                             ? theme.green12
-                            : (data["category"].toString().toLowerCase() ==
+                            : (data?["category"].toString().toLowerCase() ==
                                   "male")
                             ? theme.blue006
-                            : (data["category"].toString().toLowerCase() ==
+                            : (data?["category"].toString().toLowerCase() ==
                                   "female")
                             ? theme.purpleCA
                             : theme.blue03,
                         borderRadius: .circular(6),
                       ),
                       child: Text(
-                        data["category"],
+                        data?["category"],
                         style: theme.labelMedium.copyWith(
                           color: theme.white,
                           fontWeight: .w600,
@@ -91,7 +91,7 @@ class ResourcesClubCard extends StatelessWidget {
             mainAxisAlignment: .spaceBetween,
             children: [
               Text(
-                "${data["title"].toString().length > 10 ? "${data["title"].toString().substring(0, 10)}..." : data["title"]}",
+                "${(data?["title"].toString().length ?? 0) > 10 ? "${data?["title"].toString().substring(0, 10)}..." : data?["title"]}",
                 style: theme.titleMedium.copyWith(
                   fontWeight: .w400,
                   color: theme.primary,

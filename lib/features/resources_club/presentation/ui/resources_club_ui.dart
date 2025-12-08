@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_nady_project/core/helpers/assets_helper.dart';
+import 'package:my_nady_project/core/shared/widgets/async_value_widget.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
+import '../../../filter/presentation/provider/filter_service.dart';
 import '../widgets/widgets.dart';
 
-class ResourcesClubUi extends StatefulWidget {
+class ResourcesClubUi extends ConsumerStatefulWidget {
   const ResourcesClubUi({super.key});
 
   @override
-  State<ResourcesClubUi> createState() => _ResourcesClubUiState();
+  ConsumerState<ResourcesClubUi> createState() => _ResourcesClubUiState();
 }
 
-class _ResourcesClubUiState extends State<ResourcesClubUi> {
+class _ResourcesClubUiState extends ConsumerState<ResourcesClubUi> {
   @override
   void initState() {
     super.initState();
-    clubList.shuffle();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(filterServiceProvider.notifier).filteredClubList.shuffle();
+    });
   }
 
   @override
@@ -58,17 +63,22 @@ class _ResourcesClubUiState extends State<ResourcesClubUi> {
               ),
             ],
           ),
-          GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: 2,
-            physics: const NeverScrollableScrollPhysics(),
-            childAspectRatio: 0.8,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            children: List.generate(
-              clubList.length,
-              (index) => ResourcesClubCard(data: clubList[index]),
-            ),
+          AsyncValueWidget(
+            value: ref.watch(filterServiceProvider),
+            builder: (filterClubList) {
+              return GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 2,
+                physics: const NeverScrollableScrollPhysics(),
+                childAspectRatio: 0.8,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                children: List.generate(
+                  filterClubList?.length ?? 0,
+                  (index) => ResourcesClubCard(data: filterClubList?[index]),
+                ),
+              );
+            },
           ),
         ],
       ),
