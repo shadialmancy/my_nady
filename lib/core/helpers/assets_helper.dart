@@ -17,6 +17,17 @@ class AssetsHelper {
   static const String searchIcon = 'assets/icons/search.svg';
   static const String gymBanner = 'assets/images/gym banner.jpg';
   static const String locationIcon = 'assets/icons/location.svg';
+  static const String editIcon = 'assets/icons/edit.svg';
+  static const String nextIcon = 'assets/icons/next_icon.svg';
+  static const String settingsIcon = 'assets/icons/settings.svg';
+  static const String subscriptionIcon = 'assets/icons/subscription.svg';
+  static const String locationIcon2 = 'assets/icons/location_icon.svg';
+  static const String logoutIcon = 'assets/icons/log_out.svg';
+  static const String favoriteIcon = 'assets/icons/favorite.svg';
+  static const String editProfileIcon = 'assets/icons/edit_profile.svg';
+  static const String dairyRecordIcon = 'assets/icons/dairy_record.svg';
+  static const String changePasswordIcon = 'assets/icons/change_password.svg';
+
   static const String authenticaionBanner =
       'assets/images/authentication_banner.png';
   static const String backIcon = 'assets/icons/back.svg';
@@ -41,4 +52,6 @@ class AssetsHelper {
 
   // IMAGES HOLDER REMOVE LATER
   static const String gymImageHolder = 'assets/images/gym_image_holder.png';
+  static const String profileBannerHolder = 'assets/images/profile_banner.png';
+  static const String profileImageHolder = 'assets/images/profile_picture.png';
 }

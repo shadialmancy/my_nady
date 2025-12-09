@@ -111,6 +111,7 @@ abstract class FlutterFlowTheme {
   late final Color redF6;
   late final Color redEC;
   late final Color redD7;
+  late final Color redD0;
   late final Color redEB;
   late final Color green47;
   late final Color green29;
@@ -387,6 +388,8 @@ class LightModeTheme extends FlutterFlowTheme {
   final Color redEC = const Color(0xffEC454F);
   @override
   final Color redD7 = const Color(0xffD73F48);
+  @override
+  final Color redD0 = const Color(0xffD03E3E);
   @override
   final Color redEB = const Color(0xffEB4335);
   @override
@@ -894,6 +897,8 @@ class DarkModeTheme extends FlutterFlowTheme {
   final Color redEC = const Color(0xffEC454F);
   @override
   final Color redD7 = const Color(0xffD73F48);
+  @override
+  final Color redD0 = const Color(0xffD03E3E);
   @override
   final Color redEB = const Color(0xffEB4335);
   @override

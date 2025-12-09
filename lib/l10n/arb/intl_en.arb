@@ -221,5 +221,21 @@
     "reset": "Reset",
     "@reset": {},
     "includesOffer": "Includes Offer",
-    "@includesOffer": {}
+    "@includesOffer": {},
+    "editProfile": "Edit Profile",
+    "@editProfile": {},
+    "dairyRecord": "Dairy Record",
+    "@dairyRecord": {},
+    "settings": "Settings",
+    "@settings": {},
+    "subscription": "Subscription",
+    "@subscription": {},
+    "logout": "Logout",
+    "@logout": {},
+    "confirm": "Confirm",
+    "@confirm": {},
+    "areYouSureYouWantToLogout": "Are you sure you want to logout",
+    "@areYouSureYouWantToLogout": {},
+    "weWantConfirmIfYouTrulyWishToLogOutOfYourAccount": "We want confirm if you truly wish to log out of your account",
+    "@weWantConfirmIfYouTrulyWishToLogOutOfYourAccount": {}
 }

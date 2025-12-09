@@ -353,4 +353,29 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get includesOffer => 'Includes Offer';
+
+  @override
+  String get editProfile => 'Edit Profile';
+
+  @override
+  String get dairyRecord => 'Dairy Record';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get subscription => 'Subscription';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get areYouSureYouWantToLogout => 'Are you sure you want to logout';
+
+  @override
+  String get weWantConfirmIfYouTrulyWishToLogOutOfYourAccount =>
+      'We want confirm if you truly wish to log out of your account';
 }

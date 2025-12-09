@@ -765,6 +765,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Includes Offer'**
   String get includesOffer;
+
+  /// No description provided for @editProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get editProfile;
+
+  /// No description provided for @dairyRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Dairy Record'**
+  String get dairyRecord;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @subscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get subscription;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @areYouSureYouWantToLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to logout'**
+  String get areYouSureYouWantToLogout;
+
+  /// No description provided for @weWantConfirmIfYouTrulyWishToLogOutOfYourAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'We want confirm if you truly wish to log out of your account'**
+  String get weWantConfirmIfYouTrulyWishToLogOutOfYourAccount;
 }
 
 class _AppLocalizationsDelegate

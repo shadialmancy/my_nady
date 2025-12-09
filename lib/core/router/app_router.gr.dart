@@ -75,6 +75,22 @@ class ChangePasswordRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ChangePasswordSettingsScreen]
+class ChangePasswordSettingsRoute extends PageRouteInfo<void> {
+  const ChangePasswordSettingsRoute({List<PageRouteInfo>? children})
+    : super(ChangePasswordSettingsRoute.name, initialChildren: children);
+
+  static const String name = 'ChangePasswordSettingsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ChangePasswordSettingsScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [ClubLocationScreen]
 class ClubLocationRoute extends PageRouteInfo<void> {
   const ClubLocationRoute({List<PageRouteInfo>? children})
@@ -118,6 +134,22 @@ class DashboardLayoutRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const DashboardLayoutScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [EditProfileScreen]
+class EditProfileRoute extends PageRouteInfo<void> {
+  const EditProfileRoute({List<PageRouteInfo>? children})
+    : super(EditProfileRoute.name, initialChildren: children);
+
+  static const String name = 'EditProfileRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const EditProfileScreen();
     },
   );
 }

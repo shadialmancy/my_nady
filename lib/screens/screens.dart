@@ -14,3 +14,5 @@ export 'favorite_club_screen.dart';
 export 'profile_screen.dart';
 export 'resources_club_screen.dart';
 export 'filter_screen.dart';
+export 'edit_profile_screen.dart';
+export 'change_password_setting_screen.dart';

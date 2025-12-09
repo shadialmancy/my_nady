@@ -23,6 +23,8 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ClubRoute.page),
     AutoRoute(page: ClubLocationRoute.page),
     AutoRoute(page: FilterRoute.page),
+    AutoRoute(page: EditProfileRoute.page),
+    AutoRoute(page: ChangePasswordSettingsRoute.page),
     CustomRoute(
       page: DashboardLayoutRoute.page,
       initial: true,

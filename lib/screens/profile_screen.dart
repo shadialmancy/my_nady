@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:my_nady_project/core/constants/app_sizes.dart';
-import 'package:my_nady_project/features/home/presentation/ui/home_ui.dart';
 
 import '../core/constants/adaptive.dart';
+import '../features/profile/presentation/ui/profile_ui.dart';
 
 @RoutePage()
 class ProfileScreen extends StatefulWidget {
@@ -20,9 +20,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: theme.primaryBackground,
       body: CustomAdaptiveScreen.builder(
-        mobile: const HomeUi(),
-        tablet: const HomeUi(),
-        desktop: const HomeUi(),
+        mobile: const ProfileUi(),
+        tablet: const ProfileUi(),
+        desktop: const ProfileUi(),
       ),
     );
   }
