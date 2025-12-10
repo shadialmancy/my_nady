@@ -72,11 +72,13 @@ class ProfileUi extends StatelessWidget {
                   trailing: SvgPicture.asset(AssetsHelper.nextIcon),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    context.router.push(const DairyRecordRoute());
+                  },
                   leading: SvgPicture.asset(AssetsHelper.dairyRecordIcon),
                   contentPadding: .zero,
                   title: Text(
-                    l10n.dairyRecord,
+                    l10n.dairyRecording,
                     style: theme.titleSmall.copyWith(
                       color: theme.primary,
                       fontWeight: .w400,
@@ -98,7 +100,9 @@ class ProfileUi extends StatelessWidget {
                   trailing: SvgPicture.asset(AssetsHelper.nextIcon),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    context.router.push(const SettingsRoute());
+                  },
                   leading: SvgPicture.asset(AssetsHelper.settingsIcon),
                   contentPadding: .zero,
                   title: Text(
@@ -111,7 +115,9 @@ class ProfileUi extends StatelessWidget {
                   trailing: SvgPicture.asset(AssetsHelper.nextIcon),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    context.router.push(const SubscriptionRoute());
+                  },
                   leading: SvgPicture.asset(AssetsHelper.subscriptionIcon),
                   contentPadding: .zero,
                   title: Text(

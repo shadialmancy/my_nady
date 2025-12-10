@@ -772,11 +772,11 @@ abstract class AppLocalizations {
   /// **'Edit Profile'**
   String get editProfile;
 
-  /// No description provided for @dairyRecord.
+  /// No description provided for @dairyRecording.
   ///
   /// In en, this message translates to:
-  /// **'Dairy Record'**
-  String get dairyRecord;
+  /// **'Dairy Recording'**
+  String get dairyRecording;
 
   /// No description provided for @settings.
   ///
@@ -813,6 +813,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'We want confirm if you truly wish to log out of your account'**
   String get weWantConfirmIfYouTrulyWishToLogOutOfYourAccount;
+
+  /// No description provided for @accountSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Setting'**
+  String get accountSetting;
+
+  /// No description provided for @addPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Payment Method'**
+  String get addPaymentMethod;
+
+  /// No description provided for @pushNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Push Notification'**
+  String get pushNotification;
+
+  /// No description provided for @darkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkMode;
+
+  /// No description provided for @more.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get more;
+
+  /// No description provided for @aboutUs.
+  ///
+  /// In en, this message translates to:
+  /// **'About us'**
+  String get aboutUs;
+
+  /// No description provided for @title.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get title;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// No description provided for @enterDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Description'**
+  String get enterDescription;
+
+  /// No description provided for @reptition.
+  ///
+  /// In en, this message translates to:
+  /// **'Reptition'**
+  String get reptition;
+
+  /// No description provided for @set.
+  ///
+  /// In en, this message translates to:
+  /// **'Set'**
+  String get set;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @setAnTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set an Title'**
+  String get setAnTitle;
 }
 
 class _AppLocalizationsDelegate

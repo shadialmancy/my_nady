@@ -8,3 +8,4 @@ export 'custom_drop_down_text_field.dart';
 export 'custom_text_field.dart';
 export 'custom_phone_number_text_field.dart';
 export 'birthday_dialog.dart';
+export 'custom_switch.dart';

@@ -123,6 +123,22 @@ class ClubRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DairyRecordScreen]
+class DairyRecordRoute extends PageRouteInfo<void> {
+  const DairyRecordRoute({List<PageRouteInfo>? children})
+    : super(DairyRecordRoute.name, initialChildren: children);
+
+  static const String name = 'DairyRecordRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DairyRecordScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [DashboardLayoutScreen]
 class DashboardLayoutRoute extends PageRouteInfo<void> {
   const DashboardLayoutRoute({List<PageRouteInfo>? children})
@@ -235,6 +251,38 @@ class LoginRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ModifyDairyRecordScreen]
+class ModifyDairyRecordRoute extends PageRouteInfo<void> {
+  const ModifyDairyRecordRoute({List<PageRouteInfo>? children})
+    : super(ModifyDairyRecordRoute.name, initialChildren: children);
+
+  static const String name = 'ModifyDairyRecordRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ModifyDairyRecordScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ModifySubDairyRecordScreen]
+class ModifySubDairyRecordRoute extends PageRouteInfo<void> {
+  const ModifySubDairyRecordRoute({List<PageRouteInfo>? children})
+    : super(ModifySubDairyRecordRoute.name, initialChildren: children);
+
+  static const String name = 'ModifySubDairyRecordRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ModifySubDairyRecordScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [OnboardingScreen]
 class OnboardingRoute extends PageRouteInfo<void> {
   const OnboardingRoute({List<PageRouteInfo>? children})
@@ -294,6 +342,94 @@ class ResourcesClubRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ResourcesClubScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [SettingsScreen]
+class SettingsRoute extends PageRouteInfo<void> {
+  const SettingsRoute({List<PageRouteInfo>? children})
+    : super(SettingsRoute.name, initialChildren: children);
+
+  static const String name = 'SettingsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SettingsScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [SubDairyRecordScreen]
+class SubDairyRecordRoute extends PageRouteInfo<SubDairyRecordRouteArgs> {
+  SubDairyRecordRoute({
+    Key? key,
+    String? title,
+    String? date,
+    List<PageRouteInfo>? children,
+  }) : super(
+         SubDairyRecordRoute.name,
+         args: SubDairyRecordRouteArgs(key: key, title: title, date: date),
+         initialChildren: children,
+       );
+
+  static const String name = 'SubDairyRecordRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SubDairyRecordRouteArgs>(
+        orElse: () => const SubDairyRecordRouteArgs(),
+      );
+      return SubDairyRecordScreen(
+        key: args.key,
+        title: args.title,
+        date: args.date,
+      );
+    },
+  );
+}
+
+class SubDairyRecordRouteArgs {
+  const SubDairyRecordRouteArgs({this.key, this.title, this.date});
+
+  final Key? key;
+
+  final String? title;
+
+  final String? date;
+
+  @override
+  String toString() {
+    return 'SubDairyRecordRouteArgs{key: $key, title: $title, date: $date}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! SubDairyRecordRouteArgs) return false;
+    return key == other.key && title == other.title && date == other.date;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ title.hashCode ^ date.hashCode;
+}
+
+/// generated route for
+/// [SubscriptionScreen]
+class SubscriptionRoute extends PageRouteInfo<void> {
+  const SubscriptionRoute({List<PageRouteInfo>? children})
+    : super(SubscriptionRoute.name, initialChildren: children);
+
+  static const String name = 'SubscriptionRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SubscriptionScreen();
     },
   );
 }

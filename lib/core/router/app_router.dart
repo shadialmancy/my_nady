@@ -25,6 +25,12 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: FilterRoute.page),
     AutoRoute(page: EditProfileRoute.page),
     AutoRoute(page: ChangePasswordSettingsRoute.page),
+    AutoRoute(page: SettingsRoute.page),
+    AutoRoute(page: SubscriptionRoute.page),
+    AutoRoute(page: ModifyDairyRecordRoute.page),
+    AutoRoute(page: ModifySubDairyRecordRoute.page),
+    AutoRoute(page: SubDairyRecordRoute.page),
+    AutoRoute(page: DairyRecordRoute.page),
     CustomRoute(
       page: DashboardLayoutRoute.page,
       initial: true,

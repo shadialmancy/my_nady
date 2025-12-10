@@ -108,12 +108,25 @@
     "reset",
     "includesOffer",
     "editProfile",
-    "dairyRecord",
+    "dairyRecording",
     "settings",
     "subscription",
     "logout",
     "confirm",
     "areYouSureYouWantToLogout",
-    "weWantConfirmIfYouTrulyWishToLogOutOfYourAccount"
+    "weWantConfirmIfYouTrulyWishToLogOutOfYourAccount",
+    "accountSetting",
+    "addPaymentMethod",
+    "pushNotification",
+    "darkMode",
+    "more",
+    "aboutUs",
+    "title",
+    "date",
+    "enterDescription",
+    "reptition",
+    "set",
+    "save",
+    "setAnTitle"
   ]
 }

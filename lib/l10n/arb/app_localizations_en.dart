@@ -358,7 +358,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editProfile => 'Edit Profile';
 
   @override
-  String get dairyRecord => 'Dairy Record';
+  String get dairyRecording => 'Dairy Recording';
 
   @override
   String get settings => 'Settings';
@@ -378,4 +378,43 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get weWantConfirmIfYouTrulyWishToLogOutOfYourAccount =>
       'We want confirm if you truly wish to log out of your account';
+
+  @override
+  String get accountSetting => 'Account Setting';
+
+  @override
+  String get addPaymentMethod => 'Add Payment Method';
+
+  @override
+  String get pushNotification => 'Push Notification';
+
+  @override
+  String get darkMode => 'Dark Mode';
+
+  @override
+  String get more => 'More';
+
+  @override
+  String get aboutUs => 'About us';
+
+  @override
+  String get title => 'Title';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get enterDescription => 'Enter Description';
+
+  @override
+  String get reptition => 'Reptition';
+
+  @override
+  String get set => 'Set';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get setAnTitle => 'Set an Title';
 }
