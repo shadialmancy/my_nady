@@ -9,8 +9,8 @@ import '../../../../core/shared/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
 class AddCreditCardUi extends StatelessWidget {
-  AddCreditCardUi({super.key});
-
+  AddCreditCardUi({super.key, required this.onClick});
+  final Function() onClick;
   final TextEditingController nameOnCardController = TextEditingController();
   final TextEditingController cardNumberController = TextEditingController();
   final TextEditingController cvvController = TextEditingController();

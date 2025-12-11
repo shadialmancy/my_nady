@@ -97,6 +97,7 @@ abstract class FlutterFlowTheme {
   late final Color info;
 
   late final Color borderColor;
+  late final Color greyE0;
   late final Color verificationCodeBorderColor;
 
   late final Color secondaryBorderColor;
@@ -118,12 +119,19 @@ abstract class FlutterFlowTheme {
   late final Color redD7;
   late final Color redD0;
   late final Color redEB;
+  late final Color redF5;
   late final Color blueB3;
+  late final Color blue41;
+  late final Color blueD1;
   late final Color green47;
   late final Color green00f;
   late final Color green29;
   late final Color greenAE;
+  late final Color green94;
+  late final Color green5D;
   late final Color yellowFF;
+  late final Color yellowFFB;
+  late final Color yellowF4;
   late final Color yellowB5;
   late final Color yellowEA;
   late final Color yellow37;
@@ -149,6 +157,7 @@ abstract class FlutterFlowTheme {
   late final Color periwinkle;
   late final Color blue98;
   late final Color blueF4;
+  late final Color blue8C;
   late final Color brightNavy;
   late final Color gray600;
   late final Color greenFD;
@@ -296,7 +305,7 @@ class LightModeTheme extends FlutterFlowTheme {
   @override
   final Color purple6D = const Color(0xFF6D73FF);
   @override
-  final Color blue36 = const Color(0xFF363636);
+  final Color blue36 = const Color(0xFF367BF5);
   @override
   final Color backgroundColor = const Color(0xFFFFFFFF);
 
@@ -361,7 +370,8 @@ class LightModeTheme extends FlutterFlowTheme {
   final Color error = const Color(0xFFE21C3D);
   @override
   final Color info = const Color(0xFF1C4494);
-
+  @override
+  final Color greyE0 = const Color(0xFFE0E8F2);
   @override
   final Color borderColor = const Color(0xFFE4D9D9);
   @override
@@ -406,7 +416,13 @@ class LightModeTheme extends FlutterFlowTheme {
   @override
   final Color redEB = const Color(0xffEB4335);
   @override
+  final Color redF5 = const Color(0xffF54B4B);
+  @override
   final Color blueB3 = const Color(0xffB3C5F7);
+  @override
+  final Color blue41 = const Color(0xff4188F6);
+  @override
+  final Color blueD1 = const Color(0xffD1DCFA);
   @override
   final Color green47 = const Color(0xff47A94F);
   @override
@@ -416,7 +432,15 @@ class LightModeTheme extends FlutterFlowTheme {
   @override
   final Color greenAE = const Color(0xffAEDFB2);
   @override
+  final Color green94 = const Color(0xff00FF94);
+  @override
+  final Color green5D = const Color(0xff5DC486);
+  @override
   final Color yellowFF = const Color(0xffFFECB0);
+  @override
+  final Color yellowFFB = const Color(0xffFFB800);
+  @override
+  final Color yellowF4 = const Color(0xffF49A47);
   @override
   final Color yellowB5 = const Color(0xffB58900);
   @override
@@ -464,6 +488,8 @@ class LightModeTheme extends FlutterFlowTheme {
   final Color blue98 = const Color(0xFF98B2D5);
   @override
   final Color blueF4 = const Color(0xFFF4F7FB);
+  @override
+  final Color blue8C = const Color(0xFF8CB7FF);
   @override
   final Color brightNavy = const Color(0xFF1E4DD9);
   @override
@@ -823,7 +849,7 @@ class DarkModeTheme extends FlutterFlowTheme {
   @override
   final Color purple6D = const Color(0xFF6D73FF);
   @override
-  final Color blue36 = const Color(0xFF363636);
+  final Color blue36 = const Color(0xFF367BF5);
   @override
   final Color backgroundColor = const Color(0xFFFFFFFF);
   @override
@@ -883,7 +909,8 @@ class DarkModeTheme extends FlutterFlowTheme {
   final Color error = const Color(0xFFE21C3D);
   @override
   final Color info = const Color(0xFF1C4494);
-
+  @override
+  final Color greyE0 = const Color(0xFFE0E8F2);
   @override
   final Color borderColor = const Color(0xFFE4D9D9);
   @override
@@ -923,7 +950,13 @@ class DarkModeTheme extends FlutterFlowTheme {
   @override
   final Color redEB = const Color(0xffEB4335);
   @override
+  final Color redF5 = const Color(0xffF54B4B);
+  @override
   final Color blueB3 = const Color(0xffB3C5F7);
+  @override
+  final Color blue41 = const Color(0xff4188F6);
+  @override
+  final Color blueD1 = const Color(0xffD1DCFA);
   @override
   final Color green47 = const Color(0xff47A94F);
   @override
@@ -933,7 +966,15 @@ class DarkModeTheme extends FlutterFlowTheme {
   @override
   final Color greenAE = const Color(0xffAEDFB2);
   @override
+  final Color green94 = const Color(0xff00FF94);
+  @override
+  final Color green5D = const Color(0xff5DC486);
+  @override
   final Color yellowFF = const Color(0xffFFECB0);
+  @override
+  final Color yellowFFB = const Color(0xffFFB800);
+  @override
+  final Color yellowF4 = const Color(0xffF49A47);
   @override
   final Color yellowB5 = const Color(0xffB58900);
   @override
@@ -979,6 +1020,8 @@ class DarkModeTheme extends FlutterFlowTheme {
   final Color blue98 = const Color(0xFF98B2D5);
   @override
   final Color blueF4 = const Color(0xFFF4F7FB);
+  @override
+  final Color blue8C = const Color(0xFF8CB7FF);
   @override
   final Color brightNavy = const Color(0xFF1E4DD9);
   @override

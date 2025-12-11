@@ -146,6 +146,7 @@ class SettingsUi extends StatelessWidget {
                     // Add payment method
                     ListTile(
                       contentPadding: .zero,
+                      onTap: () {},
                       leading: Text(
                         l10n.addPaymentMethod,
                         style: theme.titleMedium.copyWith(fontWeight: .w400),

@@ -18,7 +18,7 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
   List routes = const [
     HomeRoute(),
     FavoriteClubRoute(),
-    HomeRoute(),
+    TransactionHistoryRoute(),
     ResourcesClubRoute(),
     ProfileRoute(),
   ];

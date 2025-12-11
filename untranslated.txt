@@ -124,9 +124,19 @@
     "title",
     "date",
     "enterDescription",
-    "reptition",
+    "repetition",
     "set",
     "save",
-    "setAnTitle"
+    "setAnTitle",
+    "cardsAndAccounts",
+    "recentTransactions",
+    "viewAll",
+    "currencyExchange",
+    "cashIn",
+    "cashbackFromPurchase",
+    "transferToCard",
+    "pending",
+    "confirmed",
+    "canceled"
   ]
 }

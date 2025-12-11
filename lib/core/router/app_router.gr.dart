@@ -44,18 +44,49 @@ class AddContactInformationRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [AddCreditCardScreen]
-class AddCreditCardRoute extends PageRouteInfo<void> {
-  const AddCreditCardRoute({List<PageRouteInfo>? children})
-    : super(AddCreditCardRoute.name, initialChildren: children);
+class AddCreditCardRoute extends PageRouteInfo<AddCreditCardRouteArgs> {
+  AddCreditCardRoute({
+    required dynamic Function() onClick,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AddCreditCardRoute.name,
+         args: AddCreditCardRouteArgs(onClick: onClick, key: key),
+         initialChildren: children,
+       );
 
   static const String name = 'AddCreditCardRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AddCreditCardScreen();
+      final args = data.argsAs<AddCreditCardRouteArgs>();
+      return AddCreditCardScreen(onClick: args.onClick, key: args.key);
     },
   );
+}
+
+class AddCreditCardRouteArgs {
+  const AddCreditCardRouteArgs({required this.onClick, this.key});
+
+  final dynamic Function() onClick;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'AddCreditCardRouteArgs{onClick: $onClick, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AddCreditCardRouteArgs) return false;
+    return key == other.key;
+  }
+
+  @override
+  int get hashCode => key.hashCode;
 }
 
 /// generated route for
@@ -430,6 +461,38 @@ class SubscriptionRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SubscriptionScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [TransactionHistoryScreen]
+class TransactionHistoryRoute extends PageRouteInfo<void> {
+  const TransactionHistoryRoute({List<PageRouteInfo>? children})
+    : super(TransactionHistoryRoute.name, initialChildren: children);
+
+  static const String name = 'TransactionHistoryRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TransactionHistoryScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [TransactionHistoryViewAllScreen]
+class TransactionHistoryViewAllRoute extends PageRouteInfo<void> {
+  const TransactionHistoryViewAllRoute({List<PageRouteInfo>? children})
+    : super(TransactionHistoryViewAllRoute.name, initialChildren: children);
+
+  static const String name = 'TransactionHistoryViewAllRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TransactionHistoryViewAllScreen();
     },
   );
 }

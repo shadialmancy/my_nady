@@ -43,7 +43,13 @@ class _GymLocationUiState extends ConsumerState<ClubLocationUi> {
                 ),
                 child: ListTile(
                   onTap: () {
-                    context.router.push(const AddCreditCardRoute());
+                    context.router.push(
+                      AddCreditCardRoute(
+                        onClick: () {
+                          context.router.push(const AddBillingAddressRoute());
+                        },
+                      ),
+                    );
                   },
                   title: Text(
                     'Gym $index',

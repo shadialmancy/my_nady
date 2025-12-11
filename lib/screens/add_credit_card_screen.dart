@@ -10,8 +10,8 @@ import '../core/helpers/assets_helper.dart';
 
 @RoutePage()
 class AddCreditCardScreen extends StatefulWidget {
-  const AddCreditCardScreen({super.key});
-
+  const AddCreditCardScreen({required this.onClick, super.key});
+  final Function() onClick;
   @override
   State<AddCreditCardScreen> createState() => _AddCreditCardScreenState();
 }
@@ -43,9 +43,9 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
         ),
       ),
       body: CustomAdaptiveScreen.builder(
-        mobile: AddCreditCardUi(),
-        tablet: AddCreditCardUi(),
-        desktop: AddCreditCardUi(),
+        mobile: AddCreditCardUi(onClick: widget.onClick),
+        tablet: AddCreditCardUi(onClick: widget.onClick),
+        desktop: AddCreditCardUi(onClick: widget.onClick),
       ),
     );
   }

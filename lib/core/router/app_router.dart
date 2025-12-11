@@ -40,6 +40,10 @@ class AppRouter extends RootStackRouter {
         CustomRoute(page: FavoriteClubRoute.page),
         CustomRoute(page: ProfileRoute.page),
         CustomRoute(page: ResourcesClubRoute.page),
+        AutoRoute(
+          page: TransactionHistoryRoute.page,
+          children: [AutoRoute(page: TransactionHistoryViewAllRoute.page)],
+        ),
       ],
     ),
     // AutoRoute(page: HomeRoute.page),

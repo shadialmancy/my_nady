@@ -44,14 +44,75 @@ class AssetsHelper {
   static const String personIcon = 'assets/icons/person.svg';
   static const String paymentSuccessBanner =
       'assets/images/payment_success_banner_dialog.png';
+  static const String creditCardMeshBlur =
+      'assets/images/cards_mesh_blur_bg.png';
   static const String paymentFailedBanner =
       'assets/images/payment_failed_banner_dialog.png';
   static const String paymentMethodBanner =
       'assets/images/payment_method_banner.png';
   static const String downloadIcon = 'assets/icons/download.svg';
+  static const String cardIcon = 'assets/icons/card_icon.svg';
+  static const String nfcIcon = 'assets/icons/nfc_icon.svg';
+  static const String visaLogo = 'assets/icons/visa_logo.svg';
+  static const String cardPlusIcon = 'assets/icons/plus.svg';
+  static const String cartIcon = 'assets/icons/buy.svg';
+  static const String cardChipIcon = 'assets/icons/card_chip_icon.svg';
+  static const String currencyExchangeIcon =
+      'assets/icons/currency_exchange.svg';
 
   // IMAGES HOLDER REMOVE LATER
   static const String gymImageHolder = 'assets/images/gym_image_holder.png';
   static const String profileBannerHolder = 'assets/images/profile_banner.png';
   static const String profileImageHolder = 'assets/images/profile_picture.png';
 }
+
+const List<Map<String, dynamic>> transactionHistoryData = [
+  {
+    "type": "Currency exchange",
+    "date": "17 Sep 2023",
+    "time": "11:21 AM",
+    "amount": "\$ 350.00",
+    "status": "pending",
+    "icon": AssetsHelper.currencyExchangeIcon,
+  },
+  {
+    "type": "Cash-in",
+    "date": "17 Sep 2023",
+    "time": "10:34 AM",
+    "amount": "\$ 100.00",
+    "status": "confirmed",
+    "icon": AssetsHelper.cardPlusIcon,
+  },
+  {
+    "type": "Cashback from purchase",
+    "date": "16 Sep 2023",
+    "time": "16:08 PM",
+    "amount": "\$ 1.75",
+    "status": "confirmed",
+    "icon": AssetsHelper.cartIcon,
+  },
+  {
+    "type": "Transfer to card",
+    "date": "16 Sep 2023",
+    "time": "11:21 AM",
+    "amount": "\$ 9000.00",
+    "status": "confirmed",
+    "icon": AssetsHelper.cardIcon,
+  },
+  {
+    "type": "Transfer to card",
+    "date": "15 Sep 2023",
+    "time": "11:21 AM",
+    "amount": "\$ 9267.00",
+    "status": "canceled",
+    "icon": AssetsHelper.cardIcon,
+  },
+  {
+    "type": "Cashback from purchase",
+    "date": "14 Sep 2023",
+    "time": "18:59 PM",
+    "amount": "\$ 3.21",
+    "status": "confirmed",
+    "icon": AssetsHelper.cartIcon,
+  },
+];

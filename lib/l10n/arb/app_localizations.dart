@@ -868,11 +868,11 @@ abstract class AppLocalizations {
   /// **'Enter Description'**
   String get enterDescription;
 
-  /// No description provided for @reptition.
+  /// No description provided for @repetition.
   ///
   /// In en, this message translates to:
-  /// **'Reptition'**
-  String get reptition;
+  /// **'Repetition'**
+  String get repetition;
 
   /// No description provided for @set.
   ///
@@ -891,6 +891,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set an Title'**
   String get setAnTitle;
+
+  /// No description provided for @cardsAndAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Cards and Accounts'**
+  String get cardsAndAccounts;
+
+  /// No description provided for @recentTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Transactions'**
+  String get recentTransactions;
+
+  /// No description provided for @viewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get viewAll;
+
+  /// No description provided for @currencyExchange.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency Exchange'**
+  String get currencyExchange;
+
+  /// No description provided for @cashIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash In'**
+  String get cashIn;
+
+  /// No description provided for @cashbackFromPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Cashback from Purchase'**
+  String get cashbackFromPurchase;
+
+  /// No description provided for @transferToCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer to Card'**
+  String get transferToCard;
+
+  /// No description provided for @pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get pending;
+
+  /// No description provided for @confirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get confirmed;
+
+  /// No description provided for @canceled.
+  ///
+  /// In en, this message translates to:
+  /// **'Canceled'**
+  String get canceled;
 }
 
 class _AppLocalizationsDelegate

@@ -407,7 +407,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterDescription => 'Enter Description';
 
   @override
-  String get reptition => 'Reptition';
+  String get repetition => 'Repetition';
 
   @override
   String get set => 'Set';
@@ -417,4 +417,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setAnTitle => 'Set an Title';
+
+  @override
+  String get cardsAndAccounts => 'Cards and Accounts';
+
+  @override
+  String get recentTransactions => 'Recent Transactions';
+
+  @override
+  String get viewAll => 'View All';
+
+  @override
+  String get currencyExchange => 'Currency Exchange';
+
+  @override
+  String get cashIn => 'Cash In';
+
+  @override
+  String get cashbackFromPurchase => 'Cashback from Purchase';
+
+  @override
+  String get transferToCard => 'Transfer to Card';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get confirmed => 'Confirmed';
+
+  @override
+  String get canceled => 'Canceled';
 }
