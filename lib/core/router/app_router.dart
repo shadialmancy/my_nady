@@ -31,6 +31,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ModifySubDairyRecordRoute.page),
     AutoRoute(page: SubDairyRecordRoute.page),
     AutoRoute(page: DairyRecordRoute.page),
+    AutoRoute(page: TransactionFilterRoute.page),
     CustomRoute(
       page: DashboardLayoutRoute.page,
       initial: true,
@@ -40,10 +41,8 @@ class AppRouter extends RootStackRouter {
         CustomRoute(page: FavoriteClubRoute.page),
         CustomRoute(page: ProfileRoute.page),
         CustomRoute(page: ResourcesClubRoute.page),
-        AutoRoute(
-          page: TransactionHistoryRoute.page,
-          children: [AutoRoute(page: TransactionHistoryViewAllRoute.page)],
-        ),
+        AutoRoute(page: TransactionHistoryRoute.page),
+        AutoRoute(page: TransactionHistoryViewAllRoute.page),
       ],
     ),
     // AutoRoute(page: HomeRoute.page),

@@ -137,6 +137,15 @@
     "transferToCard",
     "pending",
     "confirmed",
-    "canceled"
+    "canceled",
+    "transactionId",
+    "period",
+    "today",
+    "thisWeek",
+    "thisMonth",
+    "perviousMonth",
+    "thisYear",
+    "selectPeriod",
+    "status"
   ]
 }

@@ -466,6 +466,22 @@ class SubscriptionRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [TransactionFilterScreen]
+class TransactionFilterRoute extends PageRouteInfo<void> {
+  const TransactionFilterRoute({List<PageRouteInfo>? children})
+    : super(TransactionFilterRoute.name, initialChildren: children);
+
+  static const String name = 'TransactionFilterRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TransactionFilterScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [TransactionHistoryScreen]
 class TransactionHistoryRoute extends PageRouteInfo<void> {
   const TransactionHistoryRoute({List<PageRouteInfo>? children})

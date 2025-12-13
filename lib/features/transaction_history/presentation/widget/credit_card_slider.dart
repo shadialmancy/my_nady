@@ -27,7 +27,10 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
               items: List.generate(3, (index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: CreditCard(),
+                  child: CustomBackgroundTransaction(
+                    height: 200,
+                    child: CustomCreditCard(),
+                  ),
                 );
               }),
 

@@ -447,4 +447,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get canceled => 'Canceled';
+
+  @override
+  String get transactionId => 'Transaction ID';
+
+  @override
+  String get period => 'Period';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get thisWeek => 'This Week';
+
+  @override
+  String get thisMonth => 'This Month';
+
+  @override
+  String get perviousMonth => 'Pervious Month';
+
+  @override
+  String get thisYear => 'This Year';
+
+  @override
+  String get selectPeriod => 'Select Period';
+
+  @override
+  String get status => 'Status';
 }
