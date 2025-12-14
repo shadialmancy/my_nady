@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:my_nady_project/core/constants/app_sizes.dart';
+import 'package:my_nady_project/core/router/app_router.dart';
 import 'package:pinput/pinput.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -51,6 +53,9 @@ class VerificationCodeUi extends StatelessWidget {
           gapH12,
           Pinput(
             length: 6,
+            onCompleted: (value) {
+              context.router.replaceAll([const DashboardLayoutRoute()]);
+            },
             defaultPinTheme: PinTheme(
               width: 56,
               height: 56,

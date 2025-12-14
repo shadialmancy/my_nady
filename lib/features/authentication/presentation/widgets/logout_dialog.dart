@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_nady_project/core/helpers/assets_helper.dart';
+import 'package:my_nady_project/core/router/app_router.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/shared/widgets/widgets.dart';
@@ -48,7 +50,9 @@ Future<void> showLogoutDialog(BuildContext context) {
                 Expanded(
                   child: CustomButton(
                     title: l10n.logout,
-                    onPressed: () {},
+                    onPressed: () {
+                      context.router.replaceAll([const LoginRoute()]);
+                    },
                     width: .infinity,
                     backgroundColor: theme.redD0,
                   ),

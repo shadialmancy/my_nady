@@ -42,9 +42,6 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
       vsync: this,
       duration: const Duration(milliseconds: 375),
     );
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.router.replace(routes[0]);
-    });
 
     super.initState();
   }
@@ -88,11 +85,11 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
   @override
   Widget build(BuildContext context) {
     final (theme, _) = appSettingsRecord(context);
-    return Scaffold(
-      backgroundColor: theme.primaryBackground,
-      body: SafeArea(
-        top: false,
-        child: Stack(
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        backgroundColor: theme.primaryBackground,
+        body: Stack(
           children: [
             const AutoRouter(),
             Positioned(

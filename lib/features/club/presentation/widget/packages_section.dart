@@ -46,6 +46,15 @@ class _PackagesSectionState extends State<PackagesSection> {
                 margin: const .symmetric(horizontal: 24, vertical: 5),
                 padding: const .symmetric(horizontal: 10, vertical: 12),
                 decoration: BoxDecoration(
+                  boxShadow: !element["isSelected"]
+                      ? [
+                          BoxShadow(
+                            color: theme.fullBlack.withValues(alpha: 0.35),
+                            offset: const Offset(0, 2),
+                            blurRadius: 4,
+                          ),
+                        ]
+                      : null,
                   borderRadius: .circular(12),
                   border: Border.all(
                     color: element["isSelected"]
@@ -55,7 +64,7 @@ class _PackagesSectionState extends State<PackagesSection> {
                   ),
                   color: element["isSelected"]
                       ? theme.secondary.withValues(alpha: 0.2)
-                      : theme.greyEE,
+                      : theme.white,
                 ),
                 child: Row(
                   children: [

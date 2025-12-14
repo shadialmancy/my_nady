@@ -37,7 +37,7 @@ class AppRouter extends RootStackRouter {
       initial: true,
       transitionsBuilder: TransitionsBuilders.fadeIn,
       children: [
-        CustomRoute(page: HomeRoute.page),
+        CustomRoute(page: HomeRoute.page, initial: true),
         CustomRoute(page: FavoriteClubRoute.page),
         CustomRoute(page: ProfileRoute.page),
         CustomRoute(page: ResourcesClubRoute.page),
