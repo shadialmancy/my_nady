@@ -7,6 +7,7 @@ class _SessionManager {
   final String authToken = 'authorization';
   final String deviceToken = 'device-token';
   final String locale = 'locale';
+  final String boardingVisitState = 'boarding-visit-state';
 
   Future<void> setLocale({String? localee}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -20,27 +21,27 @@ class _SessionManager {
     return localee;
   }
 
-  Future<void> setAuthToken({int? tokenn}) async {
+  Future<void> setBoardingVisitState({bool? status}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt(authToken, tokenn!);
+    prefs.setBool(boardingVisitState, status ?? false);
   }
 
-  Future<int> getAuthToken() async {
+  Future<bool> getBoardingVisitState() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    int tokenn;
-    tokenn = pref.getInt(authToken) ?? 0;
-    return tokenn;
+    bool boardingVisit;
+    boardingVisit = pref.getBool(boardingVisitState) ?? false;
+    return boardingVisit;
   }
 
-  Future<void> setDeviceToken({String? tokenn}) async {
+  Future<void> setAuthToken({String? tokenn}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(deviceToken, tokenn!);
+    prefs.setString(authToken, tokenn!);
   }
 
-  Future<String> getDeviceToken() async {
+  Future<String> getAuthToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String tokenn;
-    tokenn = pref.getString(deviceToken) ?? 'Tokenn';
+    tokenn = pref.getString(authToken) ?? 'Tokenn';
     return tokenn;
   }
 }

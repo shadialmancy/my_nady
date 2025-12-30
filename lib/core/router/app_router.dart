@@ -32,9 +32,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SubDairyRecordRoute.page),
     AutoRoute(page: DairyRecordRoute.page),
     AutoRoute(page: TransactionFilterRoute.page),
+    AutoRoute(page: SplashRoute.page, initial: true),
     CustomRoute(
       page: DashboardLayoutRoute.page,
-      initial: true,
+
       transitionsBuilder: TransitionsBuilders.fadeIn,
       children: [
         CustomRoute(page: HomeRoute.page, initial: true),

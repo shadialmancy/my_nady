@@ -2,6 +2,9 @@ import 'package:logger/logger.dart';
 
 class AppConstants {
   const AppConstants._();
+  static const String loginApiUrl = '/authentication/login';
+  static const String registerApiUrl = '/authentication/register';
+
   static const String logoImage = 'assets/images/logo.png';
   static const String tripsAssetPath = 'assets/data/trips_mock.json';
   static const String settingsImage = 'assets/icons/settings.svg';

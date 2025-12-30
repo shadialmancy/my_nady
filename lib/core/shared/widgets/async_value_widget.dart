@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class AsyncValueWidget<T> extends StatelessWidget {
   const AsyncValueWidget({
     super.key,
@@ -19,9 +18,12 @@ class AsyncValueWidget<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return value.when(
       data: builder,
-      error: errorWidget ??
+      error:
+          errorWidget ??
           (e, st) {
-            return Center(child: Text(e.toString(),style: TextStyle(color: Colors.white),));
+            return Center(
+              child: Text(e.toString(), style: TextStyle(color: Colors.white)),
+            );
           },
       loading:
           loading ?? () => const Center(child: CircularProgressIndicator()),

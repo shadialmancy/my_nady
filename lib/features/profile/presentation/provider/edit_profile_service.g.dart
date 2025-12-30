@@ -10,11 +10,11 @@ part of 'edit_profile_service.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(EditProfileService)
-const editProfileServiceProvider = EditProfileServiceFamily._();
+final editProfileServiceProvider = EditProfileServiceFamily._();
 
 final class EditProfileServiceProvider
     extends $AsyncNotifierProvider<EditProfileService, String?> {
-  const EditProfileServiceProvider._({
+  EditProfileServiceProvider._({
     required EditProfileServiceFamily super.from,
     required ImageType super.argument,
   }) : super(
@@ -62,7 +62,7 @@ final class EditProfileServiceFamily extends $Family
           FutureOr<String?>,
           ImageType
         > {
-  const EditProfileServiceFamily._()
+  EditProfileServiceFamily._()
     : super(
         retry: null,
         name: r'editProfileServiceProvider',
@@ -86,7 +86,6 @@ abstract class _$EditProfileService extends $AsyncNotifier<String?> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(_$args);
     final ref = this.ref as $Ref<AsyncValue<String?>, String?>;
     final element =
         ref.element
@@ -96,6 +95,6 @@ abstract class _$EditProfileService extends $AsyncNotifier<String?> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, () => build(_$args));
   }
 }

@@ -4,6 +4,8 @@ class AppStrings {
   static const String lang = 'Lang';
   static const String en = 'EN';
   static const String ar = 'AR';
+  static const String email = 'email';
+  static const String password = 'password';
 }
 
 class AppleCredentials {

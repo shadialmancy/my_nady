@@ -10,11 +10,11 @@ part of 'app_startup_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(AppStartup)
-const appStartupProvider = AppStartupProvider._();
+final appStartupProvider = AppStartupProvider._();
 
 final class AppStartupProvider
     extends $AsyncNotifierProvider<AppStartup, void> {
-  const AppStartupProvider._()
+  AppStartupProvider._()
     : super(
         from: null,
         argument: null,
@@ -40,7 +40,6 @@ abstract class _$AppStartup extends $AsyncNotifier<void> {
   @$mustCallSuper
   @override
   void runBuild() {
-    build();
     final ref = this.ref as $Ref<AsyncValue<void>, void>;
     final element =
         ref.element
@@ -50,6 +49,6 @@ abstract class _$AppStartup extends $AsyncNotifier<void> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, null);
+    element.handleCreate(ref, build);
   }
 }

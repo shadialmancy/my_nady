@@ -11,5 +11,3 @@ class CacheException implements Exception {
   @override
   String toString() => 'CacheException: $message';
 }
-
-

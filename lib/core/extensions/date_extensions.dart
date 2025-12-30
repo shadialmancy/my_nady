@@ -1,27 +1,40 @@
 extension DateRangeFormatter on String {
   String formatDateRangeWith(String end) {
     if (isEmpty || end.isEmpty) return '';
-    
+
     try {
       // Parse dates from "DD-MM-YYYY" format
       final startParts = split('-');
       final endParts = end.split('-');
-      
+
       if (startParts.length != 3 || endParts.length != 3) return '';
-      
+
       final startDay = int.parse(startParts[0]);
       final startMonth = int.parse(startParts[1]);
       final startYear = int.parse(startParts[2]);
-      
+
       final endDay = int.parse(endParts[0]);
       final endMonth = int.parse(endParts[1]);
       final endYear = int.parse(endParts[2]);
-      
-      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-      
+
+      const monthNames = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
+
       final startMonthName = monthNames[startMonth - 1];
       final endMonthName = monthNames[endMonth - 1];
-      
+
       if (startYear == endYear && startMonth == endMonth) {
         // Same month and year: "Jan 16 - 20, 2024"
         return '$startMonthName $startDay - $endDay, $startYear';
@@ -42,4 +55,3 @@ String formatDateRange(String? start, String? end) {
   if (start == null || end == null) return '';
   return start.formatDateRangeWith(end);
 }
-

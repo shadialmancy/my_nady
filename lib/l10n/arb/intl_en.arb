@@ -301,5 +301,9 @@
     "selectPeriod": "Select Period",
     "@selectPeriod": {},
     "status": "Status",
-    "@status": {}
+    "@status": {},
+    "fieldRequired": "Field Required",
+    "@fieldRequired": {},
+    "validEmail": "Please enter a valid email",
+    "@validEmail": {}
 }

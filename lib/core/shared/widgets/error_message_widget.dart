@@ -11,10 +11,9 @@ class ErrorMessageWidget extends StatelessWidget {
         children: [
           Text(
             errorMessage,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: Colors.red),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge!.copyWith(color: Colors.red),
           ),
         ],
       ),

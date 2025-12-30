@@ -25,3 +25,4 @@ export 'dairy_record_screen.dart';
 export 'transaction_history_screen.dart';
 export 'transaction_history_view_all_screen.dart';
 export 'transaction_filter_screen.dart';
+export 'splash_screen.dart';

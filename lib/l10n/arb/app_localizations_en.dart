@@ -474,4 +474,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get status => 'Status';
+
+  @override
+  String get fieldRequired => 'Field Required';
+
+  @override
+  String get validEmail => 'Please enter a valid email';
 }

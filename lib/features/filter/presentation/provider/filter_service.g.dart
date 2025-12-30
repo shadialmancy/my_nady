@@ -10,11 +10,11 @@ part of 'filter_service.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(FilterService)
-const filterServiceProvider = FilterServiceProvider._();
+final filterServiceProvider = FilterServiceProvider._();
 
 final class FilterServiceProvider
     extends $AsyncNotifierProvider<FilterService, List<Map<String, dynamic>>?> {
-  const FilterServiceProvider._()
+  FilterServiceProvider._()
     : super(
         from: null,
         argument: null,
@@ -41,7 +41,6 @@ abstract class _$FilterService
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref =
         this.ref
             as $Ref<
@@ -59,6 +58,6 @@ abstract class _$FilterService
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

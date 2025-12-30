@@ -42,7 +42,6 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
       vsync: this,
       duration: const Duration(milliseconds: 375),
     );
-
     super.initState();
   }
 

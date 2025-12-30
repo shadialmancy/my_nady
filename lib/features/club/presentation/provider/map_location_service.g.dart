@@ -10,11 +10,11 @@ part of 'map_location_service.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(MapLocationService)
-const mapLocationServiceProvider = MapLocationServiceProvider._();
+final mapLocationServiceProvider = MapLocationServiceProvider._();
 
 final class MapLocationServiceProvider
     extends $AsyncNotifierProvider<MapLocationService, void> {
-  const MapLocationServiceProvider._()
+  MapLocationServiceProvider._()
     : super(
         from: null,
         argument: null,
@@ -41,7 +41,6 @@ abstract class _$MapLocationService extends $AsyncNotifier<void> {
   @$mustCallSuper
   @override
   void runBuild() {
-    build();
     final ref = this.ref as $Ref<AsyncValue<void>, void>;
     final element =
         ref.element
@@ -51,6 +50,6 @@ abstract class _$MapLocationService extends $AsyncNotifier<void> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, null);
+    element.handleCreate(ref, build);
   }
 }

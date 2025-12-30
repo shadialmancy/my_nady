@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -9,11 +10,11 @@ import '../../../../core/router/app_router.dart';
 import '../../../authentication/presentation/widgets/widgets.dart';
 import '../widgets/profile_appbar.dart';
 
-class ProfileUi extends StatelessWidget {
+class ProfileUi extends ConsumerWidget {
   const ProfileUi({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final (theme, l10n) = appSettingsRecord(context);
     return SingleChildScrollView(
       padding: .only(bottom: 18.sh),
@@ -149,7 +150,7 @@ class ProfileUi extends StatelessWidget {
             ),
             child: ListTile(
               onTap: () {
-                showLogoutDialog(context);
+                showLogoutDialog(context, ref);
               },
               leading: SvgPicture.asset(AssetsHelper.logoutIcon),
               contentPadding: .zero,

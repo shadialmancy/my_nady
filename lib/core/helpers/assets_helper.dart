@@ -23,6 +23,7 @@ class AssetsHelper {
   static const String subscriptionIcon = 'assets/icons/subscription.svg';
   static const String locationIcon2 = 'assets/icons/location_icon.svg';
   static const String logoutIcon = 'assets/icons/log_out.svg';
+  static const String logoIcon = 'assets/images/logo.png';
   static const String favoriteIcon = 'assets/icons/favorite.svg';
   static const String editProfileIcon = 'assets/icons/edit_profile.svg';
   static const String dairyRecordIcon = 'assets/icons/dairy_record.svg';

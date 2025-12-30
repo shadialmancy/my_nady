@@ -1,13 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_nady_project/core/helpers/assets_helper.dart';
 import 'package:my_nady_project/core/router/app_router.dart';
 
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/helpers/session_manager.dart';
 import '../../../../core/shared/widgets/widgets.dart';
+import '../provider/auth_ui_service.dart';
 
-Future<void> showLogoutDialog(BuildContext context) {
+Future<void> showLogoutDialog(BuildContext context, WidgetRef ref) {
   return showDialog(
     context: context,
     builder: (context) {
@@ -50,8 +53,12 @@ Future<void> showLogoutDialog(BuildContext context) {
                 Expanded(
                   child: CustomButton(
                     title: l10n.logout,
-                    onPressed: () {
-                      context.router.replaceAll([const LoginRoute()]);
+                    onPressed: () async {
+                      await sessionManager.setBoardingVisitState(status: false);
+                      ref.read(authUiServiceProvider.notifier).logout();
+                      context.mounted
+                          ? context.router.replaceAll([const LoginRoute()])
+                          : null;
                     },
                     width: .infinity,
                     backgroundColor: theme.redD0,
