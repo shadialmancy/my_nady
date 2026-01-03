@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/app_sizes.dart';
 
 import 'location_permission_dialog.dart';
 import 'widgets.dart';
 
-Future<void> showBirthdayDialog(BuildContext context) {
+Future<void> showBirthdayDialog(BuildContext context, WidgetRef ref) {
   return showDialog(
     context: context,
     builder: (context) {
@@ -72,7 +73,9 @@ Future<void> showBirthdayDialog(BuildContext context) {
               width: double.infinity,
               onPressed: () async {
                 await context.router.maybePop();
-                context.mounted ? showLocationPerimssionDialog(context) : null;
+                context.mounted
+                    ? showLocationPerimssionDialog(context, ref)
+                    : null;
               },
             ),
             gapH12,

@@ -18,7 +18,5 @@ class CustomError implements Exception {
   }
 
   @override
-  String toString() {
-    return '$err\n$stackTrace';
-  }
+  String toString() => errMassage;
 }

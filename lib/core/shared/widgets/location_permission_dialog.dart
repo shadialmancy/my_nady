@@ -1,16 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_nady_project/core/helpers/assets_helper.dart';
 import 'package:my_nady_project/core/router/app_router.dart';
+import 'package:my_nady_project/features/club/presentation/provider/map_location_service.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../constants/app_sizes.dart';
-
+import 'app_toast.dart';
 import 'widgets.dart';
 
-Future<void> showLocationPerimssionDialog(BuildContext context) {
+Future<void> showLocationPerimssionDialog(
+  BuildContext context,
+  WidgetRef ref, {
+  VoidCallback? onPermissionGranted,
+}) {
   return showDialog(
     context: context,
+    barrierDismissible: false,
     builder: (context) {
       final (theme, l10n) = appSettingsRecord(context);
       return AlertDialog(
@@ -70,12 +77,43 @@ Future<void> showLocationPerimssionDialog(BuildContext context) {
                 fontWeight: .w600,
               ),
               width: double.infinity,
-              onPressed: () =>
-                  context.router.push(const VerificationCodeRoute()),
+              onPressed: () async {
+                // Request location permission
+                final locationService = ref.read(
+                  mapLocationServiceProvider.notifier,
+                );
+                final hasPermission = await locationService
+                    .requestLocationPermission();
+
+                if (hasPermission) {
+                  // Permission granted, close dialog and navigate
+                  if (context.mounted) {
+                    context.router.maybePop();
+                    if (onPermissionGranted != null) {
+                      onPermissionGranted();
+                    } else {
+                      context.router.replaceAll([const DashboardLayoutRoute()]);
+                    }
+                  }
+                } else {
+                  // Permission denied, show error and close dialog
+                  if (context.mounted) {
+                    context.router.maybePop();
+                    AppToast.errorToast(
+                      'Location permission is required to use this app',
+                    );
+                  }
+                }
+              },
             ),
             gapH12,
             GestureDetector(
-              onTap: () => context.router.maybePop(),
+              onTap: () {
+                context.router.maybePop();
+                AppToast.infoToast(
+                  'You can enable location permission later in settings',
+                );
+              },
               child: Text(
                 l10n.cancel,
                 style: theme.bodyMedium.copyWith(

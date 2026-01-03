@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class _SessionManager {
   final String authToken = 'authorization';
+  final String refreshToken = 'refresh-token';
   final String deviceToken = 'device-token';
   final String locale = 'locale';
   final String boardingVisitState = 'boarding-visit-state';
@@ -33,16 +34,30 @@ class _SessionManager {
     return boardingVisit;
   }
 
-  Future<void> setAuthToken({String? tokenn}) async {
+  Future<void> setAuthToken({String? token}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(authToken, tokenn!);
+    token == null ? prefs.remove(authToken) : prefs.setString(authToken, token);
   }
 
   Future<String> getAuthToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String tokenn;
-    tokenn = pref.getString(authToken) ?? 'Tokenn';
+    tokenn = pref.getString(authToken) ?? 'Token';
     return tokenn;
+  }
+
+  Future<void> setRefreshToken({String? token}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token == null
+        ? prefs.remove(refreshToken)
+        : prefs.setString(refreshToken, token);
+  }
+
+  Future<String> getRefreshToken() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String token;
+    token = pref.getString(refreshToken) ?? 'Token';
+    return token;
   }
 }
 

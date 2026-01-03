@@ -161,9 +161,7 @@ class _RegisterUiState extends ConsumerState<RegisterUi> {
                             status: true,
                           );
                           if (context.mounted) {
-                            context.router.replaceAll([
-                              const DashboardLayoutRoute(),
-                            ]);
+                            context.router.pop(const LoginRoute());
                           }
                         }
                       }

@@ -6,6 +6,7 @@ class AppStrings {
   static const String ar = 'AR';
   static const String email = 'email';
   static const String password = 'password';
+  static const String refreshToken = 'refresh-token';
 }
 
 class AppleCredentials {

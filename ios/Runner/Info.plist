@@ -49,5 +49,9 @@
 	<string>We need permission to access your photo library to update your profile image and banner</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need permission to access your camera to update your profile image and banner</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need your location to provide services while the app is in use.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need your location to provide services even when the app is in the background.</string>
 </dict>
 </plist>

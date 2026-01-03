@@ -11,7 +11,9 @@ import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/helpers/session_manager.dart';
+import '../../../../core/shared/widgets/location_permission_dialog.dart';
 import '../../../../core/shared/widgets/widgets.dart';
+import '../../../club/presentation/provider/map_location_service.dart';
 import '../provider/auth_ui_service.dart';
 
 class LoginUi extends ConsumerStatefulWidget {
@@ -173,16 +175,50 @@ class _LoginUiState extends ConsumerState<LoginUi> {
                           );
                         }
                         if (authRef.getUserEntity() != null) {
+                          await sessionManager.setRefreshToken(
+                            token: authRef.getUserEntity()!.refreshToken,
+                          );
+                          await sessionManager.setAuthToken(
+                            token: authRef.getUserEntity()!.accessToken,
+                          );
                           isRemembered
                               ? await sessionManager.setBoardingVisitState(
                                   status: true,
                                 )
                               : null;
-                          context.mounted
-                              ? context.router.replaceAll([
-                                  const DashboardLayoutRoute(),
-                                ])
-                              : null;
+
+                          // Check location permission before navigating
+                          if (context.mounted) {
+                            final locationService = ref.read(
+                              mapLocationServiceProvider.notifier,
+                            );
+                            final hasPermission = await locationService
+                                .hasLocationPermission();
+
+                            if (!hasPermission) {
+                              // Show location permission dialog
+                              context.mounted
+                                  ? await showLocationPerimssionDialog(
+                                      context,
+                                      ref,
+                                      onPermissionGranted: () {
+                                        if (context.mounted) {
+                                          context.router.replaceAll([
+                                            const DashboardLayoutRoute(),
+                                          ]);
+                                        }
+                                      },
+                                    )
+                                  : null;
+                            } else {
+                              // Already has permission, navigate directly
+                              context.mounted
+                                  ? context.router.replaceAll([
+                                      const DashboardLayoutRoute(),
+                                    ])
+                                  : null;
+                            }
+                          }
                         }
                       },
                     );

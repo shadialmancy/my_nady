@@ -54,8 +54,12 @@ Future<void> showLogoutDialog(BuildContext context, WidgetRef ref) {
                   child: CustomButton(
                     title: l10n.logout,
                     onPressed: () async {
+                      await ref
+                          .read(authUiServiceProvider.notifier)
+                          .logoutUser();
                       await sessionManager.setBoardingVisitState(status: false);
-                      ref.read(authUiServiceProvider.notifier).logout();
+                      await sessionManager.setAuthToken(token: null);
+                      await sessionManager.setRefreshToken(token: null);
                       context.mounted
                           ? context.router.replaceAll([const LoginRoute()])
                           : null;
@@ -68,7 +72,9 @@ Future<void> showLogoutDialog(BuildContext context, WidgetRef ref) {
                 Expanded(
                   child: CustomButton(
                     title: l10n.cancel,
-                    onPressed: () {},
+                    onPressed: () {
+                      context.router.maybePop();
+                    },
                     titleStyle: theme.bodyMedium.copyWith(color: theme.redD0),
                     shape: RoundedRectangleBorder(
                       borderRadius: .circular(8),

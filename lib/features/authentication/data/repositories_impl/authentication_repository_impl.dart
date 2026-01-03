@@ -1,6 +1,5 @@
 import 'package:my_nady_project/features/authentication/domain/entities/user_entity.dart';
 
-import '../../../../core/error/custom_error.dart';
 import '../datasource/authentication_datasource.dart';
 import '../models/user_dto/user_dto.dart';
 
@@ -12,6 +11,8 @@ abstract class BaseAuthenticationRepository {
     String? name,
     String? phone,
   });
+  Future<void> logoutUser();
+  Future<void> resetPassword({String? token, String? password});
 }
 
 class AuthenticationRepositoryImpl implements BaseAuthenticationRepository {
@@ -25,9 +26,8 @@ class AuthenticationRepositoryImpl implements BaseAuthenticationRepository {
       ) {
         return value.toEntity();
       });
-    } catch (e, stack) {
-      //this throw for us to track the error, it will be caught in the terminal
-      throw CustomError('Failed to login', err: e, stackTrace: stack);
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -49,8 +49,26 @@ class AuthenticationRepositoryImpl implements BaseAuthenticationRepository {
           .then((value) {
             return value.toEntity();
           });
-    } catch (e, stack) {
-      throw CustomError('Failed to register', err: e, stackTrace: stack);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> logoutUser() async {
+    try {
+      await dataSource.logoutUser();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> resetPassword({String? token, String? password}) async {
+    try {
+      await dataSource.resetPassword(token: token, password: password);
+    } catch (e) {
+      rethrow;
     }
   }
 }

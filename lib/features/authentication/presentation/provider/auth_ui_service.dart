@@ -96,11 +96,37 @@ class AuthUiService extends _$AuthUiService {
     _userEntity = null;
   }
 
+  Future<void> logoutUser() async {
+    try {
+      state = const AsyncValue.loading();
+      await ref.read(authenticationRepositoryProvider.notifier).logoutUser();
+    } catch (e) {
+      AppToast.errorToast(e.toString());
+    } finally {
+      logout();
+    }
+  }
+
   void logout() {
     var userBox = Hive.box(_userInfoBox);
     _userEntity = null;
     userBox.clear();
     userBox.close();
     ref.invalidateSelf();
+  }
+
+  Future<void> resetPassword({String? token, String? password}) async {
+    try {
+      state = const AsyncValue.loading();
+      await ref
+          .read(authenticationRepositoryProvider.notifier)
+          .resetPassword(token: token, password: password);
+      state = const AsyncValue.data(null);
+      AppToast.successToast('Password reset successfully');
+    } catch (e) {
+      state = const AsyncValue.data(null);
+      AppToast.errorToast(e.toString());
+      rethrow;
+    }
   }
 }

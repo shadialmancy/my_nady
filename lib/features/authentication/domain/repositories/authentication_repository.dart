@@ -1,5 +1,4 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../../../core/error/custom_error.dart';
 import '../../data/models/user_dto/user.dart';
 import '../../data/repositories_impl/authentication_repository_impl.dart';
 import '../entities/user_entity.dart';
@@ -29,8 +28,8 @@ class AuthenticationRepository extends _$AuthenticationRepository {
         password: password,
       );
       return _userEntity;
-    } catch (e, stack) {
-      throw CustomError('Failed to login', err: e, stackTrace: stack);
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -48,8 +47,27 @@ class AuthenticationRepository extends _$AuthenticationRepository {
         phone: phone,
       );
       return _userEntity;
-    } catch (e, stack) {
-      throw CustomError('Failed to register', err: e, stackTrace: stack);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> logoutUser() async {
+    try {
+      await _authenticationSourceImpl.logoutUser();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> resetPassword({String? token, String? password}) async {
+    try {
+      await _authenticationSourceImpl.resetPassword(
+        token: token,
+        password: password,
+      );
+    } catch (e) {
+      rethrow;
     }
   }
 }

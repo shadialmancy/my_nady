@@ -7,6 +7,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../authentication/presentation/provider/auth_ui_service.dart';
 import '../../../authentication/presentation/widgets/widgets.dart';
 import '../widgets/profile_appbar.dart';
 
@@ -16,6 +17,7 @@ class ProfileUi extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final (theme, l10n) = appSettingsRecord(context);
+    final authRef = ref.watch(authUiServiceProvider.notifier);
     return SingleChildScrollView(
       padding: .only(bottom: 18.sh),
       child: Column(
@@ -23,7 +25,7 @@ class ProfileUi extends ConsumerWidget {
           const ProfileAppbar(),
           gapH16,
           Text(
-            "William Wright",
+            authRef.getUserEntity()?.user?.name ?? "",
             style: theme.headlineSmall.copyWith(color: theme.primary),
           ),
           gapH48,

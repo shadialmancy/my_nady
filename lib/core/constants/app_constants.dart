@@ -4,6 +4,8 @@ class AppConstants {
   const AppConstants._();
   static const String loginApiUrl = '/authentication/login';
   static const String registerApiUrl = '/authentication/register';
+  static const String logoutApiUrl = '/authentication/logout';
+  static const String resetPasswordApiUrl = '/authentication/reset-password';
 
   static const String logoImage = 'assets/images/logo.png';
   static const String tripsAssetPath = 'assets/data/trips_mock.json';
