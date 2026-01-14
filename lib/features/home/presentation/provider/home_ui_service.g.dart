@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_ui_service.dart';
+part of 'home_ui_service.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,43 +9,43 @@ part of 'auth_ui_service.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(AuthUiService)
-final authUiServiceProvider = AuthUiServiceProvider._();
+@ProviderFor(HomeUiService)
+final homeUiServiceProvider = HomeUiServiceProvider._();
 
-final class AuthUiServiceProvider
-    extends $AsyncNotifierProvider<AuthUiService, User?> {
-  AuthUiServiceProvider._()
+final class HomeUiServiceProvider
+    extends $AsyncNotifierProvider<HomeUiService, ClubEntity?> {
+  HomeUiServiceProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'authUiServiceProvider',
+        name: r'homeUiServiceProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$authUiServiceHash();
+  String debugGetCreateSourceHash() => _$homeUiServiceHash();
 
   @$internal
   @override
-  AuthUiService create() => AuthUiService();
+  HomeUiService create() => HomeUiService();
 }
 
-String _$authUiServiceHash() => r'6f698162b83381ce84e7b2e52592484186819037';
+String _$homeUiServiceHash() => r'64b63983466f949b9f367e8025f5b9d4bdbcba7e';
 
-abstract class _$AuthUiService extends $AsyncNotifier<User?> {
-  FutureOr<User?> build();
+abstract class _$HomeUiService extends $AsyncNotifier<ClubEntity?> {
+  FutureOr<ClubEntity?> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<User?>, User?>;
+    final ref = this.ref as $Ref<AsyncValue<ClubEntity?>, ClubEntity?>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<User?>, User?>,
-              AsyncValue<User?>,
+              AnyNotifier<AsyncValue<ClubEntity?>, ClubEntity?>,
+              AsyncValue<ClubEntity?>,
               Object?,
               Object?
             >;

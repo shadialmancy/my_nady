@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:my_nady_project/features/club/data/models/club_dto/datum.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import 'widgets.dart';
 
 class FamilyClubCard extends StatelessWidget {
-  const FamilyClubCard({super.key});
+  const FamilyClubCard({this.club, super.key});
+  final Datum? club;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +40,15 @@ class FamilyClubCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: .circular(6),
-                  child: Image.asset(
-                    AssetsHelper.gymBanner,
+                  child: Image.network(
+                    club?.logo ?? '',
                     height: .infinity,
                     fit: .cover,
+                    errorBuilder: (context, error, stackTrace) => Image.asset(
+                      AssetsHelper.gymBanner,
+                      height: .infinity,
+                      fit: .cover,
+                    ),
                   ),
                 ),
                 Padding(
@@ -50,20 +57,21 @@ class FamilyClubCard extends StatelessWidget {
                     mainAxisAlignment: .spaceBetween,
                     children: [
                       FavoriteButton(),
-                      Container(
-                        padding: const .symmetric(vertical: 2, horizontal: 8),
-                        decoration: BoxDecoration(
-                          color: theme.secondary,
-                          borderRadius: .circular(6),
-                        ),
-                        child: Text(
-                          "30%",
-                          style: theme.labelMedium.copyWith(
-                            color: theme.white,
-                            fontWeight: .w600,
+                      if (club?.minPlanPrice != null)
+                        Container(
+                          padding: const .symmetric(vertical: 2, horizontal: 8),
+                          decoration: BoxDecoration(
+                            color: theme.secondary,
+                            borderRadius: .circular(6),
+                          ),
+                          child: Text(
+                            "${club?.minPlanPrice}%",
+                            style: theme.labelMedium.copyWith(
+                              color: theme.white,
+                              fontWeight: .w600,
+                            ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ),
@@ -77,7 +85,7 @@ class FamilyClubCard extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(
-                  "Iron Man Gym",
+                  club?.name ?? "Club Name",
                   style: theme.titleMedium.copyWith(
                     fontWeight: .w400,
                     color: theme.primary,
@@ -87,20 +95,21 @@ class FamilyClubCard extends StatelessWidget {
                   children: [
                     SvgPicture.asset(AssetsHelper.locationIcon),
                     gapW4,
-                    Text(
-                      "30k. Khaitan and Salmiya.".length > 27
-                          ? "${"30k. Khaitan and Salmiya.".substring(0, 27)}..."
-                          : "30k. Khaitan and Salmiya.",
-                      style: theme.labelMedium.copyWith(
-                        fontSize: 14,
-                        color: theme.grey87,
-                        fontWeight: .normal,
+                    Expanded(
+                      child: Text(
+                        club?.location?.address ?? "Address",
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.labelMedium.copyWith(
+                          fontSize: 14,
+                          color: theme.grey87,
+                          fontWeight: .normal,
+                        ),
                       ),
                     ),
                   ],
                 ),
                 Text(
-                  "A clean and modern gym with everything you need to stay fit. Train your way with top equipment and a motivating space",
+                  club?.description ?? "Description",
                   style: theme.bodySmall.copyWith(
                     color: theme.grey87,
                     fontSize: 10,
@@ -115,7 +124,7 @@ class FamilyClubCard extends StatelessWidget {
                       Icon(Icons.star, size: 14, color: theme.yellowEA),
                       gapW4,
                       Text(
-                        "4.9k",
+                        "4.9k", // Rating placeholder
                         style: theme.bodySmall.copyWith(
                           color: theme.grey87,
                           fontSize: 12,

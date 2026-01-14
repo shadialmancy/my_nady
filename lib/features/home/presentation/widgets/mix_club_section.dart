@@ -4,14 +4,19 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../features/club/data/models/club_dto/datum.dart';
 import 'widgets.dart';
 
 class MixClubSection extends StatelessWidget {
-  const MixClubSection({super.key});
+  const MixClubSection({super.key, required this.clubs});
+
+  final List<Datum> clubs;
 
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
+
+    if (clubs.isEmpty) return const SizedBox.shrink();
     return Stack(
       children: [
         Padding(
@@ -21,14 +26,15 @@ class MixClubSection extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: .horizontal,
           child: Row(
-            children: List.generate(4, (index) {
+            children: List.generate(clubs.length, (index) {
               return GestureDetector(
                 onTap: () {
                   context.router.push(const ClubRoute());
                 },
                 child: ClubCard(
                   marginLeft: index == 0 ? 3.5.sw : 6,
-                  marginRight: index == 3 ? 3.5.sw : 6,
+                  marginRight: index == clubs.length - 1 ? 3.5.sw : 6,
+                  club: clubs[index],
                 ),
               );
             }),

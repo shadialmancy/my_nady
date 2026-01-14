@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:my_nady_project/features/club/data/models/club_dto/datum.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import 'widgets.dart';
 
 class ClubCard extends StatelessWidget {
-  const ClubCard({this.marginLeft = 6, this.marginRight = 6, super.key});
+  const ClubCard({
+    this.marginLeft = 6,
+    this.marginRight = 6,
+    this.club,
+    super.key,
+  });
   final double marginRight;
   final double marginLeft;
+  final Datum? club;
+
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
@@ -37,13 +45,21 @@ class ClubCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: .circular(6),
-                child: Image.asset(
-                  AssetsHelper.gymBanner,
+                child: Image.network(
+                  club?.logo ?? '',
                   height: 120,
                   color: theme.fullBlack.withValues(alpha: 0.55),
                   colorBlendMode: .srcATop,
                   width: .infinity,
                   fit: .cover,
+                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                    AssetsHelper.gymBanner,
+                    height: 120,
+                    color: theme.fullBlack.withValues(alpha: 0.55),
+                    colorBlendMode: .srcATop,
+                    width: .infinity,
+                    fit: .cover,
+                  ),
                 ),
               ),
               Padding(
@@ -52,20 +68,21 @@ class ClubCard extends StatelessWidget {
                   mainAxisAlignment: .spaceBetween,
                   children: [
                     FavoriteButton(),
-                    Container(
-                      padding: .symmetric(vertical: 2, horizontal: 8),
-                      decoration: BoxDecoration(
-                        color: theme.secondary,
-                        borderRadius: .circular(6),
-                      ),
-                      child: Text(
-                        "30%",
-                        style: theme.labelMedium.copyWith(
-                          color: theme.white,
-                          fontWeight: .w600,
+                    if (club?.minPlanPrice != null)
+                      Container(
+                        padding: .symmetric(vertical: 2, horizontal: 8),
+                        decoration: BoxDecoration(
+                          color: theme.secondary,
+                          borderRadius: .circular(6),
+                        ),
+                        child: Text(
+                          "${club?.minPlanPrice}%", // Assuming this is discount? Or just showing price? logic unclear from provided code, sticking to existing style
+                          style: theme.labelMedium.copyWith(
+                            color: theme.white,
+                            fontWeight: .w600,
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),
@@ -73,7 +90,9 @@ class ClubCard extends StatelessWidget {
           ),
           gapH12,
           Text(
-            "Iron Man Gym",
+            (club?.name?.length ?? 0) > 17
+                ? "${club?.name?.substring(0, 17)}..."
+                : club?.name ?? "Club Name",
             style: theme.titleMedium.copyWith(
               fontWeight: .w400,
               color: theme.primary,
@@ -83,14 +102,15 @@ class ClubCard extends StatelessWidget {
             children: [
               SvgPicture.asset(AssetsHelper.locationIcon),
               gapW4,
-              Text(
-                "30k. Khaitan and Salmiya.".length > 27
-                    ? "${"30k. Khaitan and Salmiya.".substring(0, 27)}..."
-                    : "30k. Khaitan and Salmiya.",
-                style: theme.labelMedium.copyWith(
-                  fontSize: 12,
-                  color: theme.grey87,
-                  fontWeight: .normal,
+              Expanded(
+                child: Text(
+                  club?.location?.address ?? "Address",
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.labelMedium.copyWith(
+                    fontSize: 12,
+                    color: theme.grey87,
+                    fontWeight: .normal,
+                  ),
                 ),
               ),
             ],
@@ -100,7 +120,7 @@ class ClubCard extends StatelessWidget {
             mainAxisAlignment: .spaceBetween,
             children: [
               Text(
-                "20%",
+                "${club?.minPlanPrice ?? 0}\$",
                 style: theme.bodyMediumSecondary.copyWith(
                   color: theme.secondary,
                 ),
@@ -110,7 +130,7 @@ class ClubCard extends StatelessWidget {
                   Icon(Icons.star, size: 14, color: theme.yellowEA),
                   gapW4,
                   Text(
-                    "4.99k",
+                    "4.5", // Rating not in Datum currently?
                     style: theme.labelMedium.copyWith(
                       fontWeight: .w400,
                       color: theme.grey87,
