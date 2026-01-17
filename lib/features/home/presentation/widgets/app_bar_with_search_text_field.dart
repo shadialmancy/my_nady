@@ -1,20 +1,25 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_nady_project/core/helpers/assets_helper.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../../core/shared/widgets/custom_text_field.dart';
+import '../provider/home_search_provider.dart';
 
-class AppBarWithSearchTextField extends StatefulWidget {
+class AppBarWithSearchTextField extends ConsumerStatefulWidget {
   const AppBarWithSearchTextField({super.key});
 
   @override
-  State<AppBarWithSearchTextField> createState() =>
+  ConsumerState<AppBarWithSearchTextField> createState() =>
       _AppBarWithSearchTextFieldState();
 }
 
-class _AppBarWithSearchTextFieldState extends State<AppBarWithSearchTextField> {
+class _AppBarWithSearchTextFieldState
+    extends ConsumerState<AppBarWithSearchTextField> {
   TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -72,6 +77,11 @@ class _AppBarWithSearchTextFieldState extends State<AppBarWithSearchTextField> {
             children: [
               Expanded(
                 child: CustomTextField(
+                  onChanged: (value) {
+                    ref
+                        .read(homeSearchQueryProvider.notifier)
+                        .setQuery(value ?? '');
+                  },
                   controller: searchController,
                   hint: l10n.searchForGym,
                   prefix: Padding(
@@ -81,29 +91,34 @@ class _AppBarWithSearchTextFieldState extends State<AppBarWithSearchTextField> {
                 ),
               ),
               gapW8,
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  color: theme.white,
-                  borderRadius: .circular(12),
-                  border: .all(width: 1, color: theme.primary),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 5,
-                    vertical: 14,
+              GestureDetector(
+                onTap: () {
+                  context.router.push(const FilterRoute());
+                },
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: theme.white,
+                    borderRadius: .circular(12),
+                    border: .all(width: 1, color: theme.primary),
                   ),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(AssetsHelper.filterIcon),
-                      gapW4,
-                      Text(
-                        l10n.filter,
-                        style: theme.labelSmallSecondary.copyWith(
-                          color: theme.primary,
-                          fontWeight: .bold,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 5,
+                      vertical: 14,
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(AssetsHelper.filterIcon),
+                        gapW4,
+                        Text(
+                          l10n.filter,
+                          style: theme.labelSmallSecondary.copyWith(
+                            color: theme.primary,
+                            fontWeight: .bold,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

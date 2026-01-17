@@ -13,9 +13,7 @@ _Offer _$OfferFromJson(Map<String, dynamic> json) => _Offer(
   name: json['name'] as String?,
   discountType: json['discountType'] as String?,
   discountValue: json['discountValue'] as num?,
-  endDate: json['endDate'] == null
-      ? null
-      : EndDate.fromJson(json['endDate'] as Map<String, dynamic>),
+  endDate: json['endDate'] as String?,
 );
 
 Map<String, dynamic> _$OfferToJson(_Offer instance) => <String, dynamic>{

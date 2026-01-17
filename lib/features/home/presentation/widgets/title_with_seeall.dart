@@ -26,15 +26,19 @@ class TitleWithSeeall extends StatelessWidget {
         const Spacer(),
         onPress != null
             ? GestureDetector(
-                onTap: () => onPress ?? {},
-                child: Text(
-                  l10n.seeAll,
-                  style: theme.bodySmall.copyWith(
-                    decoration: .underline,
-                    decorationColor: theme.secondary,
-                    decorationThickness: 1.5,
-                    color: theme.secondary,
-                    fontSize: 12,
+                behavior: HitTestBehavior.opaque,
+                onTap: onPress,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    l10n.seeAll,
+                    style: theme.bodySmall.copyWith(
+                      decoration: .underline,
+                      decorationColor: theme.secondary,
+                      decorationThickness: 1.5,
+                      color: theme.secondary,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               )

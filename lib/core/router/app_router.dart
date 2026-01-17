@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import '../../dashboard/dashboard.dart';
+import 'package:my_nady_project/features/club/data/models/club_dto/datum.dart';
 import '../../screens/screens.dart';
 import '../constants/app_constants.dart';
 
@@ -33,6 +35,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: DairyRecordRoute.page),
     AutoRoute(page: TransactionFilterRoute.page),
     AutoRoute(page: SplashRoute.page, initial: true),
+    AutoRoute(page: SeeAllRoute.page),
     CustomRoute(
       page: DashboardLayoutRoute.page,
 

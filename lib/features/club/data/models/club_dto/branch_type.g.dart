@@ -12,15 +12,8 @@ _BranchType _$BranchTypeFromJson(Map<String, dynamic> json) => _BranchType(
       : Id.fromJson(json['_id'] as Map<String, dynamic>),
   name: json['name'] as String?,
   icon: json['icon'] as String?,
-  createdAt: json['createdAt'] == null
-      ? null
-      : CreatedAt.fromJson(json['createdAt'] as Map<String, dynamic>),
-  updatedAt: json['updatedAt'] == null
-      ? null
-      : UpdatedAt.fromJson(json['updatedAt'] as Map<String, dynamic>),
-  secondaryBranchIds: (json['secondaryBranchIds'] as List<dynamic>?)
-      ?.map((e) => SecondaryBranchId.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  createdAt: json['createdAt'] as String?,
+  updatedAt: json['updatedAt'] as String?,
 );
 
 Map<String, dynamic> _$BranchTypeToJson(_BranchType instance) =>
@@ -30,5 +23,4 @@ Map<String, dynamic> _$BranchTypeToJson(_BranchType instance) =>
       'icon': instance.icon,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
-      'secondaryBranchIds': instance.secondaryBranchIds,
     };

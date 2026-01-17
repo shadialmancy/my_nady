@@ -4,25 +4,35 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 
+import 'package:my_nady_project/features/club/data/models/gym_detail_dto/subscription_plan.dart';
+
 class PackagesSection extends StatefulWidget {
-  const PackagesSection({super.key});
+  const PackagesSection({super.key, this.subscriptionPlans});
+
+  final List<SubscriptionPlan>? subscriptionPlans;
 
   @override
   State<PackagesSection> createState() => _PackagesSectionState();
 }
 
 class _PackagesSectionState extends State<PackagesSection> {
-  List<Map<String, dynamic>> packagesList = [];
   final ValueNotifier<List<Map<String, dynamic>>> packagesListNotifier =
       ValueNotifier([]);
+
   @override
   void initState() {
     super.initState();
-    packagesListNotifier.value = [
-      {"title": "1 Month", "price": "1200\$", "isSelected": true},
-      {"title": "2 Month", "price": "1200\$", "isSelected": false},
-      {"title": "3 Month", "price": "1200\$", "isSelected": false},
-    ];
+    final plans = widget.subscriptionPlans ?? [];
+    packagesListNotifier.value = plans
+        .map(
+          (plan) => {
+            "id": plan.id,
+            "title": plan.name ?? plan.duration ?? "Package",
+            "price": "${plan.price ?? 0}\$",
+            "isSelected": plans.indexOf(plan) == 0,
+          },
+        )
+        .toList();
   }
 
   @override
@@ -32,11 +42,16 @@ class _PackagesSectionState extends State<PackagesSection> {
       valueListenable: packagesListNotifier,
       builder: (context, value, child) => Column(
         children: [
+          if (value.isEmpty)
+            Padding(
+              padding: const .all(20.0),
+              child: Text("No packages available", style: theme.bodyMedium),
+            ),
           for (var element in value)
             GestureDetector(
               onTap: () {
-                for (var element in packagesListNotifier.value) {
-                  element['isSelected'] = false;
+                for (var el in packagesListNotifier.value) {
+                  el['isSelected'] = false;
                 }
                 element['isSelected'] = true;
                 packagesListNotifier.value = List.from(value);

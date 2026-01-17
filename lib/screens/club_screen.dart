@@ -7,7 +7,9 @@ import '../features/club/presentation/ui/club_ui.dart';
 
 @RoutePage()
 class ClubScreen extends StatefulWidget {
-  const ClubScreen({super.key});
+  const ClubScreen({super.key, required this.id});
+
+  final String id;
 
   @override
   State<ClubScreen> createState() => _ClubScreenState();
@@ -21,9 +23,9 @@ class _ClubScreenState extends State<ClubScreen> {
     return Scaffold(
       backgroundColor: theme.primaryBackground,
       body: CustomAdaptiveScreen.builder(
-        mobile: const ClubUi(),
-        tablet: const ClubUi(),
-        desktop: const ClubUi(),
+        mobile: ClubUi(id: widget.id),
+        tablet: ClubUi(id: widget.id),
+        desktop: ClubUi(id: widget.id),
       ),
     );
   }

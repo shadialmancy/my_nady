@@ -19,16 +19,15 @@ class KidsClubSection extends StatelessWidget {
     if (clubs.isEmpty) return const SizedBox.shrink();
     return Stack(
       children: [
-        Padding(
-          padding: .symmetric(horizontal: 3.5.sw),
-          child: TitleWithSeeall(title: l10n.kids, onPress: () {}),
-        ),
         SingleChildScrollView(
           scrollDirection: .horizontal,
           child: Row(
-            children: List.generate(clubs.length, (index) {
+            children: List.generate(clubs.length > 5 ? 5 : clubs.length, (
+              index,
+            ) {
               return GestureDetector(
-                onTap: () => context.router.push(const ClubRoute()),
+                onTap: () =>
+                    context.router.push(ClubRoute(id: clubs[index].id ?? '')),
                 child: ClubCard(
                   marginLeft: index == 0 ? 3.5.sw : 6,
                   marginRight: index == clubs.length - 1 ? 3.5.sw : 6,
@@ -36,6 +35,20 @@ class KidsClubSection extends StatelessWidget {
                 ),
               );
             }),
+          ),
+        ),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: .symmetric(horizontal: 3.5.sw),
+            child: TitleWithSeeall(
+              title: l10n.kids,
+              onPress: () {
+                context.router.push(SeeAllRoute(clubs: clubs));
+              },
+            ),
           ),
         ),
       ],

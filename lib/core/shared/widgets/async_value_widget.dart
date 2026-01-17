@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,8 +23,9 @@ class AsyncValueWidget<T> extends StatelessWidget {
       error:
           errorWidget ??
           (e, st) {
+            log('AsyncValueWidget Error: $e', stackTrace: st);
             return Center(
-              child: Text(e.toString(), style: TextStyle(color: Colors.white)),
+              child: Text(e.toString(), style: TextStyle(color: Colors.red)),
             );
           },
       loading:

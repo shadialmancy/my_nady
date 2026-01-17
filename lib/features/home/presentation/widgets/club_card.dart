@@ -10,11 +10,15 @@ class ClubCard extends StatelessWidget {
   const ClubCard({
     this.marginLeft = 6,
     this.marginRight = 6,
+    this.marginTop = 40,
+    this.marginBottom = 25,
     this.club,
     super.key,
   });
   final double marginRight;
   final double marginLeft;
+  final double marginTop;
+  final double marginBottom;
   final Datum? club;
 
   @override
@@ -25,7 +29,12 @@ class ClubCard extends StatelessWidget {
       clipBehavior: Clip.none,
       width: (size.width - 20) / 2,
       // height: 150,
-      margin: .only(top: 40, right: marginRight, left: marginLeft, bottom: 25),
+      margin: .only(
+        top: marginTop,
+        right: marginRight,
+        left: marginLeft,
+        bottom: marginBottom,
+      ),
       padding: .symmetric(horizontal: 6, vertical: 10),
       decoration: BoxDecoration(
         color: theme.white,

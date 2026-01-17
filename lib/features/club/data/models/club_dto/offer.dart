@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'end_date.dart';
 import 'id.dart';
 
 part 'offer.freezed.dart';
@@ -13,7 +12,7 @@ class Offer with _$Offer {
     String? name,
     String? discountType,
     num? discountValue,
-    EndDate? endDate,
+    String? endDate,
   }) = _Offer;
 
   factory Offer.fromJson(Map<String, dynamic> json) => _$OfferFromJson(json);

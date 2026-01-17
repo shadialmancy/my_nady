@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Datum {
 
- String? get name; String? get providerId; List<String>? get photos; String? get logo; String? get description; String? get genderType; bool? get isFeatured; bool? get active; DateTime? get createdAt; DateTime? get updatedAt; String? get branchTypeId; List<SecondaryTypeId>? get secondaryTypeIds; List<AmenityId>? get amenityIds; Location? get location; num? get distance; num? get minPlanPrice; BranchType? get branchType; List<Offer>? get offers; String? get id;
+ String? get name; String? get providerId; List<String>? get photos; String? get logo; String? get description; String? get genderType; bool? get isFeatured; bool? get active; DateTime? get createdAt; DateTime? get updatedAt; String? get branchTypeId; List<String>? get secondaryTypeIds; List<String>? get amenityIds; Location? get location; num? get distance; num? get minPlanPrice; BranchType? get branchType; List<Offer>? get offers; String? get id;
 /// Create a copy of Datum
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $DatumCopyWith<$Res>  {
   factory $DatumCopyWith(Datum value, $Res Function(Datum) _then) = _$DatumCopyWithImpl;
 @useResult
 $Res call({
- String? name, String? providerId, List<String>? photos, String? logo, String? description, String? genderType, bool? isFeatured, bool? active, DateTime? createdAt, DateTime? updatedAt, String? branchTypeId, List<SecondaryTypeId>? secondaryTypeIds, List<AmenityId>? amenityIds, Location? location, num? distance, num? minPlanPrice, BranchType? branchType, List<Offer>? offers, String? id
+ String? name, String? providerId, List<String>? photos, String? logo, String? description, String? genderType, bool? isFeatured, bool? active, DateTime? createdAt, DateTime? updatedAt, String? branchTypeId, List<String>? secondaryTypeIds, List<String>? amenityIds, Location? location, num? distance, num? minPlanPrice, BranchType? branchType, List<Offer>? offers, String? id
 });
 
 
@@ -79,8 +79,8 @@ as bool?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,branchTypeId: freezed == branchTypeId ? _self.branchTypeId : branchTypeId // ignore: cast_nullable_to_non_nullable
 as String?,secondaryTypeIds: freezed == secondaryTypeIds ? _self.secondaryTypeIds : secondaryTypeIds // ignore: cast_nullable_to_non_nullable
-as List<SecondaryTypeId>?,amenityIds: freezed == amenityIds ? _self.amenityIds : amenityIds // ignore: cast_nullable_to_non_nullable
-as List<AmenityId>?,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
+as List<String>?,amenityIds: freezed == amenityIds ? _self.amenityIds : amenityIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as Location?,distance: freezed == distance ? _self.distance : distance // ignore: cast_nullable_to_non_nullable
 as num?,minPlanPrice: freezed == minPlanPrice ? _self.minPlanPrice : minPlanPrice // ignore: cast_nullable_to_non_nullable
 as num?,branchType: freezed == branchType ? _self.branchType : branchType // ignore: cast_nullable_to_non_nullable
@@ -195,7 +195,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? providerId,  List<String>? photos,  String? logo,  String? description,  String? genderType,  bool? isFeatured,  bool? active,  DateTime? createdAt,  DateTime? updatedAt,  String? branchTypeId,  List<SecondaryTypeId>? secondaryTypeIds,  List<AmenityId>? amenityIds,  Location? location,  num? distance,  num? minPlanPrice,  BranchType? branchType,  List<Offer>? offers,  String? id)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? providerId,  List<String>? photos,  String? logo,  String? description,  String? genderType,  bool? isFeatured,  bool? active,  DateTime? createdAt,  DateTime? updatedAt,  String? branchTypeId,  List<String>? secondaryTypeIds,  List<String>? amenityIds,  Location? location,  num? distance,  num? minPlanPrice,  BranchType? branchType,  List<Offer>? offers,  String? id)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Datum() when $default != null:
 return $default(_that.name,_that.providerId,_that.photos,_that.logo,_that.description,_that.genderType,_that.isFeatured,_that.active,_that.createdAt,_that.updatedAt,_that.branchTypeId,_that.secondaryTypeIds,_that.amenityIds,_that.location,_that.distance,_that.minPlanPrice,_that.branchType,_that.offers,_that.id);case _:
@@ -216,7 +216,7 @@ return $default(_that.name,_that.providerId,_that.photos,_that.logo,_that.descri
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? providerId,  List<String>? photos,  String? logo,  String? description,  String? genderType,  bool? isFeatured,  bool? active,  DateTime? createdAt,  DateTime? updatedAt,  String? branchTypeId,  List<SecondaryTypeId>? secondaryTypeIds,  List<AmenityId>? amenityIds,  Location? location,  num? distance,  num? minPlanPrice,  BranchType? branchType,  List<Offer>? offers,  String? id)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? providerId,  List<String>? photos,  String? logo,  String? description,  String? genderType,  bool? isFeatured,  bool? active,  DateTime? createdAt,  DateTime? updatedAt,  String? branchTypeId,  List<String>? secondaryTypeIds,  List<String>? amenityIds,  Location? location,  num? distance,  num? minPlanPrice,  BranchType? branchType,  List<Offer>? offers,  String? id)  $default,) {final _that = this;
 switch (_that) {
 case _Datum():
 return $default(_that.name,_that.providerId,_that.photos,_that.logo,_that.description,_that.genderType,_that.isFeatured,_that.active,_that.createdAt,_that.updatedAt,_that.branchTypeId,_that.secondaryTypeIds,_that.amenityIds,_that.location,_that.distance,_that.minPlanPrice,_that.branchType,_that.offers,_that.id);case _:
@@ -236,7 +236,7 @@ return $default(_that.name,_that.providerId,_that.photos,_that.logo,_that.descri
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? providerId,  List<String>? photos,  String? logo,  String? description,  String? genderType,  bool? isFeatured,  bool? active,  DateTime? createdAt,  DateTime? updatedAt,  String? branchTypeId,  List<SecondaryTypeId>? secondaryTypeIds,  List<AmenityId>? amenityIds,  Location? location,  num? distance,  num? minPlanPrice,  BranchType? branchType,  List<Offer>? offers,  String? id)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? providerId,  List<String>? photos,  String? logo,  String? description,  String? genderType,  bool? isFeatured,  bool? active,  DateTime? createdAt,  DateTime? updatedAt,  String? branchTypeId,  List<String>? secondaryTypeIds,  List<String>? amenityIds,  Location? location,  num? distance,  num? minPlanPrice,  BranchType? branchType,  List<Offer>? offers,  String? id)?  $default,) {final _that = this;
 switch (_that) {
 case _Datum() when $default != null:
 return $default(_that.name,_that.providerId,_that.photos,_that.logo,_that.description,_that.genderType,_that.isFeatured,_that.active,_that.createdAt,_that.updatedAt,_that.branchTypeId,_that.secondaryTypeIds,_that.amenityIds,_that.location,_that.distance,_that.minPlanPrice,_that.branchType,_that.offers,_that.id);case _:
@@ -251,7 +251,7 @@ return $default(_that.name,_that.providerId,_that.photos,_that.logo,_that.descri
 @JsonSerializable()
 
 class _Datum implements Datum {
-   _Datum({this.name, this.providerId, final  List<String>? photos, this.logo, this.description, this.genderType, this.isFeatured, this.active, this.createdAt, this.updatedAt, this.branchTypeId, final  List<SecondaryTypeId>? secondaryTypeIds, final  List<AmenityId>? amenityIds, this.location, this.distance, this.minPlanPrice, this.branchType, final  List<Offer>? offers, this.id}): _photos = photos,_secondaryTypeIds = secondaryTypeIds,_amenityIds = amenityIds,_offers = offers;
+   _Datum({this.name, this.providerId, final  List<String>? photos, this.logo, this.description, this.genderType, this.isFeatured, this.active, this.createdAt, this.updatedAt, this.branchTypeId, final  List<String>? secondaryTypeIds, final  List<String>? amenityIds, this.location, this.distance, this.minPlanPrice, this.branchType, final  List<Offer>? offers, this.id}): _photos = photos,_secondaryTypeIds = secondaryTypeIds,_amenityIds = amenityIds,_offers = offers;
   factory _Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);
 
 @override final  String? name;
@@ -273,8 +273,8 @@ class _Datum implements Datum {
 @override final  DateTime? createdAt;
 @override final  DateTime? updatedAt;
 @override final  String? branchTypeId;
- final  List<SecondaryTypeId>? _secondaryTypeIds;
-@override List<SecondaryTypeId>? get secondaryTypeIds {
+ final  List<String>? _secondaryTypeIds;
+@override List<String>? get secondaryTypeIds {
   final value = _secondaryTypeIds;
   if (value == null) return null;
   if (_secondaryTypeIds is EqualUnmodifiableListView) return _secondaryTypeIds;
@@ -282,8 +282,8 @@ class _Datum implements Datum {
   return EqualUnmodifiableListView(value);
 }
 
- final  List<AmenityId>? _amenityIds;
-@override List<AmenityId>? get amenityIds {
+ final  List<String>? _amenityIds;
+@override List<String>? get amenityIds {
   final value = _amenityIds;
   if (value == null) return null;
   if (_amenityIds is EqualUnmodifiableListView) return _amenityIds;
@@ -339,7 +339,7 @@ abstract mixin class _$DatumCopyWith<$Res> implements $DatumCopyWith<$Res> {
   factory _$DatumCopyWith(_Datum value, $Res Function(_Datum) _then) = __$DatumCopyWithImpl;
 @override @useResult
 $Res call({
- String? name, String? providerId, List<String>? photos, String? logo, String? description, String? genderType, bool? isFeatured, bool? active, DateTime? createdAt, DateTime? updatedAt, String? branchTypeId, List<SecondaryTypeId>? secondaryTypeIds, List<AmenityId>? amenityIds, Location? location, num? distance, num? minPlanPrice, BranchType? branchType, List<Offer>? offers, String? id
+ String? name, String? providerId, List<String>? photos, String? logo, String? description, String? genderType, bool? isFeatured, bool? active, DateTime? createdAt, DateTime? updatedAt, String? branchTypeId, List<String>? secondaryTypeIds, List<String>? amenityIds, Location? location, num? distance, num? minPlanPrice, BranchType? branchType, List<Offer>? offers, String? id
 });
 
 
@@ -370,8 +370,8 @@ as bool?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,branchTypeId: freezed == branchTypeId ? _self.branchTypeId : branchTypeId // ignore: cast_nullable_to_non_nullable
 as String?,secondaryTypeIds: freezed == secondaryTypeIds ? _self._secondaryTypeIds : secondaryTypeIds // ignore: cast_nullable_to_non_nullable
-as List<SecondaryTypeId>?,amenityIds: freezed == amenityIds ? _self._amenityIds : amenityIds // ignore: cast_nullable_to_non_nullable
-as List<AmenityId>?,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
+as List<String>?,amenityIds: freezed == amenityIds ? _self._amenityIds : amenityIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as Location?,distance: freezed == distance ? _self.distance : distance // ignore: cast_nullable_to_non_nullable
 as num?,minPlanPrice: freezed == minPlanPrice ? _self.minPlanPrice : minPlanPrice // ignore: cast_nullable_to_non_nullable
 as num?,branchType: freezed == branchType ? _self.branchType : branchType // ignore: cast_nullable_to_non_nullable

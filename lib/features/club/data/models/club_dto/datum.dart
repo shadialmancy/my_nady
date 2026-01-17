@@ -1,10 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'amenity_id.dart';
 import 'branch_type.dart';
 import 'location.dart';
 import 'offer.dart';
-import 'secondary_type_id.dart';
 
 part 'datum.freezed.dart';
 part 'datum.g.dart';
@@ -23,8 +21,8 @@ class Datum with _$Datum {
     DateTime? createdAt,
     DateTime? updatedAt,
     String? branchTypeId,
-    List<SecondaryTypeId>? secondaryTypeIds,
-    List<AmenityId>? amenityIds,
+    List<String>? secondaryTypeIds,
+    List<String>? amenityIds,
     Location? location,
     num? distance,
     num? minPlanPrice,

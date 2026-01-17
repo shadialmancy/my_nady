@@ -23,10 +23,10 @@ _Datum _$DatumFromJson(Map<String, dynamic> json) => _Datum(
       : DateTime.parse(json['updatedAt'] as String),
   branchTypeId: json['branchTypeId'] as String?,
   secondaryTypeIds: (json['secondaryTypeIds'] as List<dynamic>?)
-      ?.map((e) => SecondaryTypeId.fromJson(e as Map<String, dynamic>))
+      ?.map((e) => e as String)
       .toList(),
   amenityIds: (json['amenityIds'] as List<dynamic>?)
-      ?.map((e) => AmenityId.fromJson(e as Map<String, dynamic>))
+      ?.map((e) => e as String)
       .toList(),
   location: json['location'] == null
       ? null

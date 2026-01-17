@@ -8,6 +8,8 @@ import '../widgets/widgets.dart';
 
 import '../provider/home_ui_service.dart';
 
+import '../provider/home_search_provider.dart';
+
 class HomeUi extends ConsumerStatefulWidget {
   const HomeUi({super.key});
 
@@ -20,6 +22,7 @@ class _HomeUiState extends ConsumerState<HomeUi> {
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
     final homeUiService = ref.watch(homeUiServiceProvider.notifier);
+    final searchQuery = ref.watch(homeSearchQueryProvider).toLowerCase();
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -28,7 +31,16 @@ class _HomeUiState extends ConsumerState<HomeUi> {
       child: AsyncValueWidget(
         value: ref.watch(homeUiServiceProvider),
         builder: (clubEntity) {
-          final allClubs = clubEntity?.clubs ?? [];
+          final unfilteredClubs = clubEntity?.clubs ?? [];
+          final allClubs = searchQuery.isEmpty
+              ? unfilteredClubs
+              : unfilteredClubs
+                    .where(
+                      (e) =>
+                          e.name?.toLowerCase().contains(searchQuery) ?? false,
+                    )
+                    .toList();
+
           final mixClubs = allClubs
               .where((e) => e.genderType?.toLowerCase() == 'mix')
               .toList();

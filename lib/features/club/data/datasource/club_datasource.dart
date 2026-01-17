@@ -4,8 +4,11 @@ import 'package:my_nady_project/features/authentication/data/models/error_model/
 import '../models/club_filter_request.dart';
 import '../../../../core/api/apis.dart';
 
+import 'package:my_nady_project/features/club/data/models/gym_detail_dto/gym_detail_dto.dart';
+
 abstract class ClubDataSource {
   Future<ClubDto> getBranches(ClubFilterRequest? request);
+  Future<GymDetailDto> getGymDetails(String id);
 }
 
 class ClubDataSourceImpl implements ClubDataSource {
@@ -25,6 +28,20 @@ class ClubDataSourceImpl implements ClubDataSource {
     } else {
       final errorModel = ErrorModel.fromJson(response.data);
       throw errorModel.message ?? 'Error in getBranches';
+    }
+  }
+
+  @override
+  Future<GymDetailDto> getGymDetails(String id) async {
+    final response = await DioClient().dio.get(
+      '${AppConstants.branchesApiUrl}/$id',
+    );
+
+    if (response.statusCode == 200) {
+      return GymDetailDto.fromJson(response.data);
+    } else {
+      final errorModel = ErrorModel.fromJson(response.data);
+      throw errorModel.message ?? 'Error in getBranchDetails';
     }
   }
 }

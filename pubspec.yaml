@@ -55,6 +55,7 @@ dependencies:
   fluttertoast: ^9.0.0
 
   hive_ce_generator: any
+  collection: ^1.19.1
 dev_dependencies:
   riverpod_generator: ^4.0.0+1
   flutter_test:

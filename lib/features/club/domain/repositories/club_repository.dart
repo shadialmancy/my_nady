@@ -1,3 +1,4 @@
+import 'package:my_nady_project/features/club/domain/entities/gym_detail_entity.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/models/club_filter_request.dart';
 import '../../data/repositories_impl/club_repository_impl.dart';
@@ -18,6 +19,15 @@ class ClubRepository extends _$ClubRepository {
         request: request,
       );
       return clubEntity;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<GymDetailEntity> getGymDetails(String id) async {
+    try {
+      final gymDetail = await _clubRepositoryImpl.getGymDetails(id);
+      return gymDetail;
     } catch (e) {
       rethrow;
     }

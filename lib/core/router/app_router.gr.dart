@@ -139,18 +139,46 @@ class ClubLocationRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ClubScreen]
-class ClubRoute extends PageRouteInfo<void> {
-  const ClubRoute({List<PageRouteInfo>? children})
-    : super(ClubRoute.name, initialChildren: children);
+class ClubRoute extends PageRouteInfo<ClubRouteArgs> {
+  ClubRoute({Key? key, required String id, List<PageRouteInfo>? children})
+    : super(
+        ClubRoute.name,
+        args: ClubRouteArgs(key: key, id: id),
+        initialChildren: children,
+      );
 
   static const String name = 'ClubRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ClubScreen();
+      final args = data.argsAs<ClubRouteArgs>();
+      return ClubScreen(key: args.key, id: args.id);
     },
   );
+}
+
+class ClubRouteArgs {
+  const ClubRouteArgs({this.key, required this.id});
+
+  final Key? key;
+
+  final String id;
+
+  @override
+  String toString() {
+    return 'ClubRouteArgs{key: $key, id: $id}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ClubRouteArgs) return false;
+    return key == other.key && id == other.id;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ id.hashCode;
 }
 
 /// generated route for
@@ -375,6 +403,54 @@ class ResourcesClubRoute extends PageRouteInfo<void> {
       return const ResourcesClubScreen();
     },
   );
+}
+
+/// generated route for
+/// [SeeAllScreen]
+class SeeAllRoute extends PageRouteInfo<SeeAllRouteArgs> {
+  SeeAllRoute({
+    Key? key,
+    required List<Datum> clubs,
+    List<PageRouteInfo>? children,
+  }) : super(
+         SeeAllRoute.name,
+         args: SeeAllRouteArgs(key: key, clubs: clubs),
+         initialChildren: children,
+       );
+
+  static const String name = 'SeeAllRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SeeAllRouteArgs>();
+      return SeeAllScreen(key: args.key, clubs: args.clubs);
+    },
+  );
+}
+
+class SeeAllRouteArgs {
+  const SeeAllRouteArgs({this.key, required this.clubs});
+
+  final Key? key;
+
+  final List<Datum> clubs;
+
+  @override
+  String toString() {
+    return 'SeeAllRouteArgs{key: $key, clubs: $clubs}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! SeeAllRouteArgs) return false;
+    return key == other.key &&
+        const ListEquality<Datum>().equals(clubs, other.clubs);
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ const ListEquality<Datum>().hash(clubs);
 }
 
 /// generated route for

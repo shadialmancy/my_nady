@@ -8,7 +8,10 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 
 class ClubImagesSlider extends StatefulWidget {
-  const ClubImagesSlider({super.key});
+  const ClubImagesSlider({super.key, this.photos, this.name});
+
+  final List<String>? photos;
+  final String? name;
 
   @override
   State<ClubImagesSlider> createState() => _ClubImagesSliderState();
@@ -19,19 +22,39 @@ class _ClubImagesSliderState extends State<ClubImagesSlider> {
   @override
   Widget build(BuildContext context) {
     final (theme, _) = appSettingsRecord(context);
+    final photoList = widget.photos ?? [];
+    final displayList = photoList.isEmpty
+        ? [AssetsHelper.gymImageHolder]
+        : photoList;
+
     return Stack(
       alignment: .bottomCenter,
       children: [
         CarouselSlider(
-          items: List.generate(3, (index) {
+          items: List.generate(displayList.length, (index) {
+            final photo = displayList[index];
             return Stack(
               children: [
-                Image.asset(
-                  AssetsHelper.gymImageHolder,
-                  height: 300,
-                  fit: .cover,
-                  width: .infinity,
-                ),
+                photo.startsWith('http')
+                    ? Image.network(
+                        photo,
+                        height: 300,
+                        fit: .cover,
+                        width: .infinity,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Image.asset(
+                              AssetsHelper.gymImageHolder,
+                              height: 300,
+                              fit: .cover,
+                              width: .infinity,
+                            ),
+                      )
+                    : Image.asset(
+                        photo,
+                        height: 300,
+                        fit: .cover,
+                        width: .infinity,
+                      ),
                 Container(
                   width: .infinity,
                   height: 300,
@@ -84,27 +107,34 @@ class _ClubImagesSliderState extends State<ClubImagesSlider> {
               ),
               gapW8,
               Text(
-                "gym name",
-                style: theme.titleMedium.copyWith(color: theme.white),
+                widget.name ?? "gym name",
+                style: theme.titleMedium.copyWith(
+                  color: theme.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(3, (index) {
-            return Container(
-              margin: const EdgeInsets.symmetric(horizontal: 1, vertical: 8),
-              width: 8,
-              height: 8,
-              decoration: BoxDecoration(
-                color: currentIndex == index ? theme.white : Colors.transparent,
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 0.5),
-              ),
-            );
-          }),
-        ),
+        if (displayList.length > 1)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(displayList.length, (index) {
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 1, vertical: 8),
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(
+                  color: currentIndex == index
+                      ? theme.white
+                      : Colors.transparent,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 0.5),
+                ),
+              );
+            }),
+          ),
       ],
     );
   }
