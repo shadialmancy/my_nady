@@ -13,9 +13,10 @@ import '../../../home/presentation/widgets/widgets.dart';
 import '../provider/get_gym_details_service.dart';
 
 class ClubUi extends ConsumerStatefulWidget {
-  const ClubUi({super.key, required this.id});
+  const ClubUi({super.key, required this.id, required this.distance});
 
   final String id;
+  final String distance;
 
   @override
   ConsumerState<ClubUi> createState() => _ClubUiState();

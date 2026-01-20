@@ -27,7 +27,12 @@ class MixClubSection extends StatelessWidget {
             ) {
               return GestureDetector(
                 onTap: () {
-                  context.router.push(ClubRoute(id: clubs[index].id ?? ''));
+                  context.router.push(
+                    ClubRoute(
+                      id: clubs[index].id ?? '',
+                      distance: clubs[index].distance?.toString() ?? '',
+                    ),
+                  );
                 },
                 child: ClubCard(
                   marginLeft: index == 0 ? 3.5.sw : 6,

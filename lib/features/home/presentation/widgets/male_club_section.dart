@@ -26,9 +26,12 @@ class MaleClubSection extends StatelessWidget {
               index,
             ) {
               return GestureDetector(
-                onTap: () {
-                  context.router.push(ClubRoute(id: clubs[index].id ?? ''));
-                },
+                onTap: () => context.router.push(
+                  ClubRoute(
+                    id: clubs[index].id ?? '',
+                    distance: clubs[index].distance?.toString() ?? '',
+                  ),
+                ),
                 child: ClubCard(
                   marginLeft: index == 0 ? 3.5.sw : 6,
                   marginRight: index == clubs.length - 1 ? 3.5.sw : 6,

@@ -22,7 +22,6 @@ class AuthenticationSourceImpl implements AuthenticationSource {
   @override
   Future<UserDto> loginUser({String? email, String? password}) async {
     var body = {AppStrings.email: email, AppStrings.password: password};
-    logger.d('loginUser body: $body');
     final response = await DioClient().dio.post(
       AppConstants.loginApiUrl,
       data: body,
@@ -48,7 +47,6 @@ class AuthenticationSourceImpl implements AuthenticationSource {
       "name": name,
       "phone": phone,
     };
-    logger.d('registerUser body: $body');
 
     final response = await DioClient().dio.post(
       AppConstants.registerApiUrl,
@@ -65,7 +63,6 @@ class AuthenticationSourceImpl implements AuthenticationSource {
   @override
   Future<void> resetPassword({String? token, String? password}) async {
     var body = {"token": token, "password": password};
-    logger.d('resetPassword body: $body');
 
     final response = await DioClient().dio.post(
       AppConstants.resetPasswordApiUrl,

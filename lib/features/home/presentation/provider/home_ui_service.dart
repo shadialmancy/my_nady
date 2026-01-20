@@ -13,13 +13,25 @@ class HomeUiService extends _$HomeUiService {
     return fetchHomeData();
   }
 
-  Future<ClubEntity?> fetchHomeData() async {
+  Future<ClubEntity?> fetchHomeData({ClubFilterRequest? filterRequest}) async {
     state = const AsyncValue.loading();
     try {
       final repository = ref.read(clubRepositoryProvider.notifier);
+      // final locationService = ref.read(mapLocationServiceProvider.notifier);
 
       final results = await repository.getBranches(
-        request: ClubFilterRequest(limit: 100),
+        request:
+            filterRequest?.copyWith(
+              limit: filterRequest.limit ?? 100,
+              page: filterRequest.page ?? 1,
+            ) ??
+            ClubFilterRequest(
+              limit: 100,
+              page: 1,
+              // lat: locationService.currentPosition.latitude,
+              // lng: locationService.currentPosition.longitude,
+              // radius: 100,
+            ),
       );
 
       final newState = results;

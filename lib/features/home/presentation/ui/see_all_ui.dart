@@ -47,7 +47,12 @@ class SeeAllUi extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  context.router.push(ClubRoute(id: clubs[index].id ?? ''));
+                  context.router.push(
+                    ClubRoute(
+                      id: clubs[index].id ?? '',
+                      distance: clubs[index].distance?.toString() ?? '',
+                    ),
+                  );
                 },
                 child: ClubCard(
                   club: clubs[index],

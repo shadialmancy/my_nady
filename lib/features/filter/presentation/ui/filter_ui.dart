@@ -4,30 +4,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/shared/widgets/widgets.dart';
-import '../../data/model/filter_model.dart';
+import '../../../../features/club/data/models/club_filter_request.dart';
 import '../provider/filter_service.dart';
 import '../widgets/widgets.dart';
+import 'package:my_nady_project/features/home/presentation/provider/home_ui_service.dart';
 
 class FilterUi extends ConsumerStatefulWidget {
   const FilterUi({super.key, this.onApplyFilters, this.initialFilters});
 
-  final Function(FilterData)? onApplyFilters;
-  final FilterData? initialFilters;
+  final Function(ClubFilterRequest)? onApplyFilters;
+  final ClubFilterRequest? initialFilters;
 
   @override
   ConsumerState<FilterUi> createState() => _FilterUiState();
 }
 
 class _FilterUiState extends ConsumerState<FilterUi> {
-  late TextEditingController gymNameController;
+  late TextEditingController searchController;
   late TextEditingController areaController;
   String? selectedGender;
-  final Set<String> selectedGymTypes = {};
+  String? selectedTypeId;
   String? selectedArea;
-  final Set<String> selectedFacilities = {};
   RangeValues priceRange = const RangeValues(0, 100000);
-  String? selectedSubscriptionType;
-  bool includesOffer = false;
+  num? radius;
+  String? selectedSortBy;
+  bool? hasOffers;
 
   // Sample data - replace with actual data from your backend
   final List<String> gymNames = [
@@ -38,7 +39,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
     'Elite Fitness Club',
   ];
 
-  final List<String> genders = ['Male', 'Female', 'Kids', 'Mix', 'Family'];
+  final List<String> genders = ['Male', 'Female', 'Kids', 'Mix'];
 
   final List<String> gymTypes = [
     'Bodybuilding',
@@ -60,29 +61,17 @@ class _FilterUiState extends ConsumerState<FilterUi> {
     'South District',
   ];
 
-  final List<String> facilities = [
-    'Swimming Pool',
-    'Cafeteria',
-    'Sauna',
-    'Steam Room',
-    'Parking',
-    'Locker Room',
-    'Personal Training',
-    'Group Classes',
-  ];
-
-  final List<String> subscriptionTypes = [
-    'Daily',
-    'Monthly',
-    '3 Month',
-    '6 Month',
-    'Annually',
+  final List<String> sortOptions = [
+    'Price: Low to High',
+    'Price: High to Low',
+    'Rating',
+    'Distance',
   ];
 
   @override
   void initState() {
     super.initState();
-    gymNameController = TextEditingController();
+    searchController = TextEditingController();
     areaController = TextEditingController();
 
     // Initialize with existing filters from service or provided filters
@@ -91,42 +80,51 @@ class _FilterUiState extends ConsumerState<FilterUi> {
         ref.read(filterServiceProvider.notifier).currentFilters;
 
     if (existingFilters != null) {
-      gymNameController.text = existingFilters.gymName ?? '';
+      searchController.text = existingFilters.search ?? '';
       selectedGender = existingFilters.gender;
-      selectedGymTypes.addAll(existingFilters.gymTypes);
+      selectedTypeId = existingFilters.typeId;
       selectedArea = existingFilters.area;
-      selectedFacilities.addAll(existingFilters.facilities);
-      priceRange = existingFilters.priceRange;
-      selectedSubscriptionType = existingFilters.subscriptionType;
-      includesOffer = existingFilters.includesOffer;
+      priceRange = RangeValues(
+        existingFilters.minPrice?.toDouble() ?? 0,
+        existingFilters.maxPrice?.toDouble() ?? 10000000000,
+      );
+      radius = existingFilters.radius;
+      selectedSortBy = existingFilters.sortBy;
+      hasOffers = existingFilters.hasOffers;
     }
   }
 
   @override
   void dispose() {
-    gymNameController.dispose();
+    searchController.dispose();
     areaController.dispose();
     super.dispose();
   }
 
   void _applyFilters() {
-    final filterData = FilterData(
-      gymName: gymNameController.text.isEmpty ? null : gymNameController.text,
-      gender: selectedGender,
-      gymTypes: selectedGymTypes.toList(),
+    final filterRequest = ClubFilterRequest(
+      search: searchController.text.isEmpty ? null : searchController.text,
+      gender: selectedGender?.toUpperCase(),
+      typeId: selectedTypeId,
       area: selectedArea,
-      facilities: selectedFacilities.toList(),
-      priceRange: priceRange,
-      subscriptionType: selectedSubscriptionType,
-      includesOffer: includesOffer,
+      minPrice: priceRange.start,
+      maxPrice: priceRange.end,
+      radius: radius,
+      sortBy: selectedSortBy,
+      hasOffers: hasOffers,
     );
-    logger.i(filterData.toString());
+    logger.i(filterRequest.toString());
 
     // Apply filters in the provider
-    ref.read(filterServiceProvider.notifier).applyFilters(filterData);
+    ref.read(filterServiceProvider.notifier).applyFilters(filterRequest);
 
-    widget.onApplyFilters?.call(filterData);
-    context.router.maybePop(filterData);
+    // Call fetchHomeData from HomeUiService to get filtered data
+    ref
+        .read(homeUiServiceProvider.notifier)
+        .fetchHomeData(filterRequest: filterRequest);
+
+    widget.onApplyFilters?.call(filterRequest);
+    context.router.maybePop(filterRequest);
   }
 
   void _resetFilters() {
@@ -135,15 +133,15 @@ class _FilterUiState extends ConsumerState<FilterUi> {
 
     // Reset local UI state
     setState(() {
-      gymNameController.clear();
+      searchController.clear();
       areaController.clear();
       selectedGender = null;
-      selectedGymTypes.clear();
+      selectedTypeId = null;
       selectedArea = null;
-      selectedFacilities.clear();
       priceRange = const RangeValues(0, 100000);
-      selectedSubscriptionType = null;
-      includesOffer = false;
+      radius = null;
+      selectedSortBy = null;
+      hasOffers = null;
     });
   }
 
@@ -201,12 +199,12 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                 SectionTitle(title: l10n.gymclubName),
                 gapH8,
                 SearchableDropdown(
-                  controller: gymNameController,
+                  controller: searchController,
                   items: gymNames,
                   hint: l10n.searchGymName,
                   onSelected: (value) {
                     setState(() {
-                      gymNameController.text = value;
+                      searchController.text = value;
                     });
                   },
                 ),
@@ -227,16 +225,12 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                 // 3. Gym/Club Type
                 SectionTitle(title: 'Gym/Club Type'),
                 gapH8,
-                CheckboxGroup(
-                  items: gymTypes,
-                  selectedItems: selectedGymTypes,
-                  onChanged: (value, isSelected) {
+                GenderSelector(
+                  genders: gymTypes,
+                  selectedGender: selectedTypeId,
+                  onSelected: (value) {
                     setState(() {
-                      if (isSelected) {
-                        selectedGymTypes.add(value);
-                      } else {
-                        selectedGymTypes.remove(value);
-                      }
+                      selectedTypeId = value;
                     });
                   },
                 ),
@@ -255,25 +249,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                   },
                 ),
                 gapH20,
-                // 5. Gym/Club Facilities
-                SectionTitle(title: 'Gym/Club Facilities'),
-                gapH8,
-                CheckboxGroup(
-                  items: facilities,
-                  selectedItems: selectedFacilities,
-                  onChanged: (value, isSelected) {
-                    setState(() {
-                      if (isSelected) {
-                        selectedFacilities.add(value);
-                      } else {
-                        selectedFacilities.remove(value);
-                      }
-                    });
-                  },
-                ),
-                gapH20,
-
-                // 6. Price Range
+                // 4. Price Range
                 SectionTitle(title: 'Price Range'),
                 gapH8,
                 PriceSlider(
@@ -285,25 +261,46 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                   },
                 ),
                 gapH20,
-                // 7. Subscription Type
-                SectionTitle(title: 'Subscription Type'),
+
+                // 5. Radius
+                SectionTitle(title: 'Radius (km)'),
                 gapH8,
-                SubscriptionTypeSelector(
-                  subscriptionTypes: subscriptionTypes,
-                  selectedSubscriptionType: selectedSubscriptionType,
-                  onSelected: (value) {
+                Slider(
+                  value: radius?.toDouble() ?? 0,
+                  min: 0,
+                  max: 100,
+                  divisions: 20,
+                  activeColor: theme.primary,
+                  inactiveColor: theme.borderGrey,
+                  label: '${radius?.round() ?? 0} km',
+                  onChanged: (value) {
                     setState(() {
-                      selectedSubscriptionType = value;
+                      radius = value;
                     });
                   },
                 ),
                 gapH20,
-                // 8. Includes Offer
-                OfferCheckbox(
-                  includesOffer: includesOffer,
+
+                // 6. Sort By
+                SectionTitle(title: 'Sort By'),
+                gapH8,
+                GenderSelector(
+                  genders: sortOptions,
+                  selectedGender: selectedSortBy,
                   onSelected: (value) {
                     setState(() {
-                      includesOffer = value;
+                      selectedSortBy = value;
+                    });
+                  },
+                ),
+                gapH20,
+
+                // 7. Includes Offer
+                OfferCheckbox(
+                  includesOffer: hasOffers ?? false,
+                  onSelected: (value) {
+                    setState(() {
+                      hasOffers = value;
                     });
                   },
                 ),

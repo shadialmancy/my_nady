@@ -22,7 +22,7 @@ class _ClubBannerState extends State<ClubBanner> {
 
     return GestureDetector(
       onTap: () {
-        context.router.push(ClubRoute(id: ""));
+        context.router.push(ClubRoute(id: "", distance: ""));
       },
       child: Container(
         width: .infinity,

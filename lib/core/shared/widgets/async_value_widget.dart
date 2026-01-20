@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_nady_project/core/constants/app_sizes.dart';
 
 class AsyncValueWidget<T> extends StatelessWidget {
   const AsyncValueWidget({
@@ -18,6 +19,7 @@ class AsyncValueWidget<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final (theme, l10n) = appSettingsRecord(context);
     return value.when(
       data: builder,
       error:
@@ -29,7 +31,8 @@ class AsyncValueWidget<T> extends StatelessWidget {
             );
           },
       loading:
-          loading ?? () => const Center(child: CircularProgressIndicator()),
+          loading ??
+          () => Center(child: CircularProgressIndicator(color: theme.primary)),
     );
   }
 }

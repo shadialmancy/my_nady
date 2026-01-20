@@ -140,12 +140,16 @@ class ClubLocationRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [ClubScreen]
 class ClubRoute extends PageRouteInfo<ClubRouteArgs> {
-  ClubRoute({Key? key, required String id, List<PageRouteInfo>? children})
-    : super(
-        ClubRoute.name,
-        args: ClubRouteArgs(key: key, id: id),
-        initialChildren: children,
-      );
+  ClubRoute({
+    Key? key,
+    required String id,
+    required String distance,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ClubRoute.name,
+         args: ClubRouteArgs(key: key, id: id, distance: distance),
+         initialChildren: children,
+       );
 
   static const String name = 'ClubRoute';
 
@@ -153,32 +157,34 @@ class ClubRoute extends PageRouteInfo<ClubRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ClubRouteArgs>();
-      return ClubScreen(key: args.key, id: args.id);
+      return ClubScreen(key: args.key, id: args.id, distance: args.distance);
     },
   );
 }
 
 class ClubRouteArgs {
-  const ClubRouteArgs({this.key, required this.id});
+  const ClubRouteArgs({this.key, required this.id, required this.distance});
 
   final Key? key;
 
   final String id;
 
+  final String distance;
+
   @override
   String toString() {
-    return 'ClubRouteArgs{key: $key, id: $id}';
+    return 'ClubRouteArgs{key: $key, id: $id, distance: $distance}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! ClubRouteArgs) return false;
-    return key == other.key && id == other.id;
+    return key == other.key && id == other.id && distance == other.distance;
   }
 
   @override
-  int get hashCode => key.hashCode ^ id.hashCode;
+  int get hashCode => key.hashCode ^ id.hashCode ^ distance.hashCode;
 }
 
 /// generated route for

@@ -18,6 +18,14 @@ class HomeUi extends ConsumerStatefulWidget {
 }
 
 class _HomeUiState extends ConsumerState<HomeUi> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     ref.read(homeUiServiceProvider.notifier).fetchHomeData();
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
@@ -25,6 +33,8 @@ class _HomeUiState extends ConsumerState<HomeUi> {
     final searchQuery = ref.watch(homeSearchQueryProvider).toLowerCase();
 
     return RefreshIndicator(
+      backgroundColor: theme.white,
+      color: theme.primary,
       onRefresh: () async {
         await homeUiService.fetchHomeData();
       },

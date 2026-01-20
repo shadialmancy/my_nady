@@ -17,12 +17,10 @@ class ClubDataSourceImpl implements ClubDataSource {
     final Map<String, dynamic> queryParameters = request?.toJson() ?? {};
     // Remove null values to avoid sending them in the query
     queryParameters.removeWhere((key, value) => value == null);
-
     final response = await DioClient().dio.get(
       AppConstants.branchesApiUrl,
       queryParameters: queryParameters,
     );
-
     if (response.statusCode == 200) {
       return ClubDto.fromJson(response.data);
     } else {

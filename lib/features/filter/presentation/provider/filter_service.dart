@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/helpers/assets_helper.dart';
-import '../../data/model/filter_model.dart';
+import '../../../../features/club/data/models/club_filter_request.dart';
 
 part 'filter_service.g.dart';
 
@@ -125,18 +125,18 @@ class FilterService extends _$FilterService {
   List<Map<String, dynamic>> filteredClubList = [];
 
   /// Apply filters and update the state
-  void applyFilters(FilterData filterData) {
-    logger.i('Applying filters: $filterData');
+  void applyFilters(ClubFilterRequest filterRequest) {
+    logger.i('Applying filters: $filterRequest');
 
     // Store current filter data
-    _currentFilters = filterData;
+    _currentFilters = filterRequest;
 
     // Apply filtering logic
     filteredClubList = clubList.where((club) {
       // Filter by gender/category
-      if (filterData.gender != null) {
+      if (filterRequest.gender != null) {
         final clubCategory = club['category']?.toString().toLowerCase();
-        final filterGender = filterData.gender!.toLowerCase();
+        final filterGender = filterRequest.gender!.toLowerCase();
 
         if (clubCategory != filterGender) {
           return false;
@@ -144,9 +144,9 @@ class FilterService extends _$FilterService {
       }
 
       // Filter by gym name
-      if (filterData.gymName != null && filterData.gymName!.isNotEmpty) {
+      if (filterRequest.search != null && filterRequest.search!.isNotEmpty) {
         final clubTitle = club['title']?.toString().toLowerCase() ?? '';
-        final searchName = filterData.gymName!.toLowerCase();
+        final searchName = filterRequest.search!.toLowerCase();
 
         if (!clubTitle.contains(searchName)) {
           return false;
@@ -178,9 +178,9 @@ class FilterService extends _$FilterService {
   }
 
   /// Check if any filters are active
-  bool get hasActiveFilters => _currentFilters?.hasActiveFilters ?? false;
+  bool get hasActiveFilters => _currentFilters != null;
 
   /// Get current filter data
-  FilterData? _currentFilters;
-  FilterData? get currentFilters => _currentFilters;
+  ClubFilterRequest? _currentFilters;
+  ClubFilterRequest? get currentFilters => _currentFilters;
 }
