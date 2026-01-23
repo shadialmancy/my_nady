@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:my_nady_project/core/helpers/session_manager.dart';
 import 'package:my_nady_project/features/authentication/data/models/user_dto/user_dto.dart';
 import '../models/error_model/error_model.dart';
@@ -24,10 +25,16 @@ class AuthenticationSourceImpl implements AuthenticationSource {
     var body = {AppStrings.email: email, AppStrings.password: password};
     final response = await DioClient().dio.post(
       AppConstants.loginApiUrl,
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Client-Type': 'mobile',
+        },
+      ),
       data: body,
     );
     if (response.statusCode == 200) {
-      return UserDto.fromJson(response.data);
+      return UserDto.fromJson(response.data["data"]);
     } else {
       final errorModel = ErrorModel.fromJson(response.data);
       throw errorModel.message ?? 'Error in registerUser';

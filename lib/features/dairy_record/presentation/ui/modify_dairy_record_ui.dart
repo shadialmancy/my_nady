@@ -5,14 +5,20 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 
-class ModifyDairyRecordUi extends StatefulWidget {
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import '../provider/dairy_record_ui_service.dart';
+
+class ModifyDairyRecordUi extends ConsumerStatefulWidget {
   const ModifyDairyRecordUi({super.key});
 
   @override
-  State<ModifyDairyRecordUi> createState() => _ModifyDairyRecordUiState();
+  ConsumerState<ModifyDairyRecordUi> createState() =>
+      _ModifyDairyRecordUiState();
 }
 
-class _ModifyDairyRecordUiState extends State<ModifyDairyRecordUi> {
+class _ModifyDairyRecordUiState extends ConsumerState<ModifyDairyRecordUi> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -57,7 +63,21 @@ class _ModifyDairyRecordUiState extends State<ModifyDairyRecordUi> {
                 gapH24,
                 CustomButton(
                   title: l10n.save,
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (titleController.text.isNotEmpty &&
+                        dateController.text.isNotEmpty) {
+                      await ref
+                          .read(dairyRecordUiServiceProvider.notifier)
+                          .addDairyRecord(
+                            title: titleController.text,
+                            description: descriptionController.text,
+                            date: dateController.text,
+                          );
+                      if (mounted) {
+                        context.router.maybePop();
+                      }
+                    }
+                  },
                   width: .infinity,
                   shape: RoundedRectangleBorder(borderRadius: .circular(16)),
                 ),
@@ -105,8 +125,9 @@ class _ModifyDairyRecordUiState extends State<ModifyDairyRecordUi> {
                           (DateRangePickerSelectionChangedArgs args) {
                             final DateTime selectedDate =
                                 args.value as DateTime;
-                            dateController.text =
-                                '${selectedDate.year}-${selectedDate.month}-${selectedDate.day}';
+                            dateController.text = DateFormat(
+                              'yyyy-MM-dd',
+                            ).format(selectedDate);
                           },
                     ),
                   ),

@@ -4,12 +4,18 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 
-class SubDairyRecordUi extends StatelessWidget {
-  const SubDairyRecordUi({super.key, this.title, this.date});
+import '../../data/models/dairy_dto/datum.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../provider/dairy_record_ui_service.dart';
+
+class SubDairyRecordUi extends ConsumerWidget {
+  const SubDairyRecordUi({super.key, this.title, this.date, this.datum});
   final String? title;
   final String? date;
+  final DairyDatum? datum;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final (theme, l10n) = appSettingsRecord(context);
     return SingleChildScrollView(
       padding: .symmetric(horizontal: 3.sw, vertical: 3.sh),
@@ -35,10 +41,24 @@ class SubDairyRecordUi extends StatelessWidget {
           ),
           gapH24,
           Column(
-            children: List.generate(
-              5,
-              (index) => const DairyRecordingCard(isSub: true),
-            ),
+            children: (datum?.items ?? []).map((item) {
+              return DairyRecordingCard(
+                isSub: true,
+                title: item.title,
+                content: item.description,
+                isCompleted: item.isCompleted ?? false,
+                onChanged: (value) {
+                  ref
+                      .read(dairyRecordUiServiceProvider.notifier)
+                      .updateDairyItem(itemId: item.id!, isCompleted: value);
+                },
+                onDelete: () {
+                  ref
+                      .read(dairyRecordUiServiceProvider.notifier)
+                      .deleteDairyItem(item.id!);
+                },
+              );
+            }).toList(),
           ),
         ],
       ),

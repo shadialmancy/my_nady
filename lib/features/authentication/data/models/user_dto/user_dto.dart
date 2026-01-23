@@ -12,8 +12,10 @@ part 'user_dto.g.dart';
 @freezed
 class UserDto with _$UserDto {
   factory UserDto({
-    @JsonKey(name: 'access_token') String? accessToken,
-    @JsonKey(name: 'refresh_token') String? refreshToken,
+    @JsonKey(name: 'accessToken') String? accessToken,
+    @JsonKey(name: 'refreshToken') String? refreshToken,
+    @JsonKey(name: 'accessTokenExpiresAt') String? accessTokenExpiresAt,
+    @JsonKey(name: 'refreshTokenExpiresAt') String? refreshTokenExpiresAt,
     User? user,
     bool? isEmailVerified,
   }) = _UserDto;
@@ -29,6 +31,8 @@ extension UserDtoX on UserDto {
   UserEntity toEntity() => UserEntity(
     accessToken: accessToken,
     refreshToken: refreshToken,
+    accessTokenExpiresAt: accessTokenExpiresAt,
+    refreshTokenExpiresAt: refreshTokenExpiresAt,
     user: user,
     isEmailVerified: isEmailVerified,
   );

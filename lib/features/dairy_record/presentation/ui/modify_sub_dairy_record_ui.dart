@@ -5,14 +5,22 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 
-class ModifySubDairyRecordUi extends StatefulWidget {
-  const ModifySubDairyRecordUi({super.key});
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import '../provider/dairy_record_ui_service.dart';
+
+class ModifySubDairyRecordUi extends ConsumerStatefulWidget {
+  const ModifySubDairyRecordUi({super.key, required this.diaryId});
+  final String diaryId;
 
   @override
-  State<ModifySubDairyRecordUi> createState() => _ModifySubDairyRecordUiState();
+  ConsumerState<ModifySubDairyRecordUi> createState() =>
+      _ModifySubDairyRecordUiState();
 }
 
-class _ModifySubDairyRecordUiState extends State<ModifySubDairyRecordUi> {
+class _ModifySubDairyRecordUiState
+    extends ConsumerState<ModifySubDairyRecordUi> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -77,7 +85,22 @@ class _ModifySubDairyRecordUiState extends State<ModifySubDairyRecordUi> {
               gapH24,
               CustomButton(
                 title: l10n.save,
-                onPressed: () {},
+                onPressed: () async {
+                  if (titleController.text.isNotEmpty) {
+                    final desc =
+                        "${descriptionController.text}\nSet: ${setController.text}, Rep: ${repetitionController.text}";
+                    await ref
+                        .read(dairyRecordUiServiceProvider.notifier)
+                        .addDairyItem(
+                          diaryId: widget.diaryId,
+                          title: titleController.text,
+                          description: desc,
+                        );
+                    if (mounted) {
+                      context.router.maybePop();
+                    }
+                  }
+                },
                 width: .infinity,
                 shape: RoundedRectangleBorder(borderRadius: .circular(16)),
               ),
@@ -124,8 +147,9 @@ class _ModifySubDairyRecordUiState extends State<ModifySubDairyRecordUi> {
                           (DateRangePickerSelectionChangedArgs args) {
                             final DateTime selectedDate =
                                 args.value as DateTime;
-                            dateController.text =
-                                '${selectedDate.year}-${selectedDate.month}-${selectedDate.day}';
+                            dateController.text = DateFormat(
+                              'yyyy-MM-dd',
+                            ).format(selectedDate);
                           },
                     ),
                   ),

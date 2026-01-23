@@ -9,6 +9,7 @@ import 'package:my_nady_project/features/club/data/models/gym_detail_dto/gym_det
 abstract class ClubDataSource {
   Future<ClubDto> getBranches(ClubFilterRequest? request);
   Future<GymDetailDto> getGymDetails(String id);
+  Future<void> purchaseSubscription(String subscriptionPlanId);
 }
 
 class ClubDataSourceImpl implements ClubDataSource {
@@ -40,6 +41,21 @@ class ClubDataSourceImpl implements ClubDataSource {
     } else {
       final errorModel = ErrorModel.fromJson(response.data);
       throw errorModel.message ?? 'Error in getBranchDetails';
+    }
+  }
+
+  @override
+  Future<void> purchaseSubscription(String subscriptionPlanId) async {
+    final response = await DioClient().dio.post(
+      AppConstants.purchaseSubscriptionApiUrl,
+      data: {'subscriptionPlanId': subscriptionPlanId},
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return;
+    } else {
+      final errorModel = ErrorModel.fromJson(response.data);
+      throw errorModel.message ?? 'Error in purchaseSubscription';
     }
   }
 }

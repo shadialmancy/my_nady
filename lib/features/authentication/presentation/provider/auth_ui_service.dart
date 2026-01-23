@@ -1,6 +1,7 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:my_nady_project/features/authentication/data/models/user_dto/user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../../../core/helpers/session_manager.dart';
 
 import '../../../../core/shared/widgets/app_toast.dart';
 import '../../domain/entities/user_entity.dart';
@@ -11,11 +12,30 @@ part 'auth_ui_service.g.dart';
 @Riverpod(keepAlive: true)
 class AuthUiService extends _$AuthUiService {
   @override
-  FutureOr<User?> build() {
-    return fetchSavedUser();
+  FutureOr<User?> build() async {
+    final user = await fetchSavedUser();
+    if (user != null) {
+      final isExpired = await _isRefreshTokenExpired();
+      if (isExpired) {
+        logout();
+        return null;
+      }
+    }
+    return user;
   }
 
   final String _userInfoBox = 'userInfoBox';
+
+  Future<bool> _isRefreshTokenExpired() async {
+    final expiresAtStr = await sessionManager.getRefreshTokenExpiresAt();
+    if (expiresAtStr == null) return false;
+    try {
+      final expiresAt = DateTime.parse(expiresAtStr);
+      return DateTime.now().isAfter(expiresAt);
+    } catch (e) {
+      return false;
+    }
+  }
 
   Future<User?> fetchSavedUser() async {
     if (!Hive.isBoxOpen(_userInfoBox)) {
@@ -41,7 +61,8 @@ class AuthUiService extends _$AuthUiService {
       await Hive.openBox(_userInfoBox);
     }
     var userBox = Hive.box(_userInfoBox);
-    userBox.add(user);
+    await userBox.clear();
+    await userBox.add(user);
   }
 
   UserEntity? _userEntity;
@@ -55,6 +76,22 @@ class AuthUiService extends _$AuthUiService {
       _userEntity = await ref
           .read(authenticationRepositoryProvider.notifier)
           .loginUser(email: email, password: password);
+
+      if (_userEntity != null) {
+        await sessionManager.setAuthToken(token: _userEntity!.accessToken);
+        await sessionManager.setRefreshToken(token: _userEntity!.refreshToken);
+        await sessionManager.setAccessTokenExpiresAt(
+          expiresAt: _userEntity!.accessTokenExpiresAt,
+        );
+        await sessionManager.setRefreshTokenExpiresAt(
+          expiresAt: _userEntity!.refreshTokenExpiresAt,
+        );
+
+        if (_userEntity!.user != null) {
+          await saveUser(_userEntity!.user!);
+        }
+      }
+
       await fetchSavedUser();
       state = AsyncValue.data(_userEntity?.user);
       return _userEntity;
@@ -82,6 +119,21 @@ class AuthUiService extends _$AuthUiService {
             name: name,
             phone: phone,
           );
+      if (_userEntity != null) {
+        await sessionManager.setAuthToken(token: _userEntity!.accessToken);
+        await sessionManager.setRefreshToken(token: _userEntity!.refreshToken);
+        await sessionManager.setAccessTokenExpiresAt(
+          expiresAt: _userEntity!.accessTokenExpiresAt,
+        );
+        await sessionManager.setRefreshTokenExpiresAt(
+          expiresAt: _userEntity!.refreshTokenExpiresAt,
+        );
+
+        if (_userEntity!.user != null) {
+          await saveUser(_userEntity!.user!);
+        }
+      }
+
       await fetchSavedUser();
       state = AsyncValue.data(_userEntity?.user);
       return _userEntity;
@@ -103,15 +155,19 @@ class AuthUiService extends _$AuthUiService {
     } catch (e) {
       AppToast.errorToast(e.toString());
     } finally {
-      logout();
+      await logout();
     }
   }
 
-  void logout() {
+  Future<void> logout() async {
     var userBox = Hive.box(_userInfoBox);
     _userEntity = null;
-    userBox.clear();
-    userBox.close();
+    await sessionManager.setAuthToken(token: null);
+    await sessionManager.setRefreshToken(token: null);
+    await sessionManager.setAccessTokenExpiresAt(expiresAt: null);
+    await sessionManager.setRefreshTokenExpiresAt(expiresAt: null);
+    await userBox.clear();
+    await userBox.close();
     ref.invalidateSelf();
   }
 

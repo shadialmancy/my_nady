@@ -333,18 +333,50 @@ class ModifyDairyRecordRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ModifySubDairyRecordScreen]
-class ModifySubDairyRecordRoute extends PageRouteInfo<void> {
-  const ModifySubDairyRecordRoute({List<PageRouteInfo>? children})
-    : super(ModifySubDairyRecordRoute.name, initialChildren: children);
+class ModifySubDairyRecordRoute
+    extends PageRouteInfo<ModifySubDairyRecordRouteArgs> {
+  ModifySubDairyRecordRoute({
+    Key? key,
+    required String diaryId,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ModifySubDairyRecordRoute.name,
+         args: ModifySubDairyRecordRouteArgs(key: key, diaryId: diaryId),
+         initialChildren: children,
+       );
 
   static const String name = 'ModifySubDairyRecordRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ModifySubDairyRecordScreen();
+      final args = data.argsAs<ModifySubDairyRecordRouteArgs>();
+      return ModifySubDairyRecordScreen(key: args.key, diaryId: args.diaryId);
     },
   );
+}
+
+class ModifySubDairyRecordRouteArgs {
+  const ModifySubDairyRecordRouteArgs({this.key, required this.diaryId});
+
+  final Key? key;
+
+  final String diaryId;
+
+  @override
+  String toString() {
+    return 'ModifySubDairyRecordRouteArgs{key: $key, diaryId: $diaryId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ModifySubDairyRecordRouteArgs) return false;
+    return key == other.key && diaryId == other.diaryId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ diaryId.hashCode;
 }
 
 /// generated route for
@@ -498,10 +530,16 @@ class SubDairyRecordRoute extends PageRouteInfo<SubDairyRecordRouteArgs> {
     Key? key,
     String? title,
     String? date,
+    DairyDatum? datum,
     List<PageRouteInfo>? children,
   }) : super(
          SubDairyRecordRoute.name,
-         args: SubDairyRecordRouteArgs(key: key, title: title, date: date),
+         args: SubDairyRecordRouteArgs(
+           key: key,
+           title: title,
+           date: date,
+           datum: datum,
+         ),
          initialChildren: children,
        );
 
@@ -517,13 +555,14 @@ class SubDairyRecordRoute extends PageRouteInfo<SubDairyRecordRouteArgs> {
         key: args.key,
         title: args.title,
         date: args.date,
+        datum: args.datum,
       );
     },
   );
 }
 
 class SubDairyRecordRouteArgs {
-  const SubDairyRecordRouteArgs({this.key, this.title, this.date});
+  const SubDairyRecordRouteArgs({this.key, this.title, this.date, this.datum});
 
   final Key? key;
 
@@ -531,20 +570,26 @@ class SubDairyRecordRouteArgs {
 
   final String? date;
 
+  final DairyDatum? datum;
+
   @override
   String toString() {
-    return 'SubDairyRecordRouteArgs{key: $key, title: $title, date: $date}';
+    return 'SubDairyRecordRouteArgs{key: $key, title: $title, date: $date, datum: $datum}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! SubDairyRecordRouteArgs) return false;
-    return key == other.key && title == other.title && date == other.date;
+    return key == other.key &&
+        title == other.title &&
+        date == other.date &&
+        datum == other.datum;
   }
 
   @override
-  int get hashCode => key.hashCode ^ title.hashCode ^ date.hashCode;
+  int get hashCode =>
+      key.hashCode ^ title.hashCode ^ date.hashCode ^ datum.hashCode;
 }
 
 /// generated route for

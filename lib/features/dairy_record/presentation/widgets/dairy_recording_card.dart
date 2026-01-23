@@ -3,15 +3,39 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_sizes.dart';
 
 class DairyRecordingCard extends StatefulWidget {
-  const DairyRecordingCard({super.key, this.isSub, this.onTap});
+  const DairyRecordingCard({
+    super.key,
+    this.isSub,
+    this.onTap,
+    this.title,
+    this.content,
+    this.subtitle,
+    this.isCompleted = false,
+    this.onChanged,
+    this.onDelete,
+  });
   final bool? isSub;
   final Function()? onTap;
+  final String? title;
+  final String? content;
+  final String? subtitle;
+  final bool isCompleted;
+  final ValueChanged<bool?>? onChanged;
+  final VoidCallback? onDelete;
+
   @override
   State<DairyRecordingCard> createState() => _DairyRecordingCardState();
 }
 
 class _DairyRecordingCardState extends State<DairyRecordingCard> {
-  bool isChecked = false;
+  late bool isChecked;
+
+  @override
+  void initState() {
+    super.initState();
+    isChecked = widget.isCompleted;
+  }
+
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
@@ -33,27 +57,30 @@ class _DairyRecordingCardState extends State<DairyRecordingCard> {
             Column(
               crossAxisAlignment: .start,
               children: [
-                Text(
-                  "3*12",
-                  style: theme.labelMedium.copyWith(
-                    fontSize: 10,
-                    color: isChecked ? theme.white : theme.primaryText,
+                if (widget.subtitle != null)
+                  Text(
+                    widget.subtitle!,
+                    style: theme.labelMedium.copyWith(
+                      fontSize: 10,
+                      color: isChecked ? theme.white : theme.primaryText,
+                    ),
                   ),
-                ),
-                Text(
-                  "🛏️ Bench Press #1",
-                  style: theme.bodyMedium.copyWith(
-                    fontSize: 14,
-                    color: isChecked ? theme.white : theme.primaryText,
+                if (widget.title != null)
+                  Text(
+                    widget.title!,
+                    style: theme.bodyMedium.copyWith(
+                      fontSize: 14,
+                      color: isChecked ? theme.white : theme.primaryText,
+                    ),
                   ),
-                ),
-                Text(
-                  "Here is my description in my memories #1",
-                  style: theme.labelMedium.copyWith(
-                    fontSize: 10,
-                    color: isChecked ? theme.white : theme.primaryText,
+                if (widget.content != null)
+                  Text(
+                    widget.content!,
+                    style: theme.labelMedium.copyWith(
+                      fontSize: 10,
+                      color: isChecked ? theme.white : theme.primaryText,
+                    ),
                   ),
-                ),
               ],
             ),
             widget.isSub ?? false
@@ -72,9 +99,21 @@ class _DairyRecordingCardState extends State<DairyRecordingCard> {
                       }),
                       onChanged: (value) {
                         setState(() {
-                          isChecked = !isChecked;
+                          isChecked = value ?? false;
                         });
+                        widget.onChanged?.call(value);
                       },
+                    ),
+                  )
+                : widget.onDelete != null
+                ? Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.delete_outline,
+                        color: isChecked ? theme.white : theme.error,
+                      ),
+                      onPressed: widget.onDelete,
                     ),
                   )
                 : const SizedBox(),

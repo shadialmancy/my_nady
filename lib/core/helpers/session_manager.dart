@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class _SessionManager {
   final String authToken = 'authorization';
   final String refreshToken = 'refresh-token';
+  final String accessTokenExpiresAt = 'access-token-expires-at';
+  final String refreshTokenExpiresAt = 'refresh-token-expires-at';
   final String deviceToken = 'device-token';
   final String locale = 'locale';
   final String boardingVisitState = 'boarding-visit-state';
@@ -39,11 +41,9 @@ class _SessionManager {
     token == null ? prefs.remove(authToken) : prefs.setString(authToken, token);
   }
 
-  Future<String> getAuthToken() async {
+  Future<String?> getAuthToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    String tokenn;
-    tokenn = pref.getString(authToken) ?? 'Token';
-    return tokenn;
+    return pref.getString(authToken);
   }
 
   Future<void> setRefreshToken({String? token}) async {
@@ -58,6 +58,30 @@ class _SessionManager {
     String token;
     token = pref.getString(refreshToken) ?? 'Token';
     return token;
+  }
+
+  Future<void> setAccessTokenExpiresAt({String? expiresAt}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    expiresAt == null
+        ? prefs.remove(accessTokenExpiresAt)
+        : prefs.setString(accessTokenExpiresAt, expiresAt);
+  }
+
+  Future<String?> getAccessTokenExpiresAt() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getString(accessTokenExpiresAt);
+  }
+
+  Future<void> setRefreshTokenExpiresAt({String? expiresAt}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    expiresAt == null
+        ? prefs.remove(refreshTokenExpiresAt)
+        : prefs.setString(refreshTokenExpiresAt, expiresAt);
+  }
+
+  Future<String?> getRefreshTokenExpiresAt() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getString(refreshTokenExpiresAt);
   }
 }
 

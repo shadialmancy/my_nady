@@ -14,6 +14,8 @@ class UserEntity with _$UserEntity {
   factory UserEntity({
     @HiveField(0) @JsonKey(name: 'access_token') String? accessToken,
     @HiveField(1) @JsonKey(name: 'refresh_token') String? refreshToken,
+    @HiveField(3) String? accessTokenExpiresAt,
+    @HiveField(4) String? refreshTokenExpiresAt,
     User? user,
     @HiveField(2) bool? isEmailVerified,
   }) = _UserEntity;

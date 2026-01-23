@@ -10,7 +10,8 @@ import '../features/dairy_record/presentation/ui/modify_sub_dairy_record_ui.dart
 
 @RoutePage()
 class ModifySubDairyRecordScreen extends StatelessWidget {
-  const ModifySubDairyRecordScreen({super.key});
+  const ModifySubDairyRecordScreen({super.key, required this.diaryId});
+  final String diaryId;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +38,9 @@ class ModifySubDairyRecordScreen extends StatelessWidget {
         ),
       ),
       body: CustomAdaptiveScreen.builder(
-        mobile: const ModifySubDairyRecordUi(),
-        tablet: const ModifySubDairyRecordUi(),
-        desktop: const ModifySubDairyRecordUi(),
+        mobile: ModifySubDairyRecordUi(diaryId: diaryId),
+        tablet: ModifySubDairyRecordUi(diaryId: diaryId),
+        desktop: ModifySubDairyRecordUi(diaryId: diaryId),
       ),
     );
   }

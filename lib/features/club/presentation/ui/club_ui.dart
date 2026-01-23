@@ -1,8 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_nady_project/core/router/app_router.dart';
 import 'package:my_nady_project/features/club/presentation/widget/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -11,6 +9,9 @@ import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 import '../../../home/presentation/widgets/widgets.dart';
 import '../provider/get_gym_details_service.dart';
+import '../../domain/repositories/club_repository.dart';
+import '../../../../core/shared/widgets/app_toast.dart';
+import '../../../settings/presentation/widgets/payment_success_dialog.dart';
 
 class ClubUi extends ConsumerStatefulWidget {
   const ClubUi({super.key, required this.id, required this.distance});
@@ -27,6 +28,7 @@ class _ClubUiState extends ConsumerState<ClubUi> {
 
   final PageController pageController = PageController();
   int selectedTabIndex = 0;
+  String? selectedPlanId;
 
   @override
   void initState() {
@@ -218,6 +220,11 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                           child: [
                             PackagesSection(
                               subscriptionPlans: gymData?.subscriptionPlans,
+                              onPlanSelected: (id) {
+                                setState(() {
+                                  selectedPlanId = id;
+                                });
+                              },
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,8 +280,22 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                         fontSize: 16,
                         fontWeight: .normal,
                       ),
-                      onPressed: () {
-                        context.router.push(const ClubLocationRoute());
+                      onPressed: () async {
+                        // context.router.push(const ClubLocationRoute());
+                        if (selectedPlanId != null) {
+                          try {
+                            await ref
+                                .read(clubRepositoryProvider.notifier)
+                                .purchaseSubscription(selectedPlanId!);
+                            if (context.mounted) {
+                              PaymentSuccessDialog.showPaymentDialog(context);
+                            }
+                          } catch (e) {
+                            AppToast.errorToast(e.toString());
+                          }
+                        } else {
+                          AppToast.errorToast("Please select a plan");
+                        }
                       },
                     ),
                   ],

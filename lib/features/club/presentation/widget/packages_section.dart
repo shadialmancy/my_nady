@@ -7,9 +7,14 @@ import '../../../../core/helpers/assets_helper.dart';
 import 'package:my_nady_project/features/club/data/models/gym_detail_dto/subscription_plan.dart';
 
 class PackagesSection extends StatefulWidget {
-  const PackagesSection({super.key, this.subscriptionPlans});
+  const PackagesSection({
+    super.key,
+    this.subscriptionPlans,
+    this.onPlanSelected,
+  });
 
   final List<SubscriptionPlan>? subscriptionPlans;
+  final Function(String id)? onPlanSelected;
 
   @override
   State<PackagesSection> createState() => _PackagesSectionState();
@@ -33,6 +38,13 @@ class _PackagesSectionState extends State<PackagesSection> {
           },
         )
         .toList();
+
+    // Notify initial selection if any
+    if (plans.isNotEmpty && widget.onPlanSelected != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.onPlanSelected!(plans[0].id!);
+      });
+    }
   }
 
   @override
@@ -55,6 +67,9 @@ class _PackagesSectionState extends State<PackagesSection> {
                 }
                 element['isSelected'] = true;
                 packagesListNotifier.value = List.from(value);
+                if (widget.onPlanSelected != null) {
+                  widget.onPlanSelected!(element["id"]);
+                }
               },
               child: Container(
                 width: .infinity,

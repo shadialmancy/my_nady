@@ -175,12 +175,6 @@ class _LoginUiState extends ConsumerState<LoginUi> {
                           );
                         }
                         if (authRef.getUserEntity() != null) {
-                          await sessionManager.setRefreshToken(
-                            token: authRef.getUserEntity()!.refreshToken,
-                          );
-                          await sessionManager.setAuthToken(
-                            token: authRef.getUserEntity()!.accessToken,
-                          );
                           isRemembered
                               ? await sessionManager.setBoardingVisitState(
                                   status: true,

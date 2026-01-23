@@ -32,4 +32,12 @@ class ClubRepository extends _$ClubRepository {
       rethrow;
     }
   }
+
+  Future<void> purchaseSubscription(String subscriptionPlanId) async {
+    try {
+      await _clubRepositoryImpl.purchaseSubscription(subscriptionPlanId);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -7,6 +7,8 @@ class AppConstants {
   static const String logoutApiUrl = '/authentication/logout';
   static const String resetPasswordApiUrl = '/authentication/reset-password';
   static const String branchesApiUrl = '/branches';
+  static const String purchaseSubscriptionApiUrl = '/subscriptions/purchase';
+  static const String dairyRecordsApiUrl = '/diary';
 
   static const String logoImage = 'assets/images/logo.png';
   static const String tripsAssetPath = 'assets/data/trips_mock.json';

@@ -9,11 +9,14 @@ import '../core/helpers/assets_helper.dart';
 import '../core/router/app_router.dart';
 import '../features/dairy_record/presentation/ui/sub_dairy_record_ui.dart';
 
+import '../features/dairy_record/data/models/dairy_dto/datum.dart';
+
 @RoutePage()
 class SubDairyRecordScreen extends StatelessWidget {
-  const SubDairyRecordScreen({super.key, this.title, this.date});
+  const SubDairyRecordScreen({super.key, this.title, this.date, this.datum});
   final String? title;
   final String? date;
+  final DairyDatum? datum;
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
@@ -42,23 +45,14 @@ class SubDairyRecordScreen extends StatelessWidget {
         backgroundColor: theme.primary,
         shape: const CircleBorder(),
         onPressed: () {
-          context.router.push(const ModifySubDairyRecordRoute());
+          context.router.push(ModifySubDairyRecordRoute(diaryId: datum!.id!));
         },
         child: Icon(Icons.add, color: theme.white, size: 30),
       ),
       body: CustomAdaptiveScreen.builder(
-        mobile: const SubDairyRecordUi(
-          title: "🧍‍Chest/Bench Exercises #1",
-          date: "July 23 2025",
-        ),
-        tablet: const SubDairyRecordUi(
-          title: "🧍‍Chest/Bench Exercises #1",
-          date: "July 23 2025",
-        ),
-        desktop: const SubDairyRecordUi(
-          title: "🧍‍Chest/Bench Exercises #1",
-          date: "July 23 2025",
-        ),
+        mobile: SubDairyRecordUi(title: title, date: date, datum: datum),
+        tablet: SubDairyRecordUi(title: title, date: date, datum: datum),
+        desktop: SubDairyRecordUi(title: title, date: date, datum: datum),
       ),
     );
   }

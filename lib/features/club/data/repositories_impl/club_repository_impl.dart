@@ -9,6 +9,7 @@ import 'package:my_nady_project/features/club/data/models/gym_detail_dto/gym_det
 abstract class BaseClubRepository {
   Future<ClubEntity> getBranches({ClubFilterRequest? request});
   Future<GymDetailEntity> getGymDetails(String id);
+  Future<void> purchaseSubscription(String subscriptionPlanId);
 }
 
 class ClubRepositoryImpl implements BaseClubRepository {
@@ -31,6 +32,15 @@ class ClubRepositoryImpl implements BaseClubRepository {
       return await dataSource.getGymDetails(id).then((value) {
         return value.toEntity();
       });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> purchaseSubscription(String subscriptionPlanId) async {
+    try {
+      await dataSource.purchaseSubscription(subscriptionPlanId);
     } catch (e) {
       rethrow;
     }

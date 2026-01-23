@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:my_nady_project/features/dairy_record/data/models/dairy_dto/datum.dart'
+    show DairyDatum;
 
 import '../../dashboard/dashboard.dart';
 import 'package:my_nady_project/features/club/data/models/club_dto/datum.dart';
