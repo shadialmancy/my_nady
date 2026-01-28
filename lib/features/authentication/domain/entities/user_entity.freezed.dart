@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserEntity {
 
-@HiveField(0)@JsonKey(name: 'access_token') String? get accessToken;@HiveField(1)@JsonKey(name: 'refresh_token') String? get refreshToken;@HiveField(3) String? get accessTokenExpiresAt;@HiveField(4) String? get refreshTokenExpiresAt; User? get user;@HiveField(2) bool? get isEmailVerified;
+@HiveField(0)@JsonKey(name: 'access_token') String? get accessToken;@HiveField(1)@JsonKey(name: 'refresh_token') String? get refreshToken;@HiveField(2) bool? get isEmailVerified;@HiveField(3) String? get accessTokenExpiresAt;@HiveField(4) String? get refreshTokenExpiresAt;@HiveField(5) User? get user;
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $UserEntityCopyWith<UserEntity> get copyWith => _$UserEntityCopyWithImpl<UserEnt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserEntity&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.accessTokenExpiresAt, accessTokenExpiresAt) || other.accessTokenExpiresAt == accessTokenExpiresAt)&&(identical(other.refreshTokenExpiresAt, refreshTokenExpiresAt) || other.refreshTokenExpiresAt == refreshTokenExpiresAt)&&(identical(other.user, user) || other.user == user)&&(identical(other.isEmailVerified, isEmailVerified) || other.isEmailVerified == isEmailVerified));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserEntity&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.isEmailVerified, isEmailVerified) || other.isEmailVerified == isEmailVerified)&&(identical(other.accessTokenExpiresAt, accessTokenExpiresAt) || other.accessTokenExpiresAt == accessTokenExpiresAt)&&(identical(other.refreshTokenExpiresAt, refreshTokenExpiresAt) || other.refreshTokenExpiresAt == refreshTokenExpiresAt)&&(identical(other.user, user) || other.user == user));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,refreshToken,accessTokenExpiresAt,refreshTokenExpiresAt,user,isEmailVerified);
+int get hashCode => Object.hash(runtimeType,accessToken,refreshToken,isEmailVerified,accessTokenExpiresAt,refreshTokenExpiresAt,user);
 
 @override
 String toString() {
-  return 'UserEntity(accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiresAt: $accessTokenExpiresAt, refreshTokenExpiresAt: $refreshTokenExpiresAt, user: $user, isEmailVerified: $isEmailVerified)';
+  return 'UserEntity(accessToken: $accessToken, refreshToken: $refreshToken, isEmailVerified: $isEmailVerified, accessTokenExpiresAt: $accessTokenExpiresAt, refreshTokenExpiresAt: $refreshTokenExpiresAt, user: $user)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $UserEntityCopyWith<$Res>  {
   factory $UserEntityCopyWith(UserEntity value, $Res Function(UserEntity) _then) = _$UserEntityCopyWithImpl;
 @useResult
 $Res call({
-@HiveField(0)@JsonKey(name: 'access_token') String? accessToken,@HiveField(1)@JsonKey(name: 'refresh_token') String? refreshToken,@HiveField(3) String? accessTokenExpiresAt,@HiveField(4) String? refreshTokenExpiresAt, User? user,@HiveField(2) bool? isEmailVerified
+@HiveField(0)@JsonKey(name: 'access_token') String? accessToken,@HiveField(1)@JsonKey(name: 'refresh_token') String? refreshToken,@HiveField(2) bool? isEmailVerified,@HiveField(3) String? accessTokenExpiresAt,@HiveField(4) String? refreshTokenExpiresAt,@HiveField(5) User? user
 });
 
 
@@ -65,15 +65,15 @@ class _$UserEntityCopyWithImpl<$Res>
 
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = freezed,Object? refreshToken = freezed,Object? accessTokenExpiresAt = freezed,Object? refreshTokenExpiresAt = freezed,Object? user = freezed,Object? isEmailVerified = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = freezed,Object? refreshToken = freezed,Object? isEmailVerified = freezed,Object? accessTokenExpiresAt = freezed,Object? refreshTokenExpiresAt = freezed,Object? user = freezed,}) {
   return _then(_self.copyWith(
 accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
-as String?,accessTokenExpiresAt: freezed == accessTokenExpiresAt ? _self.accessTokenExpiresAt : accessTokenExpiresAt // ignore: cast_nullable_to_non_nullable
+as String?,isEmailVerified: freezed == isEmailVerified ? _self.isEmailVerified : isEmailVerified // ignore: cast_nullable_to_non_nullable
+as bool?,accessTokenExpiresAt: freezed == accessTokenExpiresAt ? _self.accessTokenExpiresAt : accessTokenExpiresAt // ignore: cast_nullable_to_non_nullable
 as String?,refreshTokenExpiresAt: freezed == refreshTokenExpiresAt ? _self.refreshTokenExpiresAt : refreshTokenExpiresAt // ignore: cast_nullable_to_non_nullable
 as String?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as User?,isEmailVerified: freezed == isEmailVerified ? _self.isEmailVerified : isEmailVerified // ignore: cast_nullable_to_non_nullable
-as bool?,
+as User?,
   ));
 }
 /// Create a copy of UserEntity
@@ -170,10 +170,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@HiveField(0)@JsonKey(name: 'access_token')  String? accessToken, @HiveField(1)@JsonKey(name: 'refresh_token')  String? refreshToken, @HiveField(3)  String? accessTokenExpiresAt, @HiveField(4)  String? refreshTokenExpiresAt,  User? user, @HiveField(2)  bool? isEmailVerified)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@HiveField(0)@JsonKey(name: 'access_token')  String? accessToken, @HiveField(1)@JsonKey(name: 'refresh_token')  String? refreshToken, @HiveField(2)  bool? isEmailVerified, @HiveField(3)  String? accessTokenExpiresAt, @HiveField(4)  String? refreshTokenExpiresAt, @HiveField(5)  User? user)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserEntity() when $default != null:
-return $default(_that.accessToken,_that.refreshToken,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.user,_that.isEmailVerified);case _:
+return $default(_that.accessToken,_that.refreshToken,_that.isEmailVerified,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.user);case _:
   return orElse();
 
 }
@@ -191,10 +191,10 @@ return $default(_that.accessToken,_that.refreshToken,_that.accessTokenExpiresAt,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@HiveField(0)@JsonKey(name: 'access_token')  String? accessToken, @HiveField(1)@JsonKey(name: 'refresh_token')  String? refreshToken, @HiveField(3)  String? accessTokenExpiresAt, @HiveField(4)  String? refreshTokenExpiresAt,  User? user, @HiveField(2)  bool? isEmailVerified)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@HiveField(0)@JsonKey(name: 'access_token')  String? accessToken, @HiveField(1)@JsonKey(name: 'refresh_token')  String? refreshToken, @HiveField(2)  bool? isEmailVerified, @HiveField(3)  String? accessTokenExpiresAt, @HiveField(4)  String? refreshTokenExpiresAt, @HiveField(5)  User? user)  $default,) {final _that = this;
 switch (_that) {
 case _UserEntity():
-return $default(_that.accessToken,_that.refreshToken,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.user,_that.isEmailVerified);case _:
+return $default(_that.accessToken,_that.refreshToken,_that.isEmailVerified,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.user);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -211,10 +211,10 @@ return $default(_that.accessToken,_that.refreshToken,_that.accessTokenExpiresAt,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@HiveField(0)@JsonKey(name: 'access_token')  String? accessToken, @HiveField(1)@JsonKey(name: 'refresh_token')  String? refreshToken, @HiveField(3)  String? accessTokenExpiresAt, @HiveField(4)  String? refreshTokenExpiresAt,  User? user, @HiveField(2)  bool? isEmailVerified)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@HiveField(0)@JsonKey(name: 'access_token')  String? accessToken, @HiveField(1)@JsonKey(name: 'refresh_token')  String? refreshToken, @HiveField(2)  bool? isEmailVerified, @HiveField(3)  String? accessTokenExpiresAt, @HiveField(4)  String? refreshTokenExpiresAt, @HiveField(5)  User? user)?  $default,) {final _that = this;
 switch (_that) {
 case _UserEntity() when $default != null:
-return $default(_that.accessToken,_that.refreshToken,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.user,_that.isEmailVerified);case _:
+return $default(_that.accessToken,_that.refreshToken,_that.isEmailVerified,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.user);case _:
   return null;
 
 }
@@ -226,15 +226,15 @@ return $default(_that.accessToken,_that.refreshToken,_that.accessTokenExpiresAt,
 @JsonSerializable()
 
 class _UserEntity implements UserEntity {
-   _UserEntity({@HiveField(0)@JsonKey(name: 'access_token') this.accessToken, @HiveField(1)@JsonKey(name: 'refresh_token') this.refreshToken, @HiveField(3) this.accessTokenExpiresAt, @HiveField(4) this.refreshTokenExpiresAt, this.user, @HiveField(2) this.isEmailVerified});
+   _UserEntity({@HiveField(0)@JsonKey(name: 'access_token') this.accessToken, @HiveField(1)@JsonKey(name: 'refresh_token') this.refreshToken, @HiveField(2) this.isEmailVerified, @HiveField(3) this.accessTokenExpiresAt, @HiveField(4) this.refreshTokenExpiresAt, @HiveField(5) this.user});
   factory _UserEntity.fromJson(Map<String, dynamic> json) => _$UserEntityFromJson(json);
 
 @override@HiveField(0)@JsonKey(name: 'access_token') final  String? accessToken;
 @override@HiveField(1)@JsonKey(name: 'refresh_token') final  String? refreshToken;
+@override@HiveField(2) final  bool? isEmailVerified;
 @override@HiveField(3) final  String? accessTokenExpiresAt;
 @override@HiveField(4) final  String? refreshTokenExpiresAt;
-@override final  User? user;
-@override@HiveField(2) final  bool? isEmailVerified;
+@override@HiveField(5) final  User? user;
 
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -249,16 +249,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserEntity&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.accessTokenExpiresAt, accessTokenExpiresAt) || other.accessTokenExpiresAt == accessTokenExpiresAt)&&(identical(other.refreshTokenExpiresAt, refreshTokenExpiresAt) || other.refreshTokenExpiresAt == refreshTokenExpiresAt)&&(identical(other.user, user) || other.user == user)&&(identical(other.isEmailVerified, isEmailVerified) || other.isEmailVerified == isEmailVerified));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserEntity&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.isEmailVerified, isEmailVerified) || other.isEmailVerified == isEmailVerified)&&(identical(other.accessTokenExpiresAt, accessTokenExpiresAt) || other.accessTokenExpiresAt == accessTokenExpiresAt)&&(identical(other.refreshTokenExpiresAt, refreshTokenExpiresAt) || other.refreshTokenExpiresAt == refreshTokenExpiresAt)&&(identical(other.user, user) || other.user == user));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,refreshToken,accessTokenExpiresAt,refreshTokenExpiresAt,user,isEmailVerified);
+int get hashCode => Object.hash(runtimeType,accessToken,refreshToken,isEmailVerified,accessTokenExpiresAt,refreshTokenExpiresAt,user);
 
 @override
 String toString() {
-  return 'UserEntity(accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiresAt: $accessTokenExpiresAt, refreshTokenExpiresAt: $refreshTokenExpiresAt, user: $user, isEmailVerified: $isEmailVerified)';
+  return 'UserEntity(accessToken: $accessToken, refreshToken: $refreshToken, isEmailVerified: $isEmailVerified, accessTokenExpiresAt: $accessTokenExpiresAt, refreshTokenExpiresAt: $refreshTokenExpiresAt, user: $user)';
 }
 
 
@@ -269,7 +269,7 @@ abstract mixin class _$UserEntityCopyWith<$Res> implements $UserEntityCopyWith<$
   factory _$UserEntityCopyWith(_UserEntity value, $Res Function(_UserEntity) _then) = __$UserEntityCopyWithImpl;
 @override @useResult
 $Res call({
-@HiveField(0)@JsonKey(name: 'access_token') String? accessToken,@HiveField(1)@JsonKey(name: 'refresh_token') String? refreshToken,@HiveField(3) String? accessTokenExpiresAt,@HiveField(4) String? refreshTokenExpiresAt, User? user,@HiveField(2) bool? isEmailVerified
+@HiveField(0)@JsonKey(name: 'access_token') String? accessToken,@HiveField(1)@JsonKey(name: 'refresh_token') String? refreshToken,@HiveField(2) bool? isEmailVerified,@HiveField(3) String? accessTokenExpiresAt,@HiveField(4) String? refreshTokenExpiresAt,@HiveField(5) User? user
 });
 
 
@@ -286,15 +286,15 @@ class __$UserEntityCopyWithImpl<$Res>
 
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = freezed,Object? refreshToken = freezed,Object? accessTokenExpiresAt = freezed,Object? refreshTokenExpiresAt = freezed,Object? user = freezed,Object? isEmailVerified = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = freezed,Object? refreshToken = freezed,Object? isEmailVerified = freezed,Object? accessTokenExpiresAt = freezed,Object? refreshTokenExpiresAt = freezed,Object? user = freezed,}) {
   return _then(_UserEntity(
 accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
-as String?,accessTokenExpiresAt: freezed == accessTokenExpiresAt ? _self.accessTokenExpiresAt : accessTokenExpiresAt // ignore: cast_nullable_to_non_nullable
+as String?,isEmailVerified: freezed == isEmailVerified ? _self.isEmailVerified : isEmailVerified // ignore: cast_nullable_to_non_nullable
+as bool?,accessTokenExpiresAt: freezed == accessTokenExpiresAt ? _self.accessTokenExpiresAt : accessTokenExpiresAt // ignore: cast_nullable_to_non_nullable
 as String?,refreshTokenExpiresAt: freezed == refreshTokenExpiresAt ? _self.refreshTokenExpiresAt : refreshTokenExpiresAt // ignore: cast_nullable_to_non_nullable
 as String?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as User?,isEmailVerified: freezed == isEmailVerified ? _self.isEmailVerified : isEmailVerified // ignore: cast_nullable_to_non_nullable
-as bool?,
+as User?,
   ));
 }
 

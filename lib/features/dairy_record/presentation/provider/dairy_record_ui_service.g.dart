@@ -34,7 +34,7 @@ final class DairyRecordUiServiceProvider
 }
 
 String _$dairyRecordUiServiceHash() =>
-    r'abc543e97895a81b8057865ac348b4e4565b7386';
+    r'6be76fcb8a9a741ffd63fd1feedd6e2b6eacaa09';
 
 abstract class _$DairyRecordUiService extends $AsyncNotifier<DairyEntity?> {
   FutureOr<DairyEntity?> build();

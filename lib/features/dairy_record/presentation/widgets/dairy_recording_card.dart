@@ -37,6 +37,16 @@ class _DairyRecordingCardState extends State<DairyRecordingCard> {
   }
 
   @override
+  void didUpdateWidget(covariant DairyRecordingCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isCompleted != oldWidget.isCompleted) {
+      setState(() {
+        isChecked = widget.isCompleted;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
 
@@ -45,48 +55,56 @@ class _DairyRecordingCardState extends State<DairyRecordingCard> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
-        padding: const .all(18),
-        width: .infinity,
-        margin: .only(bottom: 16),
+        padding: const EdgeInsets.all(18),
+        width: double.infinity,
+        margin: const EdgeInsets.only(bottom: 16),
         decoration: BoxDecoration(
           color: isChecked ? theme.green00f : theme.blueB3,
-          borderRadius: .circular(12),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Stack(
           children: [
-            Column(
-              crossAxisAlignment: .start,
-              children: [
-                if (widget.subtitle != null)
-                  Text(
-                    widget.subtitle!,
-                    style: theme.labelMedium.copyWith(
-                      fontSize: 10,
-                      color: isChecked ? theme.white : theme.primaryText,
+            Padding(
+              padding: const EdgeInsets.only(right: 60),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (widget.subtitle != null)
+                    Text(
+                      widget.subtitle!,
+                      style: theme.labelMedium.copyWith(
+                        fontSize: 10,
+                        color: isChecked ? theme.white : theme.primaryText,
+                      ),
                     ),
-                  ),
-                if (widget.title != null)
-                  Text(
-                    widget.title!,
-                    style: theme.bodyMedium.copyWith(
-                      fontSize: 14,
-                      color: isChecked ? theme.white : theme.primaryText,
+                  if (widget.title != null)
+                    Text(
+                      widget.title!,
+                      style: theme.bodyMedium.copyWith(
+                        fontSize: 14,
+                        color: isChecked ? theme.white : theme.primaryText,
+                      ),
                     ),
-                  ),
-                if (widget.content != null)
-                  Text(
-                    widget.content!,
-                    style: theme.labelMedium.copyWith(
-                      fontSize: 10,
-                      color: isChecked ? theme.white : theme.primaryText,
+                  if (widget.content != null)
+                    Text(
+                      widget.content!,
+                      style: theme.labelMedium.copyWith(
+                        fontSize: 10,
+                        color: isChecked ? theme.white : theme.primaryText,
+                      ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
-            widget.isSub ?? false
-                ? Align(
-                    alignment: Alignment.centerRight,
-                    child: Checkbox.adaptive(
+            Positioned(
+              right: -10,
+              top: -10,
+              bottom: -10,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (widget.isSub ?? false) ...[
+                    Checkbox.adaptive(
                       value: isChecked,
                       shape: const CircleBorder(),
                       checkColor: theme.white,
@@ -104,19 +122,18 @@ class _DairyRecordingCardState extends State<DairyRecordingCard> {
                         widget.onChanged?.call(value);
                       },
                     ),
-                  )
-                : widget.onDelete != null
-                ? Align(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
+                  ],
+                  if (widget.onDelete != null)
+                    IconButton(
                       icon: Icon(
                         Icons.delete_outline,
                         color: isChecked ? theme.white : theme.error,
                       ),
                       onPressed: widget.onDelete,
                     ),
-                  )
-                : const SizedBox(),
+                ],
+              ),
+            ),
           ],
         ),
       ),

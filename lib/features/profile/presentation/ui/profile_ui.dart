@@ -17,7 +17,7 @@ class ProfileUi extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final (theme, l10n) = appSettingsRecord(context);
-    final authRef = ref.watch(authUiServiceProvider.notifier);
+    final authRef = ref.watch(authUiServiceProvider);
     return SingleChildScrollView(
       padding: .only(bottom: 18.sh),
       child: Column(
@@ -25,7 +25,7 @@ class ProfileUi extends ConsumerWidget {
           const ProfileAppbar(),
           gapH16,
           Text(
-            authRef.getUserEntity()?.user?.name ?? "",
+            authRef.value?.name ?? "",
             style: theme.headlineSmall.copyWith(color: theme.primary),
           ),
           gapH48,

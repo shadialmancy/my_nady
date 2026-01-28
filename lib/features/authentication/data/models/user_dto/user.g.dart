@@ -1,41 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_local_variable
-
 part of 'user.dart';
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class UserInfoAdapter extends TypeAdapter<User> {
-  @override
-  final typeId = 1;
-
-  @override
-  User read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return User();
-  }
-
-  @override
-  void write(BinaryWriter writer, User obj) {
-    writer.writeByte(0);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is UserInfoAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
 
 // **************************************************************************
 // JsonSerializableGenerator

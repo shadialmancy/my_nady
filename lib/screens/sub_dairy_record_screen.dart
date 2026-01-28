@@ -13,9 +13,16 @@ import '../features/dairy_record/data/models/dairy_dto/datum.dart';
 
 @RoutePage()
 class SubDairyRecordScreen extends StatelessWidget {
-  const SubDairyRecordScreen({super.key, this.title, this.date, this.datum});
+  const SubDairyRecordScreen({
+    super.key,
+    this.title,
+    this.date,
+    this.diaryId,
+    this.datum,
+  });
   final String? title;
   final String? date;
+  final String? diaryId;
   final DairyDatum? datum;
   @override
   Widget build(BuildContext context) {
@@ -45,14 +52,31 @@ class SubDairyRecordScreen extends StatelessWidget {
         backgroundColor: theme.primary,
         shape: const CircleBorder(),
         onPressed: () {
-          context.router.push(ModifySubDairyRecordRoute(diaryId: datum!.id!));
+          context.router.push(
+            ModifySubDairyRecordRoute(diaryId: diaryId ?? ''),
+          );
         },
         child: Icon(Icons.add, color: theme.white, size: 30),
       ),
       body: CustomAdaptiveScreen.builder(
-        mobile: SubDairyRecordUi(title: title, date: date, datum: datum),
-        tablet: SubDairyRecordUi(title: title, date: date, datum: datum),
-        desktop: SubDairyRecordUi(title: title, date: date, datum: datum),
+        mobile: SubDairyRecordUi(
+          diaryId: diaryId ?? "",
+          title: title,
+          date: date,
+          initialDatum: datum,
+        ),
+        tablet: SubDairyRecordUi(
+          diaryId: diaryId ?? "",
+          title: title,
+          date: date,
+          initialDatum: datum,
+        ),
+        desktop: SubDairyRecordUi(
+          diaryId: diaryId ?? "",
+          title: title,
+          date: date,
+          initialDatum: datum,
+        ),
       ),
     );
   }

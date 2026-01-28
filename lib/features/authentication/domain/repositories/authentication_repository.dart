@@ -70,4 +70,28 @@ class AuthenticationRepository extends _$AuthenticationRepository {
       rethrow;
     }
   }
+
+  Future<User> updateProfile({
+    required String name,
+    required String gender,
+    required String birthDate,
+  }) async {
+    try {
+      return await _authenticationSourceImpl.updateProfile(
+        name: name,
+        gender: gender,
+        birthDate: birthDate,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<User> uploadAvatar({required String imagePath}) async {
+    try {
+      return await _authenticationSourceImpl.uploadAvatar(imagePath: imagePath);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

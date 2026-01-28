@@ -65,12 +65,14 @@ class DairyRecordRepository extends _$DairyRecordRepository {
   Future<void> addDairyItem({
     required String diaryId,
     required String title,
+    required String order,
     String? description,
   }) async {
     try {
       await _dairyRecordRepositoryImpl.addDairyItem(
         diaryId: diaryId,
         title: title,
+        order: order,
         description: description,
       );
     } catch (e) {

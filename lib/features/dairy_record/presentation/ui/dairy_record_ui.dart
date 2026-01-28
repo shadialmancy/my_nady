@@ -36,7 +36,7 @@ class DairyRecordUi extends ConsumerWidget {
                     SubDairyRecordRoute(
                       title: record.title,
                       date: formattedDate,
-                      datum: record,
+                      diaryId: record.id ?? '',
                     ),
                   );
                 },

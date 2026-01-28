@@ -1,9 +1,11 @@
 import 'package:my_nady_project/core/constants/app_constants.dart';
 import '../../../../core/api/apis.dart';
 import '../models/dairy_dto/dairy_dto.dart';
+import '../models/dairy_dto/datum.dart';
 
 abstract class DairyRecordDataSource {
   Future<DairyDto> getDairyRecords();
+  Future<DairyDatum> getDairyRecordById(String id);
   Future<void> addDairyRecord({
     required String title,
     required String description,
@@ -19,6 +21,7 @@ abstract class DairyRecordDataSource {
   Future<void> addDairyItem({
     required String diaryId,
     required String title,
+    required String order,
     String? description,
   });
   Future<void> updateDairyItem({
@@ -43,13 +46,26 @@ class DairyRecordDataSourceImpl implements DairyRecordDataSource {
   }
 
   @override
+  Future<DairyDatum> getDairyRecordById(String id) async {
+    final response = await DioClient().dio.get(
+      '${AppConstants.dairyRecordsApiUrl}/$id',
+    );
+
+    if (response.statusCode == 200) {
+      return DairyDatum.fromJson(response.data);
+    } else {
+      throw 'Error in getDairyRecordById';
+    }
+  }
+
+  @override
   Future<void> addDairyRecord({
     required String title,
     required String description,
     required String date,
   }) async {
     final datePost = DateTime.parse(date);
-    final convertedData = datePost.toIso8601String();
+    final convertedData = "${datePost.toIso8601String()}Z";
     final response = await DioClient().dio.post(
       AppConstants.dairyRecordsApiUrl,
       data: {'title': title, 'content': description, 'date': convertedData},
@@ -70,7 +86,7 @@ class DairyRecordDataSourceImpl implements DairyRecordDataSource {
     String? convertedData;
     if (date != null) {
       final datePost = DateTime.parse(date);
-      convertedData = datePost.toIso8601String();
+      convertedData = "${datePost.toIso8601String()}Z";
     }
     final response = await DioClient().dio.patch(
       '${AppConstants.dairyRecordsApiUrl}/$id',
@@ -90,6 +106,7 @@ class DairyRecordDataSourceImpl implements DairyRecordDataSource {
   Future<void> deleteDairyRecord(String id) async {
     final response = await DioClient().dio.delete(
       '${AppConstants.dairyRecordsApiUrl}/$id',
+      data: {},
     );
 
     if (response.statusCode != 200) {
@@ -101,6 +118,7 @@ class DairyRecordDataSourceImpl implements DairyRecordDataSource {
   Future<void> addDairyItem({
     required String diaryId,
     required String title,
+    required String order,
     String? description,
   }) async {
     final response = await DioClient().dio.post(
@@ -108,6 +126,7 @@ class DairyRecordDataSourceImpl implements DairyRecordDataSource {
       data: {
         'title': title,
         if (description != null) 'description': description,
+        'order': order,
       },
     );
 
@@ -141,6 +160,7 @@ class DairyRecordDataSourceImpl implements DairyRecordDataSource {
   Future<void> deleteDairyItem(String itemId) async {
     final response = await DioClient().dio.delete(
       '${AppConstants.dairyRecordsApiUrl}/items/$itemId',
+      data: {},
     );
 
     if (response.statusCode != 200) {

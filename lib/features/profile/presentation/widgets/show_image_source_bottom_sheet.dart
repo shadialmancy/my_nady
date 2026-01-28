@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_nady_project/core/constants/app_sizes.dart';
 
+import '../../../authentication/presentation/provider/auth_ui_service.dart';
 import '../provider/edit_profile_service.dart';
 
 void showImageSourceBottomSheet(
@@ -30,6 +31,21 @@ void showImageSourceBottomSheet(
               await ref
                   .read(editProfileServiceProvider(type).notifier)
                   .pickImage(source: ImageSource.camera);
+              // Upload profile image if picked
+              final profileImagePath = ref
+                  .read(editProfileServiceProvider(ImageType.profile))
+                  .value;
+              if (profileImagePath != null) {
+                await ref
+                    .read(authUiServiceProvider.notifier)
+                    .uploadAvatar(imagePath: profileImagePath);
+                // Clear picked image after upload
+                ref
+                    .read(
+                      editProfileServiceProvider(ImageType.profile).notifier,
+                    )
+                    .clearImage();
+              }
             },
           ),
           ListTile(
@@ -40,6 +56,21 @@ void showImageSourceBottomSheet(
               await ref
                   .read(editProfileServiceProvider(type).notifier)
                   .pickImage(source: ImageSource.gallery);
+              // Upload profile image if picked
+              final profileImagePath = ref
+                  .read(editProfileServiceProvider(ImageType.profile))
+                  .value;
+              if (profileImagePath != null) {
+                await ref
+                    .read(authUiServiceProvider.notifier)
+                    .uploadAvatar(imagePath: profileImagePath);
+                // Clear picked image after upload
+                ref
+                    .read(
+                      editProfileServiceProvider(ImageType.profile).notifier,
+                    )
+                    .clearImage();
+              }
             },
           ),
         ],

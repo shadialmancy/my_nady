@@ -6,6 +6,8 @@ import '../../../../core/helpers/session_manager.dart';
 import '../../../../core/shared/widgets/app_toast.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/authentication_repository.dart';
+import '../../../../main.dart';
+import '../../../../core/router/app_router.dart';
 
 part 'auth_ui_service.g.dart';
 
@@ -159,16 +161,26 @@ class AuthUiService extends _$AuthUiService {
     }
   }
 
-  Future<void> logout() async {
-    var userBox = Hive.box(_userInfoBox);
+  Future<void> clearSession() async {
     _userEntity = null;
     await sessionManager.setAuthToken(token: null);
     await sessionManager.setRefreshToken(token: null);
     await sessionManager.setAccessTokenExpiresAt(expiresAt: null);
     await sessionManager.setRefreshTokenExpiresAt(expiresAt: null);
-    await userBox.clear();
-    await userBox.close();
-    ref.invalidateSelf();
+    if (Hive.isBoxOpen(_userInfoBox)) {
+      var userBox = Hive.box(_userInfoBox);
+      await userBox.clear();
+    }
+  }
+
+  Future<void> logout() async {
+    await clearSession();
+    final context = appRouter.navigatorKey.currentContext;
+    if (context != null && context.mounted) {
+      ProviderScopeManager.restartApp(context);
+    } else {
+      ref.invalidateSelf();
+    }
   }
 
   Future<void> resetPassword({String? token, String? password}) async {
@@ -181,6 +193,72 @@ class AuthUiService extends _$AuthUiService {
       AppToast.successToast('Password reset successfully');
     } catch (e) {
       state = const AsyncValue.data(null);
+      AppToast.errorToast(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> updateProfile({
+    required String name,
+    required String gender,
+    required String birthDate,
+  }) async {
+    try {
+      state = const AsyncValue.loading();
+      final currentUser = state.value ?? await fetchSavedUser();
+
+      final updatedUser = await ref
+          .read(authenticationRepositoryProvider.notifier)
+          .updateProfile(name: name, gender: gender, birthDate: birthDate);
+      // Merge with current user to avoid losing fields like email/phone if API doesn't return them
+      final finalUser = updatedUser.copyWith(
+        email: updatedUser.email ?? currentUser?.email,
+        phone: updatedUser.phone ?? currentUser?.phone,
+        role: updatedUser.role ?? currentUser?.role,
+        status: updatedUser.status ?? currentUser?.status,
+        createdAt: updatedUser.createdAt ?? currentUser?.createdAt,
+      );
+
+      await saveUser(finalUser);
+      _userEntity = _userEntity?.copyWith(user: finalUser);
+      state = AsyncValue.data(finalUser);
+      AppToast.successToast('Profile updated successfully');
+    } catch (e) {
+      final user = await fetchSavedUser();
+      state = AsyncValue.data(user);
+      AppToast.errorToast(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> uploadAvatar({required String imagePath}) async {
+    try {
+      state = const AsyncValue.loading();
+      final currentUser = state.value ?? await fetchSavedUser();
+
+      final updatedUser = await ref
+          .read(authenticationRepositoryProvider.notifier)
+          .uploadAvatar(imagePath: imagePath);
+
+      // Merge with current user to avoid losing fields
+      final finalUser = updatedUser.copyWith(
+        name: updatedUser.name ?? currentUser?.name,
+        email: updatedUser.email ?? currentUser?.email,
+        phone: updatedUser.phone ?? currentUser?.phone,
+        gender: updatedUser.gender ?? currentUser?.gender,
+        birthDate: updatedUser.birthDate ?? currentUser?.birthDate,
+        role: updatedUser.role ?? currentUser?.role,
+        status: updatedUser.status ?? currentUser?.status,
+        createdAt: updatedUser.createdAt ?? currentUser?.createdAt,
+      );
+
+      await saveUser(finalUser);
+      _userEntity = _userEntity?.copyWith(user: finalUser);
+      state = AsyncValue.data(finalUser);
+      AppToast.successToast('Profile picture uploaded successfully');
+    } catch (e) {
+      final user = await fetchSavedUser();
+      state = AsyncValue.data(user);
       AppToast.errorToast(e.toString());
       rethrow;
     }

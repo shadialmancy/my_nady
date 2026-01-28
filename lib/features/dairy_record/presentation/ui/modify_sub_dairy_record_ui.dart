@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -26,12 +27,25 @@ class _ModifySubDairyRecordUiState
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController repetitionController = TextEditingController();
   final TextEditingController setController = TextEditingController();
+  bool isLoading = false;
   bool showCalendar = false;
+
+  @override
+  void initState() {
+    super.initState();
+    dateController.text = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  }
+
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
     return SingleChildScrollView(
-      padding: .only(left: 3.sw, right: 3.sw, top: 4.sh, bottom: 8.sh),
+      padding: EdgeInsets.only(
+        left: 3.sw,
+        right: 3.sw,
+        top: 4.sh,
+        bottom: 8.sh,
+      ),
       child: Stack(
         children: [
           Column(
@@ -48,7 +62,7 @@ class _ModifySubDairyRecordUiState
                 readOnly: true,
                 onTap: () {
                   setState(() {
-                    showCalendar = true; // or manage an OverlayEntry
+                    showCalendar = true;
                   });
                 },
               ),
@@ -84,25 +98,83 @@ class _ModifySubDairyRecordUiState
               ),
               gapH24,
               CustomButton(
-                title: l10n.save,
-                onPressed: () async {
-                  if (titleController.text.isNotEmpty) {
-                    final desc =
-                        "${descriptionController.text}\nSet: ${setController.text}, Rep: ${repetitionController.text}";
-                    await ref
-                        .read(dairyRecordUiServiceProvider.notifier)
-                        .addDairyItem(
-                          diaryId: widget.diaryId,
-                          title: titleController.text,
-                          description: desc,
-                        );
-                    if (mounted) {
-                      context.router.maybePop();
-                    }
-                  }
-                },
-                width: .infinity,
-                shape: RoundedRectangleBorder(borderRadius: .circular(16)),
+                title: isLoading ? null : l10n.save,
+                icon: isLoading
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : null,
+                onPressed: isLoading
+                    ? null
+                    : () async {
+                        if (titleController.text.isNotEmpty) {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          try {
+                            final records = ref.read(
+                              dairyRecordUiServiceProvider,
+                            );
+                            final dairyRecord = records.value?.data
+                                ?.firstWhereOrNull(
+                                  (d) => d.id == widget.diaryId,
+                                );
+                            final lastItem = dairyRecord?.items?.lastOrNull;
+                            final nextOrder =
+                                (((lastItem?.order?.toInt()) ?? 0) + 1)
+                                    .toString();
+
+                            final descParts = [
+                              if (descriptionController.text.isNotEmpty)
+                                descriptionController.text,
+                              "Date: ${dateController.text}",
+                              if (setController.text.isNotEmpty)
+                                "Set: ${setController.text}",
+                              if (repetitionController.text.isNotEmpty)
+                                "Rep: ${repetitionController.text}",
+                            ];
+
+                            final desc = descParts.join("\n");
+
+                            await ref
+                                .read(dairyRecordUiServiceProvider.notifier)
+                                .addDairyItem(
+                                  diaryId: widget.diaryId,
+                                  title: titleController.text,
+                                  order: nextOrder,
+                                  description: desc,
+                                );
+                            if (mounted) {
+                              context.router.maybePop();
+                            }
+                          } catch (e) {
+                            if (mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString())),
+                              );
+                            }
+                          } finally {
+                            if (mounted) {
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
+                          }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(l10n.fieldRequired)),
+                          );
+                        }
+                      },
+                width: double.infinity,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
             ],
           ),
@@ -119,7 +191,7 @@ class _ModifySubDairyRecordUiState
                 },
                 child: Material(
                   elevation: 4,
-                  borderRadius: .circular(16),
+                  borderRadius: BorderRadius.circular(16),
                   clipBehavior: Clip.antiAlias,
                   child: SizedBox(
                     width: 280,
@@ -132,11 +204,11 @@ class _ModifySubDairyRecordUiState
                       headerStyle: DateRangePickerHeaderStyle(
                         backgroundColor: Colors.white,
                         textStyle: theme.bodyMedium.copyWith(
-                          fontWeight: .w400,
+                          fontWeight: FontWeight.w400,
                           color: theme.primary,
                         ),
                       ),
-                      monthViewSettings: DateRangePickerMonthViewSettings(
+                      monthViewSettings: const DateRangePickerMonthViewSettings(
                         dayFormat: 'EEE',
                       ),
                       minDate: DateTime.now(),
@@ -150,6 +222,9 @@ class _ModifySubDairyRecordUiState
                             dateController.text = DateFormat(
                               'yyyy-MM-dd',
                             ).format(selectedDate);
+                            setState(() {
+                              showCalendar = false;
+                            });
                           },
                     ),
                   ),

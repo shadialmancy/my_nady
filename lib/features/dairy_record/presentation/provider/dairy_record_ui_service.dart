@@ -77,6 +77,7 @@ class DairyRecordUiService extends _$DairyRecordUiService {
   Future<void> addDairyItem({
     required String diaryId,
     required String title,
+    required String order,
     String? description,
   }) async {
     try {
@@ -84,6 +85,7 @@ class DairyRecordUiService extends _$DairyRecordUiService {
       await repository.addDairyItem(
         diaryId: diaryId,
         title: title,
+        order: order,
         description: description,
       );
       await fetchDairyRecords();
@@ -106,7 +108,7 @@ class DairyRecordUiService extends _$DairyRecordUiService {
         description: description,
         isCompleted: isCompleted,
       );
-      await fetchDairyRecords();
+      // await fetchDairyRecords();
     } catch (e) {
       rethrow;
     }

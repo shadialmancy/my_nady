@@ -2,6 +2,7 @@ import 'package:my_nady_project/features/authentication/domain/entities/user_ent
 
 import '../datasource/authentication_datasource.dart';
 import '../models/user_dto/user_dto.dart';
+import '../models/user_dto/user.dart';
 
 abstract class BaseAuthenticationRepository {
   Future<UserEntity> loginUser({String? email, String? password});
@@ -13,6 +14,12 @@ abstract class BaseAuthenticationRepository {
   });
   Future<void> logoutUser();
   Future<void> resetPassword({String? token, String? password});
+  Future<User> updateProfile({
+    required String name,
+    required String gender,
+    required String birthDate,
+  });
+  Future<User> uploadAvatar({required String imagePath});
 }
 
 class AuthenticationRepositoryImpl implements BaseAuthenticationRepository {
@@ -67,6 +74,32 @@ class AuthenticationRepositoryImpl implements BaseAuthenticationRepository {
   Future<void> resetPassword({String? token, String? password}) async {
     try {
       await dataSource.resetPassword(token: token, password: password);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<User> updateProfile({
+    required String name,
+    required String gender,
+    required String birthDate,
+  }) async {
+    try {
+      return await dataSource.updateProfile(
+        name: name,
+        gender: gender,
+        birthDate: birthDate,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<User> uploadAvatar({required String imagePath}) async {
+    try {
+      return await dataSource.uploadAvatar(imagePath: imagePath);
     } catch (e) {
       rethrow;
     }

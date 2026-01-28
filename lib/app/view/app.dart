@@ -24,7 +24,6 @@ class App extends ConsumerStatefulWidget {
 }
 
 class _AppState extends ConsumerState<App> {
-  final _appRouter = AppRouter();
   Locale? _locale;
   Future<void> setLocale(Locale loc) async {
     logger.i('setLocale: ${loc.languageCode}');
@@ -101,7 +100,7 @@ class _AppState extends ConsumerState<App> {
               }),
             ),
           ),
-          routerConfig: _appRouter.config(
+          routerConfig: appRouter.config(
             navigatorObservers: () => [MyObserver()],
           ),
           builder: (BuildContext context, Widget? child) {

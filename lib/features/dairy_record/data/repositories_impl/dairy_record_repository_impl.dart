@@ -20,6 +20,7 @@ abstract class BaseDairyRecordRepository {
   Future<void> addDairyItem({
     required String diaryId,
     required String title,
+    required String order,
     String? description,
   });
   Future<void> updateDairyItem({
@@ -94,12 +95,14 @@ class DairyRecordRepositoryImpl implements BaseDairyRecordRepository {
   Future<void> addDairyItem({
     required String diaryId,
     required String title,
+    required String order,
     String? description,
   }) async {
     try {
       await dataSource.addDairyItem(
         diaryId: diaryId,
         title: title,
+        order: order,
         description: description,
       );
     } catch (e) {

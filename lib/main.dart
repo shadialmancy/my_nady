@@ -23,28 +23,59 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-void main() async {
+late ProviderContainer providerContainer;
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDirectory = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(appDocumentDirectory.path);
   Hive.registerAdapter(UserInfoAdapter());
   Hive.registerAdapter(UserAdapter());
 
-  final ProviderContainer container = ProviderContainer();
-  await container.read(appStartupProvider.future);
   HttpOverrides.global = MyHttpOverrides();
-  await await FlutterFlowTheme.initialize();
+  await FlutterFlowTheme.initialize();
   await dotenv.load(fileName: ".env");
+
+  providerContainer = ProviderContainer();
+  await providerContainer.read(appStartupProvider.future);
+
   if (kReleaseMode) {
     ErrorWidget.builder = (_) =>
         const Center(child: Text('An error occurred. Please restart the app.'));
   }
-  // final GoogleMapsFlutterPlatform mapsImplementation =
-  //     GoogleMapsFlutterPlatform.instance;
-  // if (mapsImplementation is GoogleMapsFlutterAndroid) {
-  //   // Force Hybrid Composition mode.
-  //   mapsImplementation.useAndroidViewSurface = true;
-  // }
 
-  runApp(UncontrolledProviderScope(container: container, child: const App()));
+  runApp(const ProviderScopeManager());
+}
+
+class ProviderScopeManager extends StatefulWidget {
+  const ProviderScopeManager({super.key});
+
+  static void restartApp(BuildContext context) {
+    context.findAncestorStateOfType<_ProviderScopeManagerState>()?.restart();
+  }
+
+  @override
+  State<ProviderScopeManager> createState() => _ProviderScopeManagerState();
+}
+
+class _ProviderScopeManagerState extends State<ProviderScopeManager> {
+  Key _key = UniqueKey();
+
+  Future<void> restart() async {
+    providerContainer.dispose();
+    providerContainer = ProviderContainer();
+    await providerContainer.read(appStartupProvider.future);
+    setState(() {
+      _key = UniqueKey();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return UncontrolledProviderScope(
+      key: _key,
+      container: providerContainer,
+      child: const App(),
+    );
+  }
 }

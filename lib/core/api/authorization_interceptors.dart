@@ -11,8 +11,8 @@ class AuthorizationInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     final token = await sessionManager.getAuthToken();
+    print("Auth token: $token");
     if (token != null && token.isNotEmpty) {
-      print('AuthorizationInterceptor: $token');
       options.headers['Authorization'] = 'Bearer $token';
     }
 

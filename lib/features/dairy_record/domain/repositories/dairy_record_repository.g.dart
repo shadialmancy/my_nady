@@ -34,7 +34,7 @@ final class DairyRecordRepositoryProvider
 }
 
 String _$dairyRecordRepositoryHash() =>
-    r'0324f8ef0360723ecb7b60c67b3026d9670c0011';
+    r'bf2a8a2d5e62ad88468d8a544e1516d10f6f7b93';
 
 abstract class _$DairyRecordRepository extends $AsyncNotifier<void> {
   FutureOr<void> build();

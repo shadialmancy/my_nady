@@ -530,6 +530,7 @@ class SubDairyRecordRoute extends PageRouteInfo<SubDairyRecordRouteArgs> {
     Key? key,
     String? title,
     String? date,
+    String? diaryId,
     DairyDatum? datum,
     List<PageRouteInfo>? children,
   }) : super(
@@ -538,6 +539,7 @@ class SubDairyRecordRoute extends PageRouteInfo<SubDairyRecordRouteArgs> {
            key: key,
            title: title,
            date: date,
+           diaryId: diaryId,
            datum: datum,
          ),
          initialChildren: children,
@@ -555,6 +557,7 @@ class SubDairyRecordRoute extends PageRouteInfo<SubDairyRecordRouteArgs> {
         key: args.key,
         title: args.title,
         date: args.date,
+        diaryId: args.diaryId,
         datum: args.datum,
       );
     },
@@ -562,7 +565,13 @@ class SubDairyRecordRoute extends PageRouteInfo<SubDairyRecordRouteArgs> {
 }
 
 class SubDairyRecordRouteArgs {
-  const SubDairyRecordRouteArgs({this.key, this.title, this.date, this.datum});
+  const SubDairyRecordRouteArgs({
+    this.key,
+    this.title,
+    this.date,
+    this.diaryId,
+    this.datum,
+  });
 
   final Key? key;
 
@@ -570,11 +579,13 @@ class SubDairyRecordRouteArgs {
 
   final String? date;
 
+  final String? diaryId;
+
   final DairyDatum? datum;
 
   @override
   String toString() {
-    return 'SubDairyRecordRouteArgs{key: $key, title: $title, date: $date, datum: $datum}';
+    return 'SubDairyRecordRouteArgs{key: $key, title: $title, date: $date, diaryId: $diaryId, datum: $datum}';
   }
 
   @override
@@ -584,12 +595,17 @@ class SubDairyRecordRouteArgs {
     return key == other.key &&
         title == other.title &&
         date == other.date &&
+        diaryId == other.diaryId &&
         datum == other.datum;
   }
 
   @override
   int get hashCode =>
-      key.hashCode ^ title.hashCode ^ date.hashCode ^ datum.hashCode;
+      key.hashCode ^
+      title.hashCode ^
+      date.hashCode ^
+      diaryId.hashCode ^
+      datum.hashCode;
 }
 
 /// generated route for

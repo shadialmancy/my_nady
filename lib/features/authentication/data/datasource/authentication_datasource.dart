@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:my_nady_project/core/helpers/session_manager.dart';
 import 'package:my_nady_project/features/authentication/data/models/user_dto/user_dto.dart';
+import 'package:my_nady_project/features/authentication/data/models/user_dto/user.dart';
 import '../models/error_model/error_model.dart';
 
 import '../../../../core/api/apis.dart';
@@ -17,6 +18,12 @@ abstract class AuthenticationSource {
   });
   Future<void> logoutUser();
   Future<void> resetPassword({String? token, String? password});
+  Future<User> updateProfile({
+    required String name,
+    required String gender,
+    required String birthDate,
+  });
+  Future<User> uploadAvatar({required String imagePath});
 }
 
 class AuthenticationSourceImpl implements AuthenticationSource {
@@ -95,6 +102,45 @@ class AuthenticationSourceImpl implements AuthenticationSource {
     } else {
       final errorModel = ErrorModel.fromJson(response.data);
       throw errorModel.message ?? 'Error in logout';
+    }
+  }
+
+  @override
+  Future<User> updateProfile({
+    required String name,
+    required String gender,
+    required String birthDate,
+  }) async {
+    final response = await DioClient().dio.patch(
+      AppConstants.profileApiUrl,
+      data: {'name': name, 'gender': gender, 'birthDate': birthDate},
+    );
+
+    if (response.statusCode == 200) {
+      return User.fromJson(response.data["data"]);
+    } else {
+      final errorModel = ErrorModel.fromJson(response.data);
+      throw errorModel.message ?? 'Error in updateProfile';
+    }
+  }
+
+  @override
+  Future<User> uploadAvatar({required String imagePath}) async {
+    final fileName = imagePath.split('/').last;
+    final formData = FormData.fromMap({
+      'image': await MultipartFile.fromFile(imagePath, filename: fileName),
+    });
+
+    final response = await DioClient().dio.post(
+      AppConstants.uploadAvatarApiUrl,
+      data: formData,
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      return User.fromJson(response.data["data"]);
+    } else {
+      final errorModel = ErrorModel.fromJson(response.data);
+      throw errorModel.message ?? 'Error in uploadAvatar';
     }
   }
 }

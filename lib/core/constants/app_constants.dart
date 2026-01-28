@@ -6,6 +6,8 @@ class AppConstants {
   static const String registerApiUrl = '/authentication/register';
   static const String logoutApiUrl = '/authentication/logout';
   static const String resetPasswordApiUrl = '/authentication/reset-password';
+  static const String profileApiUrl = '/users/profile';
+  static const String uploadAvatarApiUrl = '/users/profile/upload-avatar';
   static const String branchesApiUrl = '/branches';
   static const String purchaseSubscriptionApiUrl = '/subscriptions/purchase';
   static const String dairyRecordsApiUrl = '/diary';

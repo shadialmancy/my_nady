@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/shared/widgets/async_value_widget.dart';
+import '../../../authentication/presentation/provider/auth_ui_service.dart';
 import '../provider/edit_profile_service.dart';
 import 'show_image_source_bottom_sheet.dart';
 
@@ -70,6 +71,7 @@ class ProfileAppbar extends ConsumerWidget {
             child: AsyncValueWidget<String?>(
               value: profileImageState,
               builder: (imagePath) {
+                final user = ref.read(authUiServiceProvider).value;
                 return CircleAvatar(
                   radius: 50,
                   backgroundColor: theme.white,
@@ -80,6 +82,17 @@ class ProfileAppbar extends ConsumerWidget {
                             fit: BoxFit.cover,
                             width: 100,
                             height: 100,
+                          ),
+                        )
+                      : user?.image != null
+                      ? ClipOval(
+                          child: Image.network(
+                            user!.image!,
+                            fit: BoxFit.cover,
+                            width: 100,
+                            height: 100,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Image.asset(AssetsHelper.profileImageHolder),
                           ),
                         )
                       : Image.asset(
@@ -96,8 +109,9 @@ class ProfileAppbar extends ConsumerWidget {
               left: 80,
               right: 0,
               child: GestureDetector(
-                onTap: () =>
-                    showImageSourceBottomSheet(context, ref, ImageType.profile),
+                onTap: () {
+                  showImageSourceBottomSheet(context, ref, ImageType.profile);
+                },
                 child: CircleAvatar(
                   radius: 15,
                   backgroundColor: theme.primary,
@@ -105,20 +119,20 @@ class ProfileAppbar extends ConsumerWidget {
                 ),
               ),
             ),
-          if (isEditable ?? false)
-            Positioned(
-              bottom: 36,
-              right: 20,
-              child: GestureDetector(
-                onTap: () =>
-                    showImageSourceBottomSheet(context, ref, ImageType.banner),
-                child: CircleAvatar(
-                  radius: 15,
-                  backgroundColor: theme.primary,
-                  child: SvgPicture.asset(AssetsHelper.editIcon),
-                ),
-              ),
-            ),
+          // if (isEditable ?? false)
+          //   Positioned(
+          //     bottom: 36,
+          //     right: 20,
+          //     child: GestureDetector(
+          //       // onTap: () =>
+          //       //     showImageSourceBottomSheet(context, ref, ImageType.banner),
+          //       child: CircleAvatar(
+          //         radius: 15,
+          //         backgroundColor: theme.primary,
+          //         child: SvgPicture.asset(AssetsHelper.editIcon),
+          //       ),
+          //     ),
+          //   ),
         ],
       ),
     );
