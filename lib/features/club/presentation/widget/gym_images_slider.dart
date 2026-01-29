@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,7 +29,7 @@ class _ClubImagesSliderState extends State<ClubImagesSlider> {
         : photoList;
 
     return Stack(
-      alignment: .bottomCenter,
+      alignment: Alignment.bottomCenter,
       children: [
         CarouselSlider(
           items: List.generate(displayList.length, (index) {
@@ -36,18 +37,27 @@ class _ClubImagesSliderState extends State<ClubImagesSlider> {
             return Stack(
               children: [
                 photo.startsWith('http')
-                    ? Image.network(
-                        photo,
+                    ? CachedNetworkImage(
+                        imageUrl: photo,
                         height: 300,
                         fit: .cover,
                         width: .infinity,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Image.asset(
-                              AssetsHelper.gymImageHolder,
-                              height: 300,
-                              fit: .cover,
-                              width: .infinity,
-                            ),
+                        fadeInDuration: .zero,
+                        useOldImageOnUrlChange: true,
+                        placeholder: (context, url) => Container(
+                          height: 300,
+                          width: .infinity,
+                          color: theme.grey87.withValues(alpha: 0.1),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Image.asset(
+                          AssetsHelper.gymImageHolder,
+                          height: 300,
+                          fit: .cover,
+                          width: .infinity,
+                        ),
                       )
                     : Image.asset(
                         photo,

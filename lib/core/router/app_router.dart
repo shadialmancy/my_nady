@@ -53,6 +53,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: TransactionHistoryViewAllRoute.page),
       ],
     ),
+    AutoRoute(page: MapRoute.page),
     // AutoRoute(page: HomeRoute.page),
   ];
 }

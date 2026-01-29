@@ -122,6 +122,12 @@ abstract class AppLocalizations {
   /// **'Location'**
   String get location;
 
+  /// No description provided for @clubsMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Clubs Map'**
+  String get clubsMap;
+
   /// No description provided for @searchForGym.
   ///
   /// In en, this message translates to:

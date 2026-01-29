@@ -21,6 +21,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get location => 'Location';
 
   @override
+  String get clubsMap => 'Clubs Map';
+
+  @override
   String get searchForGym => 'Search for a gym';
 
   @override

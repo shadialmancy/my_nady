@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_nady_project/features/club/data/models/club_dto/datum.dart';
@@ -40,13 +41,18 @@ class FamilyClubCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: .circular(6),
-                  child: Image.network(
-                    club?.logo ?? '',
-                    height: .infinity,
+                  child: CachedNetworkImage(
+                    imageUrl: club?.logo ?? '',
+                    height: double.infinity,
+                    width: double.infinity,
                     fit: .cover,
-                    errorBuilder: (context, error, stackTrace) => Image.asset(
+                    placeholder: (context, url) => Container(
+                      color: theme.grey87.withValues(alpha: 0.1),
+                      child: const Center(child: CircularProgressIndicator()),
+                    ),
+                    errorWidget: (context, url, error) => Image.asset(
                       AssetsHelper.gymBanner,
-                      height: .infinity,
+                      height: double.infinity,
                       fit: .cover,
                     ),
                   ),

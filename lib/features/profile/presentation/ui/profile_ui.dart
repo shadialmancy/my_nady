@@ -90,7 +90,9 @@ class ProfileUi extends ConsumerWidget {
                   trailing: SvgPicture.asset(AssetsHelper.nextIcon),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    context.router.push(const MapRoute());
+                  },
                   leading: SvgPicture.asset(AssetsHelper.locationIcon2),
                   contentPadding: .zero,
                   title: Text(

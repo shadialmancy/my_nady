@@ -1,5 +1,6 @@
 {
   "ar": [
+    "clubsMap",
     "searchForGym",
     "filter",
     "categories",

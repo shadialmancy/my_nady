@@ -10,3 +10,4 @@ export 'fav_button.dart';
 export 'club_card.dart';
 export 'family_club_section.dart';
 export 'family_club_card.dart';
+export 'featured_carousel.dart';

@@ -53,7 +53,7 @@ dependencies:
   image_picker: ^1.1.2
   syncfusion_flutter_datepicker: ^32.1.21
   fluttertoast: ^9.0.0
-
+  cached_network_image: ^3.4.1
   hive_ce_generator: any
   collection: ^1.19.1
 dev_dependencies:

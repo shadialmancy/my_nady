@@ -66,21 +66,24 @@ class _HomeUiState extends ConsumerState<HomeUi> {
           // final familyClubs = allClubs
           //     .where((e) => e.genderType?.toLowerCase() == 'family')
           //     .toList();
+          final featuredClubs = allClubs
+              .where((e) => e.isFeatured == true)
+              .toList();
 
           return SingleChildScrollView(
             padding: .only(top: 6.sh, bottom: 14.sh),
             child: Column(
               children: [
                 const AppBarWithSearchTextField(),
+                // gapH16,
+                // Padding(
+                //   padding: .only(left: 3.5.sw, right: 3.5.sw),
+                //   child: TitleWithSeeall(title: l10n.categories, onPress: null),
+                // ),
+                // gapH16,
+                // const CategorySection(),
                 gapH16,
-                Padding(
-                  padding: .only(left: 3.5.sw, right: 3.5.sw),
-                  child: TitleWithSeeall(title: l10n.categories, onPress: null),
-                ),
-                gapH16,
-                const CategorySection(),
-                gapH16,
-                const ClubBanner(),
+                FeaturedCarousel(featuredClubs: featuredClubs),
                 gapH16,
                 MixClubSection(clubs: mixClubs),
                 MaleClubSection(clubs: maleClubs),

@@ -8,6 +8,8 @@
     "@ar": {},
     "location": "Location",
     "@location": {},
+    "clubsMap": "Clubs Map",
+    "@clubsMap": {},
     "searchForGym": "Search for a gym",
     "@searchForGym": {},
     "filter": "Filter",

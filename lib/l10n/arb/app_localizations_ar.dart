@@ -21,6 +21,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get location => 'العنوان';
 
   @override
+  String get clubsMap => 'Clubs Map';
+
+  @override
   String get searchForGym => 'Search for a gym';
 
   @override
