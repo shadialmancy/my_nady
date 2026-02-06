@@ -92,6 +92,8 @@ class FamilyClubCard extends StatelessWidget {
               children: [
                 Text(
                   club?.name ?? "Club Name",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: theme.titleMedium.copyWith(
                     fontWeight: .w400,
                     color: theme.primary,

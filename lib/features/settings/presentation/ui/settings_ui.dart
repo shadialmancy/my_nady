@@ -1,19 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../authentication/presentation/provider/auth_ui_service.dart';
 import '../widgets/widgets.dart';
 
-class SettingsUi extends StatelessWidget {
+class SettingsUi extends ConsumerWidget {
   const SettingsUi({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final (theme, l10n) = appSettingsRecord(context);
+    final authRef = ref.watch(authUiServiceProvider);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -88,14 +92,28 @@ class SettingsUi extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 16,
-                          child: Image.asset(
-                            AssetsHelper.profileImageHolder,
-                            fit: BoxFit.cover,
+                          child: ClipOval(
+                            child: authRef.value?.image != null
+                                ? CachedNetworkImage(
+                                    imageUrl: authRef.value!.image!,
+                                    fit: BoxFit.cover,
+                                    width: 32,
+                                    height: 32,
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(
+                                          AssetsHelper.profileImageHolder,
+                                          fit: BoxFit.cover,
+                                        ),
+                                  )
+                                : Image.asset(
+                                    AssetsHelper.profileImageHolder,
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                         gapW8,
                         Text(
-                          "William Wright",
+                          authRef.value?.name ?? "",
                           style: theme.titleMedium.copyWith(fontWeight: .w700),
                         ),
                       ],
@@ -144,76 +162,76 @@ class SettingsUi extends StatelessWidget {
                       ),
                     ),
                     // Add payment method
-                    ListTile(
-                      contentPadding: .zero,
-                      onTap: () {},
-                      leading: Text(
-                        l10n.addPaymentMethod,
-                        style: theme.titleMedium.copyWith(fontWeight: .w400),
-                      ),
-                      trailing: Icon(Icons.add, color: theme.primary, size: 22),
-                    ),
-                    // Notification
-                    PushNotificationListTile(),
-                    // Theme mode
-                    ThemeModeListTile(),
-                    gapH24,
-                    Text(
-                      l10n.more,
-                      style: theme.titleMedium.copyWith(
-                        color: theme.greyAD,
-                        fontWeight: .w400,
-                      ),
-                    ),
-                    gapH12,
-                    ListTile(
-                      contentPadding: .zero,
-                      onTap: () {
-                        // context.router.push(const EditProfileRoute());
-                      },
-                      leading: Text(
-                        l10n.aboutUs,
-                        style: theme.titleMedium.copyWith(fontWeight: .w400),
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: theme.primary,
-                        fontWeight: .w900,
-                        size: 14,
-                      ),
-                    ),
-                    ListTile(
-                      contentPadding: .zero,
-                      onTap: () {
-                        // context.router.push(const EditProfileRoute());
-                      },
-                      leading: Text(
-                        l10n.privacyPolicy,
-                        style: theme.titleMedium.copyWith(fontWeight: .w400),
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: theme.primary,
-                        fontWeight: .w900,
-                        size: 14,
-                      ),
-                    ),
-                    ListTile(
-                      contentPadding: .zero,
-                      onTap: () {
-                        // context.router.push(const EditProfileRoute());
-                      },
-                      leading: Text(
-                        l10n.termsConditions,
-                        style: theme.titleMedium.copyWith(fontWeight: .w400),
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: theme.primary,
-                        fontWeight: .w900,
-                        size: 14,
-                      ),
-                    ),
+                    // ListTile(
+                    //   contentPadding: .zero,
+                    //   onTap: () {},
+                    //   leading: Text(
+                    //     l10n.addPaymentMethod,
+                    //     style: theme.titleMedium.copyWith(fontWeight: .w400),
+                    //   ),
+                    //   trailing: Icon(Icons.add, color: theme.primary, size: 22),
+                    // ),
+                    // // Notification
+                    // PushNotificationListTile(),
+                    // // Theme mode
+                    // ThemeModeListTile(),
+                    // gapH24,
+                    // Text(
+                    //   l10n.more,
+                    //   style: theme.titleMedium.copyWith(
+                    //     color: theme.greyAD,
+                    //     fontWeight: .w400,
+                    //   ),
+                    // ),
+                    // gapH12,
+                    // ListTile(
+                    //   contentPadding: .zero,
+                    //   onTap: () {
+                    //     // context.router.push(const EditProfileRoute());
+                    //   },
+                    //   leading: Text(
+                    //     l10n.aboutUs,
+                    //     style: theme.titleMedium.copyWith(fontWeight: .w400),
+                    //   ),
+                    //   trailing: Icon(
+                    //     Icons.arrow_forward_ios_rounded,
+                    //     color: theme.primary,
+                    //     fontWeight: .w900,
+                    //     size: 14,
+                    //   ),
+                    // ),
+                    // ListTile(
+                    //   contentPadding: .zero,
+                    //   onTap: () {
+                    //     // context.router.push(const EditProfileRoute());
+                    //   },
+                    //   leading: Text(
+                    //     l10n.privacyPolicy,
+                    //     style: theme.titleMedium.copyWith(fontWeight: .w400),
+                    //   ),
+                    //   trailing: Icon(
+                    //     Icons.arrow_forward_ios_rounded,
+                    //     color: theme.primary,
+                    //     fontWeight: .w900,
+                    //     size: 14,
+                    //   ),
+                    // ),
+                    // ListTile(
+                    //   contentPadding: .zero,
+                    //   onTap: () {
+                    //     // context.router.push(const EditProfileRoute());
+                    //   },
+                    //   leading: Text(
+                    //     l10n.termsConditions,
+                    //     style: theme.titleMedium.copyWith(fontWeight: .w400),
+                    //   ),
+                    //   trailing: Icon(
+                    //     Icons.arrow_forward_ios_rounded,
+                    //     color: theme.primary,
+                    //     fontWeight: .w900,
+                    //     size: 14,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

@@ -106,9 +106,9 @@ class ClubCard extends StatelessWidget {
           ),
           gapH12,
           Text(
-            (club?.name?.length ?? 0) > 17
-                ? "${club?.name?.substring(0, 17)}..."
-                : club?.name ?? "Club Name",
+            club?.name ?? "Club Name",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: theme.titleMedium.copyWith(
               fontWeight: .w400,
               color: theme.primary,

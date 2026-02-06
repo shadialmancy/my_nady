@@ -19,7 +19,7 @@ class DioClient {
                 },
                 contentType: 'application/json',
                 validateStatus: (status) {
-                  return status! < 500;
+                  return status! <= 500;
                 },
                 followRedirects: false, // Enable following redirections
                 maxRedirects: 5, //

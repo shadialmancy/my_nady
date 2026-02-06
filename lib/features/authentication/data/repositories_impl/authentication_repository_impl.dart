@@ -19,6 +19,10 @@ abstract class BaseAuthenticationRepository {
     required String gender,
     required String birthDate,
   });
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  });
   Future<User> uploadAvatar({required String imagePath});
 }
 
@@ -90,6 +94,21 @@ class AuthenticationRepositoryImpl implements BaseAuthenticationRepository {
         name: name,
         gender: gender,
         birthDate: birthDate,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    try {
+      await dataSource.changePassword(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
       );
     } catch (e) {
       rethrow;

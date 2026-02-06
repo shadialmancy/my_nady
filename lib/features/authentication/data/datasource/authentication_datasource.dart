@@ -23,6 +23,10 @@ abstract class AuthenticationSource {
     required String gender,
     required String birthDate,
   });
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  });
   Future<User> uploadAvatar({required String imagePath});
 }
 
@@ -76,17 +80,31 @@ class AuthenticationSourceImpl implements AuthenticationSource {
 
   @override
   Future<void> resetPassword({String? token, String? password}) async {
-    var body = {"token": token, "password": password};
+    var body = {"token": token, "newPassword": password};
 
     final response = await DioClient().dio.post(
       AppConstants.resetPasswordApiUrl,
       data: body,
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       return;
     } else {
-      final errorModel = ErrorModel.fromJson(response.data);
-      throw errorModel.message ?? 'Error in resetPassword';
+      dynamic errorData = response.data;
+      String errorMessage = 'Error in resetPassword';
+
+      if (errorData is Map<String, dynamic>) {
+        if (errorData['message'] is Map<String, dynamic>) {
+          final messageMap = errorData['message'] as Map<String, dynamic>;
+          if (messageMap['message'] is List) {
+            errorMessage = (messageMap['message'] as List).join('\n');
+          } else {
+            errorMessage = messageMap['message']?.toString() ?? errorMessage;
+          }
+        } else if (errorData['message'] is String) {
+          errorMessage = errorData['message'];
+        }
+      }
+      throw errorMessage;
     }
   }
 
@@ -121,6 +139,42 @@ class AuthenticationSourceImpl implements AuthenticationSource {
     } else {
       final errorModel = ErrorModel.fromJson(response.data);
       throw errorModel.message ?? 'Error in updateProfile';
+    }
+  }
+
+  @override
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    final response = await DioClient().dio.post(
+      AppConstants.changePasswordApiUrl,
+      data: {'currentPassword': currentPassword, 'newPassword': newPassword},
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return;
+    } else {
+      dynamic errorData = response.data;
+      String errorMessage = 'Error in changePassword';
+
+      if (errorData is Map<String, dynamic>) {
+        if (errorData['message'] is List) {
+          errorMessage = (errorData['message'] as List).join('\n');
+        } else if (errorData['message'] is String) {
+          errorMessage = errorData['message'];
+        } else if (errorData['message'] is Map<String, dynamic>) {
+          // Handle nested message if applicable, though less likely for this endpoint
+          // but keeping safety from resetPassword pattern if needed
+          final messageMap = errorData['message'] as Map<String, dynamic>;
+          if (messageMap['message'] is List) {
+            errorMessage = (messageMap['message'] as List).join('\n');
+          } else {
+            errorMessage = messageMap['message']?.toString() ?? errorMessage;
+          }
+        }
+      }
+      throw errorMessage;
     }
   }
 

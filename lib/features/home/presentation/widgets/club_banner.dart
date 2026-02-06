@@ -89,6 +89,8 @@ class ClubBanner extends StatelessWidget {
                   gapH16,
                   Text(
                     club.name ?? "Club Name",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: theme.headlineSmall.copyWith(
                       color: theme.white,
                       fontSize: 22,

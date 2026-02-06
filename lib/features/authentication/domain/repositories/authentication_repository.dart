@@ -71,6 +71,20 @@ class AuthenticationRepository extends _$AuthenticationRepository {
     }
   }
 
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    try {
+      await _authenticationSourceImpl.changePassword(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<User> updateProfile({
     required String name,
     required String gender,

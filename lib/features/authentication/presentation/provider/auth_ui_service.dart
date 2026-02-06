@@ -198,6 +198,27 @@ class AuthUiService extends _$AuthUiService {
     }
   }
 
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    try {
+      state = const AsyncValue.loading();
+      await ref
+          .read(authenticationRepositoryProvider.notifier)
+          .changePassword(
+            currentPassword: currentPassword,
+            newPassword: newPassword,
+          );
+      state = AsyncValue.data(_userEntity?.user);
+      AppToast.successToast('Password changed successfully');
+    } catch (e) {
+      state = AsyncValue.data(_userEntity?.user);
+      AppToast.errorToast(e.toString());
+      rethrow;
+    }
+  }
+
   Future<void> updateProfile({
     required String name,
     required String gender,

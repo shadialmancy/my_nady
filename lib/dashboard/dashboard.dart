@@ -48,10 +48,10 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
   @override
   void didChangeDependencies() {
     animation = Tween(
-      begin: getEndPosition(0, horizontalPadding, noOfIcons),
-      end: getEndPosition(0, horizontalPadding, noOfIcons),
+      begin: getEndPosition(selected, horizontalPadding, noOfIcons),
+      end: getEndPosition(selected, horizontalPadding, noOfIcons),
     ).animate(controller);
-    position = getEndPosition(0, horizontalPadding, noOfIcons);
+    position = getEndPosition(selected, horizontalPadding, noOfIcons);
     super.didChangeDependencies();
   }
 
