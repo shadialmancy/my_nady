@@ -73,7 +73,7 @@ class _ModifyDairyRecordUiState extends ConsumerState<ModifyDairyRecordUi> {
                             description: descriptionController.text,
                             date: dateController.text,
                           );
-                      if (mounted) {
+                      if (context.mounted) {
                         context.router.maybePop();
                       }
                     }

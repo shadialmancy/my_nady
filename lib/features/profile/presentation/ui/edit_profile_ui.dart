@@ -130,7 +130,7 @@ class _EditProfileUiState extends ConsumerState<EditProfileUi> {
                                         birthDate:
                                             "${birthDateController.text}T00:00:00.000Z",
                                       );
-                                  if (mounted) {
+                                  if (context.mounted) {
                                     context.router.maybePop();
                                   }
                                 } catch (e) {
