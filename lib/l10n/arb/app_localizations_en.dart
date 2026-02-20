@@ -483,4 +483,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validEmail => 'Please enter a valid email';
+
+  @override
+  String get noBranchNearBy => 'No branch near by';
+
+  @override
+  String get noFavorites => 'No favorites yet';
 }

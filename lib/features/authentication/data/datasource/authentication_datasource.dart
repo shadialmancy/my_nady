@@ -15,6 +15,8 @@ abstract class AuthenticationSource {
     String? password,
     String? name,
     String? phone,
+    String? gender,
+    String? birthDate,
   });
   Future<void> logoutUser();
   Future<void> resetPassword({String? token, String? password});
@@ -33,22 +35,27 @@ abstract class AuthenticationSource {
 class AuthenticationSourceImpl implements AuthenticationSource {
   @override
   Future<UserDto> loginUser({String? email, String? password}) async {
-    var body = {AppStrings.email: email, AppStrings.password: password};
-    final response = await DioClient().dio.post(
-      AppConstants.loginApiUrl,
-      options: Options(
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Client-Type': 'mobile',
-        },
-      ),
-      data: body,
-    );
-    if (response.statusCode == 200) {
-      return UserDto.fromJson(response.data["data"]);
-    } else {
-      final errorModel = ErrorModel.fromJson(response.data);
-      throw errorModel.message ?? 'Error in registerUser';
+    try {
+      var body = {AppStrings.email: email, AppStrings.password: password};
+      final response = await DioClient().dio.post(
+        AppConstants.loginApiUrl,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Client-Type': 'mobile',
+          },
+        ),
+        data: body,
+      );
+      if (response.statusCode == 200) {
+        return UserDto.fromJson(response.data);
+      } else {
+        throw _handleResponseError(response.data);
+      }
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw e.toString();
     }
   }
 
@@ -58,68 +65,73 @@ class AuthenticationSourceImpl implements AuthenticationSource {
     String? password,
     String? name,
     String? phone,
+    String? gender,
+    String? birthDate,
   }) async {
-    var body = {
-      "email": email,
-      "password": password,
-      "name": name,
-      "phone": phone,
-    };
+    try {
+      var body = {
+        "email": email,
+        "password": password,
+        "name": name,
+        "phone": phone,
+        "gender": gender,
+        "birthDate": birthDate,
+      };
 
-    final response = await DioClient().dio.post(
-      AppConstants.registerApiUrl,
-      data: body,
-    );
-    if (response.statusCode == 201) {
-      return UserDto.fromJson(response.data);
-    } else {
-      final errorModel = ErrorModel.fromJson(response.data);
-      throw errorModel.message ?? 'Error in registerUser';
+      final response = await DioClient().dio.post(
+        AppConstants.registerApiUrl,
+        data: body,
+      );
+      if (response.statusCode == 201) {
+        return UserDto.fromJson(response.data);
+      } else {
+        throw _handleResponseError(response.data);
+      }
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw e.toString();
     }
   }
 
   @override
   Future<void> resetPassword({String? token, String? password}) async {
-    var body = {"token": token, "newPassword": password};
+    try {
+      var body = {"token": token, "newPassword": password};
 
-    final response = await DioClient().dio.post(
-      AppConstants.resetPasswordApiUrl,
-      data: body,
-    );
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      return;
-    } else {
-      dynamic errorData = response.data;
-      String errorMessage = 'Error in resetPassword';
-
-      if (errorData is Map<String, dynamic>) {
-        if (errorData['message'] is Map<String, dynamic>) {
-          final messageMap = errorData['message'] as Map<String, dynamic>;
-          if (messageMap['message'] is List) {
-            errorMessage = (messageMap['message'] as List).join('\n');
-          } else {
-            errorMessage = messageMap['message']?.toString() ?? errorMessage;
-          }
-        } else if (errorData['message'] is String) {
-          errorMessage = errorData['message'];
-        }
+      final response = await DioClient().dio.post(
+        AppConstants.resetPasswordApiUrl,
+        data: body,
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return;
+      } else {
+        throw _parseComplexError(response.data);
       }
-      throw errorMessage;
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw e.toString();
     }
   }
 
   @override
   Future<void> logoutUser() async {
-    final refreshToken = await sessionManager.getRefreshToken();
-    final response = await DioClient().dio.post(
-      AppConstants.logoutApiUrl,
-      data: {AppStrings.refreshToken: refreshToken},
-    );
-    if (response.statusCode == 200) {
-      return;
-    } else {
-      final errorModel = ErrorModel.fromJson(response.data);
-      throw errorModel.message ?? 'Error in logout';
+    try {
+      final refreshToken = await sessionManager.getRefreshToken();
+      final response = await DioClient().dio.post(
+        AppConstants.logoutApiUrl,
+        data: {AppStrings.refreshToken: refreshToken},
+      );
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        return;
+      } else {
+        throw _handleResponseError(response.data);
+      }
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw e.toString();
     }
   }
 
@@ -129,16 +141,21 @@ class AuthenticationSourceImpl implements AuthenticationSource {
     required String gender,
     required String birthDate,
   }) async {
-    final response = await DioClient().dio.patch(
-      AppConstants.profileApiUrl,
-      data: {'name': name, 'gender': gender, 'birthDate': birthDate},
-    );
+    try {
+      final response = await DioClient().dio.patch(
+        AppConstants.profileApiUrl,
+        data: {'name': name, 'gender': gender, 'birthDate': birthDate},
+      );
 
-    if (response.statusCode == 200) {
-      return User.fromJson(response.data["data"]);
-    } else {
-      final errorModel = ErrorModel.fromJson(response.data);
-      throw errorModel.message ?? 'Error in updateProfile';
+      if (response.statusCode == 200) {
+        return User.fromJson(response.data["data"]);
+      } else {
+        throw _handleResponseError(response.data);
+      }
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw e.toString();
     }
   }
 
@@ -147,54 +164,86 @@ class AuthenticationSourceImpl implements AuthenticationSource {
     required String currentPassword,
     required String newPassword,
   }) async {
-    final response = await DioClient().dio.post(
-      AppConstants.changePasswordApiUrl,
-      data: {'currentPassword': currentPassword, 'newPassword': newPassword},
-    );
+    try {
+      final response = await DioClient().dio.post(
+        AppConstants.changePasswordApiUrl,
+        data: {'currentPassword': currentPassword, 'newPassword': newPassword},
+      );
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      return;
-    } else {
-      dynamic errorData = response.data;
-      String errorMessage = 'Error in changePassword';
-
-      if (errorData is Map<String, dynamic>) {
-        if (errorData['message'] is List) {
-          errorMessage = (errorData['message'] as List).join('\n');
-        } else if (errorData['message'] is String) {
-          errorMessage = errorData['message'];
-        } else if (errorData['message'] is Map<String, dynamic>) {
-          // Handle nested message if applicable, though less likely for this endpoint
-          // but keeping safety from resetPassword pattern if needed
-          final messageMap = errorData['message'] as Map<String, dynamic>;
-          if (messageMap['message'] is List) {
-            errorMessage = (messageMap['message'] as List).join('\n');
-          } else {
-            errorMessage = messageMap['message']?.toString() ?? errorMessage;
-          }
-        }
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return;
+      } else {
+        throw _parseComplexError(response.data);
       }
-      throw errorMessage;
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw e.toString();
     }
   }
 
   @override
   Future<User> uploadAvatar({required String imagePath}) async {
-    final fileName = imagePath.split('/').last;
-    final formData = FormData.fromMap({
-      'image': await MultipartFile.fromFile(imagePath, filename: fileName),
-    });
+    try {
+      final fileName = imagePath.split('/').last;
+      final formData = FormData.fromMap({
+        'image': await MultipartFile.fromFile(imagePath, filename: fileName),
+      });
 
-    final response = await DioClient().dio.post(
-      AppConstants.uploadAvatarApiUrl,
-      data: formData,
-    );
+      final response = await DioClient().dio.post(
+        AppConstants.uploadAvatarApiUrl,
+        data: formData,
+      );
 
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      return User.fromJson(response.data["data"]);
-    } else {
-      final errorModel = ErrorModel.fromJson(response.data);
-      throw errorModel.message ?? 'Error in uploadAvatar';
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return User.fromJson(response.data["data"]);
+      } else {
+        throw _handleResponseError(response.data);
+      }
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw e.toString();
     }
+  }
+
+  String _handleResponseError(dynamic data) {
+    try {
+      final errorModel = ErrorModel.fromJson(data);
+      return errorModel.message ?? 'Unknown error';
+    } catch (_) {
+      return _parseComplexError(data);
+    }
+  }
+
+  String _handleDioError(DioException e) {
+    if (e.response != null && e.response?.data != null) {
+      return _handleResponseError(e.response!.data);
+    }
+    return e.message ?? 'Unknown Network Error';
+  }
+
+  String _parseComplexError(dynamic errorData) {
+    if (errorData is String) {
+      return errorData;
+    }
+    if (errorData is Map<String, dynamic>) {
+      if (errorData['message'] is String) {
+        return errorData['message'];
+      }
+      if (errorData['message'] is Map<String, dynamic>) {
+        // e.g. {"message": {"message": ["error1", "error2"]}} or {"message": {"message": "error"}}
+        final innerMap = errorData['message'];
+        if (innerMap['message'] is List) {
+          return (innerMap['message'] as List).join('\n');
+        } else if (innerMap['message'] is String) {
+          return innerMap['message'];
+        }
+      }
+      if (errorData['message'] is List) {
+        return (errorData['message'] as List).join('\n');
+      }
+    }
+    return 'An unexpected error occurred';
   }
 }

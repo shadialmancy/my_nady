@@ -1,0 +1,147 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../core/constants/app_sizes.dart';
+import '../../data/models/subscription_current_dto/datum.dart';
+
+class CurrentSubscriptionCard extends StatelessWidget {
+  final Datum subscription;
+
+  const CurrentSubscriptionCard({super.key, required this.subscription});
+
+  @override
+  Widget build(BuildContext context) {
+    final (theme, l10n) = appSettingsRecord(context);
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: theme.primary.withValues(alpha: 0.3)),
+        boxShadow: [
+          BoxShadow(
+            color: theme.grey9C.withValues(alpha: 0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  subscription.branch?.name ?? 'Branch Name',
+                  style: theme.titleMedium.copyWith(
+                    color: theme.primary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: _getStatusColor(subscription.status, theme),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  subscription.status?.toUpperCase() ?? 'UNKNOWN',
+                  style: theme.bodySmall.copyWith(
+                    color: theme.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          gapH12,
+          Text(
+            subscription.subscriptionPlan?.name ?? 'Plan Name',
+            style: theme.bodyMedium.copyWith(
+              color: theme.primaryText,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          gapH8,
+          Row(
+            children: [
+              Icon(Icons.calendar_today, size: 16, color: theme.grey9C),
+              gapW8,
+              Text(
+                'Start: ${_formatDate(subscription.startDate)}',
+                style: theme.bodySmall.copyWith(color: theme.grey9C),
+              ),
+            ],
+          ),
+          gapH4,
+          Row(
+            children: [
+              Icon(Icons.event, size: 16, color: theme.grey9C),
+              gapW8,
+              Text(
+                'End: ${_formatDate(subscription.endDate)}',
+                style: theme.bodySmall.copyWith(color: theme.grey9C),
+              ),
+            ],
+          ),
+          gapH8,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${subscription.subscriptionPlan?.price ?? 0} KWD',
+                style: theme.titleMedium.copyWith(
+                  color: theme.primary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              if (subscription.autoRenew == true)
+                Row(
+                  children: [
+                    Icon(Icons.autorenew, size: 16, color: theme.primary),
+                    gapW4,
+                    Text(
+                      'Auto Renew',
+                      style: theme.bodySmall.copyWith(
+                        color: theme.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _formatDate(DateTime? date) {
+    if (date == null) return 'N/A';
+    return DateFormat('MMM dd, yyyy').format(date);
+  }
+
+  Color _getStatusColor(String? status, dynamic theme) {
+    switch (status?.toLowerCase()) {
+      case 'active':
+        return Colors.green;
+      case 'expired':
+        return Colors.red;
+      case 'cancelled':
+        return Colors.orange;
+      default:
+        return theme.grey9C;
+    }
+  }
+}

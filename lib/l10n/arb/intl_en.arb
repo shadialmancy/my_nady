@@ -307,5 +307,9 @@
     "fieldRequired": "Field Required",
     "@fieldRequired": {},
     "validEmail": "Please enter a valid email",
-    "@validEmail": {}
+    "@validEmail": {},
+    "noBranchNearBy": "No branch near by",
+    "@noBranchNearBy": {},
+    "noFavorites": "No favorites yet",
+    "@noFavorites": {}
 }

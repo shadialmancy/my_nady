@@ -7,21 +7,15 @@ part of 'user_dto.dart';
 // **************************************************************************
 
 _UserDto _$UserDtoFromJson(Map<String, dynamic> json) => _UserDto(
-  accessToken: json['accessToken'] as String?,
-  refreshToken: json['refreshToken'] as String?,
-  accessTokenExpiresAt: json['accessTokenExpiresAt'] as String?,
-  refreshTokenExpiresAt: json['refreshTokenExpiresAt'] as String?,
-  user: json['user'] == null
+  data: json['data'] == null
       ? null
-      : User.fromJson(json['user'] as Map<String, dynamic>),
-  isEmailVerified: json['isEmailVerified'] as bool?,
+      : Data.fromJson(json['data'] as Map<String, dynamic>),
+  meta: json['meta'] == null
+      ? null
+      : Meta.fromJson(json['meta'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$UserDtoToJson(_UserDto instance) => <String, dynamic>{
-  'accessToken': instance.accessToken,
-  'refreshToken': instance.refreshToken,
-  'accessTokenExpiresAt': instance.accessTokenExpiresAt,
-  'refreshTokenExpiresAt': instance.refreshTokenExpiresAt,
-  'user': instance.user,
-  'isEmailVerified': instance.isEmailVerified,
+  'data': instance.data,
+  'meta': instance.meta,
 };

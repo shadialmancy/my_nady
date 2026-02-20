@@ -1,7 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/helpers/assets_helper.dart';
 import '../../../../features/club/data/models/club_filter_request.dart';
+import '../../../club/data/models/branch_meta_item.dart';
+import '../../../club/domain/repositories/club_repository.dart';
 
 part 'filter_service.g.dart';
 
@@ -10,119 +11,44 @@ class FilterService extends _$FilterService {
   @override
   Future<List<Map<String, dynamic>>?> build() async {
     filteredClubList = clubList;
+    // Preload types & amenities for the filter UI
+    await _loadBranchMeta();
     return filteredClubList;
   }
 
-  // TODO: make sure to make separated one for the resource gym
-  List<Map<String, dynamic>> clubList = [
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Kids",
-
-      "rating": "4.99k",
-      "price": "20%",
-    },
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Kids",
-      "rating": "4.99k",
-      "price": "20%",
-    },
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Kids",
-      "rating": "4.99k",
-      "price": "20%",
-    },
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Male",
-      "rating": "4.99k",
-      "price": "20%",
-    },
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Male",
-      "rating": "4.99k",
-      "price": "20%",
-    },
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Male",
-      "rating": "4.99k",
-      "price": "20%",
-    },
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Female",
-      "rating": "4.99k",
-      "price": "20%",
-    },
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Female",
-      "rating": "4.99k",
-      "price": "20%",
-    },
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Female",
-      "rating": "4.99k",
-      "price": "20%",
-    },
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Family",
-      "rating": "4.99k",
-      "price": "20%",
-    },
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Family",
-      "rating": "4.99k",
-      "price": "20%",
-    },
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Family",
-      "rating": "4.99k",
-      "price": "20%",
-    },
-    {
-      "image": AssetsHelper.gymBanner,
-      "title": "Iron Man Gym",
-      "location": "30k. Khaitan and Salmiya.",
-      "category": "Family",
-      "rating": "4.99k",
-      "price": "20%",
-    },
-  ];
+  List<Map<String, dynamic>> clubList = [];
 
   List<Map<String, dynamic>> filteredClubList = [];
+
+  // Branch types & amenities (only id, name, icon)
+  List<BranchMetaItem> branchTypes = [];
+  List<BranchMetaItem> branchAmenities = [];
+
+  Future<void> _loadBranchMeta() async {
+    try {
+      final repo = ref.read(clubRepositoryProvider.notifier);
+      final types = await repo.getBranchTypes();
+      final amenities = await repo.getBranchAmenities();
+
+      branchTypes = types;
+      branchAmenities = amenities;
+    } catch (e) {
+      logger.e('Error loading branch meta: $e');
+      // Set empty lists on error to prevent crashes
+      branchTypes = [];
+      branchAmenities = [];
+    }
+  }
+
+  /// Get branch types as simple maps for UI convenience
+  List<Map<String, String?>> get branchTypesAsMaps => branchTypes
+      .map((e) => {'id': e.id, 'name': e.name, 'icon': e.icon})
+      .toList();
+
+  /// Get branch amenities as simple maps for UI convenience
+  List<Map<String, String?>> get branchAmenitiesAsMaps => branchAmenities
+      .map((e) => {'id': e.id, 'name': e.name, 'icon': e.icon})
+      .toList();
 
   /// Apply filters and update the state
   void applyFilters(ClubFilterRequest filterRequest) {
@@ -133,7 +59,7 @@ class FilterService extends _$FilterService {
 
     // Apply filtering logic
     filteredClubList = clubList.where((club) {
-      // Filter by gender/category
+      // Gender / category
       if (filterRequest.gender != null) {
         final clubCategory = club['category']?.toString().toLowerCase();
         final filterGender = filterRequest.gender!.toLowerCase();
@@ -143,7 +69,7 @@ class FilterService extends _$FilterService {
         }
       }
 
-      // Filter by gym name
+      // Gym name search
       if (filterRequest.search != null && filterRequest.search!.isNotEmpty) {
         final clubTitle = club['title']?.toString().toLowerCase() ?? '';
         final searchName = filterRequest.search!.toLowerCase();
@@ -153,13 +79,77 @@ class FilterService extends _$FilterService {
         }
       }
 
-      // Add more filter logic here for other fields:
-      // - gymTypes
-      // - area
-      // - facilities
-      // - priceRange
-      // - subscriptionType
-      // - includesOffer
+      // Type (branch type id) - expect club['typeId'] or similar
+      if (filterRequest.typeId != null && filterRequest.typeId!.isNotEmpty) {
+        final clubTypeId = club['typeId']?.toString();
+        if (clubTypeId != filterRequest.typeId) {
+          return false;
+        }
+      }
+
+      // Amenities (list of amenity ids) - expect club['amenityIds'] as List<String>
+      if (filterRequest.amenityIds != null &&
+          filterRequest.amenityIds!.isNotEmpty) {
+        final List<dynamic>? clubAmenityIdsDynamic =
+            club['amenityIds'] as List<dynamic>?;
+        final clubAmenityIds = clubAmenityIdsDynamic
+                ?.map((e) => e.toString())
+                .toList() ??
+            <String>[];
+
+        // require that all selected amenities exist in the club
+        final allSelectedExist = filterRequest.amenityIds!
+            .every((selectedId) => clubAmenityIds.contains(selectedId));
+
+        if (!allSelectedExist) {
+          return false;
+        }
+      }
+
+      // Area - expect club['area'] or club['locationArea']
+      if (filterRequest.area != null && filterRequest.area!.isNotEmpty) {
+        final clubArea = (club['area'] ?? club['locationArea'])
+            ?.toString()
+            .toLowerCase();
+        final filterArea = filterRequest.area!.toLowerCase();
+        if (clubArea == null || clubArea != filterArea) {
+          return false;
+        }
+      }
+
+      // Price range - expect numeric 'minPrice' / 'maxPrice' on club
+      if (filterRequest.minPrice != null || filterRequest.maxPrice != null) {
+        final clubMinPrice = (club['minPrice'] ?? club['price'])
+            as num?; // fallback to single price field
+        final clubMaxPrice =
+            (club['maxPrice'] ?? club['price']) as num?; // same fallback
+
+        if (clubMinPrice != null && filterRequest.maxPrice != null) {
+          if (clubMinPrice > filterRequest.maxPrice!) {
+            return false;
+          }
+        }
+        if (clubMaxPrice != null && filterRequest.minPrice != null) {
+          if (clubMaxPrice < filterRequest.minPrice!) {
+            return false;
+          }
+        }
+      }
+
+      // Includes offer - expect boolean 'hasOffers' or non‑empty 'offers' list
+      if (filterRequest.hasOffers == true) {
+        final hasOffersFlag = club['hasOffers'] as bool?;
+        final offersList = club['offers'] as List<dynamic>?;
+
+        final clubHasOffers =
+            hasOffersFlag == true || (offersList != null && offersList.isNotEmpty);
+
+        if (!clubHasOffers) {
+          return false;
+        }
+      }
+
+      // Sort is handled at API/UI level, not here
 
       return true;
     }).toList();

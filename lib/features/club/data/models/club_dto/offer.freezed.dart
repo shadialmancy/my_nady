@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Offer {
 
-@JsonKey(name: '_id') Id? get id; String? get name; String? get discountType; num? get discountValue; String? get endDate;
+ String? get id; String? get name; String? get discountType; num? get discountValue; DateTime? get endDate;
 /// Create a copy of Offer
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,11 +48,11 @@ abstract mixin class $OfferCopyWith<$Res>  {
   factory $OfferCopyWith(Offer value, $Res Function(Offer) _then) = _$OfferCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: '_id') Id? id, String? name, String? discountType, num? discountValue, String? endDate
+ String? id, String? name, String? discountType, num? discountValue, DateTime? endDate
 });
 
 
-$IdCopyWith<$Res>? get id;
+
 
 }
 /// @nodoc
@@ -68,26 +68,14 @@ class _$OfferCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = freezed,Object? discountType = freezed,Object? discountValue = freezed,Object? endDate = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,discountType: freezed == discountType ? _self.discountType : discountType // ignore: cast_nullable_to_non_nullable
 as String?,discountValue: freezed == discountValue ? _self.discountValue : discountValue // ignore: cast_nullable_to_non_nullable
 as num?,endDate: freezed == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
-as String?,
+as DateTime?,
   ));
 }
-/// Create a copy of Offer
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$IdCopyWith<$Res>? get id {
-    if (_self.id == null) {
-    return null;
-  }
 
-  return $IdCopyWith<$Res>(_self.id!, (value) {
-    return _then(_self.copyWith(id: value));
-  });
-}
 }
 
 
@@ -169,7 +157,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: '_id')  Id? id,  String? name,  String? discountType,  num? discountValue,  String? endDate)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? name,  String? discountType,  num? discountValue,  DateTime? endDate)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Offer() when $default != null:
 return $default(_that.id,_that.name,_that.discountType,_that.discountValue,_that.endDate);case _:
@@ -190,7 +178,7 @@ return $default(_that.id,_that.name,_that.discountType,_that.discountValue,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: '_id')  Id? id,  String? name,  String? discountType,  num? discountValue,  String? endDate)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? name,  String? discountType,  num? discountValue,  DateTime? endDate)  $default,) {final _that = this;
 switch (_that) {
 case _Offer():
 return $default(_that.id,_that.name,_that.discountType,_that.discountValue,_that.endDate);case _:
@@ -210,7 +198,7 @@ return $default(_that.id,_that.name,_that.discountType,_that.discountValue,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: '_id')  Id? id,  String? name,  String? discountType,  num? discountValue,  String? endDate)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? name,  String? discountType,  num? discountValue,  DateTime? endDate)?  $default,) {final _that = this;
 switch (_that) {
 case _Offer() when $default != null:
 return $default(_that.id,_that.name,_that.discountType,_that.discountValue,_that.endDate);case _:
@@ -225,14 +213,14 @@ return $default(_that.id,_that.name,_that.discountType,_that.discountValue,_that
 @JsonSerializable()
 
 class _Offer implements Offer {
-   _Offer({@JsonKey(name: '_id') this.id, this.name, this.discountType, this.discountValue, this.endDate});
+   _Offer({this.id, this.name, this.discountType, this.discountValue, this.endDate});
   factory _Offer.fromJson(Map<String, dynamic> json) => _$OfferFromJson(json);
 
-@override@JsonKey(name: '_id') final  Id? id;
+@override final  String? id;
 @override final  String? name;
 @override final  String? discountType;
 @override final  num? discountValue;
-@override final  String? endDate;
+@override final  DateTime? endDate;
 
 /// Create a copy of Offer
 /// with the given fields replaced by the non-null parameter values.
@@ -267,11 +255,11 @@ abstract mixin class _$OfferCopyWith<$Res> implements $OfferCopyWith<$Res> {
   factory _$OfferCopyWith(_Offer value, $Res Function(_Offer) _then) = __$OfferCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: '_id') Id? id, String? name, String? discountType, num? discountValue, String? endDate
+ String? id, String? name, String? discountType, num? discountValue, DateTime? endDate
 });
 
 
-@override $IdCopyWith<$Res>? get id;
+
 
 }
 /// @nodoc
@@ -287,27 +275,15 @@ class __$OfferCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = freezed,Object? discountType = freezed,Object? discountValue = freezed,Object? endDate = freezed,}) {
   return _then(_Offer(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,discountType: freezed == discountType ? _self.discountType : discountType // ignore: cast_nullable_to_non_nullable
 as String?,discountValue: freezed == discountValue ? _self.discountValue : discountValue // ignore: cast_nullable_to_non_nullable
 as num?,endDate: freezed == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
-as String?,
+as DateTime?,
   ));
 }
 
-/// Create a copy of Offer
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$IdCopyWith<$Res>? get id {
-    if (_self.id == null) {
-    return null;
-  }
 
-  return $IdCopyWith<$Res>(_self.id!, (value) {
-    return _then(_self.copyWith(id: value));
-  });
-}
 }
 
 // dart format on

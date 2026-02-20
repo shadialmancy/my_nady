@@ -4,7 +4,10 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 
 class GenderDropdown extends StatefulWidget {
-  const GenderDropdown({super.key});
+  const GenderDropdown({super.key, required this.onChanged, this.validator});
+
+  final Function(String) onChanged;
+  final String? Function(dynamic)? validator;
 
   @override
   State<GenderDropdown> createState() => _GenderDropdownState();
@@ -29,7 +32,9 @@ class _GenderDropdownState extends State<GenderDropdown> {
           setState(() {
             selectedGender = value as String? ?? '';
           });
+          widget.onChanged(selectedGender);
         },
+        validator: widget.validator,
         label: l10n.gender,
         hint: l10n.selectYourGender,
       ),

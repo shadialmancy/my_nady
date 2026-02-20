@@ -29,6 +29,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
   num? radius;
   String? selectedSortBy;
   bool? hasOffers;
+  Set<String> selectedAmenityIds = {};
 
   // Sample data - replace with actual data from your backend
   final List<String> gymNames = [
@@ -91,6 +92,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
       radius = existingFilters.radius;
       selectedSortBy = existingFilters.sortBy;
       hasOffers = existingFilters.hasOffers;
+      selectedAmenityIds = existingFilters.amenityIds?.toSet() ?? {};
     }
   }
 
@@ -106,6 +108,9 @@ class _FilterUiState extends ConsumerState<FilterUi> {
       search: searchController.text.isEmpty ? null : searchController.text,
       gender: selectedGender?.toUpperCase(),
       typeId: selectedTypeId,
+      amenityIds: selectedAmenityIds.isEmpty
+          ? null
+          : selectedAmenityIds.toList(),
       area: selectedArea,
       minPrice: priceRange.start,
       maxPrice: priceRange.end,
@@ -142,12 +147,20 @@ class _FilterUiState extends ConsumerState<FilterUi> {
       radius = null;
       selectedSortBy = null;
       hasOffers = null;
+      selectedAmenityIds = {};
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
+
+    // Ensure FilterService is built (and meta loaded)
+    final filterService = ref.read(filterServiceProvider.notifier);
+
+    // Get types and amenities from FilterService
+    final types = filterService.branchTypesAsMaps;
+    final amenities = filterService.branchAmenitiesAsMaps;
 
     return Container(
       decoration: BoxDecoration(
@@ -222,34 +235,92 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                   },
                 ),
                 gapH20,
-                // 3. Gym/Club Type
-                SectionTitle(title: 'Gym/Club Type'),
-                gapH8,
-                GenderSelector(
-                  genders: gymTypes,
-                  selectedGender: selectedTypeId,
-                  onSelected: (value) {
-                    setState(() {
-                      selectedTypeId = value;
-                    });
-                  },
-                ),
-                gapH20,
+                // 3. Gym/Club Type (from FilterService)
+                AsyncValueWidget(
+                  value: ref.watch(filterServiceProvider),
+                  builder: (_) {
+                    return Column(
+                      mainAxisAlignment: .start,
+                      crossAxisAlignment: .start,
+                      children: [
+                        SectionTitle(title: 'Gym/Club Type'),
+                        gapH8,
+                        types.isEmpty
+                            ? const Center(child: CircularProgressIndicator())
+                            : GenderSelector(
+                                genders: types
+                                    .map((e) => e['name'] ?? '')
+                                    .toList(),
+                                selectedGender: selectedTypeId == null
+                                    ? null
+                                    : types.firstWhere(
+                                        (e) => e['id'] == selectedTypeId,
+                                        orElse: () => <String, String?>{},
+                                      )['name'],
+                                onSelected: (value) {
+                                  setState(() {
+                                    final selectedType = types.firstWhere(
+                                      (e) => e['name'] == value,
+                                      orElse: () => <String, String?>{},
+                                    );
+                                    selectedTypeId = selectedType['id'];
+                                  });
+                                },
+                              ),
+                        gapH20,
 
-                // 4. Gym/Club Area (Searchable)
-                SectionTitle(title: 'Gym/Club Area'),
-                gapH8,
-                AreaDropdown(
-                  areas: areas,
-                  selectedArea: selectedArea,
-                  onSelected: (value) {
-                    setState(() {
-                      selectedArea = value;
-                    });
+                        // 4. Amenities (from FilterService)
+                        SectionTitle(title: 'Amenities'),
+                        gapH8,
+                        amenities.isEmpty
+                            ? const Center(child: CircularProgressIndicator())
+                            : CheckboxGroup(
+                                items: amenities
+                                    .map((e) => e['name'] ?? '')
+                                    .toList(),
+                                selectedItems: amenities
+                                    .where(
+                                      (e) =>
+                                          selectedAmenityIds.contains(e['id']),
+                                    )
+                                    .map((e) => e['name'] ?? '')
+                                    .toSet(),
+                                onChanged: (label, isSelected) {
+                                  setState(() {
+                                    final amenity = amenities.firstWhere(
+                                      (e) => e['name'] == label,
+                                      orElse: () => <String, String?>{},
+                                    );
+                                    final id = amenity['id'];
+                                    if (id == null) return;
+                                    if (isSelected) {
+                                      selectedAmenityIds.add(id);
+                                    } else {
+                                      selectedAmenityIds.remove(id);
+                                    }
+                                  });
+                                },
+                              ),
+                        gapH20,
+                      ],
+                    );
                   },
                 ),
-                gapH20,
-                // 4. Price Range
+
+                // // 4. Gym/Club Area (Searchable)
+                // SectionTitle(title: 'Gym/Club Area'),
+                // gapH8,
+                // AreaDropdown(
+                //   areas: areas,
+                //   selectedArea: selectedArea,
+                //   onSelected: (value) {
+                //     setState(() {
+                //       selectedArea = value;
+                //     });
+                //   },
+                // ),
+                // gapH20,
+                // 5. Price Range
                 SectionTitle(title: 'Price Range'),
                 gapH8,
                 PriceSlider(
@@ -262,13 +333,13 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                 ),
                 gapH20,
 
-                // 5. Radius
+                // 6. Radius
                 SectionTitle(title: 'Radius (km)'),
                 gapH8,
                 Slider(
                   value: radius?.toDouble() ?? 0,
                   min: 0,
-                  max: 100,
+                  max: 10000000,
                   divisions: 20,
                   activeColor: theme.primary,
                   inactiveColor: theme.borderGrey,
@@ -281,7 +352,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                 ),
                 gapH20,
 
-                // 6. Sort By
+                // 7. Sort By
                 SectionTitle(title: 'Sort By'),
                 gapH8,
                 GenderSelector(
@@ -295,7 +366,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                 ),
                 gapH20,
 
-                // 7. Includes Offer
+                // 8. Includes Offer
                 OfferCheckbox(
                   includesOffer: hasOffers ?? false,
                   onSelected: (value) {

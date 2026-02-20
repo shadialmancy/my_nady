@@ -17,7 +17,7 @@ class ClubUi extends ConsumerStatefulWidget {
   const ClubUi({super.key, required this.id, required this.distance});
 
   final String id;
-  final String distance;
+  final String? distance;
 
   @override
   ConsumerState<ClubUi> createState() => _ClubUiState();
@@ -48,7 +48,7 @@ class _ClubUiState extends ConsumerState<ClubUi> {
       final (theme, l10n) = appSettingsRecord(context);
       gymTabList = [
         {"title": l10n.clubContent, "isSelected": true},
-        {"title": l10n.location, "isSelected": false},
+        // {"title": l10n.location, "isSelected": false},
         {"title": l10n.comments, "isSelected": false},
       ];
     }
@@ -105,7 +105,7 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                               ),
                             ],
                           ),
-                          child: FavoriteButton(),
+                          child: FavoriteButton(clubId: widget.id),
                         ),
                       ],
                     ),
@@ -115,7 +115,7 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                         Icon(Icons.star, color: theme.yellow37),
                         gapW12,
                         Text(
-                          "${gymData?.rating?.averageRating ?? 4.9} (${gymData?.rating?.totalReviews ?? 231} ${l10n.reviews})",
+                          "${(gymData?.rating?.averageRating ?? 4.9).toStringAsFixed(2)} (${gymData?.rating?.totalReviews ?? 231} ${l10n.reviews})",
                           style: theme.bodySmall.copyWith(color: theme.grey9C),
                         ),
                       ],
@@ -141,7 +141,9 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                           ),
                         ),
                         Text(
-                          "(400) m", // TODO: Usage of distance
+                          (widget.distance == null || widget.distance!.isEmpty)
+                              ? ""
+                              : "${num.parse(widget.distance ?? '0').toStringAsFixed(2)} m",
                           style: theme.titleMedium.copyWith(
                             color: theme.primaryText,
                             fontWeight: .w700,
@@ -150,18 +152,18 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                       ],
                     ),
                     gapH12,
-                    Text(
-                      l10n.categories,
-                      style: theme.titleMedium.copyWith(
-                        color: theme.primaryText,
-                        fontWeight: .w700,
-                      ),
-                    ),
-                    gapH8,
-                    CategorySection(
-                      backgroundColor: theme.primary,
-                      enableOpacity: true,
-                    ),
+                    // Text(
+                    //   l10n.categories,
+                    //   style: theme.titleMedium.copyWith(
+                    //     color: theme.primaryText,
+                    //     fontWeight: .w700,
+                    //   ),
+                    // ),
+                    // gapH8,
+                    // CategorySection(
+                    //   backgroundColor: theme.primary,
+                    //   enableOpacity: true,
+                    // ),
                     gapH12,
                     Row(
                       children: [
@@ -179,44 +181,50 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                     gapH12,
                     Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: .spaceBetween,
-                          children: gymTabList.map((item) {
-                            return GestureDetector(
-                              onTap: () {
-                                for (var element in gymTabList) {
-                                  element['isSelected'] = false;
-                                }
-                                item['isSelected'] = true;
-                                selectedTabIndex = gymTabList.indexOf(item);
-                                setState(() {});
-                              },
-                              child: Container(
-                                padding: const .all(8),
-                                decoration: BoxDecoration(
-                                  borderRadius: .circular(16),
-                                  color: item["isSelected"]
-                                      ? theme.primary
-                                      : theme.white,
-                                  border: Border.all(color: theme.primary),
-                                ),
-                                child: Text(
-                                  item["title"],
-                                  style: theme.titleSmall.copyWith(
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Row(
+                            mainAxisAlignment: .spaceAround,
+                            children: gymTabList.map((item) {
+                              return GestureDetector(
+                                onTap: () {
+                                  for (var element in gymTabList) {
+                                    element['isSelected'] = false;
+                                  }
+                                  item['isSelected'] = true;
+                                  selectedTabIndex = gymTabList.indexOf(item);
+                                  setState(() {});
+                                },
+                                child: Container(
+                                  padding: const .all(8),
+                                  decoration: BoxDecoration(
+                                    borderRadius: .circular(16),
                                     color: item["isSelected"]
-                                        ? theme.white
-                                        : theme.primary.withValues(alpha: 0.7),
-                                    fontWeight: .w600,
-                                    fontSize: 14,
+                                        ? theme.primary
+                                        : theme.white,
+                                    border: Border.all(color: theme.primary),
+                                  ),
+                                  child: Text(
+                                    item["title"],
+                                    style: theme.titleSmall.copyWith(
+                                      color: item["isSelected"]
+                                          ? theme.white
+                                          : theme.primary.withValues(
+                                              alpha: 0.7,
+                                            ),
+                                      fontWeight: .w600,
+                                      fontSize: 14,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }).toList(),
+                              );
+                            }).toList(),
+                          ),
                         ),
                         gapH12,
                         AnimatedSwitcher(
                           duration: Duration(milliseconds: 300),
+
                           child: [
                             PackagesSection(
                               subscriptionPlans: gymData?.subscriptionPlans,
@@ -226,46 +234,46 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                                 });
                               },
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                if (gymData?.otherBranches?.isEmpty ?? true)
-                                  Text(
-                                    "No other branches available",
-                                    style: theme.titleMedium.copyWith(
-                                      color: theme.grey9C,
-                                      fontWeight: .normal,
-                                      fontSize: 12,
-                                    ),
-                                  )
-                                else
-                                  ...gymData!.otherBranches!.map(
-                                    (branch) => Padding(
-                                      padding: const EdgeInsets.only(
-                                        bottom: 8.0,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.location_on,
-                                            size: 16,
-                                            color: theme.primary,
-                                          ),
-                                          gapW8,
-                                          Text(
-                                            branch.name ?? "Branch Name",
-                                            style: theme.titleMedium.copyWith(
-                                              color: theme.grey9C,
-                                              fontWeight: .normal,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
+                            // Column(
+                            //   crossAxisAlignment: CrossAxisAlignment.start,
+                            //   children: [
+                            //     if (gymData?.otherBranches?.isEmpty ?? true)
+                            //       Text(
+                            //         "No other branches available",
+                            //         style: theme.titleMedium.copyWith(
+                            //           color: theme.grey9C,
+                            //           fontWeight: .normal,
+                            //           fontSize: 12,
+                            //         ),
+                            //       )
+                            //     else
+                            //       ...gymData!.otherBranches!.map(
+                            //         (branch) => Padding(
+                            //           padding: const EdgeInsets.only(
+                            //             bottom: 8.0,
+                            //           ),
+                            //           child: Row(
+                            //             children: [
+                            //               Icon(
+                            //                 Icons.location_on,
+                            //                 size: 16,
+                            //                 color: theme.primary,
+                            //               ),
+                            //               gapW8,
+                            //               Text(
+                            //                 branch.name ?? "Branch Name",
+                            //                 style: theme.titleMedium.copyWith(
+                            //                   color: theme.grey9C,
+                            //                   fontWeight: .normal,
+                            //                   fontSize: 14,
+                            //                 ),
+                            //               ),
+                            //             ],
+                            //           ),
+                            //         ),
+                            //       ),
+                            //   ],
+                            // ),
                             const CommentsSection(),
                           ][selectedTabIndex],
                         ),

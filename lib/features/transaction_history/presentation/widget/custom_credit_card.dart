@@ -2,13 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
+import '../../data/models/payment_method_dto/datum.dart';
 
 class CustomCreditCard extends StatelessWidget {
-  const CustomCreditCard({super.key});
+  final Datum? paymentMethod;
+  const CustomCreditCard({super.key, this.paymentMethod});
+
+  String _getCardBrandLogo(String? brand) {
+    if (brand == null) return AssetsHelper.visaLogo;
+    final brandLower = brand.toLowerCase();
+    if (brandLower.contains('visa')) {
+      return AssetsHelper.visaLogo;
+    } else if (brandLower.contains('mastercard')) {
+      return AssetsHelper
+          .visaLogo; // You may need to add a mastercard logo asset
+    }
+    return AssetsHelper.visaLogo;
+  }
 
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
+    final last4Digits = paymentMethod?.last4Digits ?? '****';
+    final cardBrand = paymentMethod?.cardBrand ?? '';
+    final cardholderName = paymentMethod?.cardholderName ?? '';
+    final expiryMonth = paymentMethod?.expiryMonth ?? 0;
+    final expiryYear = paymentMethod?.expiryYear ?? 0;
+
     return Container(
       height: 200,
       width: .infinity,
@@ -37,7 +57,7 @@ class CustomCreditCard extends StatelessWidget {
                   Icon(Icons.visibility, color: theme.white),
                   gapW4,
                   Text(
-                    "***** ₽",
+                    cardBrand.isNotEmpty ? cardBrand : "*****",
                     style: theme.titleSmall.copyWith(
                       color: theme.white,
                       fontSize: 14,
@@ -49,18 +69,43 @@ class CustomCreditCard extends StatelessWidget {
             ],
           ),
           Spacer(),
+          if (cardholderName.isNotEmpty) ...[
+            Text(
+              cardholderName,
+              style: theme.titleSmall.copyWith(
+                color: theme.white,
+                fontSize: 12,
+                fontWeight: .w500,
+              ),
+            ),
+            gapH4,
+          ],
           Row(
             mainAxisAlignment: .spaceBetween,
             children: [
-              Text(
-                "***9479",
-                style: theme.titleSmall.copyWith(
-                  color: theme.white,
-                  fontSize: 14,
-                  fontWeight: .w700,
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "****$last4Digits",
+                    style: theme.titleSmall.copyWith(
+                      color: theme.white,
+                      fontSize: 14,
+                      fontWeight: .w700,
+                    ),
+                  ),
+                  if (expiryMonth > 0 && expiryYear > 0)
+                    Text(
+                      "${expiryMonth.toString().padLeft(2, '0')}/${expiryYear.toString().substring(2)}",
+                      style: theme.titleSmall.copyWith(
+                        color: theme.white.withValues(alpha: 0.8),
+                        fontSize: 10,
+                        fontWeight: .w400,
+                      ),
+                    ),
+                ],
               ),
-              SvgPicture.asset(AssetsHelper.visaLogo),
+              SvgPicture.asset(_getCardBrandLogo(cardBrand)),
             ],
           ),
         ],

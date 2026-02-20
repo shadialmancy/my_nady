@@ -196,11 +196,11 @@ class _LoginUiState extends ConsumerState<LoginUi> {
                                       context,
                                       ref,
                                       onPermissionGranted: () {
-                                        if (context.mounted) {
-                                          context.router.replaceAll([
-                                            const DashboardLayoutRoute(),
-                                          ]);
-                                        }
+                                        // if (context.mounted) {
+                                        //   context.router.replaceAll([
+                                        //     const DashboardLayoutRoute(),
+                                        //   ]);
+                                        // }
                                       },
                                     )
                                   : null;

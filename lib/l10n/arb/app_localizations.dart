@@ -1023,6 +1023,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter a valid email'**
   String get validEmail;
+
+  /// No description provided for @noBranchNearBy.
+  ///
+  /// In en, this message translates to:
+  /// **'No branch near by'**
+  String get noBranchNearBy;
+
+  /// No description provided for @noFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'No favorites yet'**
+  String get noFavorites;
 }
 
 class _AppLocalizationsDelegate

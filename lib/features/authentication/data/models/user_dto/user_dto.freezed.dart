@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserDto {
 
-@JsonKey(name: 'accessToken') String? get accessToken;@JsonKey(name: 'refreshToken') String? get refreshToken;@JsonKey(name: 'accessTokenExpiresAt') String? get accessTokenExpiresAt;@JsonKey(name: 'refreshTokenExpiresAt') String? get refreshTokenExpiresAt; User? get user; bool? get isEmailVerified;
+ Data? get data; Meta? get meta;
 /// Create a copy of UserDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $UserDtoCopyWith<UserDto> get copyWith => _$UserDtoCopyWithImpl<UserDto>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserDto&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.accessTokenExpiresAt, accessTokenExpiresAt) || other.accessTokenExpiresAt == accessTokenExpiresAt)&&(identical(other.refreshTokenExpiresAt, refreshTokenExpiresAt) || other.refreshTokenExpiresAt == refreshTokenExpiresAt)&&(identical(other.user, user) || other.user == user)&&(identical(other.isEmailVerified, isEmailVerified) || other.isEmailVerified == isEmailVerified));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserDto&&(identical(other.data, data) || other.data == data)&&(identical(other.meta, meta) || other.meta == meta));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,refreshToken,accessTokenExpiresAt,refreshTokenExpiresAt,user,isEmailVerified);
+int get hashCode => Object.hash(runtimeType,data,meta);
 
 @override
 String toString() {
-  return 'UserDto(accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiresAt: $accessTokenExpiresAt, refreshTokenExpiresAt: $refreshTokenExpiresAt, user: $user, isEmailVerified: $isEmailVerified)';
+  return 'UserDto(data: $data, meta: $meta)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $UserDtoCopyWith<$Res>  {
   factory $UserDtoCopyWith(UserDto value, $Res Function(UserDto) _then) = _$UserDtoCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'accessToken') String? accessToken,@JsonKey(name: 'refreshToken') String? refreshToken,@JsonKey(name: 'accessTokenExpiresAt') String? accessTokenExpiresAt,@JsonKey(name: 'refreshTokenExpiresAt') String? refreshTokenExpiresAt, User? user, bool? isEmailVerified
+ Data? data, Meta? meta
 });
 
 
-$UserCopyWith<$Res>? get user;
+$DataCopyWith<$Res>? get data;$MetaCopyWith<$Res>? get meta;
 
 }
 /// @nodoc
@@ -65,28 +65,36 @@ class _$UserDtoCopyWithImpl<$Res>
 
 /// Create a copy of UserDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = freezed,Object? refreshToken = freezed,Object? accessTokenExpiresAt = freezed,Object? refreshTokenExpiresAt = freezed,Object? user = freezed,Object? isEmailVerified = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? data = freezed,Object? meta = freezed,}) {
   return _then(_self.copyWith(
-accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
-as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
-as String?,accessTokenExpiresAt: freezed == accessTokenExpiresAt ? _self.accessTokenExpiresAt : accessTokenExpiresAt // ignore: cast_nullable_to_non_nullable
-as String?,refreshTokenExpiresAt: freezed == refreshTokenExpiresAt ? _self.refreshTokenExpiresAt : refreshTokenExpiresAt // ignore: cast_nullable_to_non_nullable
-as String?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as User?,isEmailVerified: freezed == isEmailVerified ? _self.isEmailVerified : isEmailVerified // ignore: cast_nullable_to_non_nullable
-as bool?,
+data: freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as Data?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
+as Meta?,
   ));
 }
 /// Create a copy of UserDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$UserCopyWith<$Res>? get user {
-    if (_self.user == null) {
+$DataCopyWith<$Res>? get data {
+    if (_self.data == null) {
     return null;
   }
 
-  return $UserCopyWith<$Res>(_self.user!, (value) {
-    return _then(_self.copyWith(user: value));
+  return $DataCopyWith<$Res>(_self.data!, (value) {
+    return _then(_self.copyWith(data: value));
+  });
+}/// Create a copy of UserDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MetaCopyWith<$Res>? get meta {
+    if (_self.meta == null) {
+    return null;
+  }
+
+  return $MetaCopyWith<$Res>(_self.meta!, (value) {
+    return _then(_self.copyWith(meta: value));
   });
 }
 }
@@ -170,10 +178,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'accessToken')  String? accessToken, @JsonKey(name: 'refreshToken')  String? refreshToken, @JsonKey(name: 'accessTokenExpiresAt')  String? accessTokenExpiresAt, @JsonKey(name: 'refreshTokenExpiresAt')  String? refreshTokenExpiresAt,  User? user,  bool? isEmailVerified)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Data? data,  Meta? meta)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserDto() when $default != null:
-return $default(_that.accessToken,_that.refreshToken,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.user,_that.isEmailVerified);case _:
+return $default(_that.data,_that.meta);case _:
   return orElse();
 
 }
@@ -191,10 +199,10 @@ return $default(_that.accessToken,_that.refreshToken,_that.accessTokenExpiresAt,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'accessToken')  String? accessToken, @JsonKey(name: 'refreshToken')  String? refreshToken, @JsonKey(name: 'accessTokenExpiresAt')  String? accessTokenExpiresAt, @JsonKey(name: 'refreshTokenExpiresAt')  String? refreshTokenExpiresAt,  User? user,  bool? isEmailVerified)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Data? data,  Meta? meta)  $default,) {final _that = this;
 switch (_that) {
 case _UserDto():
-return $default(_that.accessToken,_that.refreshToken,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.user,_that.isEmailVerified);case _:
+return $default(_that.data,_that.meta);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -211,10 +219,10 @@ return $default(_that.accessToken,_that.refreshToken,_that.accessTokenExpiresAt,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'accessToken')  String? accessToken, @JsonKey(name: 'refreshToken')  String? refreshToken, @JsonKey(name: 'accessTokenExpiresAt')  String? accessTokenExpiresAt, @JsonKey(name: 'refreshTokenExpiresAt')  String? refreshTokenExpiresAt,  User? user,  bool? isEmailVerified)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Data? data,  Meta? meta)?  $default,) {final _that = this;
 switch (_that) {
 case _UserDto() when $default != null:
-return $default(_that.accessToken,_that.refreshToken,_that.accessTokenExpiresAt,_that.refreshTokenExpiresAt,_that.user,_that.isEmailVerified);case _:
+return $default(_that.data,_that.meta);case _:
   return null;
 
 }
@@ -226,15 +234,11 @@ return $default(_that.accessToken,_that.refreshToken,_that.accessTokenExpiresAt,
 @JsonSerializable()
 
 class _UserDto implements UserDto {
-   _UserDto({@JsonKey(name: 'accessToken') this.accessToken, @JsonKey(name: 'refreshToken') this.refreshToken, @JsonKey(name: 'accessTokenExpiresAt') this.accessTokenExpiresAt, @JsonKey(name: 'refreshTokenExpiresAt') this.refreshTokenExpiresAt, this.user, this.isEmailVerified});
+   _UserDto({this.data, this.meta});
   factory _UserDto.fromJson(Map<String, dynamic> json) => _$UserDtoFromJson(json);
 
-@override@JsonKey(name: 'accessToken') final  String? accessToken;
-@override@JsonKey(name: 'refreshToken') final  String? refreshToken;
-@override@JsonKey(name: 'accessTokenExpiresAt') final  String? accessTokenExpiresAt;
-@override@JsonKey(name: 'refreshTokenExpiresAt') final  String? refreshTokenExpiresAt;
-@override final  User? user;
-@override final  bool? isEmailVerified;
+@override final  Data? data;
+@override final  Meta? meta;
 
 /// Create a copy of UserDto
 /// with the given fields replaced by the non-null parameter values.
@@ -249,16 +253,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserDto&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.accessTokenExpiresAt, accessTokenExpiresAt) || other.accessTokenExpiresAt == accessTokenExpiresAt)&&(identical(other.refreshTokenExpiresAt, refreshTokenExpiresAt) || other.refreshTokenExpiresAt == refreshTokenExpiresAt)&&(identical(other.user, user) || other.user == user)&&(identical(other.isEmailVerified, isEmailVerified) || other.isEmailVerified == isEmailVerified));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserDto&&(identical(other.data, data) || other.data == data)&&(identical(other.meta, meta) || other.meta == meta));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,refreshToken,accessTokenExpiresAt,refreshTokenExpiresAt,user,isEmailVerified);
+int get hashCode => Object.hash(runtimeType,data,meta);
 
 @override
 String toString() {
-  return 'UserDto(accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiresAt: $accessTokenExpiresAt, refreshTokenExpiresAt: $refreshTokenExpiresAt, user: $user, isEmailVerified: $isEmailVerified)';
+  return 'UserDto(data: $data, meta: $meta)';
 }
 
 
@@ -269,11 +273,11 @@ abstract mixin class _$UserDtoCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
   factory _$UserDtoCopyWith(_UserDto value, $Res Function(_UserDto) _then) = __$UserDtoCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'accessToken') String? accessToken,@JsonKey(name: 'refreshToken') String? refreshToken,@JsonKey(name: 'accessTokenExpiresAt') String? accessTokenExpiresAt,@JsonKey(name: 'refreshTokenExpiresAt') String? refreshTokenExpiresAt, User? user, bool? isEmailVerified
+ Data? data, Meta? meta
 });
 
 
-@override $UserCopyWith<$Res>? get user;
+@override $DataCopyWith<$Res>? get data;@override $MetaCopyWith<$Res>? get meta;
 
 }
 /// @nodoc
@@ -286,15 +290,11 @@ class __$UserDtoCopyWithImpl<$Res>
 
 /// Create a copy of UserDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = freezed,Object? refreshToken = freezed,Object? accessTokenExpiresAt = freezed,Object? refreshTokenExpiresAt = freezed,Object? user = freezed,Object? isEmailVerified = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? data = freezed,Object? meta = freezed,}) {
   return _then(_UserDto(
-accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
-as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
-as String?,accessTokenExpiresAt: freezed == accessTokenExpiresAt ? _self.accessTokenExpiresAt : accessTokenExpiresAt // ignore: cast_nullable_to_non_nullable
-as String?,refreshTokenExpiresAt: freezed == refreshTokenExpiresAt ? _self.refreshTokenExpiresAt : refreshTokenExpiresAt // ignore: cast_nullable_to_non_nullable
-as String?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as User?,isEmailVerified: freezed == isEmailVerified ? _self.isEmailVerified : isEmailVerified // ignore: cast_nullable_to_non_nullable
-as bool?,
+data: freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as Data?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
+as Meta?,
   ));
 }
 
@@ -302,13 +302,25 @@ as bool?,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$UserCopyWith<$Res>? get user {
-    if (_self.user == null) {
+$DataCopyWith<$Res>? get data {
+    if (_self.data == null) {
     return null;
   }
 
-  return $UserCopyWith<$Res>(_self.user!, (value) {
-    return _then(_self.copyWith(user: value));
+  return $DataCopyWith<$Res>(_self.data!, (value) {
+    return _then(_self.copyWith(data: value));
+  });
+}/// Create a copy of UserDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MetaCopyWith<$Res>? get meta {
+    if (_self.meta == null) {
+    return null;
+  }
+
+  return $MetaCopyWith<$Res>(_self.meta!, (value) {
+    return _then(_self.copyWith(meta: value));
   });
 }
 }

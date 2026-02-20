@@ -1,10 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../data/models/payment_method_dto/datum.dart';
 import 'widgets.dart';
 
 class CreditCardSlider extends StatefulWidget {
-  const CreditCardSlider({super.key});
+  final List<Datum> paymentMethods;
+  const CreditCardSlider({super.key, required this.paymentMethods});
 
   @override
   State<CreditCardSlider> createState() => _CreditCardSliderState();
@@ -16,6 +18,20 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
+    final paymentMethods = widget.paymentMethods;
+
+    if (paymentMethods.isEmpty) {
+      return SizedBox(
+        height: 230,
+        child: Center(
+          child: Text(
+            'No payment methods found',
+            style: theme.bodyMedium.copyWith(color: theme.white),
+          ),
+        ),
+      );
+    }
+
     return SizedBox(
       height: 230,
       child: Stack(
@@ -24,18 +40,19 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
           Align(
             alignment: Alignment.topCenter,
             child: CarouselSlider(
-              items: List.generate(3, (index) {
+              items: List.generate(paymentMethods.length, (index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: CustomBackgroundTransaction(
                     height: 200,
-                    child: CustomCreditCard(),
+                    child: CustomCreditCard(
+                      paymentMethod: paymentMethods[index],
+                    ),
                   ),
                 );
               }),
 
               options: CarouselOptions(
-                // pageSnapping: true,
                 onPageChanged: (index, reason) {
                   setState(() {
                     currentIndex = index;
@@ -53,13 +70,14 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
           Row(
             mainAxisAlignment: .center,
             crossAxisAlignment: .end,
-            children: List.generate(3, (index) {
+            children: List.generate(paymentMethods.length, (index) {
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                 width: 8,
                 height: 8,
                 decoration: BoxDecoration(
                   color: currentIndex == index ? theme.blue41 : theme.blueD1,
+                  boxShadow: [BoxShadow(color: theme.blue8C, blurRadius: 30)],
                   shape: BoxShape.circle,
                 ),
               );

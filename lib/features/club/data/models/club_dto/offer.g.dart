@@ -7,19 +7,19 @@ part of 'offer.dart';
 // **************************************************************************
 
 _Offer _$OfferFromJson(Map<String, dynamic> json) => _Offer(
-  id: json['_id'] == null
-      ? null
-      : Id.fromJson(json['_id'] as Map<String, dynamic>),
+  id: json['id'] as String?,
   name: json['name'] as String?,
   discountType: json['discountType'] as String?,
   discountValue: json['discountValue'] as num?,
-  endDate: json['endDate'] as String?,
+  endDate: json['endDate'] == null
+      ? null
+      : DateTime.parse(json['endDate'] as String),
 );
 
 Map<String, dynamic> _$OfferToJson(_Offer instance) => <String, dynamic>{
-  '_id': instance.id,
+  'id': instance.id,
   'name': instance.name,
   'discountType': instance.discountType,
   'discountValue': instance.discountValue,
-  'endDate': instance.endDate,
+  'endDate': instance.endDate?.toIso8601String(),
 };

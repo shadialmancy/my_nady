@@ -6,14 +6,42 @@ import '../../../../core/router/app_router.dart';
 import 'package:my_nady_project/features/club/data/models/club_dto/datum.dart';
 import '../widgets/widgets.dart';
 
-class SeeAllUi extends StatelessWidget {
+class SeeAllUi extends StatefulWidget {
   const SeeAllUi({super.key, required this.clubs});
 
   final List<Datum> clubs;
 
   @override
+  State<SeeAllUi> createState() => _SeeAllUiState();
+}
+
+class _SeeAllUiState extends State<SeeAllUi> {
+  late TextEditingController searchController;
+  String searchQuery = '';
+
+  @override
+  void initState() {
+    super.initState();
+    searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final (theme, l10n) = appSettingsRecord(context);
+    final filteredClubs = searchQuery.isEmpty
+        ? widget.clubs
+        : widget.clubs
+              .where(
+                (c) => (c.name ?? '').toLowerCase().contains(
+                  searchQuery.toLowerCase(),
+                ),
+              )
+              .toList();
 
     return Column(
       children: [
@@ -26,14 +54,30 @@ class SeeAllUi extends StatelessWidget {
                 onPressed: () => context.router.maybePop(),
                 icon: const Icon(Icons.arrow_back_ios),
               ),
-              gapW8,
-              Text(
-                l10n.categories, // Or some other relevant title
-                style: theme.titleLarge.copyWith(fontWeight: .bold),
-              ),
             ],
           ),
         ),
+        gapH16,
+        Padding(
+          padding: .symmetric(horizontal: 3.5.sw),
+          child: TextField(
+            controller: searchController,
+            onChanged: (value) {
+              setState(() {
+                searchQuery = value;
+              });
+            },
+            decoration: InputDecoration(
+              hintText: 'Search for gym',
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              isDense: true,
+            ),
+          ),
+        ),
+        gapH16,
         Expanded(
           child: GridView.builder(
             padding: EdgeInsets.symmetric(horizontal: 1.sw),
@@ -43,19 +87,20 @@ class SeeAllUi extends StatelessWidget {
               crossAxisSpacing: 0,
               mainAxisSpacing: 0,
             ),
-            itemCount: clubs.length,
+            itemCount: filteredClubs.length,
             itemBuilder: (context, index) {
+              final club = filteredClubs[index];
               return GestureDetector(
                 onTap: () {
                   context.router.push(
                     ClubRoute(
-                      id: clubs[index].id ?? '',
-                      distance: clubs[index].distance?.toString() ?? '',
+                      id: club.id ?? '',
+                      distance: club.distance?.toString() ?? '',
                     ),
                   );
                 },
                 child: ClubCard(
-                  club: clubs[index],
+                  club: club,
                   marginBottom: 10,
                   marginTop: 0,
                   marginLeft: 6,

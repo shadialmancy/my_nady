@@ -62,7 +62,7 @@ class FamilyClubCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: .spaceBetween,
                     children: [
-                      FavoriteButton(),
+                      FavoriteButton(clubId: club?.id),
                       if (club?.minPlanPrice != null)
                         Container(
                           padding: const .symmetric(vertical: 2, horizontal: 8),

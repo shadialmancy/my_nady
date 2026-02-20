@@ -7,14 +7,10 @@ part of 'coordinates.dart';
 // **************************************************************************
 
 _Coordinates _$CoordinatesFromJson(Map<String, dynamic> json) => _Coordinates(
-  type: json['type'] as String?,
   coordinates: (json['coordinates'] as List<dynamic>?)
       ?.map((e) => (e as num).toDouble())
       .toList(),
 );
 
 Map<String, dynamic> _$CoordinatesToJson(_Coordinates instance) =>
-    <String, dynamic>{
-      'type': instance.type,
-      'coordinates': instance.coordinates,
-    };
+    <String, dynamic>{'coordinates': instance.coordinates};

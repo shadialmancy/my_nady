@@ -18,13 +18,11 @@ class HomeUi extends ConsumerStatefulWidget {
 }
 
 class _HomeUiState extends ConsumerState<HomeUi> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     ref.read(homeUiServiceProvider.notifier).fetchHomeData();
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,23 +71,31 @@ class _HomeUiState extends ConsumerState<HomeUi> {
           return SingleChildScrollView(
             padding: .only(top: 6.sh, bottom: 14.sh),
             child: Column(
+              crossAxisAlignment: .start,
               children: [
                 const AppBarWithSearchTextField(),
-                // gapH16,
-                // Padding(
-                //   padding: .only(left: 3.5.sw, right: 3.5.sw),
-                //   child: TitleWithSeeall(title: l10n.categories, onPress: null),
-                // ),
-                // gapH16,
-                // const CategorySection(),
-                gapH16,
-                FeaturedCarousel(featuredClubs: featuredClubs),
-                gapH16,
-                MixClubSection(clubs: mixClubs),
-                MaleClubSection(clubs: maleClubs),
-                FemaleClubSection(clubs: femaleClubs),
-                KidsClubSection(clubs: kidsClubs),
-                // FamilyClubSection(clubs: familyClubs),
+                if (allClubs.isEmpty)
+                  Padding(
+                    padding: .only(top: 20.sh),
+                    child: Center(
+                      child: Text(
+                        l10n.noBranchNearBy,
+                        style: theme.titleLarge.copyWith(
+                          color: theme.primary,
+                          fontWeight: .bold,
+                        ),
+                      ),
+                    ),
+                  )
+                else ...[
+                  gapH16,
+                  FeaturedCarousel(featuredClubs: featuredClubs),
+                  gapH16,
+                  MixClubSection(clubs: mixClubs),
+                  MaleClubSection(clubs: maleClubs),
+                  FemaleClubSection(clubs: femaleClubs),
+                  KidsClubSection(clubs: kidsClubs),
+                ],
               ],
             ),
           );

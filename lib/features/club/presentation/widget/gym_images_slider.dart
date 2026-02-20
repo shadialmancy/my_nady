@@ -44,14 +44,15 @@ class _ClubImagesSliderState extends State<ClubImagesSlider> {
                         width: .infinity,
                         fadeInDuration: .zero,
                         useOldImageOnUrlChange: true,
-                        placeholder: (context, url) => Container(
-                          height: 300,
-                          width: .infinity,
-                          color: theme.grey87.withValues(alpha: 0.1),
-                          child: const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        ),
+
+                        // placeholder: (context, url) => Container(
+                        //   height: 300,
+                        //   width: .infinity,
+                        //   color: theme.grey87.withValues(alpha: 0.1),
+                        //   child: const Center(
+                        //     child: CircularProgressIndicator(),
+                        //   ),
+                        // ),
                         errorWidget: (context, url, error) => Image.asset(
                           AssetsHelper.gymImageHolder,
                           height: 300,

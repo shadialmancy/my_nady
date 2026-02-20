@@ -11,6 +11,8 @@ abstract class BaseAuthenticationRepository {
     String? password,
     String? name,
     String? phone,
+    String? gender,
+    String? birthDate,
   });
   Future<void> logoutUser();
   Future<void> resetPassword({String? token, String? password});
@@ -48,6 +50,8 @@ class AuthenticationRepositoryImpl implements BaseAuthenticationRepository {
     String? password,
     String? name,
     String? phone,
+    String? gender,
+    String? birthDate,
   }) async {
     try {
       return await dataSource
@@ -56,6 +60,8 @@ class AuthenticationRepositoryImpl implements BaseAuthenticationRepository {
             password: password,
             name: name,
             phone: phone,
+            gender: gender,
+            birthDate: birthDate,
           )
           .then((value) {
             return value.toEntity();

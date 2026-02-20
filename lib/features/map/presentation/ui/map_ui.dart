@@ -8,7 +8,6 @@ import 'package:my_nady_project/core/shared/widgets/async_value_widget.dart';
 import 'package:my_nady_project/features/club/presentation/provider/map_location_service.dart';
 import 'package:my_nady_project/features/map/presentation/provider/map_ui_service.dart';
 
-@RoutePage()
 class MapUi extends ConsumerStatefulWidget {
   const MapUi({super.key});
 

@@ -36,6 +36,7 @@ class MixClubSection extends StatelessWidget {
                 },
                 child: ClubCard(
                   marginLeft: index == 0 ? 3.5.sw : 6,
+                  isFavorite: clubs[index].isFavorite ?? false,
                   marginRight: index == clubs.length - 1 ? 3.5.sw : 6,
                   club: clubs[index],
                 ),

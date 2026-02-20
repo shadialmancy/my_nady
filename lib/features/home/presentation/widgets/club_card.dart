@@ -14,6 +14,8 @@ class ClubCard extends StatelessWidget {
     this.marginTop = 40,
     this.marginBottom = 25,
     this.club,
+    this.isFavorite = false,
+    this.onRemovedFromFavorites,
     super.key,
   });
   final double marginRight;
@@ -21,6 +23,8 @@ class ClubCard extends StatelessWidget {
   final double marginTop;
   final double marginBottom;
   final Datum? club;
+  final bool isFavorite;
+  final VoidCallback? onRemovedFromFavorites;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +87,11 @@ class ClubCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: .spaceBetween,
                   children: [
-                    FavoriteButton(),
+                    FavoriteButton(
+                      clubId: club?.id,
+                      initialIsFavorite: isFavorite,
+                      onRemoved: onRemovedFromFavorites,
+                    ),
                     if (club?.minPlanPrice != null)
                       Container(
                         padding: .symmetric(vertical: 2, horizontal: 8),

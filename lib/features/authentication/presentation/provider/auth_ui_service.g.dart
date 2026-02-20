@@ -33,7 +33,7 @@ final class AuthUiServiceProvider
   AuthUiService create() => AuthUiService();
 }
 
-String _$authUiServiceHash() => r'3430eb6ef59caaf23a86b25bf535b97b9cf601f3';
+String _$authUiServiceHash() => r'778a0d31065eb404d6624f003e465c4a96988c80';
 
 abstract class _$AuthUiService extends $AsyncNotifier<User?> {
   FutureOr<User?> build();

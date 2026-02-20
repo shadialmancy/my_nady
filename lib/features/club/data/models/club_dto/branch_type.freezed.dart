@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BranchType {
 
-@JsonKey(name: '_id') Id? get id; String? get name; String? get icon; String? get createdAt; String? get updatedAt;
+ String? get id; String? get name; String? get icon; DateTime? get createdAt; DateTime? get updatedAt; List<String>? get secondaryBranchIds;
 /// Create a copy of BranchType
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $BranchTypeCopyWith<BranchType> get copyWith => _$BranchTypeCopyWithImpl<BranchT
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BranchType&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BranchType&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.secondaryBranchIds, secondaryBranchIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,icon,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,name,icon,createdAt,updatedAt,const DeepCollectionEquality().hash(secondaryBranchIds));
 
 @override
 String toString() {
-  return 'BranchType(id: $id, name: $name, icon: $icon, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'BranchType(id: $id, name: $name, icon: $icon, createdAt: $createdAt, updatedAt: $updatedAt, secondaryBranchIds: $secondaryBranchIds)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $BranchTypeCopyWith<$Res>  {
   factory $BranchTypeCopyWith(BranchType value, $Res Function(BranchType) _then) = _$BranchTypeCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: '_id') Id? id, String? name, String? icon, String? createdAt, String? updatedAt
+ String? id, String? name, String? icon, DateTime? createdAt, DateTime? updatedAt, List<String>? secondaryBranchIds
 });
 
 
-$IdCopyWith<$Res>? get id;
+
 
 }
 /// @nodoc
@@ -65,29 +65,18 @@ class _$BranchTypeCopyWithImpl<$Res>
 
 /// Create a copy of BranchType
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = freezed,Object? icon = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = freezed,Object? icon = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? secondaryBranchIds = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as String?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as String?,
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,secondaryBranchIds: freezed == secondaryBranchIds ? _self.secondaryBranchIds : secondaryBranchIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
-/// Create a copy of BranchType
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$IdCopyWith<$Res>? get id {
-    if (_self.id == null) {
-    return null;
-  }
 
-  return $IdCopyWith<$Res>(_self.id!, (value) {
-    return _then(_self.copyWith(id: value));
-  });
-}
 }
 
 
@@ -169,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: '_id')  Id? id,  String? name,  String? icon,  String? createdAt,  String? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? name,  String? icon,  DateTime? createdAt,  DateTime? updatedAt,  List<String>? secondaryBranchIds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BranchType() when $default != null:
-return $default(_that.id,_that.name,_that.icon,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.icon,_that.createdAt,_that.updatedAt,_that.secondaryBranchIds);case _:
   return orElse();
 
 }
@@ -190,10 +179,10 @@ return $default(_that.id,_that.name,_that.icon,_that.createdAt,_that.updatedAt);
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: '_id')  Id? id,  String? name,  String? icon,  String? createdAt,  String? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? name,  String? icon,  DateTime? createdAt,  DateTime? updatedAt,  List<String>? secondaryBranchIds)  $default,) {final _that = this;
 switch (_that) {
 case _BranchType():
-return $default(_that.id,_that.name,_that.icon,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.icon,_that.createdAt,_that.updatedAt,_that.secondaryBranchIds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -210,10 +199,10 @@ return $default(_that.id,_that.name,_that.icon,_that.createdAt,_that.updatedAt);
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: '_id')  Id? id,  String? name,  String? icon,  String? createdAt,  String? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? name,  String? icon,  DateTime? createdAt,  DateTime? updatedAt,  List<String>? secondaryBranchIds)?  $default,) {final _that = this;
 switch (_that) {
 case _BranchType() when $default != null:
-return $default(_that.id,_that.name,_that.icon,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.icon,_that.createdAt,_that.updatedAt,_that.secondaryBranchIds);case _:
   return null;
 
 }
@@ -225,14 +214,23 @@ return $default(_that.id,_that.name,_that.icon,_that.createdAt,_that.updatedAt);
 @JsonSerializable()
 
 class _BranchType implements BranchType {
-   _BranchType({@JsonKey(name: '_id') this.id, this.name, this.icon, this.createdAt, this.updatedAt});
+   _BranchType({this.id, this.name, this.icon, this.createdAt, this.updatedAt, final  List<String>? secondaryBranchIds}): _secondaryBranchIds = secondaryBranchIds;
   factory _BranchType.fromJson(Map<String, dynamic> json) => _$BranchTypeFromJson(json);
 
-@override@JsonKey(name: '_id') final  Id? id;
+@override final  String? id;
 @override final  String? name;
 @override final  String? icon;
-@override final  String? createdAt;
-@override final  String? updatedAt;
+@override final  DateTime? createdAt;
+@override final  DateTime? updatedAt;
+ final  List<String>? _secondaryBranchIds;
+@override List<String>? get secondaryBranchIds {
+  final value = _secondaryBranchIds;
+  if (value == null) return null;
+  if (_secondaryBranchIds is EqualUnmodifiableListView) return _secondaryBranchIds;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
 
 /// Create a copy of BranchType
 /// with the given fields replaced by the non-null parameter values.
@@ -247,16 +245,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BranchType&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BranchType&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other._secondaryBranchIds, _secondaryBranchIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,icon,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,name,icon,createdAt,updatedAt,const DeepCollectionEquality().hash(_secondaryBranchIds));
 
 @override
 String toString() {
-  return 'BranchType(id: $id, name: $name, icon: $icon, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'BranchType(id: $id, name: $name, icon: $icon, createdAt: $createdAt, updatedAt: $updatedAt, secondaryBranchIds: $secondaryBranchIds)';
 }
 
 
@@ -267,11 +265,11 @@ abstract mixin class _$BranchTypeCopyWith<$Res> implements $BranchTypeCopyWith<$
   factory _$BranchTypeCopyWith(_BranchType value, $Res Function(_BranchType) _then) = __$BranchTypeCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: '_id') Id? id, String? name, String? icon, String? createdAt, String? updatedAt
+ String? id, String? name, String? icon, DateTime? createdAt, DateTime? updatedAt, List<String>? secondaryBranchIds
 });
 
 
-@override $IdCopyWith<$Res>? get id;
+
 
 }
 /// @nodoc
@@ -284,30 +282,19 @@ class __$BranchTypeCopyWithImpl<$Res>
 
 /// Create a copy of BranchType
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = freezed,Object? icon = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = freezed,Object? icon = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? secondaryBranchIds = freezed,}) {
   return _then(_BranchType(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as String?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as String?,
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,secondaryBranchIds: freezed == secondaryBranchIds ? _self._secondaryBranchIds : secondaryBranchIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 
-/// Create a copy of BranchType
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$IdCopyWith<$Res>? get id {
-    if (_self.id == null) {
-    return null;
-  }
 
-  return $IdCopyWith<$Res>(_self.id!, (value) {
-    return _then(_self.copyWith(id: value));
-  });
-}
 }
 
 // dart format on

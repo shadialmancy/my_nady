@@ -33,19 +33,15 @@ class ProfileAppbar extends ConsumerWidget {
           AsyncValueWidget<String?>(
             value: bannerImageState,
             builder: (imagePath) {
-              return ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(12),
+              return Container(
+                height: 150,
+                decoration: BoxDecoration(
+                  color: theme.primary,
+                  borderRadius: .only(
+                    bottomLeft: Radius.circular(12),
+                    bottomRight: Radius.circular(12),
+                  ),
                 ),
-                child: imagePath != null
-                    ? Image.file(File(imagePath), fit: BoxFit.cover)
-                    : Image.asset(
-                        AssetsHelper.profileBannerHolder,
-                        fit: BoxFit.cover,
-                        height: 150,
-                        width: double.infinity,
-                      ),
               );
             },
           ),

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Coordinates {
 
- String? get type; List<double>? get coordinates;
+ List<double>? get coordinates;
 /// Create a copy of Coordinates
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $CoordinatesCopyWith<Coordinates> get copyWith => _$CoordinatesCopyWithImpl<Coor
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Coordinates&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.coordinates, coordinates));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Coordinates&&const DeepCollectionEquality().equals(other.coordinates, coordinates));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,type,const DeepCollectionEquality().hash(coordinates));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(coordinates));
 
 @override
 String toString() {
-  return 'Coordinates(type: $type, coordinates: $coordinates)';
+  return 'Coordinates(coordinates: $coordinates)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $CoordinatesCopyWith<$Res>  {
   factory $CoordinatesCopyWith(Coordinates value, $Res Function(Coordinates) _then) = _$CoordinatesCopyWithImpl;
 @useResult
 $Res call({
- String? type, List<double>? coordinates
+ List<double>? coordinates
 });
 
 
@@ -65,10 +65,9 @@ class _$CoordinatesCopyWithImpl<$Res>
 
 /// Create a copy of Coordinates
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? type = freezed,Object? coordinates = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? coordinates = freezed,}) {
   return _then(_self.copyWith(
-type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as String?,coordinates: freezed == coordinates ? _self.coordinates : coordinates // ignore: cast_nullable_to_non_nullable
+coordinates: freezed == coordinates ? _self.coordinates : coordinates // ignore: cast_nullable_to_non_nullable
 as List<double>?,
   ));
 }
@@ -154,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? type,  List<double>? coordinates)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<double>? coordinates)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Coordinates() when $default != null:
-return $default(_that.type,_that.coordinates);case _:
+return $default(_that.coordinates);case _:
   return orElse();
 
 }
@@ -175,10 +174,10 @@ return $default(_that.type,_that.coordinates);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? type,  List<double>? coordinates)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<double>? coordinates)  $default,) {final _that = this;
 switch (_that) {
 case _Coordinates():
-return $default(_that.type,_that.coordinates);case _:
+return $default(_that.coordinates);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +194,10 @@ return $default(_that.type,_that.coordinates);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? type,  List<double>? coordinates)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<double>? coordinates)?  $default,) {final _that = this;
 switch (_that) {
 case _Coordinates() when $default != null:
-return $default(_that.type,_that.coordinates);case _:
+return $default(_that.coordinates);case _:
   return null;
 
 }
@@ -210,10 +209,9 @@ return $default(_that.type,_that.coordinates);case _:
 @JsonSerializable()
 
 class _Coordinates implements Coordinates {
-   _Coordinates({this.type, final  List<double>? coordinates}): _coordinates = coordinates;
+   _Coordinates({final  List<double>? coordinates}): _coordinates = coordinates;
   factory _Coordinates.fromJson(Map<String, dynamic> json) => _$CoordinatesFromJson(json);
 
-@override final  String? type;
  final  List<double>? _coordinates;
 @override List<double>? get coordinates {
   final value = _coordinates;
@@ -237,16 +235,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Coordinates&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other._coordinates, _coordinates));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Coordinates&&const DeepCollectionEquality().equals(other._coordinates, _coordinates));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,type,const DeepCollectionEquality().hash(_coordinates));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_coordinates));
 
 @override
 String toString() {
-  return 'Coordinates(type: $type, coordinates: $coordinates)';
+  return 'Coordinates(coordinates: $coordinates)';
 }
 
 
@@ -257,7 +255,7 @@ abstract mixin class _$CoordinatesCopyWith<$Res> implements $CoordinatesCopyWith
   factory _$CoordinatesCopyWith(_Coordinates value, $Res Function(_Coordinates) _then) = __$CoordinatesCopyWithImpl;
 @override @useResult
 $Res call({
- String? type, List<double>? coordinates
+ List<double>? coordinates
 });
 
 
@@ -274,10 +272,9 @@ class __$CoordinatesCopyWithImpl<$Res>
 
 /// Create a copy of Coordinates
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? type = freezed,Object? coordinates = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? coordinates = freezed,}) {
   return _then(_Coordinates(
-type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as String?,coordinates: freezed == coordinates ? _self._coordinates : coordinates // ignore: cast_nullable_to_non_nullable
+coordinates: freezed == coordinates ? _self._coordinates : coordinates // ignore: cast_nullable_to_non_nullable
 as List<double>?,
   ));
 }

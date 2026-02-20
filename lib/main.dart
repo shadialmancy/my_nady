@@ -12,6 +12,7 @@ import 'dart:io';
 
 import 'core/providers/app_startup_provider.dart';
 import 'features/authentication/domain/entities/user_entity.dart';
+import 'features/authentication/data/models/user_dto/tokens.dart';
 import 'features/authentication/data/models/user_dto/user.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -31,6 +32,7 @@ Future<void> main() async {
   await Hive.initFlutter(appDocumentDirectory.path);
   Hive.registerAdapter(UserInfoAdapter());
   Hive.registerAdapter(UserAdapter());
+  Hive.registerAdapter(TokensAdapter());
 
   HttpOverrides.global = MyHttpOverrides();
   await FlutterFlowTheme.initialize();

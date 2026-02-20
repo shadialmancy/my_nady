@@ -7,5 +7,7 @@
     "hello": "مرحبا",
     "helloWorld": "Hello World!",
     "fieldRequired": "مطلوب",
-    "validEmail": "الرجاء إدخال بريد إلكتروني صحيح"
+    "validEmail": "الرجاء إدخال بريد إلكتروني صحيح",
+    "noBranchNearBy": "لا يوجد فرع قريب",
+    "noFavorites": "لا توجد مفضلات بعد"
 }

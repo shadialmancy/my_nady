@@ -40,24 +40,21 @@ class ClubBanner extends StatelessWidget {
           children: [
             CachedNetworkImage(
               imageUrl: imageUrl,
-              width: .infinity,
-              height: .infinity,
-              fit: .cover,
+              width: double.infinity,
+              height: double.infinity,
+              memCacheWidth: 1200,
+              fit: BoxFit.cover,
               color: theme.fullBlack.withValues(alpha: 0.7),
-              colorBlendMode: .srcATop,
-              fadeInDuration: .zero,
+              colorBlendMode: BlendMode.srcATop,
+              fadeInDuration: Duration.zero,
               useOldImageOnUrlChange: true,
-              // placeholder: (context, url) => Container(
-              //   color: theme.grey87.withValues(alpha: 0.1),
-              //   child: const Center(child: CircularProgressIndicator()),
-              // ),
               errorWidget: (context, url, error) => Image.asset(
                 AssetsHelper.gymBanner,
-                width: .infinity,
-                height: .infinity,
-                fit: .cover,
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
                 color: theme.fullBlack.withValues(alpha: 0.7),
-                colorBlendMode: .srcATop,
+                colorBlendMode: BlendMode.srcATop,
               ),
             ),
             Padding(
@@ -69,7 +66,10 @@ class ClubBanner extends StatelessWidget {
                     mainAxisAlignment: .spaceBetween,
                     crossAxisAlignment: .start,
                     children: [
-                      FavoriteButton(),
+                      FavoriteButton(
+                        clubId: club.id,
+                        initialIsFavorite: club.isFavorite ?? false,
+                      ),
                       Container(
                         padding: .symmetric(vertical: 2, horizontal: 14),
                         decoration: BoxDecoration(

@@ -7,9 +7,9 @@ part of 'club_dto.dart';
 // **************************************************************************
 
 _ClubDto _$ClubDtoFromJson(Map<String, dynamic> json) => _ClubDto(
-  data: json['data'] == null
-      ? null
-      : Data.fromJson(json['data'] as Map<String, dynamic>),
+  data: (json['data'] as List<dynamic>?)
+      ?.map((e) => Datum.fromJson(e as Map<String, dynamic>))
+      .toList(),
   meta: json['meta'] == null
       ? null
       : Meta.fromJson(json['meta'] as Map<String, dynamic>),

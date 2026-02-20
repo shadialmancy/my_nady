@@ -8,6 +8,7 @@ class Meta with _$Meta {
   factory Meta({num? total, num? page, num? limit, num? totalPages}) = _Meta;
 
   factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
+
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

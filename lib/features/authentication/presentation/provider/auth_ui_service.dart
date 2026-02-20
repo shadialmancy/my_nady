@@ -109,6 +109,8 @@ class AuthUiService extends _$AuthUiService {
     String? password,
     String? name,
     String? phone,
+    String? gender,
+    String? birthDate,
   }) async {
     try {
       _userEntity = null;
@@ -120,6 +122,8 @@ class AuthUiService extends _$AuthUiService {
             password: password,
             name: name,
             phone: phone,
+            gender: gender,
+            birthDate: birthDate,
           );
       if (_userEntity != null) {
         await sessionManager.setAuthToken(token: _userEntity!.accessToken);

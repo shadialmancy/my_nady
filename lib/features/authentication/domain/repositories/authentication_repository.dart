@@ -38,6 +38,8 @@ class AuthenticationRepository extends _$AuthenticationRepository {
     String? password,
     String? name,
     String? phone,
+    String? gender,
+    String? birthDate,
   }) async {
     try {
       _userEntity = await _authenticationSourceImpl.registerUser(
@@ -45,6 +47,8 @@ class AuthenticationRepository extends _$AuthenticationRepository {
         password: password,
         name: name,
         phone: phone,
+        gender: gender,
+        birthDate: birthDate,
       );
       return _userEntity;
     } catch (e) {

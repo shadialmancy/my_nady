@@ -483,4 +483,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get validEmail => 'الرجاء إدخال بريد إلكتروني صحيح';
+
+  @override
+  String get noBranchNearBy => 'لا يوجد فرع قريب';
+
+  @override
+  String get noFavorites => 'لا توجد مفضلات بعد';
 }

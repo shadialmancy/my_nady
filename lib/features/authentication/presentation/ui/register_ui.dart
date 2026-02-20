@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_nady_project/core/shared/widgets/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/helpers/session_manager.dart';
 import '../../../../core/router/app_router.dart';
 import '../provider/auth_ui_service.dart';
+import '../widgets/widgets.dart';
 // import '../widgets/gender_dropdown.dart';
 
 class RegisterUi extends ConsumerStatefulWidget {
@@ -27,6 +29,23 @@ class _RegisterUiState extends ConsumerState<RegisterUi> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  String? gender;
+  DateTime? birthDate;
+
+  Future<void> showBirthdayDialog(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null && picked != birthDate) {
+      setState(() {
+        birthDate = picked;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +108,48 @@ class _RegisterUiState extends ConsumerState<RegisterUi> {
                     return null;
                   },
                 ),
-                // gapH24,
-                // GenderDropdown(),
+                gapH24,
+                GenderDropdown(
+                  onChanged: (value) {
+                    setState(() {
+                      gender = value;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null || value.toString().isEmpty) {
+                      return l10n.fieldRequired;
+                    }
+                    return null;
+                  },
+                ),
+                gapH24,
+                GestureDetector(
+                  onTap: () => showBirthdayDialog(context),
+                  child: AbsorbPointer(
+                    child: CustomTextField(
+                      label: l10n.enterDateofBirth,
+                      hint: birthDate == null
+                          ? l10n.enterDateofBirth
+                          : DateFormat('yyyy-MM-dd').format(birthDate!),
+                      controller: TextEditingController(
+                        text: birthDate == null
+                            ? ''
+                            : DateFormat('yyyy-MM-dd').format(birthDate!),
+                      ),
+                      validator: (value) {
+                        if (birthDate == null) {
+                          return l10n.fieldRequired;
+                        }
+                        return null;
+                      },
+                      readOnly: true,
+                      suffix: Icon(
+                        Icons.calendar_month,
+                        color: theme.primary.withValues(alpha: 0.6),
+                      ),
+                    ),
+                  ),
+                ),
                 gapH24,
                 CustomPhoneNumberTextField(
                   label: l10n.phone,
@@ -148,13 +207,17 @@ class _RegisterUiState extends ConsumerState<RegisterUi> {
                       fontWeight: .w600,
                     ),
                     onPressed: () async {
-                      // showBirthdayDialog(context);
+                      // showBirthdayDialog(context, ref);
                       if (_formKey.currentState!.validate()) {
                         await authRef.registerUser(
                           email: emailController.text,
                           password: passwordController.text,
                           name: nameController.text,
                           phone: phoneController.text,
+                          gender: gender?.toUpperCase(),
+                          birthDate: birthDate != null
+                              ? DateFormat('yyyy-MM-dd').format(birthDate!)
+                              : null,
                         );
                         if (authRef.getUserEntity() != null) {
                           await sessionManager.setBoardingVisitState(

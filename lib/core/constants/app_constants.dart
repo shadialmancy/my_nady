@@ -9,9 +9,16 @@ class AppConstants {
   static const String profileApiUrl = '/users/profile';
   static const String uploadAvatarApiUrl = '/users/profile/upload-avatar';
   static const String branchesApiUrl = '/branches';
+  static const String myFavoritesApiUrl = '/branches/my-favorites';
+  static String toggleFavoriteApiUrl(String id) => '/branches/$id/favorite';
   static const String purchaseSubscriptionApiUrl = '/subscriptions/purchase';
   static const String dairyRecordsApiUrl = '/diary';
   static const String changePasswordApiUrl = '/users/change-password';
+  static const String subscriptionHistoryApiUrl = '/subscriptions/history';
+  static const String currentSubscriptionsApiUrl = '/subscriptions/my';
+  static const String paymentMethodsApiUrl = '/payment-methods';
+  static const String branchesMetaTypesApiUrl = '/branches/meta/types';
+  static const String branchesMetaAmenitiesApiUrl = '/branches/meta/amenities';
 
   static const String logoImage = 'assets/images/logo.png';
   static const String tripsAssetPath = 'assets/data/trips_mock.json';
