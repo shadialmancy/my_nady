@@ -23,7 +23,9 @@ class _GenderSelectorState extends State<GenderSelector> {
       spacing: 12,
       runSpacing: 12,
       children: widget.genders!.map((gender) {
-        final isSelected = widget.selectedGender == gender;
+        final isSelected =
+            widget.selectedGender != null &&
+            widget.selectedGender!.toUpperCase() == gender.toUpperCase();
         return ChoiceChip(
           label: Text(gender),
           checkmarkColor: theme.white,

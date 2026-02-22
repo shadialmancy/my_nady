@@ -1,10 +1,16 @@
+import 'dart:convert';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../../core/constants/app_constants.dart';
 import '../../../../features/club/data/models/club_filter_request.dart';
 import '../../../club/data/models/branch_meta_item.dart';
 import '../../../club/domain/repositories/club_repository.dart';
 
 part 'filter_service.g.dart';
+
+const String _persistedFiltersKey = 'club_filter_request';
 
 @Riverpod(keepAlive: true)
 class FilterService extends _$FilterService {
@@ -13,7 +19,44 @@ class FilterService extends _$FilterService {
     filteredClubList = clubList;
     // Preload types & amenities for the filter UI
     await _loadBranchMeta();
+    await _loadPersistedFilters();
     return filteredClubList;
+  }
+
+  Future<void> _loadPersistedFilters() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final json = prefs.getString(_persistedFiltersKey);
+      if (json != null && json.isNotEmpty) {
+        final map = jsonDecode(json) as Map<String, dynamic>?;
+        if (map != null && map.isNotEmpty) {
+          _currentFilters = ClubFilterRequest.fromJson(map);
+        }
+      }
+    } catch (e) {
+      logger.e('Error loading persisted filters: $e');
+    }
+  }
+
+  Future<void> _persistFilters(ClubFilterRequest? request) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      if (request == null) {
+        await prefs.remove(_persistedFiltersKey);
+      } else {
+        await prefs.setString(
+          _persistedFiltersKey,
+          jsonEncode(request.toJson()),
+        );
+      }
+    } catch (e) {
+      logger.e('Error persisting filters: $e');
+    }
+  }
+
+  /// Persist current filter state (e.g. when entering the filter page).
+  void saveCurrentFilters() {
+    _persistFilters(_currentFilters);
   }
 
   List<Map<String, dynamic>> clubList = [];
@@ -54,8 +97,9 @@ class FilterService extends _$FilterService {
   void applyFilters(ClubFilterRequest filterRequest) {
     logger.i('Applying filters: $filterRequest');
 
-    // Store current filter data
+    // Store current filter data (in memory and persisted)
     _currentFilters = filterRequest;
+    _persistFilters(filterRequest);
 
     // Apply filtering logic
     filteredClubList = clubList.where((club) {
@@ -163,6 +207,7 @@ class FilterService extends _$FilterService {
   /// Reset all filters
   void resetFilters() {
     _currentFilters = null;
+    _persistFilters(null);
     filteredClubList = clubList;
     state = AsyncValue.data(clubList);
   }

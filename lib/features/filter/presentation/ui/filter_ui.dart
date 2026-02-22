@@ -42,16 +42,16 @@ class _FilterUiState extends ConsumerState<FilterUi> {
 
   final List<String> genders = ['Male', 'Female', 'Kids', 'Mix'];
 
-  final List<String> gymTypes = [
-    'Bodybuilding',
-    'Cross Fit',
-    'Football',
-    'Basketball',
-    'Swimming',
-    'Yoga',
-    'Pilates',
-    'Boxing',
-  ];
+  // final List<String> gymTypes = [
+  //   'Bodybuilding',
+  //   'Cross Fit',
+  //   'Football',
+  //   'Basketball',
+  //   'Swimming',
+  //   'Yoga',
+  //   'Pilates',
+  //   'Boxing',
+  // ];
 
   final List<String> areas = [
     'Downtown',
@@ -62,11 +62,14 @@ class _FilterUiState extends ConsumerState<FilterUi> {
     'South District',
   ];
 
+  /// Sort order options matching API: -- (none), DISTANCE, PRICE, RATING, ALPHABETICAL
+  static const String _sortNone = '--';
   final List<String> sortOptions = [
-    'Price: Low to High',
-    'Price: High to Low',
-    'Rating',
-    'Distance',
+    _sortNone,
+    'DISTANCE',
+    'PRICE',
+    'RATING',
+    // 'ALPHABETICAL',
   ];
 
   @override
@@ -76,10 +79,9 @@ class _FilterUiState extends ConsumerState<FilterUi> {
     areaController = TextEditingController();
 
     // Initialize with existing filters from service or provided filters
+    final filterService = ref.read(filterServiceProvider.notifier);
     final existingFilters =
-        widget.initialFilters ??
-        ref.read(filterServiceProvider.notifier).currentFilters;
-
+        widget.initialFilters ?? filterService.currentFilters;
     if (existingFilters != null) {
       searchController.text = existingFilters.search ?? '';
       selectedGender = existingFilters.gender;
@@ -90,10 +92,13 @@ class _FilterUiState extends ConsumerState<FilterUi> {
         existingFilters.maxPrice?.toDouble() ?? 10000000000,
       );
       radius = existingFilters.radius;
-      selectedSortBy = existingFilters.sortBy;
+      selectedSortBy = existingFilters.sortBy?.toUpperCase();
       hasOffers = existingFilters.hasOffers;
       selectedAmenityIds = existingFilters.amenityIds?.toSet() ?? {};
     }
+
+    // Persist current filtration every time the filter page is entered
+    filterService.saveCurrentFilters();
   }
 
   @override
@@ -161,7 +166,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
     // Get types and amenities from FilterService
     final types = filterService.branchTypesAsMaps;
     final amenities = filterService.branchAmenitiesAsMaps;
-
+    logger.d(types);
     return Container(
       decoration: BoxDecoration(
         color: theme.white,
@@ -230,7 +235,13 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                   selectedGender: selectedGender,
                   onSelected: (value) {
                     setState(() {
-                      selectedGender = value;
+                      if (selectedGender != null &&
+                          selectedGender!.toUpperCase() ==
+                              value.toUpperCase()) {
+                        selectedGender = null;
+                      } else {
+                        selectedGender = value;
+                      }
                     });
                   },
                 ),
@@ -251,19 +262,33 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                                 genders: types
                                     .map((e) => e['name'] ?? '')
                                     .toList(),
-                                selectedGender: selectedTypeId == null
-                                    ? null
-                                    : types.firstWhere(
-                                        (e) => e['id'] == selectedTypeId,
-                                        orElse: () => <String, String?>{},
-                                      )['name'],
+                                selectedGender: () {
+                                  if (selectedTypeId == null) return null;
+                                  for (final e in types) {
+                                    if ((e['id'] ?? '') == selectedTypeId) {
+                                      return e['name'] ?? '';
+                                    }
+                                  }
+                                  return null;
+                                }(),
                                 onSelected: (value) {
                                   setState(() {
-                                    final selectedType = types.firstWhere(
-                                      (e) => e['name'] == value,
-                                      orElse: () => <String, String?>{},
-                                    );
-                                    selectedTypeId = selectedType['id'];
+                                    final typeNameLower = value
+                                        .toString()
+                                        .toLowerCase();
+                                    String? newId;
+                                    for (final e in types) {
+                                      if ((e['name'] ?? '').toLowerCase() ==
+                                          typeNameLower) {
+                                        newId = e['id'];
+                                        break;
+                                      }
+                                    }
+                                    if (selectedTypeId == newId) {
+                                      selectedTypeId = null;
+                                    } else {
+                                      selectedTypeId = newId;
+                                    }
                                   });
                                 },
                               ),
@@ -352,17 +377,68 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                 ),
                 gapH20,
 
-                // 7. Sort By
-                SectionTitle(title: 'Sort By'),
+                // 7. Sort order
+                SectionTitle(title: 'Sort order'),
                 gapH8,
-                GenderSelector(
-                  genders: sortOptions,
-                  selectedGender: selectedSortBy,
-                  onSelected: (value) {
-                    setState(() {
-                      selectedSortBy = value;
-                    });
-                  },
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: theme.borderGrey),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      isExpanded: true,
+                      value:
+                          selectedSortBy != null &&
+                              sortOptions.contains(selectedSortBy)
+                          ? selectedSortBy!
+                          : _sortNone,
+                      hint: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          _sortNone,
+                          style: theme.bodyMedium.copyWith(
+                            color: theme.primaryText,
+                          ),
+                        ),
+                      ),
+                      icon: Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: theme.primaryText,
+                        ),
+                      ),
+                      dropdownColor: theme.white,
+                      items: sortOptions
+                          .map(
+                            (option) => DropdownMenuItem<String>(
+                              value: option,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                child: Text(
+                                  option,
+                                  style: theme.bodyMedium.copyWith(
+                                    color: theme.primaryText,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          if (value == null || value == _sortNone) {
+                            selectedSortBy = null;
+                          } else {
+                            selectedSortBy = value;
+                          }
+                        });
+                      },
+                    ),
+                  ),
                 ),
                 gapH20,
 

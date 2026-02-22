@@ -4,6 +4,7 @@ import 'package:my_nady_project/core/shared/widgets/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
+import '../../../filter/presentation/provider/filter_service.dart';
 import '../widgets/widgets.dart';
 
 import '../provider/home_ui_service.dart';
@@ -34,7 +35,9 @@ class _HomeUiState extends ConsumerState<HomeUi> {
       backgroundColor: theme.white,
       color: theme.primary,
       onRefresh: () async {
-        await homeUiService.fetchHomeData();
+        final currentFilters =
+            ref.read(filterServiceProvider.notifier).currentFilters;
+        await homeUiService.fetchHomeData(filterRequest: currentFilters);
       },
       child: AsyncValueWidget(
         value: ref.watch(homeUiServiceProvider),
@@ -69,6 +72,7 @@ class _HomeUiState extends ConsumerState<HomeUi> {
               .toList();
 
           return SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             padding: .only(top: 6.sh, bottom: 14.sh),
             child: Column(
               crossAxisAlignment: .start,

@@ -101,9 +101,7 @@ class ClubDataSourceImpl implements ClubDataSource {
     if (response.statusCode == 200) {
       final List<dynamic> data = response.data['data'] as List<dynamic>;
       return data
-          .map(
-            (e) => BranchMetaItem.fromJson(e as Map<String, dynamic>),
-          )
+          .map((e) => BranchMetaItem.fromJson(e as Map<String, dynamic>))
           .toList();
     } else {
       final errorModel = ErrorModel.fromJson(response.data);
@@ -120,9 +118,7 @@ class ClubDataSourceImpl implements ClubDataSource {
     if (response.statusCode == 200) {
       final List<dynamic> data = response.data['data'] as List<dynamic>;
       return data
-          .map(
-            (e) => BranchMetaItem.fromJson(e as Map<String, dynamic>),
-          )
+          .map((e) => BranchMetaItem.fromJson(e as Map<String, dynamic>))
           .toList();
     } else {
       final errorModel = ErrorModel.fromJson(response.data);
