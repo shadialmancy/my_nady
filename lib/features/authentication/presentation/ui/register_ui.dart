@@ -173,7 +173,7 @@ class _RegisterUiState extends ConsumerState<RegisterUi> {
                       return l10n.fieldRequired;
                     }
                     if (value.length < 6) {
-                      return 'Password must be at least 6 characters';
+                      return l10n.passwordAtLeast6;
                     }
                     return null;
                   },
@@ -189,7 +189,7 @@ class _RegisterUiState extends ConsumerState<RegisterUi> {
                       return l10n.fieldRequired;
                     }
                     if (value != passwordController.text) {
-                      return 'Passwords do not match';
+                      return l10n.passwordsDoNotMatch;
                     }
                     return null;
                   },

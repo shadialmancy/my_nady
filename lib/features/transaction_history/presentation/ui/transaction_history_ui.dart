@@ -145,7 +145,7 @@ class _TransactionHistoryUiState extends ConsumerState<TransactionHistoryUi> {
                                       },
                                       icon: const Icon(Icons.add, size: 18),
                                       label: Text(
-                                        'Add payment card',
+                                        l10n.addPaymentCard,
                                         style: theme.labelSmall.copyWith(
                                           color: theme.white,
                                         ),
@@ -161,7 +161,14 @@ class _TransactionHistoryUiState extends ConsumerState<TransactionHistoryUi> {
                                   ],
                                 ),
                               ),
-                              CreditCardSlider(paymentMethods: paymentMethods),
+                              CreditCardSlider(
+                                paymentMethods: paymentMethods,
+                                onRemove: (id) => ref
+                                    .read(
+                                      paymentMethodUiServiceProvider.notifier,
+                                    )
+                                    .deletePaymentMethod(id),
+                              ),
                               gapH8,
                               // Container(
                               //   padding: .symmetric(vertical: 18),

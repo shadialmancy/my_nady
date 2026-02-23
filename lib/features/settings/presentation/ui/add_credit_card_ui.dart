@@ -30,21 +30,23 @@ class _AddCreditCardUiState extends ConsumerState<AddCreditCardUi> {
     final holderName = (card.cardHolderName).trim();
     final expired = (card.expiredDate).trim(); // format: MM/YY
 
+    final (theme, l10n) = appSettingsRecord(context);
+
     if (cardNumberRaw.length < 12 || holderName.isEmpty || expired.isEmpty) {
-      AppToast.errorToast('Please fill all card details correctly');
+      AppToast.errorToast(l10n.pleaseFillAllCardDetailsCorrectly);
       return;
     }
 
     final parts = expired.split('/');
     if (parts.length != 2) {
-      AppToast.errorToast('Invalid expiry date');
+      AppToast.errorToast(l10n.invalidExpiryDate);
       return;
     }
 
     final month = int.tryParse(parts[0]);
     final yearShort = int.tryParse(parts[1]);
     if (month == null || yearShort == null) {
-      AppToast.errorToast('Invalid expiry date');
+      AppToast.errorToast(l10n.invalidExpiryDate);
       return;
     }
 
@@ -71,7 +73,7 @@ class _AddCreditCardUiState extends ConsumerState<AddCreditCardUi> {
           .savePaymentMethod(request);
 
       // If we reached here, status code was 200 or 201
-      AppToast.successToast('Card added successfully');
+      AppToast.successToast(l10n.cardAddedSuccessfully);
       widget.onClick();
       mounted ? context.router.maybePop() : null;
     } catch (e) {
@@ -103,7 +105,7 @@ class _AddCreditCardUiState extends ConsumerState<AddCreditCardUi> {
             value: ref.watch(paymentMethodUiServiceProvider),
             builder: (_) {
               return CustomButton(
-                title: l10n.continueTxt,
+                title: l10n.addPaymentCard,
                 width: .infinity,
                 backgroundColor: theme.primary,
                 onPressed: _isSubmitting ? null : _onConfirm,

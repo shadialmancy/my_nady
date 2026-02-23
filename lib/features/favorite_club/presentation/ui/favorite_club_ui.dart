@@ -7,7 +7,6 @@ import 'package:my_nady_project/core/shared/widgets/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/router/app_router.dart';
-import '../../../filter/presentation/provider/filter_service.dart';
 import '../../../home/presentation/widgets/widgets.dart';
 import '../../../home/presentation/provider/home_ui_service.dart';
 import '../provider/favorite_clubs_ui_service.dart';
@@ -20,6 +19,9 @@ class FavoriteClubUi extends ConsumerStatefulWidget {
 }
 
 class _FavoriteClubUiState extends ConsumerState<FavoriteClubUi> {
+  TextEditingController searchController = TextEditingController();
+  String searchQuery = '';
+
   @override
   void initState() {
     super.initState();
@@ -29,9 +31,14 @@ class _FavoriteClubUiState extends ConsumerState<FavoriteClubUi> {
   }
 
   @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
-    final filterData = ref.watch(filterServiceProvider.notifier);
     final favoriteClubsService = ref.watch(
       favoriteClubsUiServiceProvider.notifier,
     );
@@ -44,59 +51,49 @@ class _FavoriteClubUiState extends ConsumerState<FavoriteClubUi> {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: .spaceBetween,
+              mainAxisAlignment: .start,
               children: [
                 Text(
                   l10n.favorite,
                   style: theme.headlineSmall.copyWith(color: theme.primary),
                 ),
-                GestureDetector(
-                  onTap: () async {
-                    context.router.push(const FilterRoute());
-                  },
-                  child: Container(
-                    padding: const .symmetric(vertical: 6, horizontal: 6),
-                    decoration: BoxDecoration(
-                      borderRadius: .circular(10),
-                      border: Border.all(color: theme.primary),
-                      color: filterData.hasActiveFilters ? theme.primary : null,
-                    ),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                          AssetsHelper.filterIcon,
-                          colorFilter: filterData.hasActiveFilters
-                              ? ColorFilter.mode(theme.white, BlendMode.srcIn)
-                              : null,
-                        ),
-                        gapW4,
-                        Text(
-                          l10n.filter,
-                          style: theme.labelSmall.copyWith(
-                            color: filterData.hasActiveFilters
-                                ? theme.white
-                                : theme.primary,
-                            fontWeight: .w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
               ],
+            ),
+            gapH16,
+            CustomTextField(
+              controller: searchController,
+              hint: l10n.searchForGym,
+              prefix: Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: SvgPicture.asset(AssetsHelper.searchIcon, width: 16),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  searchQuery = value ?? '';
+                });
+              },
             ),
             gapH16,
             AsyncValueWidget(
               value: ref.watch(favoriteClubsUiServiceProvider),
               builder: (clubEntity) {
-                final clubs = clubEntity?.clubs ?? [];
+                final allClubs = clubEntity?.clubs ?? [];
+                final clubs = allClubs
+                    .where(
+                      (club) => (club.name ?? '').toLowerCase().contains(
+                        searchQuery.toLowerCase(),
+                      ),
+                    )
+                    .toList();
 
                 if (clubs.isEmpty) {
                   return Padding(
-                    padding: .only(top: 20.sh),
+                    padding: .only(top: 10.sh),
                     child: Center(
                       child: Text(
-                        l10n.noFavorites,
+                        searchQuery.isEmpty
+                            ? l10n.noFavorites
+                            : l10n.noBranchNearBy, // Or a dedicated "No results found"
                         style: theme.titleLarge.copyWith(
                           color: theme.primary,
                           fontWeight: .bold,

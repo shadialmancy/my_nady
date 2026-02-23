@@ -28,4 +28,12 @@ class PaymentMethodRepository extends _$PaymentMethodRepository {
       rethrow;
     }
   }
+
+  Future<void> deletePaymentMethod(String id) async {
+    try {
+      await _paymentMethodRepositoryImpl.deletePaymentMethod(id);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

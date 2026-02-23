@@ -18,6 +18,7 @@ class ProfileUi extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final (theme, l10n) = appSettingsRecord(context);
     final authRef = ref.watch(authUiServiceProvider);
+    final isRtl = Localizations.localeOf(context).languageCode == 'ar';
     return SingleChildScrollView(
       padding: .only(bottom: 18.sh),
       child: Column(
@@ -46,19 +47,22 @@ class ProfileUi extends ConsumerWidget {
             ),
             child: Column(
               children: [
-                ListTile(
-                  onTap: () {},
-                  leading: SvgPicture.asset(AssetsHelper.favoriteIcon),
-                  contentPadding: .zero,
-                  title: Text(
-                    l10n.favorite,
-                    style: theme.titleSmall.copyWith(
-                      color: theme.primary,
-                      fontWeight: .w400,
-                    ),
-                  ),
-                  trailing: SvgPicture.asset(AssetsHelper.nextIcon),
-                ),
+                // ListTile(
+                //   onTap: () {},
+                //   leading: SvgPicture.asset(AssetsHelper.favoriteIcon),
+                //   contentPadding: .zero,
+                //   title: Text(
+                //     l10n.favorite,
+                //     style: theme.titleSmall.copyWith(
+                //       color: theme.primary,
+                //       fontWeight: .w400,
+                //     ),
+                //   ),
+                //   trailing: Transform.flip(
+                //     flipX: isRtl,
+                //     child: SvgPicture.asset(AssetsHelper.nextIcon),
+                //   ),
+                // ),
                 ListTile(
                   onTap: () {
                     context.router.push(const EditProfileRoute());
@@ -72,7 +76,10 @@ class ProfileUi extends ConsumerWidget {
                       fontWeight: .w400,
                     ),
                   ),
-                  trailing: SvgPicture.asset(AssetsHelper.nextIcon),
+                  trailing: Transform.flip(
+                    flipX: isRtl,
+                    child: SvgPicture.asset(AssetsHelper.nextIcon),
+                  ),
                 ),
                 ListTile(
                   onTap: () {
@@ -87,7 +94,10 @@ class ProfileUi extends ConsumerWidget {
                       fontWeight: .w400,
                     ),
                   ),
-                  trailing: SvgPicture.asset(AssetsHelper.nextIcon),
+                  trailing: Transform.flip(
+                    flipX: isRtl,
+                    child: SvgPicture.asset(AssetsHelper.nextIcon),
+                  ),
                 ),
                 ListTile(
                   onTap: () {
@@ -102,7 +112,10 @@ class ProfileUi extends ConsumerWidget {
                       fontWeight: .w400,
                     ),
                   ),
-                  trailing: SvgPicture.asset(AssetsHelper.nextIcon),
+                  trailing: Transform.flip(
+                    flipX: isRtl,
+                    child: SvgPicture.asset(AssetsHelper.nextIcon),
+                  ),
                 ),
                 ListTile(
                   onTap: () {
@@ -117,7 +130,10 @@ class ProfileUi extends ConsumerWidget {
                       fontWeight: .w400,
                     ),
                   ),
-                  trailing: SvgPicture.asset(AssetsHelper.nextIcon),
+                  trailing: Transform.flip(
+                    flipX: isRtl,
+                    child: SvgPicture.asset(AssetsHelper.nextIcon),
+                  ),
                 ),
                 ListTile(
                   onTap: () {
@@ -132,7 +148,10 @@ class ProfileUi extends ConsumerWidget {
                       fontWeight: .w400,
                     ),
                   ),
-                  trailing: SvgPicture.asset(AssetsHelper.nextIcon),
+                  trailing: Transform.flip(
+                    flipX: isRtl,
+                    child: SvgPicture.asset(AssetsHelper.nextIcon),
+                  ),
                 ),
               ],
             ),
@@ -165,9 +184,12 @@ class ProfileUi extends ConsumerWidget {
                   fontWeight: .w400,
                 ),
               ),
-              trailing: SvgPicture.asset(
-                AssetsHelper.nextIcon,
-                colorFilter: ColorFilter.mode(theme.white, BlendMode.srcIn),
+              trailing: Transform.flip(
+                flipX: isRtl,
+                child: SvgPicture.asset(
+                  AssetsHelper.nextIcon,
+                  colorFilter: ColorFilter.mode(theme.white, BlendMode.srcIn),
+                ),
               ),
             ),
           ),

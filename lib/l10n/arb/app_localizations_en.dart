@@ -122,6 +122,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createNewAccount => 'Create a new account';
 
   @override
+  String get sessionExpired => 'Session Expired';
+
+  @override
+  String get sessionExpiredContent =>
+      'Your session has expired. Please log in again.';
+
+  @override
+  String get passwordAtLeast6 => 'Password must be at least 6 characters';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get currentPassword => 'Current Password';
+
+  @override
+  String get newPassword => 'New Password';
+
+  @override
   String get name => 'Name';
 
   @override
@@ -489,4 +508,90 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noFavorites => 'No favorites yet';
+
+  @override
+  String get noPaymentMethodsFound => 'No payment methods found';
+
+  @override
+  String get remove => 'Remove';
+
+  @override
+  String get removeThisCardTitle => 'Remove this card?';
+
+  @override
+  String get removeThisCardDescription =>
+      'This will delete the saved card from your account.';
+
+  @override
+  String get cardAddedSuccessfully => 'Card added successfully';
+
+  @override
+  String get cardDeletedSuccessfully => 'Card deleted successfully';
+
+  @override
+  String get pleaseFillAllCardDetailsCorrectly =>
+      'Please fill all card details correctly';
+
+  @override
+  String get invalidExpiryDate => 'Invalid expiry date';
+
+  @override
+  String get amenities => 'Amenities';
+
+  @override
+  String get sortOrder => 'Sort Order';
+
+  @override
+  String get radiusKm => 'Radius (km)';
+
+  @override
+  String get sortByDistance => 'Distance';
+
+  @override
+  String get sortByPrice => 'Price';
+
+  @override
+  String get sortByRating => 'Rating';
+
+  @override
+  String get current => 'Current';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get noActiveSubscriptions => 'No active subscriptions';
+
+  @override
+  String get noSubscriptionHistory => 'No subscription history';
+
+  @override
+  String get branchNamePlaceHolder => 'Branch Name';
+
+  @override
+  String get unknown => 'UNKNOWN';
+
+  @override
+  String get planNamePlaceHolder => 'Plan Name';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get end => 'End';
+
+  @override
+  String get autoRenew => 'Auto Renew';
+
+  @override
+  String get na => 'N/A';
+
+  @override
+  String get recentChanges => 'Recent Changes:';
+
+  @override
+  String get change => 'Change';
+
+  @override
+  String get addPaymentCard => 'Add Payment Card';
 }

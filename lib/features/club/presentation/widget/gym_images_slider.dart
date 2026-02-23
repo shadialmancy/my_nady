@@ -27,6 +27,7 @@ class _ClubImagesSliderState extends State<ClubImagesSlider> {
     final displayList = photoList.isEmpty
         ? [AssetsHelper.gymImageHolder]
         : photoList;
+    final isRtl = Localizations.localeOf(context).languageCode == 'ar';
 
     return Stack(
       alignment: Alignment.bottomCenter,
@@ -100,23 +101,30 @@ class _ClubImagesSliderState extends State<ClubImagesSlider> {
         ),
         Positioned(
           top: 40,
-          left: 0,
+          left: isRtl ? null : 0,
+          right: isRtl ? 0 : null,
           child: Row(
-            crossAxisAlignment: .start,
+            crossAxisAlignment: .center,
             children: [
               Padding(
-                padding: .only(left: 5.sw),
+                padding: .only(left: 5.sw, right: 5.sw),
                 child: GestureDetector(
                   onTap: () {
                     context.router.maybePop();
                   },
-                  child: SvgPicture.asset(
-                    AssetsHelper.backIcon,
-                    colorFilter: ColorFilter.mode(theme.white, BlendMode.srcIn),
+                  child: Transform.flip(
+                    flipX: isRtl,
+                    child: SvgPicture.asset(
+                      AssetsHelper.backIcon,
+                      colorFilter: ColorFilter.mode(
+                        theme.white,
+                        BlendMode.srcIn,
+                      ),
+                    ),
                   ),
                 ),
               ),
-              gapW8,
+
               Text(
                 widget.name ?? "gym name",
                 style: theme.titleMedium.copyWith(

@@ -108,9 +108,9 @@ class _SubscriptionUiState extends ConsumerState<SubscriptionUi>
                 fontWeight: .normal,
                 fontSize: 16,
               ),
-              tabs: const [
-                Tab(text: 'Current'),
-                Tab(text: 'History'),
+              tabs: [
+                Tab(text: l10n.current),
+                Tab(text: l10n.history),
               ],
             ),
           ),
@@ -131,7 +131,7 @@ class _SubscriptionUiState extends ConsumerState<SubscriptionUi>
                     if (subscriptions.isEmpty) {
                       return Center(
                         child: Text(
-                          'No active subscriptions',
+                          l10n.noActiveSubscriptions,
                           style: theme.titleMedium.copyWith(
                             color: theme.grey9C,
                           ),
@@ -169,7 +169,7 @@ class _SubscriptionUiState extends ConsumerState<SubscriptionUi>
                     if (history.isEmpty) {
                       return Center(
                         child: Text(
-                          'No subscription history',
+                          l10n.noSubscriptionHistory,
                           style: theme.titleMedium.copyWith(
                             color: theme.grey9C,
                           ),

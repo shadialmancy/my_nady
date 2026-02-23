@@ -7,6 +7,7 @@ import '../../../../core/api/apis.dart';
 abstract class PaymentMethodDataSource {
   Future<PaymentMethodDto> getPaymentMethods();
   Future<void> savePaymentMethod(PaymentMethodRequestDto request);
+  Future<void> deletePaymentMethod(String id);
 }
 
 class PaymentMethodDataSourceImpl implements PaymentMethodDataSource {
@@ -36,6 +37,21 @@ class PaymentMethodDataSourceImpl implements PaymentMethodDataSource {
     } else {
       final errorModel = ErrorModel.fromJson(response.data);
       throw errorModel.message ?? 'Error in savePaymentMethod';
+    }
+  }
+
+  @override
+  Future<void> deletePaymentMethod(String id) async {
+    final response = await DioClient().dio.delete(
+      '${AppConstants.paymentMethodsApiUrl}/$id',
+      data: {},
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      return;
+    } else {
+      final errorModel = ErrorModel.fromJson(response.data);
+      throw errorModel.message ?? 'Error in deletePaymentMethod';
     }
   }
 }

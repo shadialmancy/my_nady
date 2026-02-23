@@ -228,7 +228,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                 ),
                 gapH20,
                 // 2. Gender
-                SectionTitle(title: 'Gender'),
+                SectionTitle(title: l10n.gender),
                 gapH8,
                 GenderSelector(
                   genders: genders,
@@ -254,7 +254,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                       mainAxisAlignment: .start,
                       crossAxisAlignment: .start,
                       children: [
-                        SectionTitle(title: 'Gym/Club Type'),
+                        SectionTitle(title: l10n.gymClubType),
                         gapH8,
                         types.isEmpty
                             ? const Center(child: CircularProgressIndicator())
@@ -295,7 +295,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                         gapH20,
 
                         // 4. Amenities (from FilterService)
-                        SectionTitle(title: 'Amenities'),
+                        SectionTitle(title: l10n.amenities),
                         gapH8,
                         amenities.isEmpty
                             ? const Center(child: CircularProgressIndicator())
@@ -346,7 +346,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                 // ),
                 // gapH20,
                 // 5. Price Range
-                SectionTitle(title: 'Price Range'),
+                SectionTitle(title: l10n.priceRange),
                 gapH8,
                 PriceSlider(
                   priceRange: priceRange,
@@ -359,7 +359,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                 gapH20,
 
                 // 6. Radius
-                SectionTitle(title: 'Radius (km)'),
+                SectionTitle(title: l10n.radiusKm),
                 gapH8,
                 Slider(
                   value: radius?.toDouble() ?? 0,
@@ -378,7 +378,7 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                 gapH20,
 
                 // 7. Sort order
-                SectionTitle(title: 'Sort order'),
+                SectionTitle(title: l10n.sortOrder),
                 gapH8,
                 Container(
                   decoration: BoxDecoration(
@@ -410,24 +410,28 @@ class _FilterUiState extends ConsumerState<FilterUi> {
                         ),
                       ),
                       dropdownColor: theme.white,
-                      items: sortOptions
-                          .map(
-                            (option) => DropdownMenuItem<String>(
-                              value: option,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                ),
-                                child: Text(
-                                  option,
-                                  style: theme.bodyMedium.copyWith(
-                                    color: theme.primaryText,
-                                  ),
-                                ),
+                      items: sortOptions.map((option) {
+                        String displayText = option;
+                        if (option == 'DISTANCE') {
+                          displayText = l10n.sortByDistance;
+                        } else if (option == 'PRICE') {
+                          displayText = l10n.sortByPrice;
+                        } else if (option == 'RATING') {
+                          displayText = l10n.sortByRating;
+                        }
+                        return DropdownMenuItem<String>(
+                          value: option,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              displayText,
+                              style: theme.bodyMedium.copyWith(
+                                color: theme.primaryText,
                               ),
                             ),
-                          )
-                          .toList(),
+                          ),
+                        );
+                      }).toList(),
                       onChanged: (value) {
                         setState(() {
                           if (value == null || value == _sortNone) {

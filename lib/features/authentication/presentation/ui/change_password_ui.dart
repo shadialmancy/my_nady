@@ -66,7 +66,7 @@ class _ChangePasswordUiState extends ConsumerState<ChangePasswordUi> {
               ),
               gapH20,
               CustomTextField(
-                label: "Current Password",
+                label: l10n.currentPassword,
                 hint: "******",
                 keyboardType: TextInputType.visiblePassword,
                 isPasswordField: true,
@@ -80,7 +80,7 @@ class _ChangePasswordUiState extends ConsumerState<ChangePasswordUi> {
               ),
               gapH20,
               CustomTextField(
-                label: "New ${l10n.password}",
+                label: l10n.newPassword,
                 hint: "******",
                 keyboardType: TextInputType.visiblePassword,
                 isPasswordField: true,
@@ -90,7 +90,7 @@ class _ChangePasswordUiState extends ConsumerState<ChangePasswordUi> {
                     return l10n.fieldRequired;
                   }
                   if (value.length < 6) {
-                    return "Password must be at least 6 characters";
+                    return l10n.passwordAtLeast6;
                   }
                   return null;
                 },
@@ -107,7 +107,7 @@ class _ChangePasswordUiState extends ConsumerState<ChangePasswordUi> {
                     return l10n.fieldRequired;
                   }
                   if (value != _newPasswordController.text) {
-                    return "Passwords do not match";
+                    return l10n.passwordsDoNotMatch;
                   }
                   return null;
                 },

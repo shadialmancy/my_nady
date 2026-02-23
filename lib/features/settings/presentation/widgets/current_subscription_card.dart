@@ -36,7 +36,7 @@ class CurrentSubscriptionCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  subscription.branch?.name ?? 'Branch Name',
+                  subscription.branch?.name ?? l10n.branchNamePlaceHolder,
                   style: theme.titleMedium.copyWith(
                     color: theme.primary,
                     fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class CurrentSubscriptionCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  subscription.status?.toUpperCase() ?? 'UNKNOWN',
+                  subscription.status?.toUpperCase() ?? l10n.unknown,
                   style: theme.bodySmall.copyWith(
                     color: theme.white,
                     fontWeight: FontWeight.w600,
@@ -66,7 +66,7 @@ class CurrentSubscriptionCard extends StatelessWidget {
           ),
           gapH12,
           Text(
-            subscription.subscriptionPlan?.name ?? 'Plan Name',
+            subscription.subscriptionPlan?.name ?? l10n.planNamePlaceHolder,
             style: theme.bodyMedium.copyWith(
               color: theme.primaryText,
               fontWeight: FontWeight.w600,
@@ -78,7 +78,7 @@ class CurrentSubscriptionCard extends StatelessWidget {
               Icon(Icons.calendar_today, size: 16, color: theme.grey9C),
               gapW8,
               Text(
-                'Start: ${_formatDate(subscription.startDate)}',
+                '${l10n.start}: ${_formatDate(subscription.startDate, l10n)}',
                 style: theme.bodySmall.copyWith(color: theme.grey9C),
               ),
             ],
@@ -89,7 +89,7 @@ class CurrentSubscriptionCard extends StatelessWidget {
               Icon(Icons.event, size: 16, color: theme.grey9C),
               gapW8,
               Text(
-                'End: ${_formatDate(subscription.endDate)}',
+                '${l10n.end}: ${_formatDate(subscription.endDate, l10n)}',
                 style: theme.bodySmall.copyWith(color: theme.grey9C),
               ),
             ],
@@ -112,7 +112,7 @@ class CurrentSubscriptionCard extends StatelessWidget {
                     Icon(Icons.autorenew, size: 16, color: theme.primary),
                     gapW4,
                     Text(
-                      'Auto Renew',
+                      l10n.autoRenew,
                       style: theme.bodySmall.copyWith(
                         color: theme.primary,
                         fontWeight: FontWeight.w600,
@@ -127,8 +127,8 @@ class CurrentSubscriptionCard extends StatelessWidget {
     );
   }
 
-  String _formatDate(DateTime? date) {
-    if (date == null) return 'N/A';
+  String _formatDate(DateTime? date, dynamic l10n) {
+    if (date == null) return l10n.na;
     return DateFormat('MMM dd, yyyy').format(date);
   }
 

@@ -6,6 +6,7 @@ import '../models/payment_method_request_dto/payment_method_request_dto.dart';
 abstract class BasePaymentMethodRepository {
   Future<PaymentMethodEntity> getPaymentMethods();
   Future<void> savePaymentMethod(PaymentMethodRequestDto request);
+  Future<void> deletePaymentMethod(String id);
 }
 
 class PaymentMethodRepositoryImpl implements BasePaymentMethodRepository {
@@ -26,6 +27,15 @@ class PaymentMethodRepositoryImpl implements BasePaymentMethodRepository {
   Future<void> savePaymentMethod(PaymentMethodRequestDto request) async {
     try {
       await dataSource.savePaymentMethod(request);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> deletePaymentMethod(String id) async {
+    try {
+      await dataSource.deletePaymentMethod(id);
     } catch (e) {
       rethrow;
     }

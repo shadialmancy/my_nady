@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -8,6 +10,8 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../app/view/app.dart';
+import '../../../../core/localization/locale_constants.dart';
 import '../../../authentication/presentation/provider/auth_ui_service.dart';
 import '../widgets/widgets.dart';
 
@@ -18,6 +22,7 @@ class SettingsUi extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final (theme, l10n) = appSettingsRecord(context);
     final authRef = ref.watch(authUiServiceProvider);
+    final currentLangCode = Localizations.localeOf(context).languageCode;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -159,6 +164,99 @@ class SettingsUi extends ConsumerWidget {
                         color: theme.primary,
                         fontWeight: .w900,
                         size: 14,
+                      ),
+                    ),
+                    // Language
+                    ListTile(
+                      contentPadding: .zero,
+                      onTap: () async {
+                        final selectedCode = await showModalBottomSheet<String>(
+                          context: context,
+                          backgroundColor: Colors.transparent,
+                          builder: (ctx) {
+                            final (theme, l10n) = appSettingsRecord(ctx);
+                            return Container(
+                              margin: .symmetric(
+                                horizontal: 3.sw,
+                                vertical: 16,
+                              ),
+                              padding: .all(16),
+                              decoration: BoxDecoration(
+                                color: theme.white,
+                                borderRadius: .circular(16),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    l10n.language,
+                                    style: theme.titleMedium.copyWith(
+                                      fontWeight: .w600,
+                                      color: theme.fullBlack,
+                                    ),
+                                  ),
+                                  gapH12,
+                                  RadioListTile<String>(
+                                    value: english,
+                                    groupValue: currentLangCode,
+                                    onChanged: (value) =>
+                                        Navigator.of(ctx).pop(value),
+                                    title: Text(
+                                      l10n.en,
+                                      style: theme.titleMedium.copyWith(
+                                        fontWeight: .w400,
+                                      ),
+                                    ),
+                                  ),
+                                  RadioListTile<String>(
+                                    value: arabic,
+                                    groupValue: currentLangCode,
+                                    onChanged: (value) =>
+                                        Navigator.of(ctx).pop(value),
+                                    title: Text(
+                                      l10n.ar,
+                                      style: theme.titleMedium.copyWith(
+                                        fontWeight: .w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+
+                        if (selectedCode != null &&
+                            selectedCode != currentLangCode) {
+                          final newLocale = await setLocale(selectedCode);
+                          if (context.mounted) {
+                            App.setLocale(context, newLocale);
+                          }
+                        }
+                      },
+                      leading: Text(
+                        l10n.language,
+                        style: theme.titleMedium.copyWith(fontWeight: .w400),
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            currentLangCode == arabic ? l10n.ar : l10n.en,
+                            style: theme.bodyMedium.copyWith(
+                              color: theme.primary,
+                              fontWeight: .w500,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: theme.primary,
+                            fontWeight: .w900,
+                            size: 14,
+                          ),
+                        ],
                       ),
                     ),
                     // Add payment method

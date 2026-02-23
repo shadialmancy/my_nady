@@ -106,50 +106,52 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
                         padding: EdgeInsets.symmetric(
                           horizontal: horizontalPadding,
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: icons.map<Widget>((icon) {
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  animateDrop(icons.indexOf(icon));
-                                  selected = icons.indexOf(icon);
-                                });
-                                context.router.replace(routes[selected]);
-                              },
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 375),
-
-                                curve: Curves.ease,
-                                height: 105,
-                                width:
-                                    (MediaQuery.of(context).size.width -
-                                        (2 * horizontalPadding)) /
-                                    5,
-                                padding: const EdgeInsets.only(
-                                  top: 17.5,
-                                  bottom: 22.5,
-                                ),
-                                alignment: selected == icons.indexOf(icon)
-                                    ? Alignment.topCenter
-                                    : Alignment.bottomCenter,
-                                child: SizedBox(
-                                  height: 35.0,
-                                  width: 35.0,
-                                  child: Center(
-                                    child: AnimatedSwitcher(
-                                      duration: const Duration(
-                                        milliseconds: 575,
+                        child: Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: icons.map<Widget>((icon) {
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    animateDrop(icons.indexOf(icon));
+                                    selected = icons.indexOf(icon);
+                                  });
+                                  context.router.replace(routes[selected]);
+                                },
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 375),
+                                  curve: Curves.ease,
+                                  height: 105,
+                                  width:
+                                      (MediaQuery.of(context).size.width -
+                                          (2 * horizontalPadding)) /
+                                      5,
+                                  padding: const EdgeInsets.only(
+                                    top: 17.5,
+                                    bottom: 22.5,
+                                  ),
+                                  alignment: selected == icons.indexOf(icon)
+                                      ? Alignment.topCenter
+                                      : Alignment.bottomCenter,
+                                  child: SizedBox(
+                                    height: 35.0,
+                                    width: 35.0,
+                                    child: Center(
+                                      child: AnimatedSwitcher(
+                                        duration: const Duration(
+                                          milliseconds: 575,
+                                        ),
+                                        switchInCurve: Curves.ease,
+                                        switchOutCurve: Curves.ease,
+                                        child: SvgPicture.asset(icon),
                                       ),
-                                      switchInCurve: Curves.ease,
-                                      switchOutCurve: Curves.ease,
-                                      child: SvgPicture.asset(icon),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }).toList(),
+                              );
+                            }).toList(),
+                          ),
                         ),
                       ),
                     ),

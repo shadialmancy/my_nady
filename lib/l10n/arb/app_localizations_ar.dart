@@ -21,462 +21,478 @@ class AppLocalizationsAr extends AppLocalizations {
   String get location => 'العنوان';
 
   @override
-  String get clubsMap => 'Clubs Map';
+  String get clubsMap => 'خريطة النوادي';
 
   @override
-  String get searchForGym => 'Search for a gym';
+  String get searchForGym => 'البحث عن صالة رياضية';
 
   @override
-  String get filter => 'Filter';
+  String get filter => 'تصفية';
 
   @override
-  String get categories => 'Categories';
+  String get categories => 'الفئات';
 
   @override
-  String get seeAll => 'See All';
+  String get seeAll => 'عرض الكل';
 
   @override
-  String get gym => 'Gym';
+  String get gym => 'صالة رياضية';
 
   @override
-  String get yoga => 'Yoga';
+  String get yoga => 'يوغا';
 
   @override
-  String get football => 'Football';
+  String get football => 'كرة قدم';
 
   @override
-  String get swimming => 'Swimming';
+  String get swimming => 'سباحة';
 
   @override
-  String get cardio => 'Cardio';
+  String get cardio => 'كارديو';
 
   @override
-  String get male => 'Male';
+  String get male => 'ذكر';
 
   @override
-  String get female => 'Female';
+  String get female => 'أنثى';
 
   @override
-  String get mix => 'Mix';
+  String get mix => 'مختلط';
 
   @override
-  String get kids => 'Kids';
+  String get kids => 'أطفال';
 
   @override
-  String get welcomeTo => 'Welcome to ';
+  String get welcomeTo => 'مرحباً بك في ';
 
   @override
-  String get myNady => 'My Nady';
+  String get myNady => 'ماي نادي';
 
   @override
   String get yourFitnessJourneyBeginsHereWhereDisciplineMeetsPassion =>
-      'Your fitness journey begins here, where discipline meets passion.';
+      'تبدأ رحلة لياقتك هنا، حيث يلتقي الانضباط بالشغف.';
 
   @override
-  String get letsGetStarted => 'Let’s Get Started';
+  String get letsGetStarted => 'لنبدأ';
 
   @override
-  String get alreadyHaveAnAccount => 'Already have an account?';
+  String get alreadyHaveAnAccount => 'لديك حساب بالفعل؟';
 
   @override
-  String get login => 'Login';
+  String get login => 'تسجيل الدخول';
 
   @override
-  String get welcomeBack => 'Welcome Back!';
+  String get welcomeBack => 'مرحباً بعودتك!';
 
   @override
-  String get loginToYourAccount => 'Login to your account';
+  String get loginToYourAccount => 'تسجيل الدخول إلى حسابك';
 
   @override
-  String get email => 'Email';
+  String get email => 'البريد الإلكتروني';
 
   @override
-  String get enterYourEmail => 'Enter your email';
+  String get enterYourEmail => 'أدخل بريدك الإلكتروني';
 
   @override
-  String get password => 'Password';
+  String get password => 'كلمة المرور';
 
   @override
-  String get enterYourPassword => 'Enter your password';
+  String get enterYourPassword => 'أدخل كلمة المرور';
 
   @override
-  String get rememberMe => 'Remember Me';
+  String get rememberMe => 'تذكرني';
 
   @override
-  String get forgotPassword => 'Forgot Password?';
+  String get forgotPassword => 'هل نسيت كلمة المرور؟';
 
   @override
-  String get or => 'Or';
+  String get or => 'أو';
 
   @override
-  String get dontHaveAccount => 'Don\'t have an account?';
+  String get dontHaveAccount => 'ليس لديك حساب؟';
 
   @override
-  String get signUp => 'Sign Up';
+  String get signUp => 'إنشاء حساب';
 
   @override
   String get invalidCredentialsPleaseTryAgain =>
-      'Invalid credentials. Please try again.';
+      'بيانات الاعتماد غير صالحة. يرجى المحاولة مرة أخرى.';
 
   @override
-  String get createNewAccount => 'Create a new account';
+  String get createNewAccount => 'إنشاء حساب جديد';
 
   @override
-  String get name => 'Name';
+  String get sessionExpired => 'انتهت الجلسة';
 
   @override
-  String get gender => 'Gender';
+  String get sessionExpiredContent =>
+      'انتهت جلسة العمل الخاصة بك. يرجى تسجيل الدخول مرة أخرى.';
 
   @override
-  String get phone => 'Phone';
+  String get passwordAtLeast6 => 'يجب أن تكون كلمة المرور 6 أحرف على الأقل';
 
   @override
-  String get confirmPassword => 'Confirm Password';
+  String get passwordsDoNotMatch => 'كلمات المرور غير متطابقة';
 
   @override
-  String get enterDateofBirth => 'Enter your Date of Birth';
+  String get currentPassword => 'كلمة المرور الحالية';
+
+  @override
+  String get newPassword => 'كلمة المرور الجديدة';
+
+  @override
+  String get name => 'الاسم';
+
+  @override
+  String get gender => 'الجنس';
+
+  @override
+  String get phone => 'الهاتف';
+
+  @override
+  String get confirmPassword => 'تأكيد كلمة المرور';
+
+  @override
+  String get enterDateofBirth => 'أدخل تاريخ ميلادك';
 
   @override
   String
   get yourAgeInformationWillBeUpdatedOnYourProfilePageAndThisWillDisplayedPubliclyOnYourDashboard =>
-      'Your age information will be updated on your profile page and this will displayed publicly on your dashboard.';
+      'سيتم تحديث معلومات عمرك في صفحة ملفك الشخصي وسيتم عرضها علنًا على لوحة التحكم الخاصة بك.';
 
   @override
-  String get month => 'Month';
+  String get month => 'شهر';
 
   @override
-  String get day => 'Day';
+  String get day => 'يوم';
 
   @override
-  String get year => 'Year';
+  String get year => 'سنة';
 
   @override
-  String get continueTxt => 'Continue';
+  String get continueTxt => 'استمرار';
 
   @override
-  String get cancel => 'Cancel';
+  String get cancel => 'إلغاء';
 
   @override
   String get allowingLocationHelpsUsServeYouBetter =>
-      'Allowing location helps us serve you better.';
+      'يساعدنا السماح بالوصول للموقع على خدمتك بشكل أفضل.';
 
   @override
   String
   get itIsVeryImportantThatYouChooseTheAlwaysAllowOptionInTheNextDialogItMakesTheSystemWorkBetterThankYou =>
-      'It is very important that you choose the \'Always Allow\' option in the next dialog. It makes the system work better. Thank you!';
+      'من المهم جداً اختيار \'السماح دائماً\' في الحوار القادم. هذا يجعل النظام يعمل بشكل أفضل. شكراً لك!';
 
   @override
-  String get grantAccessToLocation => 'Grant Access to Location';
+  String get grantAccessToLocation => 'منح حق الوصول للموقع';
 
   @override
   String get dontWorryItOccursPleaseEnterEmailAddressLinkedWithYourAccount =>
-      'Don\'t worry, it occurs! Please enter the email address linked with your account.';
+      'لا تقلق! يرجى إدخال عنوان البريد الإلكتروني المرتبط بحسابك.';
 
   @override
   String get yourNewPasswordMustUniqueFromThosePreviouslyUsed =>
-      'Your new password must be unique from those previously used.';
+      'يجب أن تكون كلمة المرور الجديدة فريدة ولم يتم استخدامها من قبل.';
 
   @override
   String get byGivingYourInformationYouAgreeToOur =>
-      'By giving your information, you agree to our';
+      'بتقديم معلوماتك، فإنك توافق على';
 
   @override
-  String get termsConditions => 'Terms & Conditions';
+  String get termsConditions => 'الشروط والأحكام';
 
   @override
-  String get and => 'and';
+  String get and => 'و';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'سياسة الخصوصية';
 
   @override
-  String get enterYourName => 'Enter your name';
+  String get enterYourName => 'أدخل اسمك';
 
   @override
-  String get selectYourGender => 'Select your gender';
+  String get selectYourGender => 'اختر جنسك';
 
   @override
-  String get send => 'Send';
+  String get send => 'إرسال';
 
   @override
-  String get changePassword => 'Change Password';
+  String get changePassword => 'تغيير كلمة المرور';
 
   @override
-  String get enterVerificationCode => 'Enter Verification Code';
+  String get enterVerificationCode => 'أدخل رمز التحقق';
 
   @override
-  String get enterTheOTPSentToYourMobileNumber =>
-      'Enter the OTP sent to your mobile number';
+  String get enterTheOTPSentToYourMobileNumber => 'أدخل الرمز المرسل إلى هاتفك';
 
   @override
-  String get toProceed => 'to proceed';
+  String get toProceed => 'للمتابعة';
 
   @override
-  String get theOTPValidForRemainingTimeOf =>
-      'The OTP is valid for the remaining time of';
+  String get theOTPValidForRemainingTimeOf => 'الرمز صالح للوقت المتبقي قدره';
 
   @override
-  String get seconds => 'seconds';
+  String get seconds => 'ثانية';
 
   @override
-  String get resendCode => 'Resend Code';
+  String get resendCode => 'إعادة إرسال الرمز';
 
   @override
-  String get family => 'Family';
+  String get family => 'عائلة';
 
   @override
-  String get reviews => 'Reviews';
+  String get reviews => 'مراجعات';
 
   @override
-  String get nearDistance => 'Near Distance';
+  String get nearDistance => 'مسافة قريبة';
 
   @override
-  String get branches => 'Branches';
+  String get branches => 'الفروع';
 
   @override
-  String get clubContent => 'Club Content';
+  String get clubContent => 'محتوى النادي';
 
   @override
-  String get description => 'Description';
+  String get description => 'الوصف';
 
   @override
-  String get comments => 'Comments';
+  String get comments => 'التعليقات';
 
   @override
-  String get subscribeNow => 'Subscribe now';
+  String get subscribeNow => 'اشترك الآن';
 
   @override
-  String get nameOnCard => 'Name on card';
+  String get nameOnCard => 'الاسم على البطاقة';
 
   @override
-  String get cardNumber => 'Card Number';
+  String get cardNumber => 'رقم البطاقة';
 
   @override
-  String get expiryDate => 'Expiry Date';
+  String get expiryDate => 'تاريخ الانتهاء';
 
   @override
-  String get cardSecurityCode => 'Card Security Code';
+  String get cardSecurityCode => 'رمز الحماية';
 
   @override
-  String get creditCardDetails => 'Credit Card Details';
+  String get creditCardDetails => 'بيانات بطاقة الائتمان';
 
   @override
-  String get billingAddress => 'Billing Address';
+  String get billingAddress => 'عنوان الفواتير';
 
   @override
-  String get country => 'Country';
+  String get country => 'الدولة';
 
   @override
-  String get address => 'Address';
+  String get address => 'العنوان';
 
   @override
-  String get city => 'City';
+  String get city => 'المدينة';
 
   @override
-  String get state => 'State';
+  String get state => 'المنطقة';
 
   @override
-  String get zipCode => 'Zip Code';
+  String get zipCode => 'الرمز البريدي';
 
   @override
-  String get contactInformation => 'Contact Information';
+  String get contactInformation => 'معلومات الاتصال';
 
   @override
-  String get pay => 'Pay';
+  String get pay => 'دفع';
 
   @override
-  String get paymentSuccess => 'Payment Success';
+  String get paymentSuccess => 'تم الدفع بنجاح';
 
   @override
-  String get yourPaymentHasBeenSuccessfullyDone =>
-      'Your payment has been successfully done.';
+  String get yourPaymentHasBeenSuccessfullyDone => 'تمت عملية الدفع بنجاح.';
 
   @override
-  String get totalPayment => 'Total Payment';
+  String get totalPayment => 'إجمالي الدفع';
 
   @override
-  String get refNumber => 'Ref Number';
+  String get refNumber => 'رقم المرجع';
 
   @override
-  String get paymentDate => 'Payment Date';
+  String get paymentDate => 'تاريخ الدفع';
 
   @override
-  String get paymentMethod => 'Payment Method';
+  String get paymentMethod => 'طريقة الدفع';
 
   @override
-  String get senderName => 'Sender Name';
+  String get senderName => 'اسم المرسل';
 
   @override
-  String get getPDFReceipt => 'Get PDF Receipt';
+  String get getPDFReceipt => 'الحصول على إيصال PDF';
 
   @override
-  String get paymentFailure => 'Payment Failure';
+  String get paymentFailure => 'فشل الدفع';
 
   @override
-  String get yourPaymentHasBeenFailure => 'Your payment has been failure';
+  String get yourPaymentHasBeenFailure => 'فشلت عملية الدفع';
 
   @override
-  String get resources => 'Resources';
+  String get resources => 'الموارد';
 
   @override
-  String get favorite => 'Favorite';
+  String get favorite => 'المفضلة';
 
   @override
-  String get fliter => 'Fliter';
+  String get fliter => 'تصفية';
 
   @override
-  String get type => 'Type';
+  String get type => 'النوع';
 
   @override
-  String get apply => 'Apply';
+  String get apply => 'تطبيق';
 
   @override
-  String get gymclubName => 'Gym/Club Name';
+  String get gymclubName => 'اسم الصالة/النادي';
 
   @override
-  String get searchGymName => 'Search Gym Name';
+  String get searchGymName => 'البحث عن اسم الصالة';
 
   @override
-  String get gymClubType => 'Gym/Club Type';
+  String get gymClubType => 'نوع الصالة/النادي';
 
   @override
-  String get gymClubArea => 'Gym/Club Area';
+  String get gymClubArea => 'منطقة الصالة/النادي';
 
   @override
-  String get gymClubFacilities => 'Gym/Club Facilities';
+  String get gymClubFacilities => 'مرافق الصالة/النادي';
 
   @override
-  String get priceRange => 'Price Range';
+  String get priceRange => 'نطاق السعر';
 
   @override
-  String get subscriptionType => 'Subscription Type';
+  String get subscriptionType => 'نوع الاشتراك';
 
   @override
-  String get reset => 'Reset';
+  String get reset => 'إعادة ضبط';
 
   @override
-  String get includesOffer => 'Includes Offer';
+  String get includesOffer => 'يتضمن عرضاً';
 
   @override
-  String get editProfile => 'Edit Profile';
+  String get editProfile => 'تعديل الملف الشخصي';
 
   @override
-  String get dairyRecording => 'Dairy Recording';
+  String get dairyRecording => 'تسجيلاتي';
 
   @override
-  String get settings => 'Settings';
+  String get settings => 'الإعدادات';
 
   @override
-  String get subscription => 'Subscription';
+  String get subscription => 'الاشتراك';
 
   @override
-  String get logout => 'Logout';
+  String get logout => 'تسجيل الخروج';
 
   @override
-  String get confirm => 'Confirm';
+  String get confirm => 'تأكيد';
 
   @override
-  String get areYouSureYouWantToLogout => 'Are you sure you want to logout';
+  String get areYouSureYouWantToLogout => 'هل أنت متأكد من تسجيل الخروج؟';
 
   @override
   String get weWantConfirmIfYouTrulyWishToLogOutOfYourAccount =>
-      'We want confirm if you truly wish to log out of your account';
+      'نريد التأكد مما إذا كنت ترغب حقاً في تسجيل الخروج من حسابك';
 
   @override
-  String get accountSetting => 'Account Setting';
+  String get accountSetting => 'إعدادات الحساب';
 
   @override
-  String get addPaymentMethod => 'Add Payment Method';
+  String get addPaymentMethod => 'إضافة طريقة دفع';
 
   @override
-  String get pushNotification => 'Push Notification';
+  String get pushNotification => 'إشعارات';
 
   @override
-  String get darkMode => 'Dark Mode';
+  String get darkMode => 'الوضع الليلي';
 
   @override
-  String get more => 'More';
+  String get more => 'المزيد';
 
   @override
-  String get aboutUs => 'About us';
+  String get aboutUs => 'من نحن';
 
   @override
-  String get title => 'Title';
+  String get title => 'العنوان';
 
   @override
-  String get date => 'Date';
+  String get date => 'التاريخ';
 
   @override
-  String get enterDescription => 'Enter Description';
+  String get enterDescription => 'أدخل الوصف';
 
   @override
-  String get repetition => 'Repetition';
+  String get repetition => 'تكرار';
 
   @override
-  String get set => 'Set';
+  String get set => 'مجموعة';
 
   @override
-  String get save => 'Save';
+  String get save => 'حفظ';
 
   @override
-  String get setAnTitle => 'Set an Title';
+  String get setAnTitle => 'وضع عنوان';
 
   @override
-  String get cardsAndAccounts => 'Cards and Accounts';
+  String get cardsAndAccounts => 'البطاقات والحسابات';
 
   @override
-  String get recentTransactions => 'Recent Transactions';
+  String get recentTransactions => 'المعاملات الأخيرة';
 
   @override
-  String get viewAll => 'View All';
+  String get viewAll => 'عرض الكل';
 
   @override
-  String get currencyExchange => 'Currency Exchange';
+  String get currencyExchange => 'صرف العملات';
 
   @override
-  String get cashIn => 'Cash In';
+  String get cashIn => 'إيداع نقدي';
 
   @override
-  String get cashbackFromPurchase => 'Cashback from Purchase';
+  String get cashbackFromPurchase => 'استرداد نقدي من المشتريات';
 
   @override
-  String get transferToCard => 'Transfer to Card';
+  String get transferToCard => 'تحويل إلى بطاقة';
 
   @override
-  String get pending => 'Pending';
+  String get pending => 'قيد الانتظار';
 
   @override
-  String get confirmed => 'Confirmed';
+  String get confirmed => 'مؤكد';
 
   @override
-  String get canceled => 'Canceled';
+  String get canceled => 'ملغى';
 
   @override
-  String get transactionId => 'Transaction ID';
+  String get transactionId => 'رقم المعاملة';
 
   @override
-  String get period => 'Period';
+  String get period => 'الفترة';
 
   @override
-  String get today => 'Today';
+  String get today => 'اليوم';
 
   @override
-  String get thisWeek => 'This Week';
+  String get thisWeek => 'هذا الأسبوع';
 
   @override
-  String get thisMonth => 'This Month';
+  String get thisMonth => 'هذا الشهر';
 
   @override
-  String get perviousMonth => 'Pervious Month';
+  String get perviousMonth => 'الشهر السابق';
 
   @override
-  String get thisYear => 'This Year';
+  String get thisYear => 'هذه السنة';
 
   @override
-  String get selectPeriod => 'Select Period';
+  String get selectPeriod => 'اختر الفترة';
 
   @override
-  String get status => 'Status';
+  String get status => 'الحالة';
 
   @override
   String get fieldRequired => 'مطلوب';
@@ -489,4 +505,89 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noFavorites => 'لا توجد مفضلات بعد';
+
+  @override
+  String get noPaymentMethodsFound => 'لا توجد بطاقات دفع محفوظة';
+
+  @override
+  String get remove => 'حذف';
+
+  @override
+  String get removeThisCardTitle => 'هل تريد حذف هذه البطاقة؟';
+
+  @override
+  String get removeThisCardDescription => 'سيتم حذف البطاقة المحفوظة من حسابك.';
+
+  @override
+  String get cardAddedSuccessfully => 'تمت إضافة البطاقة بنجاح';
+
+  @override
+  String get cardDeletedSuccessfully => 'تم حذف البطاقة بنجاح';
+
+  @override
+  String get pleaseFillAllCardDetailsCorrectly =>
+      'يرجى إدخال جميع بيانات البطاقة بشكل صحيح';
+
+  @override
+  String get invalidExpiryDate => 'تاريخ انتهاء غير صالح';
+
+  @override
+  String get amenities => 'المرافق';
+
+  @override
+  String get sortOrder => 'ترتيب حسب';
+
+  @override
+  String get radiusKm => 'النطاق (كم)';
+
+  @override
+  String get sortByDistance => 'المسافة';
+
+  @override
+  String get sortByPrice => 'السعر';
+
+  @override
+  String get sortByRating => 'التقييم';
+
+  @override
+  String get current => 'الحالي';
+
+  @override
+  String get history => 'السجل';
+
+  @override
+  String get noActiveSubscriptions => 'لا توجد اشتراكات نشطة';
+
+  @override
+  String get noSubscriptionHistory => 'لا يوجد سجل للاشتراكات';
+
+  @override
+  String get branchNamePlaceHolder => 'اسم الفرع';
+
+  @override
+  String get unknown => 'غير معروف';
+
+  @override
+  String get planNamePlaceHolder => 'اسم الخطة';
+
+  @override
+  String get start => 'البداية';
+
+  @override
+  String get end => 'النهاية';
+
+  @override
+  String get autoRenew => 'تجديد تلقائي';
+
+  @override
+  String get na => 'غير متوفر';
+
+  @override
+  String get recentChanges => 'التغييرات الأخيرة:';
+
+  @override
+  String get change => 'تغيير';
+
+  @override
+  String get addPaymentCard => 'إضافة بطاقة دفع';
 }

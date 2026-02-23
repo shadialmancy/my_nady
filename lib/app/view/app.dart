@@ -66,6 +66,7 @@ class _AppState extends ConsumerState<App> {
             GlobalCupertinoLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
           ],
+          supportedLocales: AppLocalizations.supportedLocales,
           locale: _locale,
           themeMode: FlutterFlowTheme.themeMode,
           theme: ThemeData(

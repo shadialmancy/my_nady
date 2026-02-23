@@ -36,7 +36,7 @@ class HistorySubscriptionCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  historyItem.branchName ?? 'Branch Name',
+                  historyItem.branchName ?? l10n.branchNamePlaceHolder,
                   style: theme.titleMedium.copyWith(
                     color: theme.primaryText,
                     fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class HistorySubscriptionCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  historyItem.currentStatus?.toUpperCase() ?? 'UNKNOWN',
+                  historyItem.currentStatus?.toUpperCase() ?? l10n.unknown,
                   style: theme.bodySmall.copyWith(
                     color: theme.white,
                     fontWeight: FontWeight.w600,
@@ -66,7 +66,7 @@ class HistorySubscriptionCard extends StatelessWidget {
           ),
           gapH12,
           Text(
-            historyItem.planName ?? 'Plan Name',
+            historyItem.planName ?? l10n.planNamePlaceHolder,
             style: theme.bodyMedium.copyWith(
               color: theme.primaryText,
               fontWeight: FontWeight.w600,
@@ -78,7 +78,7 @@ class HistorySubscriptionCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Recent Changes:',
+                  l10n.recentChanges,
                   style: theme.bodySmall.copyWith(
                     color: theme.grey9C,
                     fontWeight: FontWeight.w600,
@@ -101,7 +101,7 @@ class HistorySubscriptionCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                change.changeType ?? 'Change',
+                                change.changeType ?? l10n.change,
                                 style: theme.bodySmall.copyWith(
                                   color: theme.primaryText,
                                   fontWeight: FontWeight.w600,
@@ -121,7 +121,7 @@ class HistorySubscriptionCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          _formatDate(change.changeDate),
+                          _formatDate(change.changeDate, l10n),
                           style: theme.bodySmall.copyWith(
                             color: theme.grey9C,
                             fontSize: 11,
@@ -138,8 +138,8 @@ class HistorySubscriptionCard extends StatelessWidget {
     );
   }
 
-  String _formatDate(DateTime? date) {
-    if (date == null) return 'N/A';
+  String _formatDate(DateTime? date, dynamic l10n) {
+    if (date == null) return l10n.na;
     return DateFormat('MMM dd').format(date);
   }
 

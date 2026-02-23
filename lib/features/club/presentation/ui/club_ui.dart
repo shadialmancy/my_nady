@@ -144,6 +144,7 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                           (widget.distance == null || widget.distance!.isEmpty)
                               ? ""
                               : "${num.parse(widget.distance ?? '0').toStringAsFixed(2)} m",
+                          textDirection: TextDirection.ltr,
                           style: theme.titleMedium.copyWith(
                             color: theme.primaryText,
                             fontWeight: .w700,

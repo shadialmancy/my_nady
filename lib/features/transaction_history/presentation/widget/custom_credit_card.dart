@@ -6,7 +6,14 @@ import '../../data/models/payment_method_dto/datum.dart';
 
 class CustomCreditCard extends StatelessWidget {
   final Datum? paymentMethod;
-  const CustomCreditCard({super.key, this.paymentMethod});
+  final VoidCallback? onRemove;
+  final bool isRemoving;
+  const CustomCreditCard({
+    super.key,
+    this.paymentMethod,
+    this.onRemove,
+    this.isRemoving = false,
+  });
 
   String _getCardBrandLogo(String? brand) {
     if (brand == null) return AssetsHelper.visaLogo;
@@ -30,9 +37,9 @@ class CustomCreditCard extends StatelessWidget {
     final expiryYear = paymentMethod?.expiryYear ?? 0;
 
     return Container(
-      height: 200,
+      height: 230,
       width: .infinity,
-      padding: .all(20),
+      padding: .all(16),
       decoration: BoxDecoration(
         borderRadius: .circular(15),
         border: .all(
@@ -45,7 +52,52 @@ class CustomCreditCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: .end,
         children: [
-          SvgPicture.asset(AssetsHelper.nfcIcon),
+          Row(
+            children: [
+              if (onRemove != null)
+                TextButton.icon(
+                  onPressed: isRemoving ? null : onRemove,
+                  icon: isRemoving
+                      ? SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: theme.white,
+                          ),
+                        )
+                      : Icon(
+                          Icons.delete_outline,
+                          size: 18,
+                          color: theme.white,
+                        ),
+                  label: Text(
+                    l10n.remove,
+                    style: theme.labelSmall.copyWith(
+                      color: theme.white,
+                      fontWeight: .w600,
+                    ),
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
+                    backgroundColor: Colors.red.withValues(alpha: 0.25),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(
+                        color: theme.white.withValues(alpha: 0.2),
+                      ),
+                    ),
+                  ),
+                )
+              else
+                const SizedBox.shrink(),
+              const Spacer(),
+              SvgPicture.asset(AssetsHelper.nfcIcon),
+            ],
+          ),
           gapH32,
 
           Row(

@@ -80,10 +80,10 @@ class UnauthorizedInterceptor extends Interceptor {
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          final (theme, _) = appSettingsRecord(context);
+          final (theme, l10n) = appSettingsRecord(context);
           return AlertDialog(
-            backgroundColor: theme.whiteColor,
-            title: const Text('Session Expired'),
+            backgroundColor: theme.white,
+            title: Text(l10n.sessionExpired),
             shape: RoundedRectangleBorder(borderRadius: .circular(20)),
             contentPadding: const .only(
               left: 30,
@@ -91,9 +91,7 @@ class UnauthorizedInterceptor extends Interceptor {
               top: 90,
               bottom: 50,
             ),
-            content: const Text(
-              'Your session has expired. Please login again.',
-            ),
+            content: Text(l10n.sessionExpiredContent),
             actions: [
               TextButton(
                 onPressed: () {
@@ -104,7 +102,7 @@ class UnauthorizedInterceptor extends Interceptor {
                     predicate: (route) => false,
                   );
                 },
-                child: const Text('Login'),
+                child: Text(l10n.login),
               ),
             ],
           );

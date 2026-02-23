@@ -29,7 +29,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
         toolbarHeight: 80,
         centerTitle: true,
         title: Text(
-          l10n.location,
+          l10n.addPaymentCard,
           style: theme.titleMedium.copyWith(color: theme.primary),
         ),
         leading: Padding(

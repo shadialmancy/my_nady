@@ -6,7 +6,12 @@ import 'widgets.dart';
 
 class CreditCardSlider extends StatefulWidget {
   final List<Datum> paymentMethods;
-  const CreditCardSlider({super.key, required this.paymentMethods});
+  final Future<void> Function(String id)? onRemove;
+  const CreditCardSlider({
+    super.key,
+    required this.paymentMethods,
+    this.onRemove,
+  });
 
   @override
   State<CreditCardSlider> createState() => _CreditCardSliderState();
@@ -14,6 +19,44 @@ class CreditCardSlider extends StatefulWidget {
 
 class _CreditCardSliderState extends State<CreditCardSlider> {
   int currentIndex = 0;
+  String? removingId;
+
+  Future<bool> _confirmRemove(BuildContext context) async {
+    final (theme, l10n) = appSettingsRecord(context);
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          backgroundColor: theme.white,
+          title: Text(
+            l10n.removeThisCardTitle,
+            style: theme.titleMedium.copyWith(color: theme.fullBlack),
+          ),
+          content: Text(
+            l10n.removeThisCardDescription,
+            style: theme.bodyMedium.copyWith(
+              color: theme.fullBlack.withValues(alpha: 0.75),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: Text(
+                l10n.cancel,
+                style: theme.labelLarge.copyWith(color: theme.fullBlack),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              style: TextButton.styleFrom(foregroundColor: Colors.red),
+              child: Text(l10n.remove),
+            ),
+          ],
+        );
+      },
+    );
+    return result ?? false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +68,7 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
         height: 230,
         child: Center(
           child: Text(
-            'No payment methods found',
+            l10n.noPaymentMethodsFound,
             style: theme.bodyMedium.copyWith(color: theme.white),
           ),
         ),
@@ -33,7 +76,7 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
     }
 
     return SizedBox(
-      height: 230,
+      height: 250,
       child: Stack(
         alignment: .bottomCenter,
         children: [
@@ -41,12 +84,30 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
             alignment: Alignment.topCenter,
             child: CarouselSlider(
               items: List.generate(paymentMethods.length, (index) {
+                final method = paymentMethods[index];
+                final methodId = method.id;
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: CustomBackgroundTransaction(
-                    height: 200,
+                    height: 230,
                     child: CustomCreditCard(
-                      paymentMethod: paymentMethods[index],
+                      paymentMethod: method,
+                      isRemoving: removingId != null && removingId == methodId,
+                      onRemove: (widget.onRemove == null || methodId == null)
+                          ? null
+                          : () async {
+                              final confirmed = await _confirmRemove(context);
+                              if (!confirmed) return;
+
+                              setState(() => removingId = methodId);
+                              try {
+                                await widget.onRemove!(methodId);
+                              } finally {
+                                if (mounted) {
+                                  setState(() => removingId = null);
+                                }
+                              }
+                            },
                     ),
                   ),
                 );

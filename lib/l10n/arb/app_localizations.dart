@@ -320,6 +320,42 @@ abstract class AppLocalizations {
   /// **'Create a new account'**
   String get createNewAccount;
 
+  /// No description provided for @sessionExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Session Expired'**
+  String get sessionExpired;
+
+  /// No description provided for @sessionExpiredContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Please log in again.'**
+  String get sessionExpiredContent;
+
+  /// No description provided for @passwordAtLeast6.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get passwordAtLeast6;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
+
+  /// No description provided for @currentPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Password'**
+  String get currentPassword;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
   /// No description provided for @name.
   ///
   /// In en, this message translates to:
@@ -1035,6 +1071,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No favorites yet'**
   String get noFavorites;
+
+  /// No description provided for @noPaymentMethodsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No payment methods found'**
+  String get noPaymentMethodsFound;
+
+  /// No description provided for @remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
+
+  /// No description provided for @removeThisCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this card?'**
+  String get removeThisCardTitle;
+
+  /// No description provided for @removeThisCardDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'This will delete the saved card from your account.'**
+  String get removeThisCardDescription;
+
+  /// No description provided for @cardAddedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Card added successfully'**
+  String get cardAddedSuccessfully;
+
+  /// No description provided for @cardDeletedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Card deleted successfully'**
+  String get cardDeletedSuccessfully;
+
+  /// No description provided for @pleaseFillAllCardDetailsCorrectly.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill all card details correctly'**
+  String get pleaseFillAllCardDetailsCorrectly;
+
+  /// No description provided for @invalidExpiryDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid expiry date'**
+  String get invalidExpiryDate;
+
+  /// No description provided for @amenities.
+  ///
+  /// In en, this message translates to:
+  /// **'Amenities'**
+  String get amenities;
+
+  /// No description provided for @sortOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort Order'**
+  String get sortOrder;
+
+  /// No description provided for @radiusKm.
+  ///
+  /// In en, this message translates to:
+  /// **'Radius (km)'**
+  String get radiusKm;
+
+  /// No description provided for @sortByDistance.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance'**
+  String get sortByDistance;
+
+  /// No description provided for @sortByPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get sortByPrice;
+
+  /// No description provided for @sortByRating.
+  ///
+  /// In en, this message translates to:
+  /// **'Rating'**
+  String get sortByRating;
+
+  /// No description provided for @current.
+  ///
+  /// In en, this message translates to:
+  /// **'Current'**
+  String get current;
+
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// No description provided for @noActiveSubscriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'No active subscriptions'**
+  String get noActiveSubscriptions;
+
+  /// No description provided for @noSubscriptionHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No subscription history'**
+  String get noSubscriptionHistory;
+
+  /// No description provided for @branchNamePlaceHolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch Name'**
+  String get branchNamePlaceHolder;
+
+  /// No description provided for @unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'UNKNOWN'**
+  String get unknown;
+
+  /// No description provided for @planNamePlaceHolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan Name'**
+  String get planNamePlaceHolder;
+
+  /// No description provided for @start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get start;
+
+  /// No description provided for @end.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get end;
+
+  /// No description provided for @autoRenew.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto Renew'**
+  String get autoRenew;
+
+  /// No description provided for @na.
+  ///
+  /// In en, this message translates to:
+  /// **'N/A'**
+  String get na;
+
+  /// No description provided for @recentChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Changes:'**
+  String get recentChanges;
+
+  /// No description provided for @change.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get change;
+
+  /// No description provided for @addPaymentCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Payment Card'**
+  String get addPaymentCard;
 }
 
 class _AppLocalizationsDelegate
