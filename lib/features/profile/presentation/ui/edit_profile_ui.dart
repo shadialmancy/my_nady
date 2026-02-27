@@ -22,7 +22,9 @@ class EditProfileUi extends ConsumerStatefulWidget {
 class _EditProfileUiState extends ConsumerState<EditProfileUi> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController birthDateController = TextEditingController();
-  String? selectedGender = 'Male';
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  String? selectedGender;
   bool showCalendar = false;
 
   @override
@@ -31,13 +33,18 @@ class _EditProfileUiState extends ConsumerState<EditProfileUi> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final user = ref.read(authUiServiceProvider).value;
       if (user != null) {
-        nameController.text = user.name ?? '';
-        if (user.birthDate != null) {
-          final date = DateTime.tryParse(user.birthDate.toString());
-          if (date != null) {
-            birthDateController.text = DateFormat('yyyy-MM-dd').format(date);
+        setState(() {
+          nameController.text = user.name ?? '';
+          emailController.text = user.email ?? '';
+          phoneController.text = user.phone ?? '';
+          selectedGender = user.gender?.toString().toUpperCase();
+          if (user.birthDate != null) {
+            final date = DateTime.tryParse(user.birthDate.toString());
+            if (date != null) {
+              birthDateController.text = DateFormat('yyyy-MM-dd').format(date);
+            }
           }
-        }
+        });
       }
     });
   }
@@ -75,24 +82,34 @@ class _EditProfileUiState extends ConsumerState<EditProfileUi> {
                       controller: nameController,
                     ),
                     gapH16,
-                    // CustomDropDownTextField(
-                    //   label: l10n.gender,
-                    //   hint: l10n.selectYourGender,
-                    //   items: const ["Male", "Female"]
-                    //       .map(
-                    //         (e) => DropdownMenuItem(value: e, child: Text(e)),
-                    //       )
-                    //       .toList(),
-                    //   value: selectedGender,
-                    //   onChanged: (value) {
-                    //     setState(() {
-                    //       selectedGender = value;
-                    //     });
-                    //   },
-                    // ),
-                    // gapH16,
                     CustomTextField(
-                      label: l10n.date,
+                      label: l10n.email,
+                      controller: emailController,
+                    ),
+                    gapH16,
+                    CustomTextField(
+                      label: l10n.phone,
+                      controller: phoneController,
+                    ),
+                    gapH16,
+                    CustomDropDownTextField(
+                      label: l10n.gender,
+                      hint: l10n.selectYourGender,
+                      items: const ["MALE", "FEMALE"]
+                          .map(
+                            (e) => DropdownMenuItem(value: e, child: Text(e)),
+                          )
+                          .toList(),
+                      value: selectedGender,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedGender = value;
+                        });
+                      },
+                    ),
+                    gapH16,
+                    CustomTextField(
+                      label: l10n.dateofBirth,
                       controller: birthDateController,
                       readOnly: true,
                       onTap: () {

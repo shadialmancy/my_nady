@@ -420,6 +420,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get title => 'العنوان';
 
   @override
+  String get dateofBirth => 'تاريخ الميلاد';
+
+  @override
   String get date => 'التاريخ';
 
   @override
@@ -590,4 +593,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get addPaymentCard => 'إضافة بطاقة دفع';
+
+  @override
+  String get showMore => 'عرض المزيد';
+
+  @override
+  String get showLess => 'عرض أقل';
+
+  @override
+  String get noCommentsYet => 'لا توجد تعليقات بعد';
 }

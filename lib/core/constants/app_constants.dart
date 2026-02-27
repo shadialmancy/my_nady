@@ -19,6 +19,7 @@ class AppConstants {
   static const String paymentMethodsApiUrl = '/payment-methods';
   static const String branchesMetaTypesApiUrl = '/branches/meta/types';
   static const String branchesMetaAmenitiesApiUrl = '/branches/meta/amenities';
+  static const String reviewsApiUrl = '/reviews';
 
   static const String logoImage = 'assets/images/logo.png';
   static const String tripsAssetPath = 'assets/data/trips_mock.json';

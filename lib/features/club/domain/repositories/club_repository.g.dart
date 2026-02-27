@@ -33,7 +33,7 @@ final class ClubRepositoryProvider
   ClubRepository create() => ClubRepository();
 }
 
-String _$clubRepositoryHash() => r'd44c816bb67df81df47a35aedb5c234cd5cb4a58';
+String _$clubRepositoryHash() => r'5180261e21209309c3793c765484f967adf399ca';
 
 abstract class _$ClubRepository extends $AsyncNotifier<void> {
   FutureOr<void> build();

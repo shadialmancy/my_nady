@@ -423,6 +423,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get title => 'Title';
 
   @override
+  String get dateofBirth => 'Date of Birth';
+
+  @override
   String get date => 'Date';
 
   @override
@@ -594,4 +597,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addPaymentCard => 'Add Payment Card';
+
+  @override
+  String get showMore => 'Show More';
+
+  @override
+  String get showLess => 'Show Less';
+
+  @override
+  String get noCommentsYet => 'No comments yet';
 }

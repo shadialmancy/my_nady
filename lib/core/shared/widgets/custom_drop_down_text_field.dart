@@ -49,7 +49,7 @@ class CustomDropDownTextField extends StatelessWidget {
             labelStyle ??
             theme.bodyMedium.copyWith(
               color: theme.primary,
-              fontWeight: .normal,
+              fontWeight: FontWeight.normal,
             ),
         hintStyle: theme.bodySmall.copyWith(color: theme.grey99),
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -65,7 +65,7 @@ class CustomDropDownTextField extends StatelessWidget {
                 color: theme.primary.withValues(alpha: 0.6),
                 width: 1,
               ),
-              borderRadius: .circular(16),
+              borderRadius: BorderRadius.circular(16),
             ),
         enabledBorder:
             enabledBorder ??
@@ -74,7 +74,7 @@ class CustomDropDownTextField extends StatelessWidget {
                 color: theme.primary.withValues(alpha: 0.6),
                 width: 1,
               ),
-              borderRadius: .circular(16),
+              borderRadius: BorderRadius.circular(16),
             ),
         focusedBorder:
             focusedBorder ??
@@ -83,7 +83,7 @@ class CustomDropDownTextField extends StatelessWidget {
                 color: theme.primary.withValues(alpha: 0.6),
                 width: 1,
               ),
-              borderRadius: .circular(16),
+              borderRadius: BorderRadius.circular(16),
             ),
         disabledBorder:
             disabledBorder ??
@@ -92,12 +92,12 @@ class CustomDropDownTextField extends StatelessWidget {
                 color: theme.primary.withValues(alpha: 0.6),
                 width: 1,
               ),
-              borderRadius: .circular(16),
+              borderRadius: BorderRadius.circular(16),
             ),
       ),
       onChanged: onChanged,
+      value: value,
       hint: Text(hint),
-      initialValue: null,
     );
   }
 }

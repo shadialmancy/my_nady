@@ -133,6 +133,7 @@
     "more": "المزيد",
     "aboutUs": "من نحن",
     "title": "العنوان",
+    "dateofBirth": "تاريخ الميلاد",
     "date": "التاريخ",
     "enterDescription": "أدخل الوصف",
     "repetition": "تكرار",
@@ -189,5 +190,8 @@
     "na": "غير متوفر",
     "recentChanges": "التغييرات الأخيرة:",
     "change": "تغيير",
-    "addPaymentCard": "إضافة بطاقة دفع"
+    "addPaymentCard": "إضافة بطاقة دفع",
+    "showMore": "عرض المزيد",
+    "showLess": "عرض أقل",
+    "noCommentsYet": "لا توجد تعليقات بعد"
 }

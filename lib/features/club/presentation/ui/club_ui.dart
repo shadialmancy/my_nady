@@ -275,7 +275,7 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                             //       ),
                             //   ],
                             // ),
-                            const CommentsSection(),
+                            CommentsSection(branchId: widget.id),
                           ][selectedTabIndex],
                         ),
                       ],

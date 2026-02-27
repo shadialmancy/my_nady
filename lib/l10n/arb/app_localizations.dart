@@ -898,6 +898,12 @@ abstract class AppLocalizations {
   /// **'Title'**
   String get title;
 
+  /// No description provided for @dateofBirth.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
+  String get dateofBirth;
+
   /// No description provided for @date.
   ///
   /// In en, this message translates to:
@@ -1239,6 +1245,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add Payment Card'**
   String get addPaymentCard;
+
+  /// No description provided for @showMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Show More'**
+  String get showMore;
+
+  /// No description provided for @showLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Less'**
+  String get showLess;
+
+  /// No description provided for @noCommentsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No comments yet'**
+  String get noCommentsYet;
 }
 
 class _AppLocalizationsDelegate

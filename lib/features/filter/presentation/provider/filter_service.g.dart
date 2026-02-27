@@ -33,7 +33,7 @@ final class FilterServiceProvider
   FilterService create() => FilterService();
 }
 
-String _$filterServiceHash() => r'94692be23ff4bdf8648ef73919df00b50ab8674c';
+String _$filterServiceHash() => r'e8322d4de8bf7bd2f1fc865137af23288bf6c714';
 
 abstract class _$FilterService
     extends $AsyncNotifier<List<Map<String, dynamic>>?> {

@@ -6,6 +6,7 @@ import '../models/branch_meta_item.dart';
 import '../../../../core/api/apis.dart';
 
 import 'package:my_nady_project/features/club/data/models/gym_detail_dto/gym_detail_dto.dart';
+import '../models/review_dto/review_dto.dart';
 
 abstract class ClubDataSource {
   Future<ClubDto> getBranches(ClubFilterRequest? request);
@@ -15,6 +16,7 @@ abstract class ClubDataSource {
   Future<void> toggleFavorite(String branchId);
   Future<List<BranchMetaItem>> getBranchTypes();
   Future<List<BranchMetaItem>> getBranchAmenities();
+  Future<ReviewDto> getReviews(String branchId);
 }
 
 class ClubDataSourceImpl implements ClubDataSource {
@@ -123,6 +125,21 @@ class ClubDataSourceImpl implements ClubDataSource {
     } else {
       final errorModel = ErrorModel.fromJson(response.data);
       throw errorModel.message ?? 'Error in getBranchAmenities';
+    }
+  }
+
+  @override
+  Future<ReviewDto> getReviews(String branchId) async {
+    final response = await DioClient().dio.get(
+      AppConstants.reviewsApiUrl,
+      queryParameters: {'branchId': branchId},
+    );
+
+    if (response.statusCode == 200) {
+      return ReviewDto.fromJson(response.data);
+    } else {
+      final errorModel = ErrorModel.fromJson(response.data);
+      throw errorModel.message ?? 'Error in getReviews';
     }
   }
 }

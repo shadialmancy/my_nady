@@ -35,7 +35,7 @@ final class PaymentMethodUiServiceProvider
 }
 
 String _$paymentMethodUiServiceHash() =>
-    r'd7cf1afe63de457dbda92912c26c7747ae33fb5d';
+    r'0c7bcc9d07848567566c74b28f401d47d5c93cde';
 
 abstract class _$PaymentMethodUiService
     extends $AsyncNotifier<PaymentMethodEntity?> {

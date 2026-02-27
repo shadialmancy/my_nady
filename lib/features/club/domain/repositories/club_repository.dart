@@ -1,4 +1,5 @@
 import 'package:my_nady_project/features/club/domain/entities/gym_detail_entity.dart';
+import 'package:my_nady_project/features/club/domain/entities/review_entity.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/models/club_filter_request.dart';
 import '../../data/models/branch_meta_item.dart';
@@ -69,6 +70,14 @@ class ClubRepository extends _$ClubRepository {
   Future<List<BranchMetaItem>> getBranchAmenities() async {
     try {
       return await _clubRepositoryImpl.getBranchAmenities();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ReviewEntity> getReviews(String branchId) async {
+    try {
+      return await _clubRepositoryImpl.getReviews(branchId);
     } catch (e) {
       rethrow;
     }

@@ -34,7 +34,7 @@ final class PaymentMethodRepositoryProvider
 }
 
 String _$paymentMethodRepositoryHash() =>
-    r'1e529cda840cb159348b84813ceb062799416276';
+    r'3efee615a1643086c725ff65c22f65f2c68ae1e5';
 
 abstract class _$PaymentMethodRepository extends $AsyncNotifier<void> {
   FutureOr<void> build();

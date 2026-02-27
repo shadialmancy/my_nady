@@ -1,5 +1,6 @@
 import '../../domain/entities/club_entity.dart';
 import '../../domain/entities/gym_detail_entity.dart';
+import '../../domain/entities/review_entity.dart';
 import '../datasource/club_datasource.dart';
 import '../models/club_dto/club_dto.dart';
 import '../models/club_filter_request.dart';
@@ -15,6 +16,7 @@ abstract class BaseClubRepository {
   Future<void> toggleFavorite(String branchId);
   Future<List<BranchMetaItem>> getBranchTypes();
   Future<List<BranchMetaItem>> getBranchAmenities();
+  Future<ReviewEntity> getReviews(String branchId);
 }
 
 class ClubRepositoryImpl implements BaseClubRepository {
@@ -84,6 +86,17 @@ class ClubRepositoryImpl implements BaseClubRepository {
   Future<List<BranchMetaItem>> getBranchAmenities() async {
     try {
       return await dataSource.getBranchAmenities();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ReviewEntity> getReviews(String branchId) async {
+    try {
+      return await dataSource.getReviews(branchId).then((value) {
+        return ReviewEntity(data: value.data, meta: value.meta);
+      });
     } catch (e) {
       rethrow;
     }

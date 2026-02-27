@@ -266,6 +266,8 @@
     "@aboutUs": {},
     "title": "Title",
     "@title": {},
+    "dateofBirth": "Date of Birth",
+    "@dateofBirth": {},
     "date": "Date",
     "@date": {},
     "enterDescription": "Enter Description",
@@ -379,5 +381,11 @@
     "change": "Change",
     "@change": {},
     "addPaymentCard": "Add Payment Card",
-    "@addPaymentCard": {}
+    "@addPaymentCard": {},
+    "showMore": "Show More",
+    "@showMore": {},
+    "showLess": "Show Less",
+    "@showLess": {},
+    "noCommentsYet": "No comments yet",
+    "@noCommentsYet": {}
 }
