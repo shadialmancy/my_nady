@@ -55,41 +55,77 @@ class _CommentCardState extends State<CommentCard> {
                 Row(
                   children: [
                     Expanded(
-                      child: Text(
-                        review.user?.name ?? "Anonymous",
-                        style: theme.titleSmall.copyWith(
-                          color: theme.primary,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
-                        ),
-                        overflow: TextOverflow.ellipsis,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  review.user?.name ?? "Anonymous",
+                                  style: theme.titleSmall.copyWith(
+                                    color: theme.primary,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 12,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              gapW12,
+                              Text(
+                                review.createdAt != null
+                                    ? _formatDate(review.createdAt!)
+                                    : "",
+                                style: theme.titleSmall.copyWith(
+                                  color: theme.grey86,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 8,
+                                ),
+                              ),
+                            ],
+                          ),
+                          gapH4,
+                          Row(
+                            children: List.generate(
+                              5,
+                              (index) => Icon(
+                                Icons.star_rate_rounded,
+                                size: 12,
+                                color: index < (review.rating ?? 0)
+                                    ? theme.yellow37
+                                    : theme.greyD9D9,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     gapW12,
-                    Text(
-                      review.createdAt != null
-                          ? _formatDate(review.createdAt!)
-                          : "",
-                      style: theme.titleSmall.copyWith(
-                        color: theme.grey86,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 8,
-                      ),
+                    Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isFavorite = !isFavorite;
+                            });
+                          },
+                          child: Icon(
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            color: isFavorite ? theme.redApple : theme.grey8080,
+                            size: 16,
+                          ),
+                        ),
+                        Text(
+                          "0",
+                          style: theme.titleSmall.copyWith(
+                            color: theme.grey86,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 10,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
-                ),
-                gapH4,
-                Row(
-                  children: List.generate(
-                    5,
-                    (index) => Icon(
-                      Icons.star_rate_rounded,
-                      size: 12,
-                      color: index < (review.rating ?? 0)
-                          ? theme.yellow37
-                          : theme.greyD9D9,
-                    ),
-                  ),
                 ),
                 gapH4,
                 Column(
@@ -120,33 +156,6 @@ class _CommentCardState extends State<CommentCard> {
                           ),
                         ),
                       ),
-                  ],
-                ),
-                gapH4,
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isFavorite = !isFavorite;
-                        });
-                      },
-                      child: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: isFavorite ? theme.redApple : theme.primaryText,
-                        size: 12,
-                      ),
-                    ),
-                    gapW4,
-                    Text(
-                      "0", // Mock favorite count as it's not in the JSON
-                      style: theme.titleSmall.copyWith(
-                        color: theme.primaryText,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 10,
-                      ),
-                    ),
                   ],
                 ),
                 if (review.replies != null && review.replies!.isNotEmpty)
