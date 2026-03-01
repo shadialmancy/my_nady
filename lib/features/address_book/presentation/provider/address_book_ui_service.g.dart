@@ -55,3 +55,44 @@ abstract class _$AddressBookUiService
     element.handleCreate(ref, build);
   }
 }
+
+@ProviderFor(defaultAddress)
+final defaultAddressProvider = DefaultAddressProvider._();
+
+final class DefaultAddressProvider
+    extends $FunctionalProvider<AddressData?, AddressData?, AddressData?>
+    with $Provider<AddressData?> {
+  DefaultAddressProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'defaultAddressProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$defaultAddressHash();
+
+  @$internal
+  @override
+  $ProviderElement<AddressData?> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  AddressData? create(Ref ref) {
+    return defaultAddress(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AddressData? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AddressData?>(value),
+    );
+  }
+}
+
+String _$defaultAddressHash() => r'e3b4385220f9cc3ce8092643a69d4069b66fbab1';

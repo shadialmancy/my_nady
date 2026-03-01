@@ -199,5 +199,6 @@
     "labelHint": "التسمية (مثلاً: المنزل، العمل)",
     "addAddress": "إضافة عنوان",
     "updateAddress": "تحديث العنوان",
-    "setAsDefault": "تعيين كافتراضي"
+    "setAsDefault": "تعيين كافتراضي",
+    "noAddressSelected": "لم يتم اختيار عنوان"
 }

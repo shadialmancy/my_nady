@@ -1299,6 +1299,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set as Default'**
   String get setAsDefault;
+
+  /// No description provided for @noAddressSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'No Address Selected'**
+  String get noAddressSelected;
 }
 
 class _AppLocalizationsDelegate

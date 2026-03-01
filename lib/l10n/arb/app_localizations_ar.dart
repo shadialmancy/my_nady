@@ -620,4 +620,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get setAsDefault => 'تعيين كافتراضي';
+
+  @override
+  String get noAddressSelected => 'لم يتم اختيار عنوان';
 }

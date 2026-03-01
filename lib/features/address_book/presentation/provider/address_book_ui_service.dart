@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../core/shared/widgets/app_toast.dart';
 import '../../domain/entities/address_book_entity.dart';
+import '../../data/models/address_book_dto/address_data.dart';
 import '../../domain/repositories/address_book_repository.dart';
 
 part 'address_book_ui_service.g.dart';
@@ -108,5 +109,20 @@ class AddressBookUiService extends _$AddressBookUiService {
       state = AsyncValue.data(previousData);
       AppToast.errorToast(e.toString());
     }
+  }
+}
+
+@riverpod
+AddressData? defaultAddress(Ref ref) {
+  final addressBook = ref.watch(addressBookUiServiceProvider).value;
+  if (addressBook == null ||
+      addressBook.data == null ||
+      addressBook.data!.isEmpty) {
+    return null;
+  }
+  try {
+    return addressBook.data!.firstWhere((address) => address.isDefault == true);
+  } catch (_) {
+    return addressBook.data!.first;
   }
 }

@@ -399,5 +399,6 @@
     "updateAddress": "Update Address",
     "@updateAddress": {},
     "setAsDefault": "Set as Default",
-    "@setAsDefault": {}
+    "@setAsDefault": {},
+    "noAddressSelected": "No Address Selected"
 }

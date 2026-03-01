@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../features/club/data/models/club_filter_request.dart';
 import '../../../../features/club/domain/repositories/club_repository.dart';
 import '../../../club/presentation/provider/map_location_service.dart';
+import '../../../address_book/presentation/provider/address_book_ui_service.dart';
 
 part 'home_ui_service.g.dart';
 
@@ -11,6 +12,7 @@ part 'home_ui_service.g.dart';
 class HomeUiService extends _$HomeUiService {
   @override
   FutureOr<ClubEntity?> build() {
+    ref.watch(defaultAddressProvider);
     return fetchHomeData();
   }
 
@@ -35,20 +37,39 @@ class HomeUiService extends _$HomeUiService {
     try {
       final repository = ref.read(clubRepositoryProvider.notifier);
       final locationService = ref.read(mapLocationServiceProvider.notifier);
+      final defaultAddr = ref.read(defaultAddressProvider);
+
+      num lat = locationService.currentPosition.latitude;
+      num lng = locationService.currentPosition.longitude;
+
+      // Use default address coordinates if available
+      if (defaultAddr != null && defaultAddr.location?.coordinates != null) {
+        final coords = defaultAddr.location!.coordinates;
+        if (coords is List && coords.length >= 2) {
+          lng = coords[0] as num;
+          lat = coords[1] as num;
+        } else if (coords is Map &&
+            coords.containsKey('coordinates') &&
+            coords['coordinates'] is List &&
+            (coords['coordinates'] as List).length >= 2) {
+          lng = coords['coordinates'][0] as num;
+          lat = coords['coordinates'][1] as num;
+        }
+      }
 
       final results = await repository.getBranches(
         request:
             filterRequest?.copyWith(
-              lat: locationService.currentPosition.latitude,
-              lng: locationService.currentPosition.longitude,
+              lat: lat,
+              lng: lng,
               limit: filterRequest.limit ?? 100,
               page: filterRequest.page ?? 1,
             ) ??
             ClubFilterRequest(
               limit: 100,
               page: 1,
-              lat: locationService.currentPosition.latitude,
-              lng: locationService.currentPosition.longitude,
+              lat: lat,
+              lng: lng,
               radius: 100,
             ),
       );

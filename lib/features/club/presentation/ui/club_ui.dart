@@ -7,7 +7,6 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/shared/widgets/widgets.dart';
-import '../../../home/presentation/widgets/widgets.dart';
 import '../provider/get_gym_details_service.dart';
 
 class ClubUi extends ConsumerStatefulWidget {
