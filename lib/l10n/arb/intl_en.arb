@@ -387,5 +387,17 @@
     "showLess": "Show Less",
     "@showLess": {},
     "noCommentsYet": "No comments yet",
-    "@noCommentsYet": {}
+    "@noCommentsYet": {},
+    "addressBook": "Address Book",
+    "@addressBook": {},
+    "label": "Label",
+    "@label": {},
+    "labelHint": "Label (e.g. Home, Office)",
+    "@labelHint": {},
+    "addAddress": "Add Address",
+    "@addAddress": {},
+    "updateAddress": "Update Address",
+    "@updateAddress": {},
+    "setAsDefault": "Set as Default",
+    "@setAsDefault": {}
 }

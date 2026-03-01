@@ -8,10 +8,7 @@ part 'payment_method_dto.g.dart';
 
 @freezed
 class PaymentMethodDto with _$PaymentMethodDto {
-  factory PaymentMethodDto({
-    List<Datum>? data,
-    Meta? meta,
-  }) = _PaymentMethodDto;
+  factory PaymentMethodDto({List<Datum>? data, Meta? meta}) = _PaymentMethodDto;
 
   factory PaymentMethodDto.fromJson(Map<String, dynamic> json) =>
       _$PaymentMethodDtoFromJson(json);

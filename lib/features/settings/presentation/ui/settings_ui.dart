@@ -149,6 +149,24 @@ class SettingsUi extends ConsumerWidget {
                         size: 14,
                       ),
                     ),
+                    // Address book
+                    ListTile(
+                      contentPadding: .zero,
+                      onTap: () {
+                        context.router.push(const AddressBookRoute());
+                      },
+
+                      leading: Text(
+                        l10n.addressBook,
+                        style: theme.titleMedium.copyWith(fontWeight: .w400),
+                      ),
+                      trailing: Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: theme.primary,
+                        fontWeight: .w900,
+                        size: 14,
+                      ),
+                    ),
                     // Change password
                     ListTile(
                       contentPadding: .zero,

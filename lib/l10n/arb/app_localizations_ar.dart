@@ -602,4 +602,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noCommentsYet => 'لا توجد تعليقات بعد';
+
+  @override
+  String get addressBook => 'سجل العناوين';
+
+  @override
+  String get label => 'التسمية';
+
+  @override
+  String get labelHint => 'التسمية (مثلاً: المنزل، العمل)';
+
+  @override
+  String get addAddress => 'إضافة عنوان';
+
+  @override
+  String get updateAddress => 'تحديث العنوان';
+
+  @override
+  String get setAsDefault => 'تعيين كافتراضي';
 }

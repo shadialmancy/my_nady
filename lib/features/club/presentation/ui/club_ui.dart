@@ -9,9 +9,6 @@ import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 import '../../../home/presentation/widgets/widgets.dart';
 import '../provider/get_gym_details_service.dart';
-import '../../domain/repositories/club_repository.dart';
-import '../../../../core/shared/widgets/app_toast.dart';
-import '../../../settings/presentation/widgets/payment_success_dialog.dart';
 
 class ClubUi extends ConsumerStatefulWidget {
   const ClubUi({super.key, required this.id, required this.distance});
@@ -95,18 +92,18 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                           ),
                         ),
                         Spacer(),
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: theme.fullBlack.withValues(alpha: 0.25),
-                                blurRadius: 29,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: FavoriteButton(clubId: widget.id),
-                        ),
+                        // DecoratedBox(
+                        //   decoration: BoxDecoration(
+                        //     boxShadow: [
+                        //       BoxShadow(
+                        //         color: theme.fullBlack.withValues(alpha: 0.25),
+                        //         blurRadius: 29,
+                        //         offset: Offset(0, 4),
+                        //       ),
+                        //     ],
+                        //   ),
+                        //   child: FavoriteButton(clubId: widget.id),
+                        // ),
                       ],
                     ),
                     gapH8,
@@ -229,6 +226,7 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                           child: [
                             PackagesSection(
                               subscriptionPlans: gymData?.subscriptionPlans,
+                              selectedId: selectedPlanId, // Added this
                               onPlanSelected: (id) {
                                 setState(() {
                                   selectedPlanId = id;
@@ -279,33 +277,6 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                           ][selectedTabIndex],
                         ),
                       ],
-                    ),
-                    gapH12,
-                    CustomButton(
-                      title: l10n.subscribeNow,
-                      width: .infinity,
-                      titleStyle: theme.titleMedium.copyWith(
-                        color: theme.white,
-                        fontSize: 16,
-                        fontWeight: .normal,
-                      ),
-                      onPressed: () async {
-                        // context.router.push(const ClubLocationRoute());
-                        if (selectedPlanId != null) {
-                          try {
-                            await ref
-                                .read(clubRepositoryProvider.notifier)
-                                .purchaseSubscription(selectedPlanId!);
-                            if (context.mounted) {
-                              PaymentSuccessDialog.showPaymentDialog(context);
-                            }
-                          } catch (e) {
-                            AppToast.errorToast(e.toString());
-                          }
-                        } else {
-                          AppToast.errorToast("Please select a plan");
-                        }
-                      },
                     ),
                   ],
                 ),

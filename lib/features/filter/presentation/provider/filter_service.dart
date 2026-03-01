@@ -136,14 +136,14 @@ class FilterService extends _$FilterService {
           filterRequest.amenityIds!.isNotEmpty) {
         final List<dynamic>? clubAmenityIdsDynamic =
             club['amenityIds'] as List<dynamic>?;
-        final clubAmenityIds = clubAmenityIdsDynamic
-                ?.map((e) => e.toString())
-                .toList() ??
+        final clubAmenityIds =
+            clubAmenityIdsDynamic?.map((e) => e.toString()).toList() ??
             <String>[];
 
         // require that all selected amenities exist in the club
-        final allSelectedExist = filterRequest.amenityIds!
-            .every((selectedId) => clubAmenityIds.contains(selectedId));
+        final allSelectedExist = filterRequest.amenityIds!.every(
+          (selectedId) => clubAmenityIds.contains(selectedId),
+        );
 
         if (!allSelectedExist) {
           return false;
@@ -163,8 +163,9 @@ class FilterService extends _$FilterService {
 
       // Price range - expect numeric 'minPrice' / 'maxPrice' on club
       if (filterRequest.minPrice != null || filterRequest.maxPrice != null) {
-        final clubMinPrice = (club['minPrice'] ?? club['price'])
-            as num?; // fallback to single price field
+        final clubMinPrice =
+            (club['minPrice'] ?? club['price'])
+                as num?; // fallback to single price field
         final clubMaxPrice =
             (club['maxPrice'] ?? club['price']) as num?; // same fallback
 
@@ -186,7 +187,8 @@ class FilterService extends _$FilterService {
         final offersList = club['offers'] as List<dynamic>?;
 
         final clubHasOffers =
-            hasOffersFlag == true || (offersList != null && offersList.isNotEmpty);
+            hasOffersFlag == true ||
+            (offersList != null && offersList.isNotEmpty);
 
         if (!clubHasOffers) {
           return false;

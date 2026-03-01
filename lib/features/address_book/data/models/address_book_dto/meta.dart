@@ -5,8 +5,7 @@ part 'meta.g.dart';
 
 @freezed
 class Meta with _$Meta {
-  factory Meta({int? currentPage, int? perPage, int? total, int? lastPage}) =
-      _Meta;
+  factory Meta({DateTime? timestamp}) = _Meta;
 
   factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
 

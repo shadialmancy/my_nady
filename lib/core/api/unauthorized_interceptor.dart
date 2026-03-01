@@ -84,13 +84,16 @@ class UnauthorizedInterceptor extends Interceptor {
           return AlertDialog(
             backgroundColor: theme.white,
             title: Text(l10n.sessionExpired),
-            shape: RoundedRectangleBorder(borderRadius: .circular(20)),
-            contentPadding: const .only(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            contentPadding: const EdgeInsets.only(
               left: 30,
               right: 30,
               top: 90,
               bottom: 50,
             ),
+
             content: Text(l10n.sessionExpiredContent),
             actions: [
               TextButton(

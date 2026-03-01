@@ -12,18 +12,57 @@ part of 'app_router.dart';
 
 /// generated route for
 /// [AddBillingAddressScreen]
-class AddBillingAddressRoute extends PageRouteInfo<void> {
-  const AddBillingAddressRoute({List<PageRouteInfo>? children})
-    : super(AddBillingAddressRoute.name, initialChildren: children);
+class AddBillingAddressRoute extends PageRouteInfo<AddBillingAddressRouteArgs> {
+  AddBillingAddressRoute({
+    Key? key,
+    AddressData? addressToEdit,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AddBillingAddressRoute.name,
+         args: AddBillingAddressRouteArgs(
+           key: key,
+           addressToEdit: addressToEdit,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'AddBillingAddressRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AddBillingAddressScreen();
+      final args = data.argsAs<AddBillingAddressRouteArgs>(
+        orElse: () => const AddBillingAddressRouteArgs(),
+      );
+      return AddBillingAddressScreen(
+        key: args.key,
+        addressToEdit: args.addressToEdit,
+      );
     },
   );
+}
+
+class AddBillingAddressRouteArgs {
+  const AddBillingAddressRouteArgs({this.key, this.addressToEdit});
+
+  final Key? key;
+
+  final AddressData? addressToEdit;
+
+  @override
+  String toString() {
+    return 'AddBillingAddressRouteArgs{key: $key, addressToEdit: $addressToEdit}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AddBillingAddressRouteArgs) return false;
+    return key == other.key && addressToEdit == other.addressToEdit;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ addressToEdit.hashCode;
 }
 
 /// generated route for
@@ -87,6 +126,22 @@ class AddCreditCardRouteArgs {
 
   @override
   int get hashCode => key.hashCode;
+}
+
+/// generated route for
+/// [AddressBookScreen]
+class AddressBookRoute extends PageRouteInfo<void> {
+  const AddressBookRoute({List<PageRouteInfo>? children})
+    : super(AddressBookRoute.name, initialChildren: children);
+
+  static const String name = 'AddressBookRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AddressBookScreen();
+    },
+  );
 }
 
 /// generated route for

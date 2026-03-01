@@ -606,4 +606,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noCommentsYet => 'No comments yet';
+
+  @override
+  String get addressBook => 'Address Book';
+
+  @override
+  String get label => 'Label';
+
+  @override
+  String get labelHint => 'Label (e.g. Home, Office)';
+
+  @override
+  String get addAddress => 'Add Address';
+
+  @override
+  String get updateAddress => 'Update Address';
+
+  @override
+  String get setAsDefault => 'Set as Default';
 }

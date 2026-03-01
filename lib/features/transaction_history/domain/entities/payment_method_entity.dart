@@ -7,10 +7,8 @@ part 'payment_method_entity.g.dart';
 
 @freezed
 class PaymentMethodEntity with _$PaymentMethodEntity {
-  factory PaymentMethodEntity({
-    List<Datum>? paymentMethods,
-    Meta? meta,
-  }) = _PaymentMethodEntity;
+  factory PaymentMethodEntity({List<Datum>? paymentMethods, Meta? meta}) =
+      _PaymentMethodEntity;
 
   factory PaymentMethodEntity.fromJson(Map<String, dynamic> json) =>
       _$PaymentMethodEntityFromJson(json);

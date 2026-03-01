@@ -35,8 +35,9 @@ class _HomeUiState extends ConsumerState<HomeUi> {
       backgroundColor: theme.white,
       color: theme.primary,
       onRefresh: () async {
-        final currentFilters =
-            ref.read(filterServiceProvider.notifier).currentFilters;
+        final currentFilters = ref
+            .read(filterServiceProvider.notifier)
+            .currentFilters;
         await homeUiService.fetchHomeData(filterRequest: currentFilters);
       },
       child: AsyncValueWidget(

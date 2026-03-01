@@ -193,5 +193,11 @@
     "addPaymentCard": "إضافة بطاقة دفع",
     "showMore": "عرض المزيد",
     "showLess": "عرض أقل",
-    "noCommentsYet": "لا توجد تعليقات بعد"
+    "noCommentsYet": "لا توجد تعليقات بعد",
+    "addressBook": "سجل العناوين",
+    "label": "التسمية",
+    "labelHint": "التسمية (مثلاً: المنزل، العمل)",
+    "addAddress": "إضافة عنوان",
+    "updateAddress": "تحديث العنوان",
+    "setAsDefault": "تعيين كافتراضي"
 }

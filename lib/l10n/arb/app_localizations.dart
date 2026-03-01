@@ -1263,6 +1263,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No comments yet'**
   String get noCommentsYet;
+
+  /// No description provided for @addressBook.
+  ///
+  /// In en, this message translates to:
+  /// **'Address Book'**
+  String get addressBook;
+
+  /// No description provided for @label.
+  ///
+  /// In en, this message translates to:
+  /// **'Label'**
+  String get label;
+
+  /// No description provided for @labelHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Label (e.g. Home, Office)'**
+  String get labelHint;
+
+  /// No description provided for @addAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Address'**
+  String get addAddress;
+
+  /// No description provided for @updateAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Address'**
+  String get updateAddress;
+
+  /// No description provided for @setAsDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Set as Default'**
+  String get setAsDefault;
 }
 
 class _AppLocalizationsDelegate

@@ -18,7 +18,8 @@ class HomeUiService extends _$HomeUiService {
   void updateClubFavoriteStatus(String clubId, bool isFavorite) {
     final current = state.asData?.value;
     if (current == null) return;
-    final updatedClubs = current.clubs
+    final updatedClubs =
+        current.clubs
             ?.map(
               (c) => c.id == clubId ? c.copyWith(isFavorite: isFavorite) : c,
             )

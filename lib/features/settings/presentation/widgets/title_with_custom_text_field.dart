@@ -9,10 +9,13 @@ class TitleWithCustomTextField extends StatelessWidget {
     required this.title,
     required this.hintText,
     required this.controller,
+    this.validator,
   });
   final String title;
   final String hintText;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
+
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
@@ -24,6 +27,7 @@ class TitleWithCustomTextField extends StatelessWidget {
         CustomTextField(
           hint: hintText,
           controller: controller,
+          validator: validator,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
             borderSide: BorderSide(color: theme.greyD5),

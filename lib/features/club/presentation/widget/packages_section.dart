@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/constants/app_sizes.dart';
@@ -6,44 +7,73 @@ import '../../../../core/helpers/assets_helper.dart';
 
 import 'package:my_nady_project/features/club/data/models/gym_detail_dto/subscription_plan.dart';
 
-class PackagesSection extends StatefulWidget {
+import '../../../../core/shared/widgets/app_toast.dart';
+import '../../../../core/shared/widgets/custom_bottom.dart';
+import '../../../settings/presentation/widgets/widgets.dart';
+import '../../domain/repositories/club_repository.dart';
+
+class PackagesSection extends ConsumerStatefulWidget {
   const PackagesSection({
     super.key,
     this.subscriptionPlans,
     this.onPlanSelected,
+    this.selectedId,
   });
 
   final List<SubscriptionPlan>? subscriptionPlans;
   final Function(String id)? onPlanSelected;
+  final String? selectedId;
 
   @override
-  State<PackagesSection> createState() => _PackagesSectionState();
+  ConsumerState<PackagesSection> createState() => _PackagesSectionState();
 }
 
-class _PackagesSectionState extends State<PackagesSection> {
-  final ValueNotifier<List<Map<String, dynamic>>> packagesListNotifier =
-      ValueNotifier([]);
+class _PackagesSectionState extends ConsumerState<PackagesSection> {
+  late ValueNotifier<List<Map<String, dynamic>>> packagesListNotifier;
+  String? _currentSelectedPlanId;
 
   @override
   void initState() {
     super.initState();
     final plans = widget.subscriptionPlans ?? [];
-    packagesListNotifier.value = plans
-        .map(
-          (plan) => {
-            "id": plan.id,
-            "title": plan.name ?? plan.duration ?? "Package",
-            "price": "${plan.price ?? 0}\$",
-            "isSelected": plans.indexOf(plan) == 0,
-          },
-        )
-        .toList();
 
-    // Notify initial selection if any
-    if (plans.isNotEmpty && widget.onPlanSelected != null) {
+    // Determine the initial selected ID
+    final initialId =
+        widget.selectedId ?? (plans.isNotEmpty ? plans[0].id : null);
+    _currentSelectedPlanId = initialId;
+
+    packagesListNotifier = ValueNotifier(
+      plans
+          .map(
+            (plan) => {
+              "id": plan.id,
+              "title": plan.name ?? plan.duration ?? "Package",
+              "price": "${plan.price ?? 0}\$",
+              "isSelected": plan.id == initialId,
+            },
+          )
+          .toList(),
+    );
+
+    // If we picked a default initial ID that wasn't passed in, notify the parent
+    if (initialId != null &&
+        widget.selectedId == null &&
+        widget.onPlanSelected != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        widget.onPlanSelected!(plans[0].id!);
+        widget.onPlanSelected!(initialId);
       });
+    }
+  }
+
+  @override
+  void didUpdateWidget(PackagesSection oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.selectedId != oldWidget.selectedId) {
+      _currentSelectedPlanId = widget.selectedId;
+      final newList = packagesListNotifier.value.map((item) {
+        return {...item, "isSelected": item["id"] == widget.selectedId};
+      }).toList();
+      packagesListNotifier.value = newList;
     }
   }
 
@@ -56,25 +86,29 @@ class _PackagesSectionState extends State<PackagesSection> {
         children: [
           if (value.isEmpty)
             Padding(
-              padding: const .all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Text("No packages available", style: theme.bodyMedium),
             ),
-          for (var element in value)
-            GestureDetector(
+          ...value.map(
+            (element) => GestureDetector(
               onTap: () {
-                for (var el in packagesListNotifier.value) {
-                  el['isSelected'] = false;
-                }
-                element['isSelected'] = true;
-                packagesListNotifier.value = List.from(value);
-                if (widget.onPlanSelected != null) {
-                  widget.onPlanSelected!(element["id"]);
+                final newList = value.map((item) {
+                  return {...item, "isSelected": item["id"] == element["id"]};
+                }).toList();
+                packagesListNotifier.value = newList;
+                _currentSelectedPlanId = element["id"] as String?;
+
+                if (widget.onPlanSelected != null && element["id"] != null) {
+                  widget.onPlanSelected!(element["id"] as String);
                 }
               },
               child: Container(
-                width: .infinity,
-                margin: const .symmetric(horizontal: 24, vertical: 5),
-                padding: const .symmetric(horizontal: 10, vertical: 12),
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   boxShadow: !element["isSelected"]
                       ? [
@@ -85,7 +119,7 @@ class _PackagesSectionState extends State<PackagesSection> {
                           ),
                         ]
                       : null,
-                  borderRadius: .circular(12),
+                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(
                     color: element["isSelected"]
                         ? theme.secondary
@@ -99,21 +133,21 @@ class _PackagesSectionState extends State<PackagesSection> {
                 child: Row(
                   children: [
                     Column(
-                      crossAxisAlignment: .start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          element["title"],
+                          element["title"] ?? "",
                           style: theme.titleMedium.copyWith(
                             color: theme.primaryText,
-                            fontWeight: .w500,
+                            fontWeight: FontWeight.w500,
                             fontSize: 14,
                           ),
                         ),
                         Text(
-                          element["price"],
+                          element["price"] ?? "",
                           style: theme.titleMedium.copyWith(
                             color: theme.primaryText,
-                            fontWeight: .w500,
+                            fontWeight: FontWeight.w500,
                             fontSize: 14,
                           ),
                         ),
@@ -130,6 +164,33 @@ class _PackagesSectionState extends State<PackagesSection> {
                 ),
               ),
             ),
+          ),
+          gapH12,
+          CustomButton(
+            title: l10n.subscribeNow,
+            width: double.infinity,
+            titleStyle: theme.titleMedium.copyWith(
+              color: theme.white,
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+            ),
+            onPressed: () async {
+              if (_currentSelectedPlanId != null) {
+                try {
+                  await ref
+                      .read(clubRepositoryProvider.notifier)
+                      .purchaseSubscription(_currentSelectedPlanId!);
+                  if (context.mounted) {
+                    PaymentSuccessDialog.showPaymentDialog(context);
+                  }
+                } catch (e) {
+                  AppToast.errorToast(e.toString());
+                }
+              } else {
+                AppToast.errorToast("Please select a plan");
+              }
+            },
+          ),
         ],
       ),
     );

@@ -132,7 +132,7 @@ class ClubDataSourceImpl implements ClubDataSource {
   Future<ReviewDto> getReviews(String branchId) async {
     final response = await DioClient().dio.get(
       AppConstants.reviewsApiUrl,
-      queryParameters: {'branchId': branchId},
+      queryParameters: {'branchId': branchId, 'page': 1, 'limit': 100},
     );
 
     if (response.statusCode == 200) {

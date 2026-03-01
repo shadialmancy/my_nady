@@ -6,7 +6,9 @@ import 'package:my_nady_project/features/dairy_record/data/models/dairy_dto/datu
 
 import '../../dashboard/dashboard.dart';
 import 'package:my_nady_project/features/club/data/models/club_dto/datum.dart';
+import 'package:my_nady_project/features/address_book/data/models/address_book_dto/address_data.dart';
 import '../../screens/screens.dart';
+
 import '../constants/app_constants.dart';
 
 part 'app_router.gr.dart';
@@ -25,6 +27,8 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: VerificationCodeRoute.page),
     AutoRoute(page: AddContactInformationRoute.page),
     AutoRoute(page: AddBillingAddressRoute.page),
+    AutoRoute(page: AddressBookRoute.page),
+
     AutoRoute(page: AddCreditCardRoute.page),
     AutoRoute(page: ClubRoute.page),
     AutoRoute(page: ClubLocationRoute.page),
