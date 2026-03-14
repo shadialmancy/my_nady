@@ -18,11 +18,13 @@ class PackagesSection extends ConsumerStatefulWidget {
     this.subscriptionPlans,
     this.onPlanSelected,
     this.selectedId,
+    this.showSubscribeButton = true,
   });
 
   final List<SubscriptionPlan>? subscriptionPlans;
   final Function(String id)? onPlanSelected;
   final String? selectedId;
+  final bool showSubscribeButton;
 
   @override
   ConsumerState<PackagesSection> createState() => _PackagesSectionState();
@@ -49,7 +51,7 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
               "id": plan.id,
               "title": plan.name ?? plan.duration ?? "Package",
               "price": "${plan.price ?? 0}\$",
-              "isSelected": plan.id == initialId,
+              "isSelected": widget.showSubscribeButton && plan.id == initialId,
             },
           )
           .toList(),
@@ -68,10 +70,15 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
   @override
   void didUpdateWidget(PackagesSection oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.selectedId != oldWidget.selectedId) {
+    if (widget.selectedId != oldWidget.selectedId ||
+        widget.showSubscribeButton != oldWidget.showSubscribeButton) {
       _currentSelectedPlanId = widget.selectedId;
       final newList = packagesListNotifier.value.map((item) {
-        return {...item, "isSelected": item["id"] == widget.selectedId};
+        return {
+          ...item,
+          "isSelected":
+              widget.showSubscribeButton && item["id"] == widget.selectedId,
+        };
       }).toList();
       packagesListNotifier.value = newList;
     }
@@ -91,17 +98,23 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
             ),
           ...value.map(
             (element) => GestureDetector(
-              onTap: () {
-                final newList = value.map((item) {
-                  return {...item, "isSelected": item["id"] == element["id"]};
-                }).toList();
-                packagesListNotifier.value = newList;
-                _currentSelectedPlanId = element["id"] as String?;
+              onTap: widget.showSubscribeButton
+                  ? () {
+                      final newList = value.map((item) {
+                        return {
+                          ...item,
+                          "isSelected": item["id"] == element["id"],
+                        };
+                      }).toList();
+                      packagesListNotifier.value = newList;
+                      _currentSelectedPlanId = element["id"] as String?;
 
-                if (widget.onPlanSelected != null && element["id"] != null) {
-                  widget.onPlanSelected!(element["id"] as String);
-                }
-              },
+                      if (widget.onPlanSelected != null &&
+                          element["id"] != null) {
+                        widget.onPlanSelected!(element["id"] as String);
+                      }
+                    }
+                  : null,
               child: Container(
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
@@ -165,32 +178,34 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
               ),
             ),
           ),
-          gapH12,
-          CustomButton(
-            title: l10n.subscribeNow,
-            width: double.infinity,
-            titleStyle: theme.titleMedium.copyWith(
-              color: theme.white,
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
-            ),
-            onPressed: () async {
-              if (_currentSelectedPlanId != null) {
-                try {
-                  await ref
-                      .read(clubRepositoryProvider.notifier)
-                      .purchaseSubscription(_currentSelectedPlanId!);
-                  if (context.mounted) {
-                    PaymentSuccessDialog.showPaymentDialog(context);
+          if (widget.showSubscribeButton) ...[
+            gapH12,
+            CustomButton(
+              title: l10n.subscribeNow,
+              width: double.infinity,
+              titleStyle: theme.titleMedium.copyWith(
+                color: theme.white,
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+              ),
+              onPressed: () async {
+                if (_currentSelectedPlanId != null) {
+                  try {
+                    await ref
+                        .read(clubRepositoryProvider.notifier)
+                        .purchaseSubscription(_currentSelectedPlanId!);
+                    if (context.mounted) {
+                      PaymentSuccessDialog.showPaymentDialog(context);
+                    }
+                  } catch (e) {
+                    AppToast.errorToast(e.toString());
                   }
-                } catch (e) {
-                  AppToast.errorToast(e.toString());
+                } else {
+                  AppToast.errorToast("Please select a plan");
                 }
-              } else {
-                AppToast.errorToast("Please select a plan");
-              }
-            },
-          ),
+              },
+            ),
+          ],
         ],
       ),
     );

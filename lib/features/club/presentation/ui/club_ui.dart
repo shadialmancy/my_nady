@@ -10,10 +10,16 @@ import '../../../../core/shared/widgets/widgets.dart';
 import '../provider/get_gym_details_service.dart';
 
 class ClubUi extends ConsumerStatefulWidget {
-  const ClubUi({super.key, required this.id, required this.distance});
+  const ClubUi({
+    super.key,
+    required this.id,
+    required this.distance,
+    this.showSubscriptionAction = true,
+  });
 
   final String id;
   final String? distance;
+  final bool showSubscriptionAction;
 
   @override
   ConsumerState<ClubUi> createState() => _ClubUiState();
@@ -161,20 +167,22 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                     //   backgroundColor: theme.primary,
                     //   enableOpacity: true,
                     // ),
-                    gapH12,
-                    Row(
-                      children: [
-                        SvgPicture.asset(AssetsHelper.place2Icon),
-                        gapW4,
-                        Text(
-                          "${l10n.branches}: ${gymData?.otherBranches?.length ?? 1}",
-                          style: theme.titleSmall.copyWith(
-                            fontWeight: .w700,
-                            fontSize: 14,
+                    if (widget.showSubscriptionAction) ...[
+                      gapH12,
+                      Row(
+                        children: [
+                          SvgPicture.asset(AssetsHelper.place2Icon),
+                          gapW4,
+                          Text(
+                            "${l10n.branches}: ${gymData?.otherBranches?.length ?? 1}",
+                            style: theme.titleSmall.copyWith(
+                              fontWeight: .w700,
+                              fontSize: 14,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    ],
                     gapH12,
                     Column(
                       children: [
@@ -231,6 +239,8 @@ class _ClubUiState extends ConsumerState<ClubUi> {
                                   selectedPlanId = id;
                                 });
                               },
+                              showSubscribeButton:
+                                  widget.showSubscriptionAction,
                             ),
                             // Column(
                             //   crossAxisAlignment: CrossAxisAlignment.start,

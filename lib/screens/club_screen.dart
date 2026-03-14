@@ -7,10 +7,16 @@ import '../features/club/presentation/ui/club_ui.dart';
 
 @RoutePage()
 class ClubScreen extends StatefulWidget {
-  const ClubScreen({super.key, required this.id, required this.distance});
+  const ClubScreen({
+    super.key,
+    required this.id,
+    required this.distance,
+    this.showSubscriptionAction = true,
+  });
 
   final String id;
   final String distance;
+  final bool showSubscriptionAction;
 
   @override
   State<ClubScreen> createState() => _ClubScreenState();
@@ -24,9 +30,21 @@ class _ClubScreenState extends State<ClubScreen> {
     return Scaffold(
       backgroundColor: theme.primaryBackground,
       body: CustomAdaptiveScreen.builder(
-        mobile: ClubUi(id: widget.id, distance: widget.distance),
-        tablet: ClubUi(id: widget.id, distance: widget.distance),
-        desktop: ClubUi(id: widget.id, distance: widget.distance),
+        mobile: ClubUi(
+          id: widget.id,
+          distance: widget.distance,
+          showSubscriptionAction: widget.showSubscriptionAction,
+        ),
+        tablet: ClubUi(
+          id: widget.id,
+          distance: widget.distance,
+          showSubscriptionAction: widget.showSubscriptionAction,
+        ),
+        desktop: ClubUi(
+          id: widget.id,
+          distance: widget.distance,
+          showSubscriptionAction: widget.showSubscriptionAction,
+        ),
       ),
     );
   }

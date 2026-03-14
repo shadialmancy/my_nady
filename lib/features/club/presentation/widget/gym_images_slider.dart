@@ -7,6 +7,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
+import '../../../../core/shared/widgets/widgets.dart';
 
 class ClubImagesSlider extends StatefulWidget {
   const ClubImagesSlider({super.key, this.photos, this.name});
@@ -32,68 +33,91 @@ class _ClubImagesSliderState extends State<ClubImagesSlider> {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        CarouselSlider(
-          items: List.generate(displayList.length, (index) {
+        CarouselSlider.builder(
+          itemCount: displayList.length,
+          itemBuilder: (context, index, realIndex) {
             final photo = displayList[index];
+            final heroTag = '${photo}_$realIndex';
             return Stack(
               children: [
-                photo.startsWith('http')
-                    ? CachedNetworkImage(
-                        imageUrl: photo,
-                        height: 300,
-                        fit: .cover,
-                        width: .infinity,
-                        fadeInDuration: .zero,
-                        useOldImageOnUrlChange: true,
-
-                        // placeholder: (context, url) => Container(
-                        //   height: 300,
-                        //   width: .infinity,
-                        //   color: theme.grey87.withValues(alpha: 0.1),
-                        //   child: const Center(
-                        //     child: CircularProgressIndicator(),
-                        //   ),
-                        // ),
-                        errorWidget: (context, url, error) => Image.asset(
-                          AssetsHelper.gymImageHolder,
-                          height: 300,
-                          fit: .cover,
-                          width: .infinity,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => FullScreenImageViewer(
+                          images: displayList,
+                          initialIndex: index,
+                          initialHeroTag: heroTag,
                         ),
-                      )
-                    : Image.asset(
-                        photo,
-                        height: 300,
-                        fit: .cover,
-                        width: .infinity,
                       ),
-                Container(
-                  width: .infinity,
-                  height: 300,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: .topCenter,
-                      end: .bottomCenter,
-                      colors: [
-                        theme.fullBlack.withValues(alpha: 0.8),
-                        Colors.transparent,
-                        theme.fullBlack.withValues(alpha: 0.8),
-                      ],
+                    );
+                  },
+                  child: Hero(
+                    tag: heroTag,
+                    child: photo.startsWith('http')
+                        ? CachedNetworkImage(
+                            imageUrl: photo,
+                            height: 300,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            fadeInDuration: Duration.zero,
+                            fadeOutDuration: Duration.zero,
+                            useOldImageOnUrlChange: true,
+                            placeholder: (context, url) => Container(
+                              height: 300,
+                              width: double.infinity,
+                              color: theme.grey87.withValues(alpha: 0.1),
+                              child: const Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Image.asset(
+                              AssetsHelper.gymImageHolder,
+                              height: 300,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
+                          )
+                        : Image.asset(
+                            photo,
+                            height: 300,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                  ),
+                ),
+                IgnorePointer(
+                  child: Container(
+                    width: double.infinity,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          theme.fullBlack.withValues(alpha: 0.8),
+                          Colors.transparent,
+                          theme.fullBlack.withValues(alpha: 0.8),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ],
             );
-          }),
+          },
           options: CarouselOptions(
             height: 300,
             pageSnapping: true,
+            enableInfiniteScroll: true,
             onPageChanged: (index, reason) {
               setState(() {
                 currentIndex = index;
               });
             },
-            scrollPhysics: ClampingScrollPhysics(),
+            scrollPhysics: const ClampingScrollPhysics(),
             viewportFraction: 0.9,
             aspectRatio: 16 / 9,
             initialPage: 0,

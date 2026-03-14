@@ -19,20 +19,20 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
     HomeRoute(),
     FavoriteClubRoute(),
     TransactionHistoryRoute(),
-    ResourcesClubRoute(),
+    // ResourcesClubRoute(),
     ProfileRoute(),
   ];
   List<String> icons = [
     AssetsHelper.homeIcon,
     AssetsHelper.heart2Icon,
     AssetsHelper.transfersIcon,
-    AssetsHelper.notebookIcon,
+    // AssetsHelper.notebookIcon,
     AssetsHelper.profileIcon,
   ];
   late double position;
   int selected = 0;
   double horizontalPadding = 30.0;
-  int noOfIcons = 5;
+  int noOfIcons = 4;
   late AnimationController controller;
   late Animation<double> animation;
 
@@ -126,7 +126,7 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
                                   width:
                                       (MediaQuery.of(context).size.width -
                                           (2 * horizontalPadding)) /
-                                      5,
+                                      4,
                                   padding: const EdgeInsets.only(
                                     top: 17.5,
                                     bottom: 22.5,

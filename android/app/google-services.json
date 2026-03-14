@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "401468010364",
+    "project_id": "my-nady",
+    "storage_bucket": "my-nady.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401468010364:android:b08d516bfcf7092358bef9",
+        "android_client_info": {
+          "package_name": "com.example.my_nady_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIE1hJJeb2qOmCbFLj-S6FCpLbxnPjkqE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -199,10 +199,16 @@ class ClubRoute extends PageRouteInfo<ClubRouteArgs> {
     Key? key,
     required String id,
     required String distance,
+    bool showSubscriptionAction = true,
     List<PageRouteInfo>? children,
   }) : super(
          ClubRoute.name,
-         args: ClubRouteArgs(key: key, id: id, distance: distance),
+         args: ClubRouteArgs(
+           key: key,
+           id: id,
+           distance: distance,
+           showSubscriptionAction: showSubscriptionAction,
+         ),
          initialChildren: children,
        );
 
@@ -212,13 +218,23 @@ class ClubRoute extends PageRouteInfo<ClubRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ClubRouteArgs>();
-      return ClubScreen(key: args.key, id: args.id, distance: args.distance);
+      return ClubScreen(
+        key: args.key,
+        id: args.id,
+        distance: args.distance,
+        showSubscriptionAction: args.showSubscriptionAction,
+      );
     },
   );
 }
 
 class ClubRouteArgs {
-  const ClubRouteArgs({this.key, required this.id, required this.distance});
+  const ClubRouteArgs({
+    this.key,
+    required this.id,
+    required this.distance,
+    this.showSubscriptionAction = true,
+  });
 
   final Key? key;
 
@@ -226,20 +242,29 @@ class ClubRouteArgs {
 
   final String distance;
 
+  final bool showSubscriptionAction;
+
   @override
   String toString() {
-    return 'ClubRouteArgs{key: $key, id: $id, distance: $distance}';
+    return 'ClubRouteArgs{key: $key, id: $id, distance: $distance, showSubscriptionAction: $showSubscriptionAction}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! ClubRouteArgs) return false;
-    return key == other.key && id == other.id && distance == other.distance;
+    return key == other.key &&
+        id == other.id &&
+        distance == other.distance &&
+        showSubscriptionAction == other.showSubscriptionAction;
   }
 
   @override
-  int get hashCode => key.hashCode ^ id.hashCode ^ distance.hashCode;
+  int get hashCode =>
+      key.hashCode ^
+      id.hashCode ^
+      distance.hashCode ^
+      showSubscriptionAction.hashCode;
 }
 
 /// generated route for
