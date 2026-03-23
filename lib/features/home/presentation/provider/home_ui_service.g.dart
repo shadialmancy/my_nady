@@ -33,7 +33,7 @@ final class HomeUiServiceProvider
   HomeUiService create() => HomeUiService();
 }
 
-String _$homeUiServiceHash() => r'531c235175c48523f6cb6e5d87bdc39b82aff5f3';
+String _$homeUiServiceHash() => r'efe2911b746d5744b917079c085140614fb3e273';
 
 abstract class _$HomeUiService extends $AsyncNotifier<ClubEntity?> {
   FutureOr<ClubEntity?> build();

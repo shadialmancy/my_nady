@@ -54,9 +54,9 @@ Future<void> showLogoutDialog(BuildContext context, WidgetRef ref) {
                   child: CustomButton(
                     title: l10n.logout,
                     onPressed: () async {
-                      await ref
-                          .read(authUiServiceProvider.notifier)
-                          .logoutUser();
+                      // await ref
+                      //     .read(authUiServiceProvider.notifier)
+                      //     .logoutUser();
                       await sessionManager.setBoardingVisitState(status: false);
                       await sessionManager.setAuthToken(token: null);
                       await sessionManager.setRefreshToken(token: null);

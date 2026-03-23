@@ -101,7 +101,7 @@ class ProfileUi extends ConsumerWidget {
                 ),
                 ListTile(
                   onTap: () {
-                    context.router.push(const MapRoute());
+                    context.router.push(MapRoute());
                   },
                   leading: SvgPicture.asset(AssetsHelper.locationIcon2),
                   contentPadding: .zero,

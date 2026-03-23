@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:my_nady_project/core/router/app_router.dart';
 import 'package:my_nady_project/features/club/presentation/widget/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -8,6 +11,7 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 import '../provider/get_gym_details_service.dart';
+import '../../domain/repositories/club_repository.dart';
 
 class ClubUi extends ConsumerStatefulWidget {
   const ClubUi({
@@ -51,7 +55,7 @@ class _ClubUiState extends ConsumerState<ClubUi> {
       gymTabList = [
         {"title": l10n.clubContent, "isSelected": true},
         // {"title": l10n.location, "isSelected": false},
-        {"title": l10n.comments, "isSelected": false},
+        {"title": l10n.reviews, "isSelected": false},
       ];
     }
   }
@@ -60,240 +64,217 @@ class _ClubUiState extends ConsumerState<ClubUi> {
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
     final gymDetailsState = ref.watch(getGymDetailsServiceProvider);
+    final isPurchasing = ref.watch(clubRepositoryProvider).isLoading;
 
-    // gymTabList is now initialized in didChangeDependencies
-    return AsyncValueWidget(
-      value: gymDetailsState,
-      builder: (gymDetailEntity) {
-        final gymData = gymDetailEntity?.data;
+    return Stack(
+      children: [
+        AsyncValueWidget(
+          value: gymDetailsState,
+          builder: (gymDetailEntity) {
+            final gymData = gymDetailEntity?.data;
 
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              ClubImagesSlider(photos: gymData?.photos, name: gymData?.name),
-              gapH32,
-              Padding(
-                padding: .only(left: 3.sw, right: 3.sw, bottom: 10.sw),
-                child: Column(
-                  crossAxisAlignment: .start,
-                  mainAxisAlignment: .start,
-                  children: [
-                    Row(
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  ClubImagesSlider(
+                    photos: gymData?.photos,
+                    name: gymData?.name,
+                  ),
+                  gapH32,
+                  Padding(
+                    padding: .only(left: 3.sw, right: 3.sw, bottom: 10.sw),
+                    child: Column(
+                      crossAxisAlignment: .start,
+                      mainAxisAlignment: .start,
                       children: [
-                        CircleAvatar(
-                          radius: 15,
-                          backgroundColor: theme.gray600,
-                        ),
-                        gapW12,
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            gymData?.name ?? "Personal Trainer",
-                            style: theme.titleMedium.copyWith(
-                              color: theme.primaryText,
-                              fontSize: 22,
-                              fontWeight: .w700,
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 15,
+                              backgroundColor: theme.gray600,
                             ),
-                          ),
-                        ),
-                        Spacer(),
-                        // DecoratedBox(
-                        //   decoration: BoxDecoration(
-                        //     boxShadow: [
-                        //       BoxShadow(
-                        //         color: theme.fullBlack.withValues(alpha: 0.25),
-                        //         blurRadius: 29,
-                        //         offset: Offset(0, 4),
-                        //       ),
-                        //     ],
-                        //   ),
-                        //   child: FavoriteButton(clubId: widget.id),
-                        // ),
-                      ],
-                    ),
-                    gapH8,
-                    Row(
-                      children: [
-                        Icon(Icons.star, color: theme.yellow37),
-                        gapW12,
-                        Text(
-                          "${(gymData?.rating?.averageRating ?? 4.9).toStringAsFixed(2)} (${gymData?.rating?.totalReviews ?? 231} ${l10n.reviews})",
-                          style: theme.bodySmall.copyWith(color: theme.grey9C),
-                        ),
-                      ],
-                    ),
-                    gapH8,
-                    FractionallySizedBox(
-                      widthFactor: 0.85,
-                      child: Text(
-                        gymData?.description ??
-                            "You will learn how to put together professional training plans to apply to specific goals of your own or those you will train in the future.",
-                        style: theme.bodySmall.copyWith(color: theme.grey9C),
-                      ),
-                    ),
-                    gapH12,
-                    Row(
-                      mainAxisAlignment: .spaceBetween,
-                      children: [
-                        Text(
-                          l10n.nearDistance,
-                          style: theme.titleMedium.copyWith(
-                            color: theme.primaryText,
-                            fontWeight: .w700,
-                          ),
-                        ),
-                        Text(
-                          (widget.distance == null || widget.distance!.isEmpty)
-                              ? ""
-                              : "${num.parse(widget.distance ?? '0').toStringAsFixed(2)} m",
-                          textDirection: TextDirection.ltr,
-                          style: theme.titleMedium.copyWith(
-                            color: theme.primaryText,
-                            fontWeight: .w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                    gapH12,
-                    // Text(
-                    //   l10n.categories,
-                    //   style: theme.titleMedium.copyWith(
-                    //     color: theme.primaryText,
-                    //     fontWeight: .w700,
-                    //   ),
-                    // ),
-                    // gapH8,
-                    // CategorySection(
-                    //   backgroundColor: theme.primary,
-                    //   enableOpacity: true,
-                    // ),
-                    if (widget.showSubscriptionAction) ...[
-                      gapH12,
-                      Row(
-                        children: [
-                          SvgPicture.asset(AssetsHelper.place2Icon),
-                          gapW4,
-                          Text(
-                            "${l10n.branches}: ${gymData?.otherBranches?.length ?? 1}",
-                            style: theme.titleSmall.copyWith(
-                              fontWeight: .w700,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                    gapH12,
-                    Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: Row(
-                            mainAxisAlignment: .spaceAround,
-                            children: gymTabList.map((item) {
-                              return GestureDetector(
-                                onTap: () {
-                                  for (var element in gymTabList) {
-                                    element['isSelected'] = false;
-                                  }
-                                  item['isSelected'] = true;
-                                  selectedTabIndex = gymTabList.indexOf(item);
-                                  setState(() {});
-                                },
-                                child: Container(
-                                  padding: const .all(8),
-                                  decoration: BoxDecoration(
-                                    borderRadius: .circular(16),
-                                    color: item["isSelected"]
-                                        ? theme.primary
-                                        : theme.white,
-                                    border: Border.all(color: theme.primary),
-                                  ),
-                                  child: Text(
-                                    item["title"],
-                                    style: theme.titleSmall.copyWith(
-                                      color: item["isSelected"]
-                                          ? theme.white
-                                          : theme.primary.withValues(
-                                              alpha: 0.7,
-                                            ),
-                                      fontWeight: .w600,
-                                      fontSize: 14,
-                                    ),
-                                  ),
+                            gapW12,
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                gymData?.name ?? "Personal Trainer",
+                                style: theme.titleMedium.copyWith(
+                                  color: theme.primaryText,
+                                  fontSize: 22,
+                                  fontWeight: .w700,
                                 ),
-                              );
-                            }).toList(),
+                              ),
+                            ),
+                            Spacer(),
+                          ],
+                        ),
+                        gapH8,
+                        Row(
+                          children: [
+                            Icon(Icons.star, color: theme.yellow37),
+                            gapW12,
+                            Text(
+                              "${(gymData?.rating?.averageRating ?? 4.9).toStringAsFixed(2)} (${gymData?.rating?.totalReviews ?? 231} ${l10n.reviews})",
+                              style: theme.bodySmall.copyWith(
+                                color: theme.grey9C,
+                              ),
+                            ),
+                          ],
+                        ),
+                        gapH8,
+                        FractionallySizedBox(
+                          widthFactor: 0.85,
+                          child: Text(
+                            gymData?.description ??
+                                "You will learn how to put together professional training plans to apply to specific goals of your own or those you will train in the future.",
+                            style: theme.bodySmall.copyWith(
+                              color: theme.grey9C,
+                            ),
                           ),
                         ),
                         gapH12,
-                        AnimatedSwitcher(
-                          duration: Duration(milliseconds: 300),
-
-                          child: [
-                            PackagesSection(
-                              subscriptionPlans: gymData?.subscriptionPlans,
-                              selectedId: selectedPlanId, // Added this
-                              onPlanSelected: (id) {
-                                setState(() {
-                                  selectedPlanId = id;
-                                });
-                              },
-                              showSubscribeButton:
-                                  widget.showSubscriptionAction,
+                        Row(
+                          mainAxisAlignment: .spaceBetween,
+                          children: [
+                            Text(
+                              l10n.nearDistance,
+                              style: theme.titleMedium.copyWith(
+                                color: theme.primaryText,
+                                fontWeight: .w700,
+                              ),
                             ),
-                            // Column(
-                            //   crossAxisAlignment: CrossAxisAlignment.start,
-                            //   children: [
-                            //     if (gymData?.otherBranches?.isEmpty ?? true)
-                            //       Text(
-                            //         "No other branches available",
-                            //         style: theme.titleMedium.copyWith(
-                            //           color: theme.grey9C,
-                            //           fontWeight: .normal,
-                            //           fontSize: 12,
-                            //         ),
-                            //       )
-                            //     else
-                            //       ...gymData!.otherBranches!.map(
-                            //         (branch) => Padding(
-                            //           padding: const EdgeInsets.only(
-                            //             bottom: 8.0,
-                            //           ),
-                            //           child: Row(
-                            //             children: [
-                            //               Icon(
-                            //                 Icons.location_on,
-                            //                 size: 16,
-                            //                 color: theme.primary,
-                            //               ),
-                            //               gapW8,
-                            //               Text(
-                            //                 branch.name ?? "Branch Name",
-                            //                 style: theme.titleMedium.copyWith(
-                            //                   color: theme.grey9C,
-                            //                   fontWeight: .normal,
-                            //                   fontSize: 14,
-                            //                 ),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //         ),
-                            //       ),
-                            //   ],
-                            // ),
-                            CommentsSection(branchId: widget.id),
-                          ][selectedTabIndex],
+                            Text(
+                              (widget.distance == null ||
+                                      widget.distance!.isEmpty)
+                                  ? ""
+                                  : "${num.parse(widget.distance ?? '0').toStringAsFixed(2)} m",
+                              textDirection: TextDirection.ltr,
+                              style: theme.titleMedium.copyWith(
+                                color: theme.primaryText,
+                                fontWeight: .w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                        gapH12,
+                        if (widget.showSubscriptionAction) ...[
+                          gapH12,
+                          GestureDetector(
+                            onTap: () {
+                              final coords = gymData?.location?.coordinates;
+                              LatLng? latLng;
+                              if (coords != null && coords.length >= 2) {
+                                latLng = LatLng(coords[1], coords[0]);
+                              }
+                              context.router.push(
+                                MapRoute(
+                                  initialPosition: latLng,
+                                  initialTitle: gymData?.name,
+                                ),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(AssetsHelper.place2Icon),
+                                gapW4,
+                                Text(
+                                  l10n.location,
+                                  style: theme.titleSmall.copyWith(
+                                    fontWeight: .w700,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        gapH12,
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              child: Row(
+                                mainAxisAlignment: .spaceAround,
+                                children: gymTabList.map((item) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      for (var element in gymTabList) {
+                                        element['isSelected'] = false;
+                                      }
+                                      item['isSelected'] = true;
+                                      selectedTabIndex = gymTabList.indexOf(
+                                        item,
+                                      );
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      padding: const .all(8),
+                                      decoration: BoxDecoration(
+                                        borderRadius: .circular(16),
+                                        color: item["isSelected"]
+                                            ? theme.primary
+                                            : theme.white,
+                                        border: Border.all(
+                                          color: theme.primary,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        item["title"],
+                                        style: theme.titleSmall.copyWith(
+                                          color: item["isSelected"]
+                                              ? theme.white
+                                              : theme.primary.withValues(
+                                                  alpha: 0.7,
+                                                ),
+                                          fontWeight: .w600,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                            gapH12,
+                            AnimatedSwitcher(
+                              duration: Duration(milliseconds: 300),
+                              child: [
+                                PackagesSection(
+                                  subscriptionPlans: gymData?.subscriptionPlans,
+                                  selectedId: selectedPlanId,
+                                  onPlanSelected: (id) {
+                                    setState(() {
+                                      selectedPlanId = id;
+                                    });
+                                  },
+                                  showSubscribeButton:
+                                      widget.showSubscriptionAction,
+                                ),
+                                CommentsSection(branchId: widget.id),
+                              ][selectedTabIndex],
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+        if (isPurchasing)
+          Positioned.fill(
+            child: AbsorbPointer(
+              child: Container(
+                color: Colors.black.withValues(alpha: 0.3),
+                child: const Center(
+                  child: CircularProgressIndicator(color: Colors.white),
                 ),
               ),
-            ],
+            ),
           ),
-        );
-      },
+      ],
     );
   }
 }

@@ -1300,11 +1300,11 @@ abstract class AppLocalizations {
   /// **'Set as Default'**
   String get setAsDefault;
 
-  /// No description provided for @noAddressSelected.
+  /// No description provided for @noAddressDetected.
   ///
   /// In en, this message translates to:
-  /// **'No Address Selected'**
-  String get noAddressSelected;
+  /// **'No Address Detected'**
+  String get noAddressDetected;
 }
 
 class _AppLocalizationsDelegate

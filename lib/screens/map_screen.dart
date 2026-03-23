@@ -9,9 +9,14 @@ import '../core/constants/adaptive.dart';
 import '../core/helpers/assets_helper.dart';
 import '../features/map/presentation/ui/map_ui.dart';
 
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 @RoutePage()
 class MapScreen extends ConsumerStatefulWidget {
-  const MapScreen({super.key});
+  const MapScreen({super.key, this.initialPosition, this.initialTitle});
+
+  final LatLng? initialPosition;
+  final String? initialTitle;
 
   @override
   ConsumerState<MapScreen> createState() => _MapScreenState();
@@ -43,9 +48,18 @@ class _MapScreenState extends ConsumerState<MapScreen> {
         ),
       ),
       body: CustomAdaptiveScreen.builder(
-        mobile: const MapUi(),
-        tablet: const MapUi(),
-        desktop: const MapUi(),
+        mobile: MapUi(
+          initialPosition: widget.initialPosition,
+          initialTitle: widget.initialTitle,
+        ),
+        tablet: MapUi(
+          initialPosition: widget.initialPosition,
+          initialTitle: widget.initialTitle,
+        ),
+        desktop: MapUi(
+          initialPosition: widget.initialPosition,
+          initialTitle: widget.initialTitle,
+        ),
       ),
     );
   }

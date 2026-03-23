@@ -1,4 +1,9 @@
+import 'dart:developer';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../notifications/domain/repositories/notification_repository.dart';
 import '../../data/models/user_dto/user.dart';
 import '../../data/repositories_impl/authentication_repository_impl.dart';
 import '../entities/user_entity.dart';
@@ -27,6 +32,12 @@ class AuthenticationRepository extends _$AuthenticationRepository {
         email: email,
         password: password,
       );
+
+      // Register FCM Token after successful login
+      if (_userEntity != null) {
+        _handleFcmTokenRegistration();
+      }
+
       return _userEntity;
     } catch (e) {
       rethrow;
@@ -58,9 +69,78 @@ class AuthenticationRepository extends _$AuthenticationRepository {
 
   Future<void> logoutUser() async {
     try {
+      // Remove FCM Token before logout
+      await _handleFcmTokenRemoval();
+
       await _authenticationSourceImpl.logoutUser();
+      _userEntity = null;
     } catch (e) {
       rethrow;
+    }
+  }
+
+  /// Helper to register FCM token with retry mechanism
+  Future<void> _handleFcmTokenRegistration() async {
+    try {
+      log("message");
+      final messaging = FirebaseMessaging.instance;
+
+      // 1. Request permissions (Crucial for Android 13+ and iOS)
+      final settings = await messaging.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+
+      if (settings.authorizationStatus == AuthorizationStatus.denied) {
+        log('User denied notification permissions');
+        return;
+      }
+
+      // 2. Fetch token with a simple retry loop (3 attempts)
+      String? token;
+      int retryCount = 0;
+      while (token == null && retryCount < 3) {
+        try {
+          token = await messaging.getToken();
+        } catch (e) {
+          retryCount++;
+          if (retryCount >= 3) rethrow; // Final attempt failed
+          log('FCM token fetch attempt $retryCount failed, retrying in 2s...');
+          await Future.delayed(const Duration(seconds: 2));
+        }
+      }
+
+      log('FCM Messaging Instance: $messaging');
+      log('FCM Token: $token');
+
+      if (token != null) {
+        final notificationRepo = ref.read(
+          notificationRepositoryProvider.notifier,
+        );
+        await notificationRepo.registerFcmToken(token);
+        logger.i('FCM Token registered successfully');
+      }
+    } catch (e) {
+      log('Failed to register FCM Token: $e');
+      logger.e('Failed to register FCM Token: $e');
+    }
+  }
+
+  /// Helper to remove FCM token
+  Future<void> _handleFcmTokenRemoval() async {
+    try {
+      final messaging = FirebaseMessaging.instance;
+      final token = await messaging.getToken();
+      if (token != null) {
+        final notificationRepo = ref.read(
+          notificationRepositoryProvider.notifier,
+        );
+        await notificationRepo.removeFcmToken(token);
+        logger.i('FCM Token removed successfully');
+      }
+    } catch (e) {
+      logger.e('Failed to remove FCM Token: $e');
     }
   }
 

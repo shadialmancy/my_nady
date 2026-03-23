@@ -397,18 +397,65 @@ class LoginRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [MapScreen]
-class MapRoute extends PageRouteInfo<void> {
-  const MapRoute({List<PageRouteInfo>? children})
-    : super(MapRoute.name, initialChildren: children);
+class MapRoute extends PageRouteInfo<MapRouteArgs> {
+  MapRoute({
+    Key? key,
+    LatLng? initialPosition,
+    String? initialTitle,
+    List<PageRouteInfo>? children,
+  }) : super(
+         MapRoute.name,
+         args: MapRouteArgs(
+           key: key,
+           initialPosition: initialPosition,
+           initialTitle: initialTitle,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'MapRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const MapScreen();
+      final args = data.argsAs<MapRouteArgs>(
+        orElse: () => const MapRouteArgs(),
+      );
+      return MapScreen(
+        key: args.key,
+        initialPosition: args.initialPosition,
+        initialTitle: args.initialTitle,
+      );
     },
   );
+}
+
+class MapRouteArgs {
+  const MapRouteArgs({this.key, this.initialPosition, this.initialTitle});
+
+  final Key? key;
+
+  final LatLng? initialPosition;
+
+  final String? initialTitle;
+
+  @override
+  String toString() {
+    return 'MapRouteArgs{key: $key, initialPosition: $initialPosition, initialTitle: $initialTitle}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! MapRouteArgs) return false;
+    return key == other.key &&
+        initialPosition == other.initialPosition &&
+        initialTitle == other.initialTitle;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^ initialPosition.hashCode ^ initialTitle.hashCode;
 }
 
 /// generated route for
@@ -473,6 +520,22 @@ class ModifySubDairyRecordRouteArgs {
 
   @override
   int get hashCode => key.hashCode ^ diaryId.hashCode;
+}
+
+/// generated route for
+/// [NotificationScreen]
+class NotificationRoute extends PageRouteInfo<void> {
+  const NotificationRoute({List<PageRouteInfo>? children})
+    : super(NotificationRoute.name, initialChildren: children);
+
+  static const String name = 'NotificationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NotificationScreen();
+    },
+  );
 }
 
 /// generated route for

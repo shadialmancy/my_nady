@@ -14,6 +14,7 @@ class HomeUiService extends _$HomeUiService {
   FutureOr<ClubEntity?> build() {
     ref.watch(defaultAddressProvider);
     return fetchHomeData();
+    // return null;
   }
 
   /// Optimistically update a club's favorite status in the home club list.
@@ -39,8 +40,12 @@ class HomeUiService extends _$HomeUiService {
       final locationService = ref.read(mapLocationServiceProvider.notifier);
       final defaultAddr = ref.read(defaultAddressProvider);
 
-      num lat = locationService.currentPosition.latitude;
-      num lng = locationService.currentPosition.longitude;
+      num? lat = locationService.currentPosition.latitude != 0
+          ? locationService.currentPosition.latitude
+          : null;
+      num? lng = locationService.currentPosition.longitude != 0
+          ? locationService.currentPosition.longitude
+          : null;
 
       // Use default address coordinates if available
       if (defaultAddr != null && defaultAddr.location?.coordinates != null) {
@@ -70,7 +75,7 @@ class HomeUiService extends _$HomeUiService {
               page: 1,
               lat: lat,
               lng: lng,
-              radius: 100,
+              radius: lat != null ? 100 : null,
             ),
       );
 

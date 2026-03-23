@@ -32,7 +32,7 @@ class CustomPhoneNumberTextField extends StatelessWidget {
           children: [
             PhoneTextField(
               showCountryCodeAsIcon: false,
-              initialCountryCode: "+20",
+              initialCountryCode: "+965",
               controller: controller,
               onChanged: (value) {
                 state.didChange(value);

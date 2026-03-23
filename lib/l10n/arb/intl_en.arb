@@ -400,5 +400,5 @@
     "@updateAddress": {},
     "setAsDefault": "Set as Default",
     "@setAsDefault": {},
-    "noAddressSelected": "No Address Selected"
+    "noAddressDetected": "No Address Detected"
 }

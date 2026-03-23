@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:my_nady_project/features/dairy_record/data/models/dairy_dto/datum.dart'
     show DairyDatum;
 
@@ -42,6 +43,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SubDairyRecordRoute.page),
     AutoRoute(page: DairyRecordRoute.page),
     AutoRoute(page: TransactionFilterRoute.page),
+    AutoRoute(page: NotificationRoute.page),
     AutoRoute(page: SplashRoute.page, initial: true),
     AutoRoute(page: SeeAllRoute.page),
     CustomRoute(

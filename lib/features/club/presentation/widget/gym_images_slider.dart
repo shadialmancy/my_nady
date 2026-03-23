@@ -118,7 +118,7 @@ class _ClubImagesSliderState extends State<ClubImagesSlider> {
               });
             },
             scrollPhysics: const ClampingScrollPhysics(),
-            viewportFraction: 0.9,
+            viewportFraction: 1.0,
             aspectRatio: 16 / 9,
             initialPage: 0,
           ),

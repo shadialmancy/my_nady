@@ -60,6 +60,7 @@ dependencies:
   flutter_cache_manager: ^3.4.1
   hive_ce_generator: any
   collection: ^1.19.1
+  geocoding: ^4.0.0
 dev_dependencies:
   riverpod_generator: ^4.0.0+1
   flutter_test:

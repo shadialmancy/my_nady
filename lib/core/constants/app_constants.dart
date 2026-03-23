@@ -21,6 +21,11 @@ class AppConstants {
   static const String branchesMetaAmenitiesApiUrl = '/branches/meta/amenities';
   static const String reviewsApiUrl = '/reviews';
   static const String addressBookApiUrl = '/users/address-book';
+  static const String fcmTokenApiUrl = '/notifications/fcm-token';
+  static const String notificationsApiUrl = '/notifications';
+  static const String unreadCountApiUrl = '/notifications/unread-count';
+  static String markAsReadApiUrl(String id) => '/notifications/$id/read';
+  static const String markAllAsReadApiUrl = '/notifications/read-all';
 
   static const String logoImage = 'assets/images/logo.png';
   static const String tripsAssetPath = 'assets/data/trips_mock.json';

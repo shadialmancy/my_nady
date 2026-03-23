@@ -626,5 +626,5 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setAsDefault => 'Set as Default';
 
   @override
-  String get noAddressSelected => 'No Address Selected';
+  String get noAddressDetected => 'No Address Detected';
 }

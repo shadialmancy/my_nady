@@ -30,6 +30,11 @@ class ClubCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
     final size = MediaQuery.sizeOf(context);
+    final maxDiscount = club?.offers?.isEmpty ?? true
+        ? 0
+        : club!.offers!
+              .map((e) => e.discountValue ?? 0)
+              .reduce((a, b) => a > b ? a : b);
     return Container(
       clipBehavior: Clip.none,
       width: (size.width - 20) / 2,
@@ -92,7 +97,7 @@ class ClubCard extends StatelessWidget {
                       initialIsFavorite: isFavorite,
                       onRemoved: onRemovedFromFavorites,
                     ),
-                    if (club?.minPlanPrice != null)
+                    if (maxDiscount > 0)
                       Container(
                         padding: .symmetric(vertical: 2, horizontal: 8),
                         decoration: BoxDecoration(
@@ -100,7 +105,7 @@ class ClubCard extends StatelessWidget {
                           borderRadius: .circular(6),
                         ),
                         child: Text(
-                          "${club?.minPlanPrice}%", // Assuming this is discount? Or just showing price? logic unclear from provided code, sticking to existing style
+                          "$maxDiscount%",
                           style: theme.labelMedium.copyWith(
                             color: theme.white,
                             fontWeight: .w600,

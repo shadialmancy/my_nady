@@ -120,20 +120,20 @@ class CurrentSubscriptionCard extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                if (subscription.autoRenew == true)
-                  Row(
-                    children: [
-                      Icon(Icons.autorenew, size: 16, color: theme.primary),
-                      gapW4,
-                      Text(
-                        l10n.autoRenew,
-                        style: theme.bodySmall.copyWith(
-                          color: theme.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
+                // if (subscription.autoRenew == true)
+                //   Row(
+                //     children: [
+                //       Icon(Icons.autorenew, size: 16, color: theme.primary),
+                //       gapW4,
+                //       Text(
+                //         l10n.autoRenew,
+                //         style: theme.bodySmall.copyWith(
+                //           color: theme.primary,
+                //           fontWeight: FontWeight.w600,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
               ],
             ),
           ],

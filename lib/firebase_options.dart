@@ -72,5 +72,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'my-nady.firebasestorage.app',
     measurementId: 'G-SHFDJGYVC4',
   );
-
 }

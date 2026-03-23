@@ -9,7 +9,10 @@ import 'package:my_nady_project/features/club/presentation/provider/map_location
 import 'package:my_nady_project/features/map/presentation/provider/map_ui_service.dart';
 
 class MapUi extends ConsumerStatefulWidget {
-  const MapUi({super.key});
+  const MapUi({super.key, this.initialPosition, this.initialTitle});
+
+  final LatLng? initialPosition;
+  final String? initialTitle;
 
   @override
   ConsumerState<MapUi> createState() => _MapScreenState();
@@ -125,8 +128,9 @@ class _MapScreenState extends ConsumerState<MapUi> {
 
             return GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: locationService.currentPosition,
-                zoom: 12,
+                target:
+                    widget.initialPosition ?? locationService.currentPosition,
+                zoom: widget.initialPosition != null ? 15 : 12,
               ),
               markers: markers,
               myLocationEnabled: true,

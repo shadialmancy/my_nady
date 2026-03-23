@@ -88,12 +88,23 @@ class ProfileAppbar extends ConsumerWidget {
                             width: 100,
                             height: 100,
                             errorBuilder: (context, error, stackTrace) =>
-                                Image.asset(AssetsHelper.profileImageHolder),
+                                SvgPicture.asset(
+                                  AssetsHelper.profileIcon,
+                                  colorFilter: ColorFilter.mode(
+                                    theme.primary,
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
                           ),
                         )
-                      : Image.asset(
-                          AssetsHelper.profileImageHolder,
-                          fit: BoxFit.cover,
+                      : SvgPicture.asset(
+                          AssetsHelper.profileIcon,
+                          colorFilter: ColorFilter.mode(
+                            theme.primary,
+                            BlendMode.srcIn,
+                          ),
+                          width: 50,
+                          height: 50,
                         ),
                 );
               },

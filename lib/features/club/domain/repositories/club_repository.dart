@@ -44,10 +44,12 @@ class ClubRepository extends _$ClubRepository {
   }
 
   Future<void> purchaseSubscription(String subscriptionPlanId) async {
-    try {
-      await _clubRepositoryImpl.purchaseSubscription(subscriptionPlanId);
-    } catch (e) {
-      rethrow;
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(
+      () => _clubRepositoryImpl.purchaseSubscription(subscriptionPlanId),
+    );
+    if (state.hasError) {
+      throw state.error!;
     }
   }
 

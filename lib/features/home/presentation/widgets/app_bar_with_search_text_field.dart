@@ -9,9 +9,8 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/shared/widgets/custom_text_field.dart';
 import '../provider/home_search_provider.dart';
-import '../provider/home_ui_service.dart';
-import '../../../address_book/data/models/address_book_dto/address_data.dart';
 import '../../../address_book/presentation/provider/address_book_ui_service.dart';
+import '../../../club/presentation/provider/map_location_service.dart';
 
 class AppBarWithSearchTextField extends ConsumerStatefulWidget {
   const AppBarWithSearchTextField({super.key});
@@ -51,101 +50,55 @@ class _AppBarWithSearchTextFieldState
                   Consumer(
                     builder: (context, ref, child) {
                       final defaultAddr = ref.watch(defaultAddressProvider);
-                      final addressBookAsync = ref.watch(
-                        addressBookUiServiceProvider,
+                      final currentLocationAddr = ref.watch(
+                        currentLocationAddressProvider,
                       );
-                      final addresses = addressBookAsync.value?.data ?? [];
 
-                      final addressDisplay = defaultAddr != null
-                          ? '${defaultAddr.location?.city}, ${defaultAddr.location?.country}'
-                          : l10n.noAddressSelected;
+                      final addressDisplay = currentLocationAddr.when(
+                        data: (addr) =>
+                            addr ??
+                            (defaultAddr != null
+                                ? '${defaultAddr.location?.city}, ${defaultAddr.location?.country}'
+                                : l10n.noAddressDetected),
+                        loading: () => 'Detecting location...',
+                        error: (err, stack) => defaultAddr != null
+                            ? '${defaultAddr.location?.city}, ${defaultAddr.location?.country}'
+                            : l10n.noAddressDetected,
+                      );
 
-                      return PopupMenuButton<dynamic>(
-                        padding: EdgeInsets.zero,
-                        onSelected: (value) async {
-                          if (value is AddressData) {
-                            await ref
-                                .read(addressBookUiServiceProvider.notifier)
-                                .setDefaultAddress(value.id!);
-                            ref.invalidate(homeUiServiceProvider);
-                          } else if (value == 'manage') {
-                            context.router.push(const AddressBookRoute());
-                          }
-                        },
-                        itemBuilder: (context) => [
-                          ...addresses.map(
-                            (address) => PopupMenuItem<AddressData>(
-                              value: address,
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    address.isDefault == true
-                                        ? Icons.check_circle
-                                        : Icons.circle_outlined,
-                                    size: 18,
-                                    color: theme.primary,
-                                  ),
-                                  gapW8,
-                                  Expanded(
-                                    child: Text(
-                                      address.label ?? '',
-                                      style: theme.bodyMedium,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const PopupMenuDivider(),
-                          PopupMenuItem<String>(
-                            value: 'manage',
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.settings_outlined,
-                                  size: 18,
-                                  color: theme.primary,
-                                ),
-                                gapW8,
-                                Text(l10n.addressBook, style: theme.bodyMedium),
-                              ],
+                      return Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SvgPicture.asset(AssetsHelper.place2Icon),
+                          gapW4,
+                          Text(
+                            addressDisplay,
+                            style: theme.bodyMedium.copyWith(
+                              color: theme.primary,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SvgPicture.asset(AssetsHelper.place2Icon),
-                            gapW4,
-                            Text(
-                              addressDisplay,
-                              style: theme.bodyMedium.copyWith(
-                                color: theme.primary,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Icon(
-                              Icons.keyboard_arrow_down,
-                              size: 18,
-                              color: theme.primary,
-                            ),
-                          ],
-                        ),
                       );
                     },
                   ),
                 ],
               ),
               const Spacer(),
-              CircleAvatar(
-                radius: 16,
-                backgroundColor: theme.primary,
-                child: SvgPicture.asset(
-                  AssetsHelper.notification1Icon,
-                  width: 20,
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     context.router.push(const NotificationRoute());
+              //   },
+              //   child: CircleAvatar(
+              //     radius: 16,
+              //     backgroundColor: theme.primary,
+              //     child: SvgPicture.asset(
+              //       AssetsHelper.notification1Icon,
+              //       width: 20,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
           gapH16,

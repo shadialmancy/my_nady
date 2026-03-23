@@ -8,6 +8,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../authentication/presentation/provider/auth_ui_service.dart';
 import '../../../settings/presentation/widgets/widgets.dart';
 import '../provider/payment_method_ui_service.dart';
 import '../widget/widgets.dart';
@@ -32,6 +33,7 @@ class _TransactionHistoryUiState extends ConsumerState<TransactionHistoryUi> {
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
+    final authRef = ref.watch(authUiServiceProvider);
     return RefreshIndicator(
       onRefresh: () => ref
           .read(paymentMethodUiServiceProvider.notifier)
@@ -61,10 +63,9 @@ class _TransactionHistoryUiState extends ConsumerState<TransactionHistoryUi> {
                               ),
                               gapW8,
                               Text(
-                                "William Wright",
-                                style: theme.titleMedium.copyWith(
+                                authRef.value?.name ?? "",
+                                style: theme.headlineSmall.copyWith(
                                   color: theme.white,
-                                  fontWeight: .w700,
                                 ),
                               ),
                             ],

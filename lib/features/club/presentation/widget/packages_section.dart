@@ -87,127 +87,152 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
-    return ValueListenableBuilder(
-      valueListenable: packagesListNotifier,
-      builder: (context, value, child) => Column(
-        children: [
-          if (value.isEmpty)
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text("No packages available", style: theme.bodyMedium),
-            ),
-          ...value.map(
-            (element) => GestureDetector(
-              onTap: widget.showSubscribeButton
-                  ? () {
-                      final newList = value.map((item) {
-                        return {
-                          ...item,
-                          "isSelected": item["id"] == element["id"],
-                        };
-                      }).toList();
-                      packagesListNotifier.value = newList;
-                      _currentSelectedPlanId = element["id"] as String?;
+    final isLoading = ref.watch(clubRepositoryProvider).isLoading;
+    return Stack(
+      children: [
+        ValueListenableBuilder(
+          valueListenable: packagesListNotifier,
+          builder: (context, value, child) => Column(
+            children: [
+              if (value.isEmpty)
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text("No packages available", style: theme.bodyMedium),
+                ),
+              ...value.map(
+                (element) => GestureDetector(
+                  onTap: (widget.showSubscribeButton && !isLoading)
+                      ? () {
+                          final newList = value.map((item) {
+                            return {
+                              ...item,
+                              "isSelected": item["id"] == element["id"],
+                            };
+                          }).toList();
+                          packagesListNotifier.value = newList;
+                          _currentSelectedPlanId = element["id"] as String?;
 
-                      if (widget.onPlanSelected != null &&
-                          element["id"] != null) {
-                        widget.onPlanSelected!(element["id"] as String);
-                      }
-                    }
-                  : null,
-              child: Container(
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 12,
-                ),
-                decoration: BoxDecoration(
-                  boxShadow: !element["isSelected"]
-                      ? [
-                          BoxShadow(
-                            color: theme.fullBlack.withValues(alpha: 0.35),
-                            offset: const Offset(0, 2),
-                            blurRadius: 4,
-                          ),
-                        ]
+                          if (widget.onPlanSelected != null &&
+                              element["id"] != null) {
+                            widget.onPlanSelected!(element["id"] as String);
+                          }
+                        }
                       : null,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: element["isSelected"]
-                        ? theme.secondary
-                        : theme.primary,
-                    width: 1,
-                  ),
-                  color: element["isSelected"]
-                      ? theme.secondary.withValues(alpha: 0.2)
-                      : theme.white,
-                ),
-                child: Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Container(
+                    width: double.infinity,
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 12,
+                    ),
+                    decoration: BoxDecoration(
+                      boxShadow: !element["isSelected"]
+                          ? [
+                              BoxShadow(
+                                color: theme.fullBlack.withValues(alpha: 0.35),
+                                offset: const Offset(0, 2),
+                                blurRadius: 4,
+                              ),
+                            ]
+                          : null,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: element["isSelected"]
+                            ? theme.secondary
+                            : theme.primary,
+                        width: 1,
+                      ),
+                      color: element["isSelected"]
+                          ? theme.secondary.withValues(alpha: 0.2)
+                          : theme.white,
+                    ),
+                    child: Row(
                       children: [
-                        Text(
-                          element["title"] ?? "",
-                          style: theme.titleMedium.copyWith(
-                            color: theme.primaryText,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              element["title"] ?? "",
+                              style: theme.titleMedium.copyWith(
+                                color: theme.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              ),
+                            ),
+                            Text(
+                              element["price"] ?? "",
+                              style: theme.titleMedium.copyWith(
+                                color: theme.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          element["price"] ?? "",
-                          style: theme.titleMedium.copyWith(
-                            color: theme.primaryText,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
+                        const Spacer(),
+                        SvgPicture.asset(
+                          element["isSelected"]
+                              ? AssetsHelper.checkIcon
+                              : AssetsHelper.uncheckIcon,
+                          width: 22,
                         ),
                       ],
                     ),
-                    const Spacer(),
-                    SvgPicture.asset(
-                      element["isSelected"]
-                          ? AssetsHelper.checkIcon
-                          : AssetsHelper.uncheckIcon,
-                      width: 22,
-                    ),
-                  ],
+                  ),
                 ),
+              ),
+              if (widget.showSubscribeButton) ...[
+                gapH12,
+                CustomButton(
+                  title: isLoading ? null : l10n.subscribeNow,
+                  width: double.infinity,
+                  isDisabled: isLoading,
+                  icon: isLoading
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : null,
+                  titleStyle: theme.titleMedium.copyWith(
+                    color: theme.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  onPressed: () async {
+                    if (_currentSelectedPlanId != null) {
+                      try {
+                        await ref
+                            .read(clubRepositoryProvider.notifier)
+                            .purchaseSubscription(_currentSelectedPlanId!);
+                        if (context.mounted) {
+                          PaymentSuccessDialog.showPaymentDialog(context);
+                        }
+                      } catch (e) {
+                        AppToast.errorToast(e.toString());
+                      }
+                    } else {
+                      AppToast.errorToast("Please select a plan");
+                    }
+                  },
+                ),
+              ],
+            ],
+          ),
+        ),
+        if (isLoading)
+          Positioned.fill(
+            child: AbsorbPointer(
+              child: Container(
+                color: Colors.transparent,
               ),
             ),
           ),
-          if (widget.showSubscribeButton) ...[
-            gapH12,
-            CustomButton(
-              title: l10n.subscribeNow,
-              width: double.infinity,
-              titleStyle: theme.titleMedium.copyWith(
-                color: theme.white,
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-              ),
-              onPressed: () async {
-                if (_currentSelectedPlanId != null) {
-                  try {
-                    await ref
-                        .read(clubRepositoryProvider.notifier)
-                        .purchaseSubscription(_currentSelectedPlanId!);
-                    if (context.mounted) {
-                      PaymentSuccessDialog.showPaymentDialog(context);
-                    }
-                  } catch (e) {
-                    AppToast.errorToast(e.toString());
-                  }
-                } else {
-                  AppToast.errorToast("Please select a plan");
-                }
-              },
-            ),
-          ],
-        ],
-      ),
+      ],
     );
   }
 }

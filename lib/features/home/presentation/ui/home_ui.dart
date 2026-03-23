@@ -11,6 +11,10 @@ import '../provider/home_ui_service.dart';
 
 import '../provider/home_search_provider.dart';
 
+import 'package:my_nady_project/core/shared/widgets/app_toast.dart';
+import 'package:my_nady_project/core/shared/widgets/location_permission_dialog.dart';
+import 'package:my_nady_project/features/club/presentation/provider/map_location_service.dart';
+
 class HomeUi extends ConsumerStatefulWidget {
   const HomeUi({super.key});
 
@@ -22,7 +26,19 @@ class _HomeUiState extends ConsumerState<HomeUi> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {});
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final locationService = ref.read(mapLocationServiceProvider.notifier);
+      final serviceEnabled = await locationService.isLocationServiceEnabled();
+      if (!serviceEnabled && mounted) {
+        AppToast.infoToast('Please enable location services');
+        await locationService.openLocationSettings();
+      } else {
+        final hasPermission = await locationService.hasLocationPermission();
+        if (!hasPermission && mounted) {
+          showLocationPerimssionDialog(context, ref);
+        }
+      }
+    });
   }
 
   @override

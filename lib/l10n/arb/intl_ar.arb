@@ -200,5 +200,5 @@
     "addAddress": "إضافة عنوان",
     "updateAddress": "تحديث العنوان",
     "setAsDefault": "تعيين كافتراضي",
-    "noAddressSelected": "لم يتم اختيار عنوان"
+    "noAddressDetected": "لم يتم اكتشاف عنوان"
 }

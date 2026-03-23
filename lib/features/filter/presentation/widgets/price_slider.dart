@@ -24,8 +24,8 @@ class _PriceSliderState extends State<PriceSlider> {
           activeColor: theme.primary,
           inactiveColor: theme.borderGrey,
           labels: RangeLabels(
-            '\$${widget.priceRange.start.round()}',
-            '\$${widget.priceRange.end.round()}',
+            '${widget.priceRange.start.round()} KWD',
+            '${widget.priceRange.end.round()} KWD',
           ),
           onChanged: (RangeValues values) {
             widget.onSelected?.call(values);
@@ -37,14 +37,14 @@ class _PriceSliderState extends State<PriceSlider> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '\$${widget.priceRange.start.round()}',
+                '${widget.priceRange.start.round()} KWD',
                 style: theme.bodySmall.copyWith(
                   fontWeight: FontWeight.w600,
                   color: theme.primary,
                 ),
               ),
               Text(
-                '\$${widget.priceRange.end.round()}',
+                '${widget.priceRange.end.round()} KWD',
                 style: theme.bodySmall.copyWith(
                   fontWeight: FontWeight.w600,
                   color: theme.primary,

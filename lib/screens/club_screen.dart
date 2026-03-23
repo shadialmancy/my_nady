@@ -30,10 +30,12 @@ class _ClubScreenState extends State<ClubScreen> {
     return Scaffold(
       backgroundColor: theme.primaryBackground,
       body: CustomAdaptiveScreen.builder(
-        mobile: ClubUi(
-          id: widget.id,
-          distance: widget.distance,
-          showSubscriptionAction: widget.showSubscriptionAction,
+        mobile: SafeArea(
+          child: ClubUi(
+            id: widget.id,
+            distance: widget.distance,
+            showSubscriptionAction: widget.showSubscriptionAction,
+          ),
         ),
         tablet: ClubUi(
           id: widget.id,
