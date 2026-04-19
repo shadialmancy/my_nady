@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ReviewEntity {
 
- List<ReviewData>? get data; ReviewMeta? get meta;
+ List<Review>? get data; Meta? get meta;
 /// Create a copy of ReviewEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,11 +48,11 @@ abstract mixin class $ReviewEntityCopyWith<$Res>  {
   factory $ReviewEntityCopyWith(ReviewEntity value, $Res Function(ReviewEntity) _then) = _$ReviewEntityCopyWithImpl;
 @useResult
 $Res call({
- List<ReviewData>? data, ReviewMeta? meta
+ List<Review>? data, Meta? meta
 });
 
 
-$ReviewMetaCopyWith<$Res>? get meta;
+$MetaCopyWith<$Res>? get meta;
 
 }
 /// @nodoc
@@ -68,20 +68,20 @@ class _$ReviewEntityCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? data = freezed,Object? meta = freezed,}) {
   return _then(_self.copyWith(
 data: freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
-as List<ReviewData>?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as ReviewMeta?,
+as List<Review>?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
+as Meta?,
   ));
 }
 /// Create a copy of ReviewEntity
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$ReviewMetaCopyWith<$Res>? get meta {
+$MetaCopyWith<$Res>? get meta {
     if (_self.meta == null) {
     return null;
   }
 
-  return $ReviewMetaCopyWith<$Res>(_self.meta!, (value) {
+  return $MetaCopyWith<$Res>(_self.meta!, (value) {
     return _then(_self.copyWith(meta: value));
   });
 }
@@ -166,7 +166,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<ReviewData>? data,  ReviewMeta? meta)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<Review>? data,  Meta? meta)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ReviewEntity() when $default != null:
 return $default(_that.data,_that.meta);case _:
@@ -187,7 +187,7 @@ return $default(_that.data,_that.meta);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<ReviewData>? data,  ReviewMeta? meta)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<Review>? data,  Meta? meta)  $default,) {final _that = this;
 switch (_that) {
 case _ReviewEntity():
 return $default(_that.data,_that.meta);case _:
@@ -207,7 +207,7 @@ return $default(_that.data,_that.meta);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<ReviewData>? data,  ReviewMeta? meta)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<Review>? data,  Meta? meta)?  $default,) {final _that = this;
 switch (_that) {
 case _ReviewEntity() when $default != null:
 return $default(_that.data,_that.meta);case _:
@@ -222,11 +222,11 @@ return $default(_that.data,_that.meta);case _:
 @JsonSerializable()
 
 class _ReviewEntity implements ReviewEntity {
-   _ReviewEntity({final  List<ReviewData>? data, this.meta}): _data = data;
+   _ReviewEntity({final  List<Review>? data, this.meta}): _data = data;
   factory _ReviewEntity.fromJson(Map<String, dynamic> json) => _$ReviewEntityFromJson(json);
 
- final  List<ReviewData>? _data;
-@override List<ReviewData>? get data {
+ final  List<Review>? _data;
+@override List<Review>? get data {
   final value = _data;
   if (value == null) return null;
   if (_data is EqualUnmodifiableListView) return _data;
@@ -234,7 +234,7 @@ class _ReviewEntity implements ReviewEntity {
   return EqualUnmodifiableListView(value);
 }
 
-@override final  ReviewMeta? meta;
+@override final  Meta? meta;
 
 /// Create a copy of ReviewEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -269,11 +269,11 @@ abstract mixin class _$ReviewEntityCopyWith<$Res> implements $ReviewEntityCopyWi
   factory _$ReviewEntityCopyWith(_ReviewEntity value, $Res Function(_ReviewEntity) _then) = __$ReviewEntityCopyWithImpl;
 @override @useResult
 $Res call({
- List<ReviewData>? data, ReviewMeta? meta
+ List<Review>? data, Meta? meta
 });
 
 
-@override $ReviewMetaCopyWith<$Res>? get meta;
+@override $MetaCopyWith<$Res>? get meta;
 
 }
 /// @nodoc
@@ -289,8 +289,8 @@ class __$ReviewEntityCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? data = freezed,Object? meta = freezed,}) {
   return _then(_ReviewEntity(
 data: freezed == data ? _self._data : data // ignore: cast_nullable_to_non_nullable
-as List<ReviewData>?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as ReviewMeta?,
+as List<Review>?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
+as Meta?,
   ));
 }
 
@@ -298,12 +298,12 @@ as ReviewMeta?,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$ReviewMetaCopyWith<$Res>? get meta {
+$MetaCopyWith<$Res>? get meta {
     if (_self.meta == null) {
     return null;
   }
 
-  return $ReviewMetaCopyWith<$Res>(_self.meta!, (value) {
+  return $MetaCopyWith<$Res>(_self.meta!, (value) {
     return _then(_self.copyWith(meta: value));
   });
 }

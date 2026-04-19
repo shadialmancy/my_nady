@@ -496,6 +496,12 @@ abstract class AppLocalizations {
   /// **'Send'**
   String get send;
 
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPassword;
+
   /// No description provided for @changePassword.
   ///
   /// In en, this message translates to:
@@ -1305,6 +1311,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Address Detected'**
   String get noAddressDetected;
+
+  /// No description provided for @nameOnlyCharacters.
+  ///
+  /// In en, this message translates to:
+  /// **'Name should contain characters only'**
+  String get nameOnlyCharacters;
+
+  /// No description provided for @ageRestriction.
+  ///
+  /// In en, this message translates to:
+  /// **'You must be at least 18 years old'**
+  String get ageRestriction;
+
+  /// No description provided for @passwordRequirement.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters and include at least one uppercase letter, one number, and one special character'**
+  String get passwordRequirement;
+
+  /// No description provided for @phoneNumberPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'xxxx xxxx'**
+  String get phoneNumberPlaceholder;
+
+  /// No description provided for @addressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Address Label'**
+  String get addressLabel;
+
+  /// No description provided for @setAsDefaultAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Set as Default Address'**
+  String get setAsDefaultAddress;
+
+  /// No description provided for @smartSuggestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart Suggestions'**
+  String get smartSuggestions;
+
+  /// No description provided for @noBranchesInRadiusShowingNearest.
+  ///
+  /// In en, this message translates to:
+  /// **'No branches found in your area. Showing nearest ones instead.'**
+  String get noBranchesInRadiusShowingNearest;
 }
 
 class _AppLocalizationsDelegate

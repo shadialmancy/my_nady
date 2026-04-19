@@ -6,9 +6,11 @@ import 'package:my_nady_project/core/helpers/assets_helper.dart';
 import 'package:my_nady_project/core/shared/widgets/widgets.dart';
 import 'package:my_nady_project/features/authentication/presentation/provider/auth_ui_service.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import '../../../../core/router/app_router.dart';
 
 class ChangePasswordUi extends ConsumerStatefulWidget {
-  const ChangePasswordUi({super.key});
+  final String? resetToken;
+  const ChangePasswordUi({super.key, this.resetToken});
 
   @override
   ConsumerState<ChangePasswordUi> createState() => _ChangePasswordUiState();
@@ -32,6 +34,7 @@ class _ChangePasswordUiState extends ConsumerState<ChangePasswordUi> {
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
     final authState = ref.watch(authUiServiceProvider);
+    final isResetPassword = widget.resetToken != null;
 
     return Center(
       child: SingleChildScrollView(
@@ -47,7 +50,7 @@ class _ChangePasswordUiState extends ConsumerState<ChangePasswordUi> {
               ),
               gapH32,
               Text(
-                l10n.changePassword,
+                isResetPassword ? l10n.resetPassword : l10n.changePassword,
                 style: theme.headlineLarge.copyWith(
                   color: theme.primary,
                   fontSize: 26,
@@ -64,20 +67,22 @@ class _ChangePasswordUiState extends ConsumerState<ChangePasswordUi> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              gapH20,
-              CustomTextField(
-                label: l10n.currentPassword,
-                hint: "******",
-                keyboardType: TextInputType.visiblePassword,
-                isPasswordField: true,
-                controller: _currentPasswordController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return l10n.fieldRequired;
-                  }
-                  return null;
-                },
-              ),
+              if (!isResetPassword) ...[
+                gapH20,
+                CustomTextField(
+                  label: l10n.currentPassword,
+                  hint: "******",
+                  keyboardType: TextInputType.visiblePassword,
+                  isPasswordField: true,
+                  controller: _currentPasswordController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return l10n.fieldRequired;
+                    }
+                    return null;
+                  },
+                ),
+              ],
               gapH20,
               CustomTextField(
                 label: l10n.newPassword,
@@ -124,14 +129,26 @@ class _ChangePasswordUiState extends ConsumerState<ChangePasswordUi> {
                   backgroundColor: theme.primary,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      await ref
-                          .read(authUiServiceProvider.notifier)
-                          .changePassword(
-                            currentPassword: _currentPasswordController.text,
-                            newPassword: _newPasswordController.text,
-                          );
-                      if (context.mounted) {
-                        context.router.maybePop();
+                      if (isResetPassword) {
+                        await ref
+                            .read(authUiServiceProvider.notifier)
+                            .resetPassword(
+                              token: widget.resetToken,
+                              password: _newPasswordController.text,
+                            );
+                        if (context.mounted) {
+                          context.router.replaceAll([const LoginRoute()]);
+                        }
+                      } else {
+                        await ref
+                            .read(authUiServiceProvider.notifier)
+                            .changePassword(
+                              currentPassword: _currentPasswordController.text,
+                              newPassword: _newPasswordController.text,
+                            );
+                        if (context.mounted) {
+                          context.router.maybePop();
+                        }
                       }
                     }
                   },

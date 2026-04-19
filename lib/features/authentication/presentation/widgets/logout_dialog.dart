@@ -6,7 +6,6 @@ import 'package:my_nady_project/core/helpers/assets_helper.dart';
 import 'package:my_nady_project/core/router/app_router.dart';
 
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/helpers/session_manager.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 import '../provider/auth_ui_service.dart';
 
@@ -54,12 +53,9 @@ Future<void> showLogoutDialog(BuildContext context, WidgetRef ref) {
                   child: CustomButton(
                     title: l10n.logout,
                     onPressed: () async {
-                      // await ref
-                      //     .read(authUiServiceProvider.notifier)
-                      //     .logoutUser();
-                      await sessionManager.setBoardingVisitState(status: false);
-                      await sessionManager.setAuthToken(token: null);
-                      await sessionManager.setRefreshToken(token: null);
+                      await ref
+                          .read(authUiServiceProvider.notifier)
+                          .logoutUser();
                       context.mounted
                           ? context.router.replaceAll([const LoginRoute()])
                           : null;

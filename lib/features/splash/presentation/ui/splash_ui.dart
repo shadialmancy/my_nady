@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _SplashUiState extends State<SplashUi> {
       bool boardingVisit = await sessionManager.getBoardingVisitState();
 
       if (mounted) {
+        log(boardingVisit.toString());
         if (boardingVisit) {
           context.router.replaceAll([const DashboardLayoutRoute()]);
         } else {

@@ -135,7 +135,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 onPressed: () => setState(() => _showPassword = !_showPassword),
               )
             : widget.suffix,
-        errorMaxLines: 1,
+        errorMaxLines: 3,
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: theme.error, style: BorderStyle.solid),
         ),

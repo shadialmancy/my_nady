@@ -171,7 +171,7 @@ class SettingsUi extends ConsumerWidget {
                     ListTile(
                       contentPadding: .zero,
                       onTap: () {
-                        context.router.push(const ChangePasswordRoute());
+                        context.router.push(ChangePasswordRoute());
                       },
                       leading: Text(
                         l10n.changePassword,

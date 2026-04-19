@@ -51,7 +51,7 @@ class CustomPhoneNumberTextField extends StatelessWidget {
                     ),
                 hintStyle:
                     hintStyle ?? theme.bodySmall.copyWith(color: theme.grey99),
-                hintText: '1234567890',
+                hintText: hint ?? '1234567890',
                 prefixStyle: theme.bodyMedium.copyWith(
                   color: theme.primary,
                   fontWeight: .normal,

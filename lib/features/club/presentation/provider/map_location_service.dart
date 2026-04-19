@@ -39,19 +39,23 @@ class MapLocationService extends _$MapLocationService {
   @override
   Future<void> build() async {
     position = await getCurrentLocation();
-    log('MapLocationService build finished with: $position');
+    // log('MapLocationService build finished with: $position');
     currentPosition = LatLng(position?.latitude ?? 0, position?.longitude ?? 0);
   }
 
   Position? position;
   LatLng currentPosition = const LatLng(0, 0);
 
+  void updateCurrentPosition(LatLng newPos) {
+    currentPosition = newPos;
+  }
+
   /// Get the current location of the user
   Future<Position?> getCurrentLocation() async {
     try {
       // Check if location services are enabled
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      log('Location services enabled: $serviceEnabled');
+      // log('Location services enabled: $serviceEnabled');
       if (!serviceEnabled) {
         // Location services are not enabled, return null
         return null;
@@ -59,10 +63,10 @@ class MapLocationService extends _$MapLocationService {
 
       // Check location permissions
       LocationPermission permission = await Geolocator.checkPermission();
-      log('Initial Permission status: $permission');
+      // log('Initial Permission status: $permission');
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
-        log('Permission status after request: $permission');
+        // log('Permission status after request: $permission');
         if (permission == LocationPermission.denied) {
           // Permissions are denied, return null
           return null;

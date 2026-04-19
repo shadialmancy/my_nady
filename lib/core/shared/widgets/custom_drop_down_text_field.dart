@@ -96,7 +96,7 @@ class CustomDropDownTextField extends StatelessWidget {
             ),
       ),
       onChanged: onChanged,
-      value: value,
+      initialValue: value,
       hint: Text(hint),
     );
   }

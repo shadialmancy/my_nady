@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_nady_project/core/shared/widgets/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -34,11 +35,13 @@ class _RegisterUiState extends ConsumerState<RegisterUi> {
   DateTime? birthDate;
 
   Future<void> showBirthdayDialog(BuildContext context) async {
+    final now = DateTime.now();
+    final lastSelectableDate = DateTime(now.year - 18, now.month, now.day);
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: birthDate ?? lastSelectableDate,
       firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      lastDate: lastSelectableDate,
     );
     if (picked != null && picked != birthDate) {
       setState(() {
@@ -83,9 +86,19 @@ class _RegisterUiState extends ConsumerState<RegisterUi> {
                   label: l10n.name,
                   hint: l10n.enterYourName,
                   controller: nameController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(
+                      RegExp(r'[a-zA-Z\s\u0600-\u06FF]'),
+                    ),
+                  ],
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return l10n.fieldRequired;
+                    }
+                    if (!RegExp(
+                      r'^[a-zA-Z\s\u0600-\u06FF]+$',
+                    ).hasMatch(value)) {
+                      return l10n.nameOnlyCharacters;
                     }
                     return null;
                   },
@@ -140,6 +153,16 @@ class _RegisterUiState extends ConsumerState<RegisterUi> {
                         if (birthDate == null) {
                           return l10n.fieldRequired;
                         }
+                        final now = DateTime.now();
+                        var age = now.year - birthDate!.year;
+                        if (now.month < birthDate!.month ||
+                            (now.month == birthDate!.month &&
+                                now.day < birthDate!.day)) {
+                          age--;
+                        }
+                        if (age < 18) {
+                          return l10n.ageRestriction;
+                        }
                         return null;
                       },
                       readOnly: true,
@@ -153,7 +176,7 @@ class _RegisterUiState extends ConsumerState<RegisterUi> {
                 gapH24,
                 CustomPhoneNumberTextField(
                   label: l10n.phone,
-                  hint: "1087654321",
+                  hint: l10n.phoneNumberPlaceholder,
                   controller: phoneController,
                   validator: (value) {
                     if (value == null || value.number.isEmpty) {
@@ -172,8 +195,11 @@ class _RegisterUiState extends ConsumerState<RegisterUi> {
                     if (value == null || value.isEmpty) {
                       return l10n.fieldRequired;
                     }
-                    if (value.length < 6) {
-                      return l10n.passwordAtLeast6;
+                    final passwordRegex = RegExp(
+                      r'^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$&*~]).{8,}$',
+                    );
+                    if (!passwordRegex.hasMatch(value)) {
+                      return l10n.passwordRequirement;
                     }
                     return null;
                   },
@@ -224,7 +250,7 @@ class _RegisterUiState extends ConsumerState<RegisterUi> {
                             status: true,
                           );
                           if (context.mounted) {
-                            context.router.pop(const LoginRoute());
+                            context.router.replaceAll([const LoginRoute()]);
                           }
                         }
                       }

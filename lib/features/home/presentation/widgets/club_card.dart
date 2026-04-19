@@ -159,7 +159,7 @@ class ClubCard extends StatelessWidget {
                   Icon(Icons.star, size: 14, color: theme.yellowEA),
                   gapW4,
                   Text(
-                    "4.5", // Rating not in Datum currently?
+                    (club?.rating ?? 4.5).toStringAsFixed(1),
                     style: theme.labelMedium.copyWith(
                       fontWeight: .w400,
                       color: theme.grey87,

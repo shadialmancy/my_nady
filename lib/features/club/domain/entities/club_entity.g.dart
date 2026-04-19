@@ -13,7 +13,12 @@ _ClubEntity _$ClubEntityFromJson(Map<String, dynamic> json) => _ClubEntity(
   meta: json['meta'] == null
       ? null
       : Meta.fromJson(json['meta'] as Map<String, dynamic>),
+  isSuggestion: json['isSuggestion'] as bool?,
 );
 
 Map<String, dynamic> _$ClubEntityToJson(_ClubEntity instance) =>
-    <String, dynamic>{'clubs': instance.clubs, 'meta': instance.meta};
+    <String, dynamic>{
+      'clubs': instance.clubs,
+      'meta': instance.meta,
+      'isSuggestion': instance.isSuggestion,
+    };

@@ -503,5 +503,3 @@ class _FilterUiState extends ConsumerState<FilterUi> {
     );
   }
 }
-
-// Filter data model

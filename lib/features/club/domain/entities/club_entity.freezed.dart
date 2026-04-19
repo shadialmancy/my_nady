@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ClubEntity {
 
- List<Datum>? get clubs; Meta? get meta;
+ List<Datum>? get clubs; Meta? get meta; bool? get isSuggestion;
 /// Create a copy of ClubEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ClubEntityCopyWith<ClubEntity> get copyWith => _$ClubEntityCopyWithImpl<ClubEnt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClubEntity&&const DeepCollectionEquality().equals(other.clubs, clubs)&&(identical(other.meta, meta) || other.meta == meta));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClubEntity&&const DeepCollectionEquality().equals(other.clubs, clubs)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.isSuggestion, isSuggestion) || other.isSuggestion == isSuggestion));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(clubs),meta);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(clubs),meta,isSuggestion);
 
 @override
 String toString() {
-  return 'ClubEntity(clubs: $clubs, meta: $meta)';
+  return 'ClubEntity(clubs: $clubs, meta: $meta, isSuggestion: $isSuggestion)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ClubEntityCopyWith<$Res>  {
   factory $ClubEntityCopyWith(ClubEntity value, $Res Function(ClubEntity) _then) = _$ClubEntityCopyWithImpl;
 @useResult
 $Res call({
- List<Datum>? clubs, Meta? meta
+ List<Datum>? clubs, Meta? meta, bool? isSuggestion
 });
 
 
@@ -65,11 +65,12 @@ class _$ClubEntityCopyWithImpl<$Res>
 
 /// Create a copy of ClubEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? clubs = freezed,Object? meta = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? clubs = freezed,Object? meta = freezed,Object? isSuggestion = freezed,}) {
   return _then(_self.copyWith(
 clubs: freezed == clubs ? _self.clubs : clubs // ignore: cast_nullable_to_non_nullable
 as List<Datum>?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as Meta?,
+as Meta?,isSuggestion: freezed == isSuggestion ? _self.isSuggestion : isSuggestion // ignore: cast_nullable_to_non_nullable
+as bool?,
   ));
 }
 /// Create a copy of ClubEntity
@@ -166,10 +167,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<Datum>? clubs,  Meta? meta)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<Datum>? clubs,  Meta? meta,  bool? isSuggestion)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ClubEntity() when $default != null:
-return $default(_that.clubs,_that.meta);case _:
+return $default(_that.clubs,_that.meta,_that.isSuggestion);case _:
   return orElse();
 
 }
@@ -187,10 +188,10 @@ return $default(_that.clubs,_that.meta);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<Datum>? clubs,  Meta? meta)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<Datum>? clubs,  Meta? meta,  bool? isSuggestion)  $default,) {final _that = this;
 switch (_that) {
 case _ClubEntity():
-return $default(_that.clubs,_that.meta);case _:
+return $default(_that.clubs,_that.meta,_that.isSuggestion);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -207,10 +208,10 @@ return $default(_that.clubs,_that.meta);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<Datum>? clubs,  Meta? meta)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<Datum>? clubs,  Meta? meta,  bool? isSuggestion)?  $default,) {final _that = this;
 switch (_that) {
 case _ClubEntity() when $default != null:
-return $default(_that.clubs,_that.meta);case _:
+return $default(_that.clubs,_that.meta,_that.isSuggestion);case _:
   return null;
 
 }
@@ -222,7 +223,7 @@ return $default(_that.clubs,_that.meta);case _:
 @JsonSerializable()
 
 class _ClubEntity implements ClubEntity {
-   _ClubEntity({final  List<Datum>? clubs, this.meta}): _clubs = clubs;
+   _ClubEntity({final  List<Datum>? clubs, this.meta, this.isSuggestion}): _clubs = clubs;
   factory _ClubEntity.fromJson(Map<String, dynamic> json) => _$ClubEntityFromJson(json);
 
  final  List<Datum>? _clubs;
@@ -235,6 +236,7 @@ class _ClubEntity implements ClubEntity {
 }
 
 @override final  Meta? meta;
+@override final  bool? isSuggestion;
 
 /// Create a copy of ClubEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -249,16 +251,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClubEntity&&const DeepCollectionEquality().equals(other._clubs, _clubs)&&(identical(other.meta, meta) || other.meta == meta));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClubEntity&&const DeepCollectionEquality().equals(other._clubs, _clubs)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.isSuggestion, isSuggestion) || other.isSuggestion == isSuggestion));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_clubs),meta);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_clubs),meta,isSuggestion);
 
 @override
 String toString() {
-  return 'ClubEntity(clubs: $clubs, meta: $meta)';
+  return 'ClubEntity(clubs: $clubs, meta: $meta, isSuggestion: $isSuggestion)';
 }
 
 
@@ -269,7 +271,7 @@ abstract mixin class _$ClubEntityCopyWith<$Res> implements $ClubEntityCopyWith<$
   factory _$ClubEntityCopyWith(_ClubEntity value, $Res Function(_ClubEntity) _then) = __$ClubEntityCopyWithImpl;
 @override @useResult
 $Res call({
- List<Datum>? clubs, Meta? meta
+ List<Datum>? clubs, Meta? meta, bool? isSuggestion
 });
 
 
@@ -286,11 +288,12 @@ class __$ClubEntityCopyWithImpl<$Res>
 
 /// Create a copy of ClubEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? clubs = freezed,Object? meta = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? clubs = freezed,Object? meta = freezed,Object? isSuggestion = freezed,}) {
   return _then(_ClubEntity(
 clubs: freezed == clubs ? _self._clubs : clubs // ignore: cast_nullable_to_non_nullable
 as List<Datum>?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as Meta?,
+as Meta?,isSuggestion: freezed == isSuggestion ? _self.isSuggestion : isSuggestion // ignore: cast_nullable_to_non_nullable
+as bool?,
   ));
 }
 

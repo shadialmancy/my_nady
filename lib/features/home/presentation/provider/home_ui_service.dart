@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:my_nady_project/features/club/domain/entities/club_entity.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -48,21 +50,27 @@ class HomeUiService extends _$HomeUiService {
           : null;
 
       // Use default address coordinates if available
-      if (defaultAddr != null && defaultAddr.location?.coordinates != null) {
-        final coords = defaultAddr.location!.coordinates;
-        if (coords is List && coords.length >= 2) {
-          lng = coords[0] as num;
-          lat = coords[1] as num;
-        } else if (coords is Map &&
-            coords.containsKey('coordinates') &&
-            coords['coordinates'] is List &&
-            (coords['coordinates'] as List).length >= 2) {
-          lng = coords['coordinates'][0] as num;
-          lat = coords['coordinates'][1] as num;
+      if (defaultAddr != null) {
+        if (defaultAddr.latitude != null && defaultAddr.latitude != 0) {
+          lat = defaultAddr.latitude;
+          lng = defaultAddr.longitude;
+        } else if (defaultAddr.location?.coordinates != null) {
+          final coords = defaultAddr.location!.coordinates;
+          if (coords is List && coords.length >= 2) {
+            lng = coords[0] as num;
+            lat = coords[1] as num;
+          } else if (coords is Map &&
+              coords.containsKey('coordinates') &&
+              coords['coordinates'] is List &&
+              (coords['coordinates'] as List).length >= 2) {
+            lng = (coords['coordinates'] as List)[0] as num;
+            lat = (coords['coordinates'] as List)[1] as num;
+          }
         }
       }
-
-      final results = await repository.getBranches(
+      log("latitude: ${lat.toString()}");
+      log("longitude: ${lng.toString()}");
+      var results = await repository.getBranches(
         request:
             filterRequest?.copyWith(
               lat: lat,
@@ -75,15 +83,29 @@ class HomeUiService extends _$HomeUiService {
               page: 1,
               lat: lat,
               lng: lng,
-              radius: lat != null ? 100 : null,
+              radius: lat != null ? 50000 : null,
             ),
       );
 
-      final newState = results;
+      bool isSuggestion = false;
+      if ((results?.clubs?.isEmpty ?? true) && lat != null && lng != null) {
+        final nearest = await repository.getNearestBranches(
+          lat.toDouble(),
+          lng.toDouble(),
+        );
+        if (nearest?.clubs?.isNotEmpty ?? false) {
+          results = nearest;
+          isSuggestion = true;
+        }
+      }
+
+      final newState = results?.copyWith(isSuggestion: isSuggestion);
 
       state = AsyncValue.data(newState);
       return newState;
     } catch (e, st) {
+      log(e.toString());
+      log(st.toString());
       state = AsyncValue.error(e, st);
       rethrow;
     }

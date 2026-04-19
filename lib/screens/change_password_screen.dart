@@ -11,7 +11,8 @@ import '../core/constants/adaptive.dart';
 
 @RoutePage()
 class ChangePasswordScreen extends StatefulWidget {
-  const ChangePasswordScreen({super.key});
+  final String? resetToken;
+  const ChangePasswordScreen({super.key, this.resetToken});
 
   @override
   State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
@@ -41,9 +42,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ),
       ),
       body: CustomAdaptiveScreen.builder(
-        mobile: const ChangePasswordUi(),
-        tablet: const ChangePasswordUi(),
-        desktop: const ChangePasswordUi(),
+        mobile: ChangePasswordUi(resetToken: widget.resetToken),
+        tablet: ChangePasswordUi(resetToken: widget.resetToken),
+        desktop: ChangePasswordUi(resetToken: widget.resetToken),
       ),
     );
   }

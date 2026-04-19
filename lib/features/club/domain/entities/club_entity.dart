@@ -7,7 +7,8 @@ part 'club_entity.g.dart';
 
 @freezed
 class ClubEntity with _$ClubEntity {
-  factory ClubEntity({List<Datum>? clubs, Meta? meta}) = _ClubEntity;
+  factory ClubEntity({List<Datum>? clubs, Meta? meta, bool? isSuggestion}) =
+      _ClubEntity;
 
   factory ClubEntity.fromJson(Map<String, dynamic> json) =>
       _$ClubEntityFromJson(json);

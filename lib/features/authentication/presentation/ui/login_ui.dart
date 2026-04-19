@@ -191,27 +191,24 @@ class _LoginUiState extends ConsumerState<LoginUi> {
 
                             if (!hasPermission) {
                               // Show location permission dialog
+
                               context.mounted
                                   ? await showLocationPerimssionDialog(
                                       context,
                                       ref,
                                       onPermissionGranted: () {
-                                        // if (context.mounted) {
-                                        //   context.router.replaceAll([
-                                        //     const DashboardLayoutRoute(),
-                                        //   ]);
-                                        // }
+                                        if (context.mounted) {
+                                          context.router.maybePop();
+                                        }
                                       },
                                     )
                                   : null;
-                            } else {
-                              // Already has permission, navigate directly
-                              context.mounted
-                                  ? context.router.replaceAll([
-                                      const DashboardLayoutRoute(),
-                                    ])
-                                  : null;
                             }
+                            context.mounted
+                                ? context.router.replaceAll([
+                                    const DashboardLayoutRoute(),
+                                  ])
+                                : null;
                           }
                         }
                       },

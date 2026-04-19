@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 
-import 'package:my_nady_project/features/club/data/models/gym_detail_dto/subscription_plan.dart';
+import 'package:my_nady_project/features/club/data/models/club_dto/subscription_plan.dart';
 
 import '../../../../core/shared/widgets/app_toast.dart';
 import '../../../../core/shared/widgets/custom_bottom.dart';
@@ -33,15 +33,23 @@ class PackagesSection extends ConsumerStatefulWidget {
 class _PackagesSectionState extends ConsumerState<PackagesSection> {
   late ValueNotifier<List<Map<String, dynamic>>> packagesListNotifier;
   String? _currentSelectedPlanId;
+  bool hasActiveSubscription = false;
 
   @override
   void initState() {
     super.initState();
     final plans = widget.subscriptionPlans ?? [];
 
+    // Find if any plan has an active subscription
+    final activePlan = plans.where((plan) => plan.hasActiveSubscription == true).firstOrNull;
+    hasActiveSubscription = activePlan != null;
+
     // Determine the initial selected ID
-    final initialId =
-        widget.selectedId ?? (plans.isNotEmpty ? plans[0].id : null);
+    // Priority: 
+    // 1. The plan with an active subscription
+    // 2. The explicitly passed selectedId
+    // 3. The first available plan
+    final initialId = activePlan?.id ?? widget.selectedId ?? (plans.isNotEmpty ? plans[0].id : null);
     _currentSelectedPlanId = initialId;
 
     packagesListNotifier = ValueNotifier(
@@ -57,7 +65,7 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
           .toList(),
     );
 
-    // If we picked a default initial ID that wasn't passed in, notify the parent
+    // Notify parent if needed
     if (initialId != null &&
         widget.selectedId == null &&
         widget.onPlanSelected != null) {
@@ -72,12 +80,18 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
     super.didUpdateWidget(oldWidget);
     if (widget.selectedId != oldWidget.selectedId ||
         widget.showSubscribeButton != oldWidget.showSubscribeButton) {
-      _currentSelectedPlanId = widget.selectedId;
+      final plans = widget.subscriptionPlans ?? [];
+      final activePlan = plans.where((plan) => plan.hasActiveSubscription == true).firstOrNull;
+      hasActiveSubscription = activePlan != null;
+
+      final initialId = activePlan?.id ?? widget.selectedId;
+      _currentSelectedPlanId = initialId;
+
       final newList = packagesListNotifier.value.map((item) {
         return {
           ...item,
           "isSelected":
-              widget.showSubscribeButton && item["id"] == widget.selectedId,
+              widget.showSubscribeButton && item["id"] == initialId,
         };
       }).toList();
       packagesListNotifier.value = newList;
@@ -101,7 +115,7 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
                 ),
               ...value.map(
                 (element) => GestureDetector(
-                  onTap: (widget.showSubscribeButton && !isLoading)
+                  onTap: (widget.showSubscribeButton && !isLoading && !hasActiveSubscription)
                       ? () {
                           final newList = value.map((item) {
                             return {
@@ -120,8 +134,10 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
                       : null,
                   child: Container(
                     width: double.infinity,
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 5,
+                    ),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
                       vertical: 12,
@@ -185,9 +201,13 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
               if (widget.showSubscribeButton) ...[
                 gapH12,
                 CustomButton(
-                  title: isLoading ? null : l10n.subscribeNow,
+                  title: isLoading
+                      ? null
+                      : hasActiveSubscription
+                          ? "You have already subscribed"
+                          : l10n.subscribeNow,
                   width: double.infinity,
-                  isDisabled: isLoading,
+                  isDisabled: isLoading || hasActiveSubscription,
                   icon: isLoading
                       ? const SizedBox(
                           height: 20,
@@ -200,7 +220,7 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
                       : null,
                   titleStyle: theme.titleMedium.copyWith(
                     color: theme.white,
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   onPressed: () async {
@@ -226,11 +246,7 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
         ),
         if (isLoading)
           Positioned.fill(
-            child: AbsorbPointer(
-              child: Container(
-                color: Colors.transparent,
-              ),
-            ),
+            child: AbsorbPointer(child: Container(color: Colors.transparent)),
           ),
       ],
     );

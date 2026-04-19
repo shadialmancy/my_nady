@@ -61,6 +61,7 @@ dependencies:
   hive_ce_generator: any
   collection: ^1.19.1
   geocoding: ^4.0.0
+  flutter_launcher_icons: ^0.14.4
 dev_dependencies:
   riverpod_generator: ^4.0.0+1
   flutter_test:

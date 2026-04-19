@@ -11,9 +11,9 @@ import '../provider/home_ui_service.dart';
 
 import '../provider/home_search_provider.dart';
 
-import 'package:my_nady_project/core/shared/widgets/app_toast.dart';
-import 'package:my_nady_project/core/shared/widgets/location_permission_dialog.dart';
-import 'package:my_nady_project/features/club/presentation/provider/map_location_service.dart';
+// import 'package:my_nady_project/core/shared/widgets/app_toast.dart';
+// import 'package:my_nady_project/core/shared/widgets/location_permission_dialog.dart';
+// import 'package:my_nady_project/features/club/presentation/provider/map_location_service.dart';
 
 class HomeUi extends ConsumerStatefulWidget {
   const HomeUi({super.key});
@@ -27,17 +27,17 @@ class _HomeUiState extends ConsumerState<HomeUi> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final locationService = ref.read(mapLocationServiceProvider.notifier);
-      final serviceEnabled = await locationService.isLocationServiceEnabled();
-      if (!serviceEnabled && mounted) {
-        AppToast.infoToast('Please enable location services');
-        await locationService.openLocationSettings();
-      } else {
-        final hasPermission = await locationService.hasLocationPermission();
-        if (!hasPermission && mounted) {
-          showLocationPerimssionDialog(context, ref);
-        }
-      }
+      // final locationService = ref.read(mapLocationServiceProvider.notifier);
+      // final serviceEnabled = await locationService.isLocationServiceEnabled();
+      // if (!serviceEnabled && mounted) {
+      //   AppToast.infoToast('Please enable location services');
+      //   await locationService.openLocationSettings();
+      // } else {
+      //   final hasPermission = await locationService.hasLocationPermission();
+      //   if (!hasPermission && mounted) {
+      //     showLocationPerimssionDialog(context, ref);
+      //   }
+      // }
     });
   }
 
@@ -46,7 +46,6 @@ class _HomeUiState extends ConsumerState<HomeUi> {
     final (theme, l10n) = appSettingsRecord(context);
     final homeUiService = ref.watch(homeUiServiceProvider.notifier);
     final searchQuery = ref.watch(homeSearchQueryProvider).toLowerCase();
-
     return RefreshIndicator(
       backgroundColor: theme.white,
       color: theme.primary,
@@ -70,7 +69,7 @@ class _HomeUiState extends ConsumerState<HomeUi> {
                     .toList();
 
           final mixClubs = allClubs
-              .where((e) => e.genderType?.toLowerCase() == 'mix')
+              .where((e) => e.genderType?.toLowerCase() == 'mixed')
               .toList();
           final maleClubs = allClubs
               .where((e) => e.genderType?.toLowerCase() == 'male')
@@ -109,6 +108,51 @@ class _HomeUiState extends ConsumerState<HomeUi> {
                     ),
                   )
                 else ...[
+                  if (clubEntity?.isSuggestion ?? false)
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.sw),
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        margin: .only(top: 16),
+                        decoration: BoxDecoration(
+                          color: theme.primary.withValues(alpha: 0.05),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: theme.primary.withValues(alpha: 0.2),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.tips_and_updates_outlined,
+                              color: theme.primary,
+                              size: 24,
+                            ),
+                            gapW12,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    l10n.smartSuggestions,
+                                    style: theme.titleSmall.copyWith(
+                                      color: theme.primary,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    l10n.noBranchesInRadiusShowingNearest,
+                                    style: theme.bodySmall.copyWith(
+                                      color: theme.grey82,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   gapH16,
                   FeaturedCarousel(featuredClubs: featuredClubs),
                   gapH16,

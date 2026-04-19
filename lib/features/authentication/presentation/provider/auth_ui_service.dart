@@ -154,10 +154,39 @@ class AuthUiService extends _$AuthUiService {
     _userEntity = null;
   }
 
+  Future<void> resendVerification() async {
+    try {
+      state = const AsyncValue.loading();
+      await ref
+          .read(authenticationRepositoryProvider.notifier)
+          .resendVerification();
+      state = AsyncValue.data(_userEntity?.user);
+      AppToast.successToast('Verification email sent successfully');
+    } catch (e) {
+      state = AsyncValue.data(_userEntity?.user);
+      AppToast.errorToast(e.toString());
+    }
+  }
+
+  Future<void> forgotPassword(String email) async {
+    try {
+      state = const AsyncValue.loading();
+      await ref
+          .read(authenticationRepositoryProvider.notifier)
+          .forgotPassword(email);
+      state = const AsyncValue.data(null);
+      AppToast.successToast('Instructions sent to your email');
+    } catch (e) {
+      state = const AsyncValue.data(null);
+      AppToast.errorToast(e.toString());
+    }
+  }
+
   Future<void> logoutUser() async {
     try {
       state = const AsyncValue.loading();
       await ref.read(authenticationRepositoryProvider.notifier).logoutUser();
+      await clearSession();
     } catch (e) {
       AppToast.errorToast(e.toString());
     } finally {
@@ -171,6 +200,7 @@ class AuthUiService extends _$AuthUiService {
     await sessionManager.setRefreshToken(token: null);
     await sessionManager.setAccessTokenExpiresAt(expiresAt: null);
     await sessionManager.setRefreshTokenExpiresAt(expiresAt: null);
+    await sessionManager.setBoardingVisitState(status: false);
     if (Hive.isBoxOpen(_userInfoBox)) {
       var userBox = Hive.box(_userInfoBox);
       await userBox.clear();
@@ -197,6 +227,21 @@ class AuthUiService extends _$AuthUiService {
       AppToast.successToast('Password reset successfully');
     } catch (e) {
       state = const AsyncValue.data(null);
+      AppToast.errorToast(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> verifyEmail({required String token}) async {
+    try {
+      state = const AsyncValue.loading();
+      await ref
+          .read(authenticationRepositoryProvider.notifier)
+          .verifyEmail(token: token);
+      state = AsyncValue.data(_userEntity?.user);
+      AppToast.successToast('Email verified successfully');
+    } catch (e) {
+      state = AsyncValue.data(_userEntity?.user);
       AppToast.errorToast(e.toString());
       rethrow;
     }

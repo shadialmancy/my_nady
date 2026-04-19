@@ -218,6 +218,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get send => 'Send';
 
   @override
+  String get resetPassword => 'Reset Password';
+
+  @override
   String get changePassword => 'Change Password';
 
   @override
@@ -627,4 +630,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noAddressDetected => 'No Address Detected';
+
+  @override
+  String get nameOnlyCharacters => 'Name should contain characters only';
+
+  @override
+  String get ageRestriction => 'You must be at least 18 years old';
+
+  @override
+  String get passwordRequirement =>
+      'Password must be at least 8 characters and include at least one uppercase letter, one number, and one special character';
+
+  @override
+  String get phoneNumberPlaceholder => 'xxxx xxxx';
+
+  @override
+  String get addressLabel => 'Address Label';
+
+  @override
+  String get setAsDefaultAddress => 'Set as Default Address';
+
+  @override
+  String get smartSuggestions => 'Smart Suggestions';
+
+  @override
+  String get noBranchesInRadiusShowingNearest =>
+      'No branches found in your area. Showing nearest ones instead.';
 }

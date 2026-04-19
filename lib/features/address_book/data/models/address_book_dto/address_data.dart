@@ -12,6 +12,8 @@ class AddressData with _$AddressData {
     String? id,
     String? userId,
     String? label,
+    double? latitude,
+    double? longitude,
     bool? isDefault,
     DateTime? createdAt,
     DateTime? updatedAt,

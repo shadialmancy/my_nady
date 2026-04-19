@@ -25,6 +25,8 @@ class AddressBookRepository extends _$AddressBookRepository {
     required String country,
     required String city,
     required String address,
+    required double latitude,
+    required double longitude,
     bool isDefault = false,
   }) async {
     try {
@@ -33,6 +35,8 @@ class AddressBookRepository extends _$AddressBookRepository {
         country: country,
         city: city,
         address: address,
+        latitude: latitude,
+        longitude: longitude,
         isDefault: isDefault,
       );
     } catch (e) {

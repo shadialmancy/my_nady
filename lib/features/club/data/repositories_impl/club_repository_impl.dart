@@ -10,6 +10,7 @@ import 'package:my_nady_project/features/club/data/models/gym_detail_dto/gym_det
 
 abstract class BaseClubRepository {
   Future<ClubEntity> getBranches({ClubFilterRequest? request});
+  Future<ClubEntity> getNearestBranches(double lat, double lng);
   Future<ClubEntity> getMyFavorites();
   Future<GymDetailEntity> getGymDetails(String id);
   Future<void> purchaseSubscription(String subscriptionPlanId);
@@ -26,6 +27,17 @@ class ClubRepositoryImpl implements BaseClubRepository {
   Future<ClubEntity> getBranches({ClubFilterRequest? request}) async {
     try {
       return await dataSource.getBranches(request).then((value) {
+        return value.toEntity();
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ClubEntity> getNearestBranches(double lat, double lng) async {
+    try {
+      return await dataSource.getNearestBranches(lat, lng).then((value) {
         return value.toEntity();
       });
     } catch (e) {

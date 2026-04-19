@@ -9,6 +9,8 @@ abstract class BaseAddressBookRepository {
     required String label,
     required String country,
     required String city,
+    required double latitude,
+    required double longitude,
     required String address,
     bool isDefault = false,
   });
@@ -18,6 +20,8 @@ abstract class BaseAddressBookRepository {
     String? country,
     String? city,
     String? address,
+    double? latitude,
+    double? longitude,
     bool? isDefault,
   });
   Future<void> deleteAddress(String id);
@@ -43,6 +47,8 @@ class AddressBookRepositoryImpl implements BaseAddressBookRepository {
     required String country,
     required String city,
     required String address,
+    required double latitude,
+    required double longitude,
     bool isDefault = false,
   }) async {
     try {
@@ -52,6 +58,8 @@ class AddressBookRepositoryImpl implements BaseAddressBookRepository {
         city: city,
         address: address,
         isDefault: isDefault,
+        latitude: latitude,
+        longitude: longitude,
       );
     } catch (e) {
       rethrow;
@@ -65,6 +73,8 @@ class AddressBookRepositoryImpl implements BaseAddressBookRepository {
     String? country,
     String? city,
     String? address,
+    double? latitude,
+    double? longitude,
     bool? isDefault,
   }) async {
     try {

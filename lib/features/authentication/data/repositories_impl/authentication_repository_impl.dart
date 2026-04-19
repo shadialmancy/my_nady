@@ -15,7 +15,10 @@ abstract class BaseAuthenticationRepository {
     String? birthDate,
   });
   Future<void> logoutUser();
+  Future<void> resendVerification();
+  Future<void> forgotPassword(String email);
   Future<void> resetPassword({String? token, String? password});
+  Future<void> verifyEmail({required String token});
   Future<User> updateProfile({
     required String name,
     required String gender,
@@ -81,9 +84,36 @@ class AuthenticationRepositoryImpl implements BaseAuthenticationRepository {
   }
 
   @override
+  Future<void> resendVerification() async {
+    try {
+      await dataSource.resendVerification();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> forgotPassword(String email) async {
+    try {
+      await dataSource.forgotPassword(email);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<void> resetPassword({String? token, String? password}) async {
     try {
       await dataSource.resetPassword(token: token, password: password);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> verifyEmail({required String token}) async {
+    try {
+      await dataSource.verifyEmail(token: token);
     } catch (e) {
       rethrow;
     }

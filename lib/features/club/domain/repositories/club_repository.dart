@@ -34,6 +34,14 @@ class ClubRepository extends _$ClubRepository {
     }
   }
 
+  Future<ClubEntity?> getNearestBranches(double lat, double lng) async {
+    try {
+      return await _clubRepositoryImpl.getNearestBranches(lat, lng);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<GymDetailEntity> getGymDetails(String id) async {
     try {
       final gymDetail = await _clubRepositoryImpl.getGymDetails(id);

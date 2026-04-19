@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AddressData {
 
- Location? get location; String? get id; String? get userId; String? get label; bool? get isDefault; DateTime? get createdAt; DateTime? get updatedAt;
+ Location? get location; String? get id; String? get userId; String? get label; double? get latitude; double? get longitude; bool? get isDefault; DateTime? get createdAt; DateTime? get updatedAt;
 /// Create a copy of AddressData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AddressDataCopyWith<AddressData> get copyWith => _$AddressDataCopyWithImpl<Addr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddressData&&(identical(other.location, location) || other.location == location)&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.label, label) || other.label == label)&&(identical(other.isDefault, isDefault) || other.isDefault == isDefault)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddressData&&(identical(other.location, location) || other.location == location)&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.label, label) || other.label == label)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.isDefault, isDefault) || other.isDefault == isDefault)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,location,id,userId,label,isDefault,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,location,id,userId,label,latitude,longitude,isDefault,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'AddressData(location: $location, id: $id, userId: $userId, label: $label, isDefault: $isDefault, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'AddressData(location: $location, id: $id, userId: $userId, label: $label, latitude: $latitude, longitude: $longitude, isDefault: $isDefault, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $AddressDataCopyWith<$Res>  {
   factory $AddressDataCopyWith(AddressData value, $Res Function(AddressData) _then) = _$AddressDataCopyWithImpl;
 @useResult
 $Res call({
- Location? location, String? id, String? userId, String? label, bool? isDefault, DateTime? createdAt, DateTime? updatedAt
+ Location? location, String? id, String? userId, String? label, double? latitude, double? longitude, bool? isDefault, DateTime? createdAt, DateTime? updatedAt
 });
 
 
@@ -65,13 +65,15 @@ class _$AddressDataCopyWithImpl<$Res>
 
 /// Create a copy of AddressData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? location = freezed,Object? id = freezed,Object? userId = freezed,Object? label = freezed,Object? isDefault = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? location = freezed,Object? id = freezed,Object? userId = freezed,Object? label = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? isDefault = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_self.copyWith(
 location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as Location?,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String?,label: freezed == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
-as String?,isDefault: freezed == isDefault ? _self.isDefault : isDefault // ignore: cast_nullable_to_non_nullable
+as String?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
+as double?,isDefault: freezed == isDefault ? _self.isDefault : isDefault // ignore: cast_nullable_to_non_nullable
 as bool?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
@@ -171,10 +173,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Location? location,  String? id,  String? userId,  String? label,  bool? isDefault,  DateTime? createdAt,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Location? location,  String? id,  String? userId,  String? label,  double? latitude,  double? longitude,  bool? isDefault,  DateTime? createdAt,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AddressData() when $default != null:
-return $default(_that.location,_that.id,_that.userId,_that.label,_that.isDefault,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.location,_that.id,_that.userId,_that.label,_that.latitude,_that.longitude,_that.isDefault,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -192,10 +194,10 @@ return $default(_that.location,_that.id,_that.userId,_that.label,_that.isDefault
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Location? location,  String? id,  String? userId,  String? label,  bool? isDefault,  DateTime? createdAt,  DateTime? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Location? location,  String? id,  String? userId,  String? label,  double? latitude,  double? longitude,  bool? isDefault,  DateTime? createdAt,  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _AddressData():
-return $default(_that.location,_that.id,_that.userId,_that.label,_that.isDefault,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.location,_that.id,_that.userId,_that.label,_that.latitude,_that.longitude,_that.isDefault,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -212,10 +214,10 @@ return $default(_that.location,_that.id,_that.userId,_that.label,_that.isDefault
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Location? location,  String? id,  String? userId,  String? label,  bool? isDefault,  DateTime? createdAt,  DateTime? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Location? location,  String? id,  String? userId,  String? label,  double? latitude,  double? longitude,  bool? isDefault,  DateTime? createdAt,  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _AddressData() when $default != null:
-return $default(_that.location,_that.id,_that.userId,_that.label,_that.isDefault,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.location,_that.id,_that.userId,_that.label,_that.latitude,_that.longitude,_that.isDefault,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -227,13 +229,15 @@ return $default(_that.location,_that.id,_that.userId,_that.label,_that.isDefault
 @JsonSerializable()
 
 class _AddressData implements AddressData {
-   _AddressData({this.location, this.id, this.userId, this.label, this.isDefault, this.createdAt, this.updatedAt});
+   _AddressData({this.location, this.id, this.userId, this.label, this.latitude, this.longitude, this.isDefault, this.createdAt, this.updatedAt});
   factory _AddressData.fromJson(Map<String, dynamic> json) => _$AddressDataFromJson(json);
 
 @override final  Location? location;
 @override final  String? id;
 @override final  String? userId;
 @override final  String? label;
+@override final  double? latitude;
+@override final  double? longitude;
 @override final  bool? isDefault;
 @override final  DateTime? createdAt;
 @override final  DateTime? updatedAt;
@@ -251,16 +255,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddressData&&(identical(other.location, location) || other.location == location)&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.label, label) || other.label == label)&&(identical(other.isDefault, isDefault) || other.isDefault == isDefault)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddressData&&(identical(other.location, location) || other.location == location)&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.label, label) || other.label == label)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.isDefault, isDefault) || other.isDefault == isDefault)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,location,id,userId,label,isDefault,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,location,id,userId,label,latitude,longitude,isDefault,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'AddressData(location: $location, id: $id, userId: $userId, label: $label, isDefault: $isDefault, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'AddressData(location: $location, id: $id, userId: $userId, label: $label, latitude: $latitude, longitude: $longitude, isDefault: $isDefault, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -271,7 +275,7 @@ abstract mixin class _$AddressDataCopyWith<$Res> implements $AddressDataCopyWith
   factory _$AddressDataCopyWith(_AddressData value, $Res Function(_AddressData) _then) = __$AddressDataCopyWithImpl;
 @override @useResult
 $Res call({
- Location? location, String? id, String? userId, String? label, bool? isDefault, DateTime? createdAt, DateTime? updatedAt
+ Location? location, String? id, String? userId, String? label, double? latitude, double? longitude, bool? isDefault, DateTime? createdAt, DateTime? updatedAt
 });
 
 
@@ -288,13 +292,15 @@ class __$AddressDataCopyWithImpl<$Res>
 
 /// Create a copy of AddressData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? location = freezed,Object? id = freezed,Object? userId = freezed,Object? label = freezed,Object? isDefault = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? location = freezed,Object? id = freezed,Object? userId = freezed,Object? label = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? isDefault = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_AddressData(
 location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as Location?,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String?,label: freezed == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
-as String?,isDefault: freezed == isDefault ? _self.isDefault : isDefault // ignore: cast_nullable_to_non_nullable
+as String?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
+as double?,isDefault: freezed == isDefault ? _self.isDefault : isDefault // ignore: cast_nullable_to_non_nullable
 as bool?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,

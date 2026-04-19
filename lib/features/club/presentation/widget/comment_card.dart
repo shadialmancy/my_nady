@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_nady_project/features/club/data/models/review_dto/review_dto.dart';
+import 'package:intl/intl.dart';
+import '../../data/models/club_dto/reply.dart';
+import '../../data/models/club_dto/review.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
@@ -8,7 +10,7 @@ import '../../../../core/helpers/assets_helper.dart';
 class CommentCard extends StatefulWidget {
   const CommentCard({super.key, required this.review});
 
-  final ReviewData review;
+  final Review review;
 
   @override
   State<CommentCard> createState() => _CommentCardState();
@@ -123,32 +125,6 @@ class _CommentCardState extends State<CommentCard> {
                   ],
                 ),
                 gapH4,
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   children: [
-                //     GestureDetector(
-                //       onTap: () {
-                //         setState(() {
-                //           isFavorite = !isFavorite;
-                //         });
-                //       },
-                //       child: Icon(
-                //         isFavorite ? Icons.favorite : Icons.favorite_border,
-                //         color: isFavorite ? theme.redApple : theme.primaryText,
-                //         size: 12,
-                //       ),
-                //     ),
-                //     gapW4,
-                //     Text(
-                //       "0", // Mock favorite count as it's not in the JSON
-                //       style: theme.titleSmall.copyWith(
-                //         color: theme.primaryText,
-                //         fontWeight: FontWeight.normal,
-                //         fontSize: 10,
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 if (review.replies != null && review.replies!.isNotEmpty)
                   ...review.replies!.map((reply) => _buildReply(reply, theme)),
               ],
@@ -159,7 +135,7 @@ class _CommentCardState extends State<CommentCard> {
     );
   }
 
-  Widget _buildReply(ReviewReply reply, dynamic theme) {
+  Widget _buildReply(Reply reply, dynamic theme) {
     return Padding(
       padding: const EdgeInsets.only(top: 8, left: 16),
       child: Column(
@@ -210,12 +186,11 @@ class _CommentCardState extends State<CommentCard> {
     );
   }
 
-  String _formatDate(String dateStr) {
+  String _formatDate(DateTime date) {
     try {
-      final date = DateTime.parse(dateStr);
-      return "${date.hour}:${date.minute.toString().padLeft(2, '0')} ${date.hour >= 12 ? 'PM' : 'AM'}";
+      return DateFormat('hh:mm a').format(date);
     } catch (e) {
-      return dateStr;
+      return date.toString();
     }
   }
 }

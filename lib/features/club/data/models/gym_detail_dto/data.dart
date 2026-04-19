@@ -7,7 +7,7 @@ import 'offer.dart';
 import 'other_branch.dart';
 import 'provider.dart';
 import 'rating.dart';
-import 'subscription_plan.dart';
+import '../club_dto/subscription_plan.dart';
 
 part 'data.freezed.dart';
 part 'data.g.dart';

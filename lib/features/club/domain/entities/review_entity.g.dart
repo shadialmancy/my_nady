@@ -9,11 +9,11 @@ part of 'review_entity.dart';
 _ReviewEntity _$ReviewEntityFromJson(Map<String, dynamic> json) =>
     _ReviewEntity(
       data: (json['data'] as List<dynamic>?)
-          ?.map((e) => ReviewData.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
           .toList(),
       meta: json['meta'] == null
           ? null
-          : ReviewMeta.fromJson(json['meta'] as Map<String, dynamic>),
+          : Meta.fromJson(json['meta'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ReviewEntityToJson(_ReviewEntity instance) =>

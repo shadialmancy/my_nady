@@ -34,7 +34,7 @@ final class AddressBookUiServiceProvider
 }
 
 String _$addressBookUiServiceHash() =>
-    r'aab108efd9161740ac3019b7b8790ded7daba12d';
+    r'6c20ac65a6f00277bb4aa616b2feb6a8acba3a88';
 
 abstract class _$AddressBookUiService
     extends $AsyncNotifier<AddressBookEntity?> {

@@ -68,7 +68,7 @@ final class MapLocationServiceProvider
 }
 
 String _$mapLocationServiceHash() =>
-    r'33f813825559336cf8dd223f3ab290e35283874c';
+    r'2280fab79828a56756cc6f9bcdd95b8952bba8f4';
 
 abstract class _$MapLocationService extends $AsyncNotifier<void> {
   FutureOr<void> build();

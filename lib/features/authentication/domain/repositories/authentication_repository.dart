@@ -67,6 +67,22 @@ class AuthenticationRepository extends _$AuthenticationRepository {
     }
   }
 
+  Future<void> resendVerification() async {
+    try {
+      await _authenticationSourceImpl.resendVerification();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> forgotPassword(String email) async {
+    try {
+      await _authenticationSourceImpl.forgotPassword(email);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> logoutUser() async {
     try {
       // Remove FCM Token before logout
@@ -82,7 +98,7 @@ class AuthenticationRepository extends _$AuthenticationRepository {
   /// Helper to register FCM token with retry mechanism
   Future<void> _handleFcmTokenRegistration() async {
     try {
-      log("message");
+      // log("message");
       final messaging = FirebaseMessaging.instance;
 
       // 1. Request permissions (Crucial for Android 13+ and iOS)
@@ -150,6 +166,14 @@ class AuthenticationRepository extends _$AuthenticationRepository {
         token: token,
         password: password,
       );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> verifyEmail({required String token}) async {
+    try {
+      await _authenticationSourceImpl.verifyEmail(token: token);
     } catch (e) {
       rethrow;
     }

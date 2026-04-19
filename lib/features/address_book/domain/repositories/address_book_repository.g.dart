@@ -34,7 +34,7 @@ final class AddressBookRepositoryProvider
 }
 
 String _$addressBookRepositoryHash() =>
-    r'2ab632069bbb21a6b281a35a4b899767f0d13ca9';
+    r'c07bf76169da3c3e001707ab82e96674b42b1312';
 
 abstract class _$AddressBookRepository extends $AsyncNotifier<void> {
   FutureOr<void> build();

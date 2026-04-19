@@ -200,5 +200,13 @@
     "addAddress": "إضافة عنوان",
     "updateAddress": "تحديث العنوان",
     "setAsDefault": "تعيين كافتراضي",
-    "noAddressDetected": "لم يتم اكتشاف عنوان"
+    "noAddressDetected": "لم يتم اكتشاف عنوان",
+    "nameOnlyCharacters": "يجب أن يحتوي الاسم على أحرف فقط",
+    "ageRestriction": "يجب أن يكون عمرك 18 عاماً على الأقل",
+    "passwordRequirement": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتتضمن حرفاً كبيراً واحداً ورقمًا واحدًا ورمزًا خاصًا واحدًا",
+    "phoneNumberPlaceholder": "xxxx xxxx",
+    "addressLabel": "تسمية العنوان",
+    "setAsDefaultAddress": "تعيين كعنوان افتراضي",
+    "smartSuggestions": "اقتراحات ذكية",
+    "noBranchesInRadiusShowingNearest": "لم يتم العور على فروع في منطقتك. يتم عرض أقرب الفروع بدلاً من ذلك."
 }

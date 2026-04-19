@@ -5,6 +5,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/shared/widgets/widgets.dart';
+import '../../../home/presentation/provider/home_ui_service.dart';
 import '../../data/models/address_book_dto/address_data.dart';
 
 import '../provider/address_book_ui_service.dart';
@@ -25,7 +26,7 @@ class _AddBillingAddressUiState extends ConsumerState<AddBillingAddressUi> {
   final TextEditingController countryController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
-  bool isDefault = false;
+  bool isDefault = true;
 
   @override
   void initState() {
@@ -134,9 +135,12 @@ class _AddBillingAddressUiState extends ConsumerState<AddBillingAddressUi> {
                           country: countryController.text,
                           city: cityController.text,
                           address: addressController.text,
+                          latitude: 0,
+                          longitude: 0,
                           isDefault: isDefault,
                         );
                   }
+                  ref.invalidate(homeUiServiceProvider);
                   if (context.mounted) {
                     context.router.maybePop();
                   }

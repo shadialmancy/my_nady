@@ -19,7 +19,10 @@ abstract class AuthenticationSource {
     String? birthDate,
   });
   Future<void> logoutUser();
+  Future<void> resendVerification();
+  Future<void> forgotPassword(String email);
   Future<void> resetPassword({String? token, String? password});
+  Future<void> verifyEmail({required String token});
   Future<User> updateProfile({
     required String name,
     required String gender,
@@ -95,6 +98,43 @@ class AuthenticationSourceImpl implements AuthenticationSource {
   }
 
   @override
+  Future<void> resendVerification() async {
+    try {
+      final response = await DioClient().dio.post(
+        AppConstants.resendVerificationApiUrl,
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return;
+      } else {
+        throw _parseComplexError(response.data);
+      }
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  @override
+  Future<void> forgotPassword(String email) async {
+    try {
+      final response = await DioClient().dio.post(
+        AppConstants.forgotPasswordApiUrl,
+        data: {"email": email},
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return;
+      } else {
+        throw _parseComplexError(response.data);
+      }
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  @override
   Future<void> resetPassword({String? token, String? password}) async {
     try {
       var body = {"token": token, "newPassword": password};
@@ -102,6 +142,25 @@ class AuthenticationSourceImpl implements AuthenticationSource {
       final response = await DioClient().dio.post(
         AppConstants.resetPasswordApiUrl,
         data: body,
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return;
+      } else {
+        throw _parseComplexError(response.data);
+      }
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  @override
+  Future<void> verifyEmail({required String token}) async {
+    try {
+      final response = await DioClient().dio.get(
+        AppConstants.verifyEmailApiUrl,
+        queryParameters: {"token": token},
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         return;

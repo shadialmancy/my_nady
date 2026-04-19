@@ -9,7 +9,8 @@ class NotificationRepository extends _$NotificationRepository {
   @override
   FutureOr<void> build() {}
 
-  final NotificationRepositoryImpl _repositoryImpl = NotificationRepositoryImpl();
+  final NotificationRepositoryImpl _repositoryImpl =
+      NotificationRepositoryImpl();
 
   Future<void> registerFcmToken(String token) async {
     try {

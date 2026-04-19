@@ -65,7 +65,7 @@ class AddressBookListUi extends ConsumerWidget {
               : ListView.separated(
                   padding: EdgeInsets.symmetric(horizontal: 5.sw, vertical: 20),
                   itemCount: addresses.length,
-                  separatorBuilder: (_, __) => gapH16,
+                  separatorBuilder: (_, _) => gapH16,
                   itemBuilder: (context, index) {
                     final address = addresses[index];
                     return Container(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:my_nady_project/core/api/apis.dart';
 import 'package:my_nady_project/core/constants/app_constants.dart';
 import 'package:my_nady_project/features/authentication/data/models/error_model/error_model.dart';
@@ -10,6 +12,8 @@ abstract class AddressBookDataSource {
     required String country,
     required String city,
     required String address,
+    required double latitude,
+    required double longitude,
     bool isDefault = false,
   });
   Future<void> updateAddress({
@@ -18,6 +22,8 @@ abstract class AddressBookDataSource {
     String? country,
     String? city,
     String? address,
+    double? latitude,
+    double? longitude,
     bool? isDefault,
   });
   Future<void> deleteAddress(String id);
@@ -43,14 +49,20 @@ class AddressBookDataSourceImpl implements AddressBookDataSource {
     required String country,
     required String city,
     required String address,
+    required double latitude,
+    required double longitude,
     bool isDefault = false,
   }) async {
+    log("latitude: ${latitude.toString()}");
+    log("longitude: ${longitude.toString()}");
     final response = await DioClient().dio.post(
       AppConstants.addressBookApiUrl,
       data: {
         "label": label,
         "location": {"country": country, "city": city, "address": address},
         "isDefault": isDefault,
+        "latitude": latitude,
+        "longitude": longitude,
       },
     );
 
@@ -69,6 +81,8 @@ class AddressBookDataSourceImpl implements AddressBookDataSource {
     String? country,
     String? city,
     String? address,
+    double? latitude,
+    double? longitude,
     bool? isDefault,
   }) async {
     final Map<String, dynamic> location = {};

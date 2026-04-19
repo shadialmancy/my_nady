@@ -32,6 +32,8 @@ class AddressBookUiService extends _$AddressBookUiService {
     required String country,
     required String city,
     required String address,
+    required double latitude,
+    required double longitude,
     bool isDefault = false,
   }) async {
     try {
@@ -42,6 +44,8 @@ class AddressBookUiService extends _$AddressBookUiService {
         country: country,
         city: city,
         address: address,
+        latitude: latitude,
+        longitude: longitude,
         isDefault: isDefault,
       );
       await fetchAddresses();

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_nady_project/core/constants/app_sizes.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../provider/notification_provider.dart';
 
 class NotificationBadge extends ConsumerWidget {
@@ -62,7 +61,7 @@ class NotificationBadge extends ConsumerWidget {
                 );
               },
               loading: () => const SizedBox.shrink(),
-              error: (_, __) => const SizedBox.shrink(),
+              error: (_, _) => const SizedBox.shrink(),
             ),
           ],
         ),

@@ -40,8 +40,9 @@ extension DatumX on Datum {
       data: data != null ? {'route': data!.route} : null,
       isRead: isRead ?? false,
       readAt: readAt != null ? DateTime.tryParse(readAt!) : null,
-      createdAt:
-          createdAt != null ? DateTime.tryParse(createdAt!) ?? DateTime.now() : DateTime.now(),
+      createdAt: createdAt != null
+          ? DateTime.tryParse(createdAt!) ?? DateTime.now()
+          : DateTime.now(),
     );
   }
 }

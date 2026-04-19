@@ -218,6 +218,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get send => 'إرسال';
 
   @override
+  String get resetPassword => 'Reset Password';
+
+  @override
   String get changePassword => 'تغيير كلمة المرور';
 
   @override
@@ -623,4 +626,30 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noAddressDetected => 'لم يتم اكتشاف عنوان';
+
+  @override
+  String get nameOnlyCharacters => 'يجب أن يحتوي الاسم على أحرف فقط';
+
+  @override
+  String get ageRestriction => 'يجب أن يكون عمرك 18 عاماً على الأقل';
+
+  @override
+  String get passwordRequirement =>
+      'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتتضمن حرفاً كبيراً واحداً ورقمًا واحدًا ورمزًا خاصًا واحدًا';
+
+  @override
+  String get phoneNumberPlaceholder => 'xxxx xxxx';
+
+  @override
+  String get addressLabel => 'تسمية العنوان';
+
+  @override
+  String get setAsDefaultAddress => 'تعيين كعنوان افتراضي';
+
+  @override
+  String get smartSuggestions => 'اقتراحات ذكية';
+
+  @override
+  String get noBranchesInRadiusShowingNearest =>
+      'لم يتم العور على فروع في منطقتك. يتم عرض أقرب الفروع بدلاً من ذلك.';
 }

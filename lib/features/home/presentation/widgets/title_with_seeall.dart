@@ -15,6 +15,7 @@ class TitleWithSeeall extends StatelessWidget {
     final (theme, l10n) = appSettingsRecord(context);
 
     return Row(
+      mainAxisAlignment: .spaceBetween,
       children: [
         Text(
           title,
@@ -23,7 +24,7 @@ class TitleWithSeeall extends StatelessWidget {
             fontWeight: .w600,
           ),
         ),
-        const Spacer(),
+        // const Spacer(),
         onPress != null
             ? GestureDetector(
                 behavior: HitTestBehavior.opaque,

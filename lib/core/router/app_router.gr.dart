@@ -146,18 +146,51 @@ class AddressBookRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ChangePasswordScreen]
-class ChangePasswordRoute extends PageRouteInfo<void> {
-  const ChangePasswordRoute({List<PageRouteInfo>? children})
-    : super(ChangePasswordRoute.name, initialChildren: children);
+class ChangePasswordRoute extends PageRouteInfo<ChangePasswordRouteArgs> {
+  ChangePasswordRoute({
+    Key? key,
+    String? resetToken,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ChangePasswordRoute.name,
+         args: ChangePasswordRouteArgs(key: key, resetToken: resetToken),
+         initialChildren: children,
+       );
 
   static const String name = 'ChangePasswordRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ChangePasswordScreen();
+      final args = data.argsAs<ChangePasswordRouteArgs>(
+        orElse: () => const ChangePasswordRouteArgs(),
+      );
+      return ChangePasswordScreen(key: args.key, resetToken: args.resetToken);
     },
   );
+}
+
+class ChangePasswordRouteArgs {
+  const ChangePasswordRouteArgs({this.key, this.resetToken});
+
+  final Key? key;
+
+  final String? resetToken;
+
+  @override
+  String toString() {
+    return 'ChangePasswordRouteArgs{key: $key, resetToken: $resetToken}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ChangePasswordRouteArgs) return false;
+    return key == other.key && resetToken == other.resetToken;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ resetToken.hashCode;
 }
 
 /// generated route for
@@ -550,6 +583,22 @@ class OnboardingRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const OnboardingScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [PickLocationScreen]
+class PickLocationRoute extends PageRouteInfo<void> {
+  const PickLocationRoute({List<PageRouteInfo>? children})
+    : super(PickLocationRoute.name, initialChildren: children);
+
+  static const String name = 'PickLocationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PickLocationScreen();
     },
   );
 }
