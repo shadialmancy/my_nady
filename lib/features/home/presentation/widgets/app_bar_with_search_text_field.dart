@@ -88,16 +88,16 @@ class _AppBarWithSearchTextFieldState
                     Consumer(
                       builder: (context, ref, child) {
                         final defaultAddr = ref.watch(defaultAddressProvider);
-                        final currentLocationAddr = ref.watch(
-                          currentLocationAddressProvider,
-                        );
+                        final AsyncValue<String?>? currentLocationAddr = defaultAddr == null 
+                            ? ref.watch(currentLocationAddressProvider) 
+                            : null;
 
                         final addressDisplay = defaultAddr != null
-                            ? (defaultAddr.label?.isNotEmpty == true
+                            ? ((defaultAddr.label?.isNotEmpty == true && defaultAddr.label != 'Current Location')
                                   ? defaultAddr.label!
                                   : '${defaultAddr.location?.city}, ${defaultAddr.location?.country}')
-                            : currentLocationAddr.when(
-                                data: (addr) => addr ?? l10n.noAddressDetected,
+                            : currentLocationAddr!.when(
+                                data: (addr) => (addr != null && addr.trim().isNotEmpty) ? addr : l10n.noAddressDetected,
                                 loading: () => 'Detecting location...',
                                 error: (err, stack) => l10n.noAddressDetected,
                               );

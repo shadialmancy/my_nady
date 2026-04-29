@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:my_nady_project/core/helpers/assets_helper.dart';
 import 'package:my_nady_project/core/shared/widgets/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -76,6 +77,7 @@ class _FavoriteClubUiState extends ConsumerState<FavoriteClubUi> {
             gapH16,
             AsyncValueWidget(
               value: ref.watch(favoriteClubsUiServiceProvider),
+              loading: () => const _FavoriteLoadingShimmer(),
               builder: (clubEntity) {
                 final allClubs = clubEntity?.clubs ?? [];
                 final clubs = allClubs
@@ -98,7 +100,7 @@ class _FavoriteClubUiState extends ConsumerState<FavoriteClubUi> {
                           color: theme.primary,
                           fontWeight: .bold,
                         ),
-                      ),
+                      ).animate().fadeIn().scale(begin: const Offset(0.9, 0.9)),
                     ),
                   );
                 }
@@ -116,33 +118,38 @@ class _FavoriteClubUiState extends ConsumerState<FavoriteClubUi> {
                   itemBuilder: (context, index) {
                     final club = clubs[index];
                     return GestureDetector(
-                      onTap: () {
-                        context.router.push(
-                          ClubRoute(
-                            id: club.id ?? '',
-                            distance: club.distance?.toString() ?? '',
+                          onTap: () {
+                            context.router.push(
+                              ClubRoute(
+                                id: club.id ?? '',
+                                distance: club.distance?.toString() ?? '',
+                              ),
+                            );
+                          },
+                          child: ClubCard(
+                            club: club,
+                            marginBottom: 10,
+                            marginTop: 0,
+                            marginLeft: 6,
+                            marginRight: 6,
+                            isFavorite: true,
+                            onRemovedFromFavorites: club.id != null
+                                ? () {
+                                    favoriteClubsService
+                                        .removeFavoriteOptimistic(club.id!);
+                                    ref
+                                        .read(homeUiServiceProvider.notifier)
+                                        .updateClubFavoriteStatus(
+                                          club.id!,
+                                          false,
+                                        );
+                                  }
+                                : null,
                           ),
-                        );
-                      },
-                      child: ClubCard(
-                        club: club,
-                        marginBottom: 10,
-                        marginTop: 0,
-                        marginLeft: 6,
-                        marginRight: 6,
-                        isFavorite: true,
-                        onRemovedFromFavorites: club.id != null
-                            ? () {
-                                favoriteClubsService.removeFavoriteOptimistic(
-                                  club.id!,
-                                );
-                                ref
-                                    .read(homeUiServiceProvider.notifier)
-                                    .updateClubFavoriteStatus(club.id!, false);
-                              }
-                            : null,
-                      ),
-                    );
+                        )
+                        .animate(delay: (index * 50).ms)
+                        .fadeIn(duration: 400.ms)
+                        .slideY(begin: 0.05, curve: Curves.easeOutQuad);
                   },
                 );
               },
@@ -150,6 +157,42 @@ class _FavoriteClubUiState extends ConsumerState<FavoriteClubUi> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _FavoriteLoadingShimmer extends StatelessWidget {
+  const _FavoriteLoadingShimmer();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = appSettingsRecord(context).$1;
+    final shimmerColor = theme.grey9C.withValues(alpha: 0.3);
+    final highlightColor = theme.white.withValues(alpha: 0.6);
+
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.75,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+      itemCount: 6,
+      itemBuilder: (context, index) {
+        return Container(
+              decoration: BoxDecoration(
+                color: shimmerColor,
+                borderRadius: BorderRadius.circular(16),
+              ),
+            )
+            .animate(
+              delay: (index * 100).ms,
+              onPlay: (controller) => controller.repeat(),
+            )
+            .shimmer(duration: 1500.ms, color: highlightColor);
+      },
     );
   }
 }

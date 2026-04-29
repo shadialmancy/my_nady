@@ -19,6 +19,10 @@ class HomeUiService extends _$HomeUiService {
     // return null;
   }
 
+  void setLoading() {
+    state = const AsyncValue.loading();
+  }
+
   /// Optimistically update a club's favorite status in the home club list.
   void updateClubFavoriteStatus(String clubId, bool isFavorite) {
     final current = state.asData?.value;

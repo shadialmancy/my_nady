@@ -28,7 +28,15 @@ FutureOr<String?> currentLocationAddress(Ref ref) async {
         return await service.getAddressFromLatLng(p.latitude, p.longitude);
       }
     } catch (_) {
-      return null;
+      // Ignore
+    }
+    
+    // Fallback to currentPosition if it's set
+    if (service.currentPosition.latitude != 0 && service.currentPosition.longitude != 0) {
+      return await service.getAddressFromLatLng(
+        service.currentPosition.latitude,
+        service.currentPosition.longitude,
+      );
     }
   }
   return null;

@@ -66,10 +66,57 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
     if (paymentMethods.isEmpty) {
       return SizedBox(
         height: 230,
-        child: Center(
-          child: Text(
-            l10n.noPaymentMethodsFound,
-            style: theme.bodyMedium.copyWith(color: theme.white),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: theme.grey67.withValues(
+                alpha: 0.4,
+              ), // light grey background
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: theme.grey9C.withValues(alpha: 0.3),
+                width: 1.5,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: theme.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: theme.grey9C.withValues(alpha: 0.1),
+                        blurRadius: 10,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                  child: Icon(
+                    Icons.credit_card_off_outlined,
+                    size: 40,
+                    color: theme.grey82,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  l10n.noPaymentMethodsFound,
+                  style: theme.titleMedium.copyWith(
+                    color: theme.fullBlack,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  l10n.addPaymentCard,
+                  style: theme.bodySmall.copyWith(color: theme.grey82),
+                ),
+              ],
+            ),
           ),
         ),
       );

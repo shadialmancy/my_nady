@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:my_nady_project/core/shared/widgets/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
+import '../../../club/presentation/provider/map_location_service.dart';
 import '../../../filter/presentation/provider/filter_service.dart';
 import '../widgets/widgets.dart';
 
 import '../provider/home_ui_service.dart';
 
 import '../provider/home_search_provider.dart';
-
-// import 'package:my_nady_project/core/shared/widgets/app_toast.dart';
-// import 'package:my_nady_project/core/shared/widgets/location_permission_dialog.dart';
-// import 'package:my_nady_project/features/club/presentation/provider/map_location_service.dart';
 
 class HomeUi extends ConsumerStatefulWidget {
   const HomeUi({super.key});
@@ -27,17 +25,7 @@ class _HomeUiState extends ConsumerState<HomeUi> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // final locationService = ref.read(mapLocationServiceProvider.notifier);
-      // final serviceEnabled = await locationService.isLocationServiceEnabled();
-      // if (!serviceEnabled && mounted) {
-      //   AppToast.infoToast('Please enable location services');
-      //   await locationService.openLocationSettings();
-      // } else {
-      //   final hasPermission = await locationService.hasLocationPermission();
-      //   if (!hasPermission && mounted) {
-      //     showLocationPerimssionDialog(context, ref);
-      //   }
-      // }
+      // Logic from before
     });
   }
 
@@ -46,6 +34,7 @@ class _HomeUiState extends ConsumerState<HomeUi> {
     final (theme, l10n) = appSettingsRecord(context);
     final homeUiService = ref.watch(homeUiServiceProvider.notifier);
     final searchQuery = ref.watch(homeSearchQueryProvider).toLowerCase();
+
     return RefreshIndicator(
       backgroundColor: theme.white,
       color: theme.primary,
@@ -57,6 +46,7 @@ class _HomeUiState extends ConsumerState<HomeUi> {
       },
       child: AsyncValueWidget(
         value: ref.watch(homeUiServiceProvider),
+        loading: () => const _HomeLoadingShimmer(),
         builder: (clubEntity) {
           final unfilteredClubs = clubEntity?.clubs ?? [];
           final allClubs = searchQuery.isEmpty
@@ -80,9 +70,6 @@ class _HomeUiState extends ConsumerState<HomeUi> {
           final kidsClubs = allClubs
               .where((e) => e.genderType?.toLowerCase() == 'kids')
               .toList();
-          // final familyClubs = allClubs
-          //     .where((e) => e.genderType?.toLowerCase() == 'family')
-          //     .toList();
           final featuredClubs = allClubs
               .where((e) => e.isFeatured == true)
               .toList();
@@ -104,7 +91,7 @@ class _HomeUiState extends ConsumerState<HomeUi> {
                           color: theme.primary,
                           fontWeight: .bold,
                         ),
-                      ),
+                      ).animate().fadeIn().scale(begin: const Offset(0.9, 0.9)),
                     ),
                   )
                 else ...[
@@ -156,15 +143,114 @@ class _HomeUiState extends ConsumerState<HomeUi> {
                   gapH16,
                   FeaturedCarousel(featuredClubs: featuredClubs),
                   gapH16,
-                  MixClubSection(clubs: mixClubs),
-                  MaleClubSection(clubs: maleClubs),
-                  FemaleClubSection(clubs: femaleClubs),
-                  KidsClubSection(clubs: kidsClubs),
-                ],
+                  if (mixClubs.isNotEmpty) MixClubSection(clubs: mixClubs),
+                  if (maleClubs.isNotEmpty) MaleClubSection(clubs: maleClubs),
+                  if (femaleClubs.isNotEmpty) FemaleClubSection(clubs: femaleClubs),
+                  if (kidsClubs.isNotEmpty) KidsClubSection(clubs: kidsClubs),
+                ].animate(interval: 100.ms).fadeIn(duration: 500.ms).slideY(begin: 0.05, curve: Curves.easeOutQuad),
               ],
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _HomeLoadingShimmer extends StatelessWidget {
+  const _HomeLoadingShimmer();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = appSettingsRecord(context).$1;
+    final shimmerColor = theme.grey9C.withValues(alpha: 0.3);
+    final highlightColor = theme.white.withValues(alpha: 0.6);
+
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: .only(top: 6.sh, bottom: 14.sh),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const AppBarWithSearchTextField(),
+          gapH16,
+          // Featured carousel shimmer
+          Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4.sw),
+                child: Container(
+                  height: 180,
+                  decoration: BoxDecoration(
+                    color: shimmerColor,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+              )
+              .animate(onPlay: (controller) => controller.repeat())
+              .shimmer(duration: 1500.ms, color: highlightColor),
+
+          gapH24,
+
+          // Section shimmers
+          ...List.generate(
+                3,
+                (index) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.sw),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 120,
+                            height: 24,
+                            decoration: BoxDecoration(
+                              color: shimmerColor,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          Container(
+                            width: 60,
+                            height: 16,
+                            decoration: BoxDecoration(
+                              color: shimmerColor,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    gapH12,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.symmetric(horizontal: 4.sw),
+                      child: Row(
+                        children: List.generate(
+                          3,
+                          (index) => Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: Container(
+                              width: 140,
+                              height: 160,
+                              decoration: BoxDecoration(
+                                color: shimmerColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    gapH24,
+                  ],
+                ),
+              )
+              .animate(
+                interval: 200.ms,
+                onPlay: (controller) => controller.repeat(),
+              )
+              .shimmer(duration: 1500.ms, color: highlightColor),
+        ],
       ),
     );
   }

@@ -110,9 +110,14 @@ class SettingsUi extends ConsumerWidget {
                                           fit: BoxFit.cover,
                                         ),
                                   )
-                                : Image.asset(
-                                    AssetsHelper.profileImageHolder,
-                                    fit: BoxFit.cover,
+                                : SvgPicture.asset(
+                                    AssetsHelper.profileIcon,
+                                    colorFilter: ColorFilter.mode(
+                                      theme.primary,
+                                      BlendMode.srcIn,
+                                    ),
+                                    width: 50,
+                                    height: 50,
                                   ),
                           ),
                         ),

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:my_nady_project/core/constants/app_sizes.dart';
 import 'package:my_nady_project/core/shared/widgets/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -56,9 +57,17 @@ class _TransactionHistoryUiState extends ConsumerState<TransactionHistoryUi> {
                             children: [
                               CircleAvatar(
                                 radius: 16,
-                                child: Image.asset(
-                                  AssetsHelper.profileImageHolder,
-                                  fit: BoxFit.cover,
+                                backgroundColor: theme.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: SvgPicture.asset(
+                                    AssetsHelper.profileIcon,
+                                    fit: BoxFit.cover,
+                                    colorFilter: ColorFilter.mode(
+                                      theme.black1E,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
                                 ),
                               ),
                               gapW8,
@@ -88,7 +97,7 @@ class _TransactionHistoryUiState extends ConsumerState<TransactionHistoryUi> {
                   ),
                 ),
                 Padding(
-                  padding: .only(
+                  padding: EdgeInsets.only(
                     top: 20.sh,
                     left: 4.sw,
                     right: 4.sw,
@@ -99,14 +108,7 @@ class _TransactionHistoryUiState extends ConsumerState<TransactionHistoryUi> {
                     children: [
                       AsyncValueWidget(
                         value: ref.watch(paymentMethodUiServiceProvider),
-                        loading: () => Padding(
-                          padding: .only(top: 20.sh),
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: theme.primary,
-                            ),
-                          ),
-                        ),
+                        loading: () => const _TransactionLoadingShimmer(),
                         builder: (paymentMethodEntity) {
                           final paymentMethods =
                               paymentMethodEntity?.paymentMethods ?? [];
@@ -114,133 +116,77 @@ class _TransactionHistoryUiState extends ConsumerState<TransactionHistoryUi> {
 
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const .symmetric(horizontal: 14),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "${l10n.cardsAndAccounts} ($count)",
-                                      style: theme.labelSmall.copyWith(
-                                        color: theme.white,
-                                      ),
-                                    ),
-                                    TextButton.icon(
-                                      onPressed: () {
-                                        context.router.push(
-                                          AddCreditCardRoute(
-                                            onClick: () {
-                                              // After add‑card flow, just refresh list.
-
-                                              ref
-                                                  .read(
-                                                    paymentMethodUiServiceProvider
-                                                        .notifier,
-                                                  )
-                                                  .fetchPaymentMethods();
-                                            },
-                                          ),
-                                        );
-                                      },
-                                      icon: const Icon(Icons.add, size: 18),
-                                      label: Text(
-                                        l10n.addPaymentCard,
-                                        style: theme.labelSmall.copyWith(
-                                          color: theme.white,
-                                        ),
-                                      ),
-                                      style: TextButton.styleFrom(
-                                        foregroundColor: theme.white,
+                            children:
+                                [
+                                      Padding(
                                         padding: const EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                          vertical: 4,
+                                          horizontal: 14,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "${l10n.cardsAndAccounts} ($count)",
+                                              style: theme.labelSmall.copyWith(
+                                                color: theme.white,
+                                              ),
+                                            ),
+                                            TextButton.icon(
+                                              onPressed: () {
+                                                context.router.push(
+                                                  AddCreditCardRoute(
+                                                    onClick: () {
+                                                      ref
+                                                          .read(
+                                                            paymentMethodUiServiceProvider
+                                                                .notifier,
+                                                          )
+                                                          .fetchPaymentMethods();
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                              icon: const Icon(
+                                                Icons.add,
+                                                size: 18,
+                                              ),
+                                              label: Text(
+                                                l10n.addPaymentCard,
+                                                style: theme.labelSmall
+                                                    .copyWith(
+                                                      color: theme.white,
+                                                    ),
+                                              ),
+                                              style: TextButton.styleFrom(
+                                                foregroundColor: theme.white,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 12,
+                                                      vertical: 4,
+                                                    ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
+                                      CreditCardSlider(
+                                        paymentMethods: paymentMethods,
+                                        onRemove: (id) => ref
+                                            .read(
+                                              paymentMethodUiServiceProvider
+                                                  .notifier,
+                                            )
+                                            .deletePaymentMethod(id),
+                                      ),
+                                      gapH8,
+                                    ]
+                                    .animate(interval: 100.ms)
+                                    .fadeIn(duration: 400.ms)
+                                    .slideY(
+                                      begin: 0.05,
+                                      curve: Curves.easeOutQuad,
                                     ),
-                                  ],
-                                ),
-                              ),
-                              CreditCardSlider(
-                                paymentMethods: paymentMethods,
-                                onRemove: (id) => ref
-                                    .read(
-                                      paymentMethodUiServiceProvider.notifier,
-                                    )
-                                    .deletePaymentMethod(id),
-                              ),
-                              gapH8,
-                              // Container(
-                              //   padding: .symmetric(vertical: 18),
-                              //   width: .infinity,
-                              //   decoration: BoxDecoration(
-                              //     color: theme.white,
-                              //     borderRadius: .circular(15),
-                              //     border: Border.all(
-                              //       color: theme.greyE0.withValues(alpha: .6),
-                              //     ),
-                              //   ),
-                              //   child: Column(
-                              //     children: [
-                              //       Padding(
-                              //         padding: .symmetric(horizontal: 18),
-                              //         child: Row(
-                              //           mainAxisAlignment: .spaceBetween,
-                              //           children: [
-                              //             Text(
-                              //               l10n.recentTransactions,
-                              //               style: theme.labelLarge.copyWith(
-                              //                 color: theme.fullBlack,
-                              //               ),
-                              //             ),
-                              //             GestureDetector(
-                              //               onTap: () {
-                              //                 context.router.push(
-                              //                   const TransactionHistoryViewAllRoute(),
-                              //                 );
-                              //               },
-                              //               child: Container(
-                              //                 padding: const .symmetric(
-                              //                   vertical: 6,
-                              //                   horizontal: 12,
-                              //                 ),
-                              //                 decoration: BoxDecoration(
-                              //                   borderRadius: .circular(8),
-                              //                   border: .all(
-                              //                     color: theme.greyE0.withValues(
-                              //                       alpha: .6,
-                              //                     ),
-                              //                   ),
-                              //                 ),
-                              //                 child: Text(
-                              //                   l10n.viewAll,
-                              //                   style: theme.labelLarge.copyWith(
-                              //                     color: theme.primary,
-                              //                   ),
-                              //                 ),
-                              //               ),
-                              //             ),
-                              //           ],
-                              //         ),
-                              //       ),
-                              //       gapH4,
-                              //       Divider(color: theme.greyE0.withValues(alpha: .6)),
-                              //       Padding(
-                              //         padding: const .only(top: 8, left: 22, right: 22),
-                              //         child: Column(
-                              //           children: List.generate(
-                              //             transactionHistoryData.length,
-                              //             (index) => TransactionDetailsCard(
-                              //               data: transactionHistoryData[index],
-                              //             ),
-                              //           ),
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
-                            ],
                           );
                         },
                       ),
@@ -253,5 +199,58 @@ class _TransactionHistoryUiState extends ConsumerState<TransactionHistoryUi> {
         ),
       ),
     );
+  }
+}
+
+class _TransactionLoadingShimmer extends StatelessWidget {
+  const _TransactionLoadingShimmer();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = appSettingsRecord(context).$1;
+    final shimmerColor = theme.grey9C.withValues(alpha: 0.3);
+    final highlightColor = theme.white.withValues(alpha: 0.6);
+
+    return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 120,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: shimmerColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  Container(
+                    width: 100,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: shimmerColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            gapH16,
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 14),
+              width: double.infinity,
+              height: 180,
+              decoration: BoxDecoration(
+                color: shimmerColor,
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
+          ],
+        )
+        .animate(onPlay: (controller) => controller.repeat())
+        .shimmer(duration: 1500.ms, color: highlightColor);
   }
 }
