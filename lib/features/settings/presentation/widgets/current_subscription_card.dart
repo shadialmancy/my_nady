@@ -8,8 +8,13 @@ import '../../data/models/subscription_current_dto/datum.dart';
 
 class CurrentSubscriptionCard extends StatelessWidget {
   final Datum subscription;
+  final bool compact;
 
-  const CurrentSubscriptionCard({super.key, required this.subscription});
+  const CurrentSubscriptionCard({
+    super.key,
+    required this.subscription,
+    this.compact = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +33,8 @@ class CurrentSubscriptionCard extends StatelessWidget {
         }
       },
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        padding: const EdgeInsets.all(16),
+        margin: EdgeInsets.only(bottom: compact ? 0 : 16),
+        padding: EdgeInsets.all(compact ? 12 : 16),
         decoration: BoxDecoration(
           color: theme.white,
           borderRadius: BorderRadius.circular(12),
@@ -54,7 +59,7 @@ class CurrentSubscriptionCard extends StatelessWidget {
                     style: theme.titleMedium.copyWith(
                       color: theme.primary,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: compact ? 13 : 16,
                     ),
                   ),
                 ),
@@ -86,28 +91,41 @@ class CurrentSubscriptionCard extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            gapH8,
-            Row(
-              children: [
-                Icon(Icons.calendar_today, size: 16, color: theme.grey9C),
-                gapW8,
-                Text(
-                  '${l10n.start}: ${_formatDate(subscription.startDate, l10n)}',
-                  style: theme.bodySmall.copyWith(color: theme.grey9C),
+            if (!compact) ...[
+              gapH8,
+              Row(
+                children: [
+                  Icon(Icons.calendar_today, size: 16, color: theme.grey9C),
+                  gapW8,
+                  Text(
+                    '${l10n.start}: ${_formatDate(subscription.startDate, l10n)}',
+                    style: theme.bodySmall.copyWith(color: theme.grey9C),
+                  ),
+                ],
+              ),
+              gapH4,
+              Row(
+                children: [
+                  Icon(Icons.event, size: 16, color: theme.grey9C),
+                  gapW8,
+                  Text(
+                    '${l10n.end}: ${_formatDate(subscription.endDate, l10n)}',
+                    style: theme.bodySmall.copyWith(color: theme.grey9C),
+                  ),
+                ],
+              ),
+            ] else ...[
+              gapH4,
+              Text(
+                '${l10n.end}: ${_formatDate(subscription.endDate, l10n)}',
+                style: theme.bodySmall.copyWith(
+                  color: theme.grey9C,
+                  fontSize: 11,
                 ),
-              ],
-            ),
-            gapH4,
-            Row(
-              children: [
-                Icon(Icons.event, size: 16, color: theme.grey9C),
-                gapW8,
-                Text(
-                  '${l10n.end}: ${_formatDate(subscription.endDate, l10n)}',
-                  style: theme.bodySmall.copyWith(color: theme.grey9C),
-                ),
-              ],
-            ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
             gapH8,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -117,7 +135,7 @@ class CurrentSubscriptionCard extends StatelessWidget {
                   style: theme.titleMedium.copyWith(
                     color: theme.primary,
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: compact ? 14 : 18,
                   ),
                 ),
                 // if (subscription.autoRenew == true)

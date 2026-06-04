@@ -30,6 +30,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get filter => 'تصفية';
 
   @override
+  String get gridView => 'عرض شبكي';
+
+  @override
+  String get listView => 'عرض قائمة';
+
+  @override
   String get categories => 'الفئات';
 
   @override
@@ -86,6 +92,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loginToYourAccount => 'تسجيل الدخول إلى حسابك';
+
+  @override
+  String get continueAsGuest => 'تسجيل الدخول كضيف';
 
   @override
   String get email => 'البريد الإلكتروني';
@@ -264,6 +273,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get subscribeNow => 'اشترك الآن';
+
+  @override
+  String get confirmSubscription => 'تأكيد الاشتراك';
+
+  @override
+  String get confirmSubscriptionMessage =>
+      'هل أنت متأكد أنك تريد الاشتراك في هذه الباقة؟';
 
   @override
   String get nameOnCard => 'الاسم على البطاقة';
@@ -652,4 +668,14 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get noBranchesInRadiusShowingNearest =>
       'لم يتم العور على فروع في منطقتك. يتم عرض أقرب الفروع بدلاً من ذلك.';
+
+  @override
+  String get loginRequired => 'تسجيل الدخول مطلوب';
+
+  @override
+  String get loginRequiredMessage =>
+      'يجب تسجيل الدخول للوصول إلى هذه الميزة. يرجى تسجيل الدخول للمتابعة.';
+
+  @override
+  String get loginToAccess => 'تسجيل الدخول للوصول';
 }

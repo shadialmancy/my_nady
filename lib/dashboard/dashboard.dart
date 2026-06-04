@@ -1,19 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_nady_project/core/constants/app_sizes.dart';
 import 'package:my_nady_project/core/helpers/assets_helper.dart';
 import 'package:my_nady_project/core/router/app_router.dart';
+import 'package:my_nady_project/core/shared/widgets/login_required_dialog.dart';
+import 'package:my_nady_project/features/authentication/presentation/provider/auth_ui_service.dart';
 
 @RoutePage()
-class DashboardLayoutScreen extends StatefulWidget {
+class DashboardLayoutScreen extends ConsumerStatefulWidget {
   const DashboardLayoutScreen({super.key});
 
   @override
-  State<DashboardLayoutScreen> createState() => _DashboardLayoutScreenState();
+  ConsumerState<DashboardLayoutScreen> createState() =>
+      _DashboardLayoutScreenState();
 }
 
-class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
+class _DashboardLayoutScreenState extends ConsumerState<DashboardLayoutScreen>
     with TickerProviderStateMixin {
   List routes = const [
     HomeRoute(),
@@ -113,9 +117,19 @@ class _DashboardLayoutScreenState extends State<DashboardLayoutScreen>
                             children: icons.map<Widget>((icon) {
                               return GestureDetector(
                                 onTap: () {
+                                  final index = icons.indexOf(icon);
+                                  if (index == 1 || index == 2) {
+                                    final authUser = ref
+                                        .read(authUiServiceProvider)
+                                        .value;
+                                    if (authUser == null) {
+                                      showLoginRequiredDialog(context);
+                                      return;
+                                    }
+                                  }
                                   setState(() {
-                                    animateDrop(icons.indexOf(icon));
-                                    selected = icons.indexOf(icon);
+                                    animateDrop(index);
+                                    selected = index;
                                   });
                                   context.router.replace(routes[selected]);
                                 },

@@ -13,8 +13,11 @@ class LoggerInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) {
     final options = err.requestOptions;
     final requestPath = '${options.baseUrl}${options.path}';
-    logger.e('${options.method} request => $requestPath'); // Debug log
-    logger.d('Error: ${err.error}, Message: ${err.message}'); // Error log
+    // Skip noisy validateStatus messages for 401; UnauthorizedInterceptor handles it.
+    if (err.response?.statusCode != 401) {
+      logger.e('${options.method} request => $requestPath');
+      logger.d('Error: ${err.error}, Message: ${err.message}');
+    }
     return super.onError(err, handler);
   }
 
@@ -30,7 +33,11 @@ class LoggerInterceptor extends Interceptor {
     }
     final accessToken = await sessionManager.getAuthToken();
     final requestPath = '${options.baseUrl}${options.path}';
-    options.headers['Authorization'] = 'Bearer $accessToken';
+    if (accessToken != null && accessToken.isNotEmpty) {
+      options.headers['Authorization'] = 'Bearer $accessToken';
+    } else {
+      options.headers.remove('Authorization');
+    }
     //options.headers['app'] = 'fulfillment';
     options.headers['Accept'] = 'application/json';
     logger.i('${options.method} request => $requestPath'); // Info log

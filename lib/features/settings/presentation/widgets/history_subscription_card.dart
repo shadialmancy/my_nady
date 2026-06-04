@@ -6,16 +6,21 @@ import '../../data/models/subscription_history_dto/datum.dart';
 
 class HistorySubscriptionCard extends StatelessWidget {
   final Datum historyItem;
+  final bool compact;
 
-  const HistorySubscriptionCard({super.key, required this.historyItem});
+  const HistorySubscriptionCard({
+    super.key,
+    required this.historyItem,
+    this.compact = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     final (theme, l10n) = appSettingsRecord(context);
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: compact ? 0 : 16),
+      padding: EdgeInsets.all(compact ? 12 : 16),
       decoration: BoxDecoration(
         color: theme.white,
         borderRadius: BorderRadius.circular(12),
@@ -40,7 +45,7 @@ class HistorySubscriptionCard extends StatelessWidget {
                   style: theme.titleMedium.copyWith(
                     color: theme.primaryText,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: compact ? 13 : 16,
                   ),
                 ),
               ),
@@ -73,7 +78,9 @@ class HistorySubscriptionCard extends StatelessWidget {
             ),
           ),
           gapH12,
-          if (historyItem.history != null && historyItem.history!.isNotEmpty)
+          if (!compact &&
+              historyItem.history != null &&
+              historyItem.history!.isNotEmpty)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

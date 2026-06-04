@@ -8,7 +8,6 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/router/app_router.dart';
-import '../../../../core/shared/widgets/widgets.dart';
 
 class ClubBanner extends StatelessWidget {
   final Datum club;
@@ -110,17 +109,17 @@ class ClubBanner extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  Align(
-                    alignment: .bottomRight,
-                    child: CustomButton(
-                      shape: RoundedRectangleBorder(borderRadius: .circular(6)),
-                      backgroundColor: theme.secondary,
-                      titleStyle: theme.titleSmall.copyWith(color: theme.white),
-                      height: 35,
-                      title: "${club.minPlanPrice ?? 0}\$",
-                      width: 90,
-                    ),
-                  ),
+                  // Align(
+                  //   alignment: .bottomRight,
+                  //   child: CustomButton(
+                  //     shape: RoundedRectangleBorder(borderRadius: .circular(6)),
+                  //     backgroundColor: theme.secondary,
+                  //     titleStyle: theme.titleSmall.copyWith(color: theme.white),
+                  //     height: 35,
+                  //     title: "${club.minPlanPrice ?? 0}\$",
+                  //     width: 90,
+                  //   ),
+                  // ),
                 ],
               ),
             ),

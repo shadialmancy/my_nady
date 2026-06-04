@@ -129,7 +129,7 @@ class PaymentFailedDialog extends StatelessWidget {
     );
   }
 
-  /// Show the payment success dialog
+  /// Show the payment failed dialog
   static Future<void> showPaymentDialog(BuildContext context) {
     return showDialog(
       context: context,

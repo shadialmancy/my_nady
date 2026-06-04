@@ -10,14 +10,24 @@ import '../provider/address_book_ui_service.dart';
 import '../../domain/entities/address_book_entity.dart';
 import '../../../club/presentation/provider/map_location_service.dart';
 import '../../../home/presentation/provider/home_ui_service.dart';
+import '../../../authentication/presentation/provider/auth_ui_service.dart';
 
 class AddressSelectionBottomSheet extends ConsumerWidget {
   const AddressSelectionBottomSheet({super.key});
 
+  dynamic checkLogin(BuildContext context, WidgetRef ref) {
+    final authUser = ref.read(authUiServiceProvider).value;
+    if (authUser == null) {
+      showLoginRequiredDialog(context);
+      return;
+    }
+    return ref.watch(addressBookUiServiceProvider);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final (theme, l10n) = appSettingsRecord(context);
-    final uiService = ref.watch(addressBookUiServiceProvider);
+    final uiService = checkLogin(context, ref);
 
     return Container(
       decoration: BoxDecoration(
@@ -83,11 +93,12 @@ class AddressSelectionBottomSheet extends ConsumerWidget {
                           color: isDefault ? theme.primary : theme.grey,
                         ),
                         title: Text(
-                          (address.label?.isNotEmpty == true && address.label != 'Current Location')
+                          (address.label?.isNotEmpty == true &&
+                                  address.label != 'Current Location')
                               ? address.label!
-                              : (address.location?.address?.isNotEmpty == true 
-                                  ? address.location!.address! 
-                                  : 'Current Location'),
+                              : (address.location?.address?.isNotEmpty == true
+                                    ? address.location!.address!
+                                    : 'Current Location'),
                           style: theme.titleSmall.copyWith(
                             fontWeight: isDefault ? FontWeight.bold : null,
                           ),

@@ -146,14 +146,14 @@ class ClubCard extends StatelessWidget {
           ),
           gapH12,
           Row(
-            mainAxisAlignment: .spaceBetween,
+            mainAxisAlignment: .end,
             children: [
-              Text(
-                "${club?.minPlanPrice ?? 0}\$",
-                style: theme.bodyMediumSecondary.copyWith(
-                  color: theme.secondary,
-                ),
-              ),
+              // Text(
+              //   "${club?.minPlanPrice ?? 0}\$",
+              //   style: theme.bodyMediumSecondary.copyWith(
+              //     color: theme.secondary,
+              //   ),
+              // ),
               Row(
                 children: [
                   Icon(Icons.star, size: 14, color: theme.yellowEA),

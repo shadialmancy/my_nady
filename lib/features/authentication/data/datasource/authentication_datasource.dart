@@ -180,7 +180,7 @@ class AuthenticationSourceImpl implements AuthenticationSource {
       final refreshToken = await sessionManager.getRefreshToken();
       final response = await DioClient().dio.post(
         AppConstants.logoutApiUrl,
-        data: {AppStrings.refreshToken: refreshToken},
+        data: {AppStrings.refreshToken: refreshToken ?? ''},
       );
       if (response.statusCode == 200 || response.statusCode == 204) {
         return;

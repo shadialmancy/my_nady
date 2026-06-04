@@ -6,14 +6,17 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:my_nady_project/core/helpers/assets_helper.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/router/app_router.dart';
-import '../../../../core/shared/widgets/custom_text_field.dart';
-import '../../../address_book/data/models/address_book_dto/address_data.dart';
-import '../provider/home_search_provider.dart';
-import '../../../address_book/presentation/provider/address_book_ui_service.dart';
-import '../../../club/presentation/provider/map_location_service.dart';
-import '../../../address_book/presentation/widgets/address_selection_bottom_sheet.dart';
+import 'package:my_nady_project/core/constants/app_sizes.dart';
+import 'package:my_nady_project/core/router/app_router.dart';
+import 'package:my_nady_project/core/shared/widgets/custom_text_field.dart';
+import 'package:my_nady_project/core/shared/widgets/login_required_dialog.dart';
+import 'package:my_nady_project/features/authentication/presentation/provider/auth_ui_service.dart';
+import 'package:my_nady_project/features/address_book/data/models/address_book_dto/address_data.dart';
+import 'package:my_nady_project/features/home/presentation/provider/home_search_provider.dart';
+import 'package:my_nady_project/features/address_book/presentation/provider/address_book_ui_service.dart';
+import 'package:my_nady_project/features/club/presentation/provider/map_location_service.dart';
+import 'package:my_nady_project/features/address_book/presentation/widgets/address_selection_bottom_sheet.dart';
+import 'package:my_nady_project/features/home/presentation/widgets/gym_view_layout_toggle.dart';
 
 class AppBarWithSearchTextField extends ConsumerStatefulWidget {
   const AppBarWithSearchTextField({super.key});
@@ -61,6 +64,11 @@ class _AppBarWithSearchTextFieldState
             children: [
               GestureDetector(
                 onTap: () {
+                  final authUser = ref.read(authUiServiceProvider).value;
+                  if (authUser == null) {
+                    showLoginRequiredDialog(context);
+                    return;
+                  }
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
@@ -88,16 +96,21 @@ class _AppBarWithSearchTextFieldState
                     Consumer(
                       builder: (context, ref, child) {
                         final defaultAddr = ref.watch(defaultAddressProvider);
-                        final AsyncValue<String?>? currentLocationAddr = defaultAddr == null 
-                            ? ref.watch(currentLocationAddressProvider) 
+                        final AsyncValue<String?>? currentLocationAddr =
+                            defaultAddr == null
+                            ? ref.watch(currentLocationAddressProvider)
                             : null;
 
                         final addressDisplay = defaultAddr != null
-                            ? ((defaultAddr.label?.isNotEmpty == true && defaultAddr.label != 'Current Location')
+                            ? ((defaultAddr.label?.isNotEmpty == true &&
+                                      defaultAddr.label != 'Current Location')
                                   ? defaultAddr.label!
                                   : '${defaultAddr.location?.city}, ${defaultAddr.location?.country}')
                             : currentLocationAddr!.when(
-                                data: (addr) => (addr != null && addr.trim().isNotEmpty) ? addr : l10n.noAddressDetected,
+                                data: (addr) =>
+                                    (addr != null && addr.trim().isNotEmpty)
+                                    ? addr
+                                    : l10n.noAddressDetected,
                                 loading: () => 'Detecting location...',
                                 error: (err, stack) => l10n.noAddressDetected,
                               );
@@ -156,6 +169,8 @@ class _AppBarWithSearchTextFieldState
                   ),
                 ),
               ),
+              gapW8,
+              const GymViewLayoutToggle(),
               gapW8,
               GestureDetector(
                 onTap: () {

@@ -7,13 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/helpers/assets_helper.dart';
-import '../../../../core/router/app_router.dart';
-import '../../../../app/view/app.dart';
-import '../../../../core/localization/locale_constants.dart';
-import '../../../authentication/presentation/provider/auth_ui_service.dart';
-import '../widgets/widgets.dart';
+import 'package:my_nady_project/core/constants/app_sizes.dart';
+import 'package:my_nady_project/core/helpers/assets_helper.dart';
+import 'package:my_nady_project/core/router/app_router.dart';
+import 'package:my_nady_project/app/view/app.dart';
+import 'package:my_nady_project/core/localization/locale_constants.dart';
+import 'package:my_nady_project/features/authentication/presentation/provider/auth_ui_service.dart';
+import 'package:my_nady_project/core/shared/widgets/widgets.dart';
+import 'package:my_nady_project/features/settings/presentation/widgets/widgets.dart';
 
 class SettingsUi extends ConsumerWidget {
   const SettingsUi({super.key});
@@ -93,41 +94,55 @@ class SettingsUi extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 16,
-                          child: ClipOval(
-                            child: authRef.value?.image != null
-                                ? CachedNetworkImage(
-                                    imageUrl: authRef.value!.image!,
-                                    fit: BoxFit.cover,
-                                    width: 32,
-                                    height: 32,
-                                    errorWidget: (context, url, error) =>
-                                        Image.asset(
-                                          AssetsHelper.profileImageHolder,
-                                          fit: BoxFit.cover,
+                    if (authRef.value != null)
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 16,
+                            child: ClipOval(
+                              child: authRef.value?.image != null
+                                  ? CachedNetworkImage(
+                                      imageUrl: authRef.value!.image!,
+                                      fit: BoxFit.cover,
+                                      width: 32,
+                                      height: 32,
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
+                                            AssetsHelper.profileImageHolder,
+                                            fit: BoxFit.cover,
+                                          ),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: SvgPicture.asset(
+                                        AssetsHelper.profileIcon,
+                                        colorFilter: ColorFilter.mode(
+                                          theme.primary,
+                                          BlendMode.srcIn,
                                         ),
-                                  )
-                                : SvgPicture.asset(
-                                    AssetsHelper.profileIcon,
-                                    colorFilter: ColorFilter.mode(
-                                      theme.primary,
-                                      BlendMode.srcIn,
+                                        width: 32,
+                                        height: 32,
+                                      ),
                                     ),
-                                    width: 50,
-                                    height: 50,
-                                  ),
+                            ),
                           ),
-                        ),
-                        gapW8,
-                        Text(
-                          authRef.value?.name ?? "",
-                          style: theme.titleMedium.copyWith(fontWeight: .w700),
-                        ),
-                      ],
-                    ),
+                          gapW8,
+                          Text(
+                            authRef.value?.name ?? "",
+                            style: theme.titleMedium.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      )
+                    else
+                      CustomButton(
+                        title: l10n.login,
+                        onPressed: () {
+                          context.router.push(const LoginRoute());
+                        },
+                        width: double.infinity,
+                      ),
                     gapH48,
                     Text(
                       l10n.accountSetting,
@@ -138,57 +153,58 @@ class SettingsUi extends ConsumerWidget {
                     ),
                     gapH12,
                     // Edit profile
-                    ListTile(
-                      contentPadding: .zero,
-                      onTap: () {
-                        context.router.push(const EditProfileRoute());
-                      },
-                      leading: Text(
-                        l10n.editProfile,
-                        style: theme.titleMedium.copyWith(fontWeight: .w400),
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: theme.primary,
-                        fontWeight: .w900,
-                        size: 14,
-                      ),
-                    ),
-                    // Address book
-                    ListTile(
-                      contentPadding: .zero,
-                      onTap: () {
-                        context.router.push(const AddressBookRoute());
-                      },
+                    // ListTile(
+                    //   contentPadding: .zero,
+                    //   onTap: () {
+                    //     context.router.push(const EditProfileRoute());
+                    //   },
+                    //   leading: Text(
+                    //     l10n.editProfile,
+                    //     style: theme.titleMedium.copyWith(fontWeight: .w400),
+                    //   ),
+                    //   trailing: Icon(
+                    //     Icons.arrow_forward_ios_rounded,
+                    //     color: theme.primary,
+                    //     fontWeight: .w900,
+                    //     size: 14,
+                    //   ),
+                    // ),
+                    // // Address book
+                    // ListTile(
+                    //   contentPadding: .zero,
+                    //   onTap: () {
+                    //     context.router.push(const AddressBookRoute());
+                    //   },
 
-                      leading: Text(
-                        l10n.addressBook,
-                        style: theme.titleMedium.copyWith(fontWeight: .w400),
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: theme.primary,
-                        fontWeight: .w900,
-                        size: 14,
-                      ),
-                    ),
+                    //   leading: Text(
+                    //     l10n.addressBook,
+                    //     style: theme.titleMedium.copyWith(fontWeight: .w400),
+                    //   ),
+                    //   trailing: Icon(
+                    //     Icons.arrow_forward_ios_rounded,
+                    //     color: theme.primary,
+                    //     fontWeight: .w900,
+                    //     size: 14,
+                    //   ),
+                    // ),
                     // Change password
-                    ListTile(
-                      contentPadding: .zero,
-                      onTap: () {
-                        context.router.push(ChangePasswordRoute());
-                      },
-                      leading: Text(
-                        l10n.changePassword,
-                        style: theme.titleMedium.copyWith(fontWeight: .w400),
+                    if (authRef.value != null)
+                      ListTile(
+                        contentPadding: .zero,
+                        onTap: () {
+                          context.router.push(ChangePasswordRoute());
+                        },
+                        leading: Text(
+                          l10n.changePassword,
+                          style: theme.titleMedium.copyWith(fontWeight: .w400),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: theme.primary,
+                          fontWeight: .w900,
+                          size: 14,
+                        ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: theme.primary,
-                        fontWeight: .w900,
-                        size: 14,
-                      ),
-                    ),
                     // Language
                     ListTile(
                       contentPadding: .zero,

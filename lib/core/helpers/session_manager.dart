@@ -11,6 +11,7 @@ class _SessionManager {
   final String deviceToken = 'device-token';
   final String locale = 'locale';
   final String boardingVisitState = 'boarding-visit-state';
+  final String guestMode = 'guest-mode';
 
   Future<void> setLocale({String? localee}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -36,6 +37,20 @@ class _SessionManager {
     return boardingVisit;
   }
 
+  Future<void> setGuestMode({required bool isGuest}) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (isGuest) {
+      await prefs.setBool(guestMode, true);
+    } else {
+      await prefs.remove(guestMode);
+    }
+  }
+
+  Future<bool> isGuestMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(guestMode) ?? false;
+  }
+
   Future<void> setAuthToken({String? token}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token == null ? prefs.remove(authToken) : prefs.setString(authToken, token);
@@ -53,11 +68,25 @@ class _SessionManager {
         : prefs.setString(refreshToken, token);
   }
 
-  Future<String> getRefreshToken() async {
+  Future<String?> getRefreshToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    String token;
-    token = pref.getString(refreshToken) ?? 'Token';
-    return token;
+    return pref.getString(refreshToken);
+  }
+
+  Future<void> persistTokens({
+    required String accessToken,
+    required String refreshToken,
+    DateTime? accessTokenExpiresAt,
+    DateTime? refreshTokenExpiresAt,
+  }) async {
+    await setAuthToken(token: accessToken);
+    await setRefreshToken(token: refreshToken);
+    await setAccessTokenExpiresAt(
+      expiresAt: accessTokenExpiresAt?.toIso8601String(),
+    );
+    await setRefreshTokenExpiresAt(
+      expiresAt: refreshTokenExpiresAt?.toIso8601String(),
+    );
   }
 
   Future<void> setAccessTokenExpiresAt({String? expiresAt}) async {
@@ -82,6 +111,49 @@ class _SessionManager {
   Future<String?> getRefreshTokenExpiresAt() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     return pref.getString(refreshTokenExpiresAt);
+  }
+
+  Future<bool> hasStoredTokens() async {
+    final access = await getAuthToken();
+    final refresh = await getRefreshToken();
+    final hasAccess = access != null && access.isNotEmpty;
+    final hasRefresh = refresh != null && refresh.isNotEmpty;
+    return hasAccess || hasRefresh;
+  }
+
+  /// Logged-in user with a non-expired refresh token and access token present.
+  Future<bool> hasActiveSession() async {
+    if (!await hasStoredTokens()) return false;
+    if (await isRefreshTokenExpired()) return false;
+    final access = await getAuthToken();
+    return access != null && access.isNotEmpty;
+  }
+
+  Future<bool> isAccessTokenExpired() async {
+    final expiresAtStr = await getAccessTokenExpiresAt();
+    if (expiresAtStr == null || expiresAtStr.isEmpty) return false;
+    return _isPast(expiresAtStr);
+  }
+
+  Future<bool> isRefreshTokenExpired() async {
+    final expiresAtStr = await getRefreshTokenExpiresAt();
+    if (expiresAtStr == null || expiresAtStr.isEmpty) return false;
+    return _isPast(expiresAtStr);
+  }
+
+  bool _isPast(String isoDate) {
+    try {
+      return DateTime.now().isAfter(DateTime.parse(isoDate));
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<void> clearAuthSession() async {
+    await setAuthToken(token: null);
+    await setRefreshToken(token: null);
+    await setAccessTokenExpiresAt(expiresAt: null);
+    await setRefreshTokenExpiresAt(expiresAt: null);
   }
 }
 

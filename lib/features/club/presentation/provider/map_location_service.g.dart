@@ -41,7 +41,7 @@ final class CurrentLocationAddressProvider
 }
 
 String _$currentLocationAddressHash() =>
-    r'820b5b9964ce8bf231b61eb0d4d65e1eac68552c';
+    r'f6c78af0a8f86b8ccc4c279a7859312485cb376b';
 
 @ProviderFor(MapLocationService)
 final mapLocationServiceProvider = MapLocationServiceProvider._();
@@ -68,7 +68,7 @@ final class MapLocationServiceProvider
 }
 
 String _$mapLocationServiceHash() =>
-    r'2280fab79828a56756cc6f9bcdd95b8952bba8f4';
+    r'24d0d6228fd54a54d69f44af51109e025d815dd9';
 
 abstract class _$MapLocationService extends $AsyncNotifier<void> {
   FutureOr<void> build();

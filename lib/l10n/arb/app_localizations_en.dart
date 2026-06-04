@@ -30,6 +30,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filter => 'Filter';
 
   @override
+  String get gridView => 'Grid view';
+
+  @override
+  String get listView => 'List view';
+
+  @override
   String get categories => 'Categories';
 
   @override
@@ -86,6 +92,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginToYourAccount => 'Login to your account';
+
+  @override
+  String get continueAsGuest => 'Login as guest';
 
   @override
   String get email => 'Email';
@@ -266,6 +275,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscribeNow => 'Subscribe now';
+
+  @override
+  String get confirmSubscription => 'Confirm subscription';
+
+  @override
+  String get confirmSubscriptionMessage =>
+      'Are you sure you want to subscribe to this plan?';
 
   @override
   String get nameOnCard => 'Name on card';
@@ -656,4 +672,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noBranchesInRadiusShowingNearest =>
       'No branches found in your area. Showing nearest ones instead.';
+
+  @override
+  String get loginRequired => 'Login Required';
+
+  @override
+  String get loginRequiredMessage =>
+      'You need to be logged in to access this feature. Please login to continue.';
+
+  @override
+  String get loginToAccess => 'Login to Access';
 }

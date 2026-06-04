@@ -1,4 +1,5 @@
 import 'package:my_nady_project/core/constants/app_constants.dart';
+import 'package:my_nady_project/core/helpers/auth_session_manager.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_startup_provider.g.dart';
@@ -7,16 +8,8 @@ part 'app_startup_provider.g.dart';
 class AppStartup extends _$AppStartup {
   @override
   FutureOr<void> build() async {
-    // ref.onDispose(() {
-    logger.i('disposing app startup');
-    // ref.invalidate(authUiServiceProvider);
-    // });
-    // state = const AsyncValue.loading();
-
-    logger.i('Remain app startup');
-
-    // state = const AsyncValue.data(null);
-
-    return;
+    logger.i('App startup: restoring auth session');
+    await AuthSessionManager.initializeOnAppStart(ref);
+    logger.i('App startup: session ready');
   }
 }

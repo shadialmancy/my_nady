@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../../../core/constants/app_constants.dart';
 import '../../../../core/shared/widgets/app_toast.dart';
 import '../../domain/entities/address_book_entity.dart';
 import '../../data/models/address_book_dto/address_data.dart';
@@ -22,7 +25,12 @@ class AddressBookUiService extends _$AddressBookUiService {
       return addresses;
     } catch (e, st) {
       state = AsyncValue.error(e, st);
-      AppToast.errorToast(e.toString());
+      log((e.toString()));
+      if(e.toString().toLowerCase().contains('unauthorized')){
+        logger.e(e.toString());
+      } else {
+        AppToast.errorToast(e.toString());
+      }
       return null;
     }
   }

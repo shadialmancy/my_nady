@@ -7,6 +7,8 @@
     "clubsMap": "خريطة النوادي",
     "searchForGym": "البحث عن صالة رياضية",
     "filter": "تصفية",
+    "gridView": "عرض شبكي",
+    "listView": "عرض قائمة",
     "categories": "الفئات",
     "seeAll": "عرض الكل",
     "gym": "صالة رياضية",
@@ -26,6 +28,7 @@
     "login": "تسجيل الدخول",
     "welcomeBack": "مرحباً بعودتك!",
     "loginToYourAccount": "تسجيل الدخول إلى حسابك",
+    "continueAsGuest": "تسجيل الدخول كضيف",
     "email": "البريد الإلكتروني",
     "enterYourEmail": "أدخل بريدك الإلكتروني",
     "password": "كلمة المرور",
@@ -81,6 +84,8 @@
     "description": "الوصف",
     "comments": "التعليقات",
     "subscribeNow": "اشترك الآن",
+    "confirmSubscription": "تأكيد الاشتراك",
+    "confirmSubscriptionMessage": "هل أنت متأكد أنك تريد الاشتراك في هذه الباقة؟",
     "nameOnCard": "الاسم على البطاقة",
     "cardNumber": "رقم البطاقة",
     "expiryDate": "تاريخ الانتهاء",
@@ -208,5 +213,8 @@
     "addressLabel": "تسمية العنوان",
     "setAsDefaultAddress": "تعيين كعنوان افتراضي",
     "smartSuggestions": "اقتراحات ذكية",
-    "noBranchesInRadiusShowingNearest": "لم يتم العور على فروع في منطقتك. يتم عرض أقرب الفروع بدلاً من ذلك."
+    "noBranchesInRadiusShowingNearest": "لم يتم العور على فروع في منطقتك. يتم عرض أقرب الفروع بدلاً من ذلك.",
+    "loginRequired": "تسجيل الدخول مطلوب",
+    "loginRequiredMessage": "يجب تسجيل الدخول للوصول إلى هذه الميزة. يرجى تسجيل الدخول للمتابعة.",
+    "loginToAccess": "تسجيل الدخول للوصول"
 }

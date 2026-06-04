@@ -15,29 +15,13 @@ part 'auth_ui_service.g.dart';
 class AuthUiService extends _$AuthUiService {
   @override
   FutureOr<User?> build() async {
-    final user = await fetchSavedUser();
-    if (user != null) {
-      final isExpired = await _isRefreshTokenExpired();
-      if (isExpired) {
-        logout();
-        return null;
-      }
+    if (!await sessionManager.hasActiveSession()) {
+      return null;
     }
-    return user;
+    return fetchSavedUser();
   }
 
   final String _userInfoBox = 'userInfoBox';
-
-  Future<bool> _isRefreshTokenExpired() async {
-    final expiresAtStr = await sessionManager.getRefreshTokenExpiresAt();
-    if (expiresAtStr == null) return false;
-    try {
-      final expiresAt = DateTime.parse(expiresAtStr);
-      return DateTime.now().isAfter(expiresAt);
-    } catch (e) {
-      return false;
-    }
-  }
 
   Future<User?> fetchSavedUser() async {
     if (!Hive.isBoxOpen(_userInfoBox)) {
@@ -80,6 +64,7 @@ class AuthUiService extends _$AuthUiService {
           .loginUser(email: email, password: password);
 
       if (_userEntity != null) {
+        await sessionManager.setGuestMode(isGuest: false);
         await sessionManager.setAuthToken(token: _userEntity!.accessToken);
         await sessionManager.setRefreshToken(token: _userEntity!.refreshToken);
         await sessionManager.setAccessTokenExpiresAt(
@@ -126,6 +111,7 @@ class AuthUiService extends _$AuthUiService {
             birthDate: birthDate,
           );
       if (_userEntity != null) {
+        await sessionManager.setGuestMode(isGuest: false);
         await sessionManager.setAuthToken(token: _userEntity!.accessToken);
         await sessionManager.setRefreshToken(token: _userEntity!.refreshToken);
         await sessionManager.setAccessTokenExpiresAt(
@@ -196,10 +182,8 @@ class AuthUiService extends _$AuthUiService {
 
   Future<void> clearSession() async {
     _userEntity = null;
-    await sessionManager.setAuthToken(token: null);
-    await sessionManager.setRefreshToken(token: null);
-    await sessionManager.setAccessTokenExpiresAt(expiresAt: null);
-    await sessionManager.setRefreshTokenExpiresAt(expiresAt: null);
+    await sessionManager.clearAuthSession();
+    await sessionManager.setGuestMode(isGuest: false);
     await sessionManager.setBoardingVisitState(status: false);
     if (Hive.isBoxOpen(_userInfoBox)) {
       var userBox = Hive.box(_userInfoBox);

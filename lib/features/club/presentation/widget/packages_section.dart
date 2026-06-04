@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/helpers/assets_helper.dart';
-
+import 'package:my_nady_project/core/constants/app_sizes.dart';
+import 'package:my_nady_project/core/helpers/assets_helper.dart';
 import 'package:my_nady_project/features/club/data/models/club_dto/subscription_plan.dart';
-
-import '../../../../core/shared/widgets/app_toast.dart';
-import '../../../../core/shared/widgets/custom_bottom.dart';
-import '../../../settings/presentation/widgets/widgets.dart';
-import '../../domain/repositories/club_repository.dart';
+import 'package:my_nady_project/core/shared/widgets/app_toast.dart';
+import 'package:my_nady_project/core/shared/widgets/custom_bottom.dart';
+import 'package:my_nady_project/core/shared/widgets/login_required_dialog.dart';
+import 'package:my_nady_project/features/authentication/presentation/provider/auth_ui_service.dart';
+import 'package:my_nady_project/features/club/presentation/widget/subscribe_confirmation_dialog.dart';
+import 'package:my_nady_project/features/settings/presentation/widgets/payment_success_dialog.dart';
+import 'package:my_nady_project/features/club/domain/repositories/club_repository.dart';
 
 class PackagesSection extends ConsumerStatefulWidget {
   const PackagesSection({
@@ -41,15 +42,20 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
     final plans = widget.subscriptionPlans ?? [];
 
     // Find if any plan has an active subscription
-    final activePlan = plans.where((plan) => plan.hasActiveSubscription == true).firstOrNull;
+    final activePlan = plans
+        .where((plan) => plan.hasActiveSubscription == true)
+        .firstOrNull;
     hasActiveSubscription = activePlan != null;
 
     // Determine the initial selected ID
-    // Priority: 
+    // Priority:
     // 1. The plan with an active subscription
     // 2. The explicitly passed selectedId
     // 3. The first available plan
-    final initialId = activePlan?.id ?? widget.selectedId ?? (plans.isNotEmpty ? plans[0].id : null);
+    final initialId =
+        activePlan?.id ??
+        widget.selectedId ??
+        (plans.isNotEmpty ? plans[0].id : null);
     _currentSelectedPlanId = initialId;
 
     packagesListNotifier = ValueNotifier(
@@ -81,7 +87,9 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
     if (widget.selectedId != oldWidget.selectedId ||
         widget.showSubscribeButton != oldWidget.showSubscribeButton) {
       final plans = widget.subscriptionPlans ?? [];
-      final activePlan = plans.where((plan) => plan.hasActiveSubscription == true).firstOrNull;
+      final activePlan = plans
+          .where((plan) => plan.hasActiveSubscription == true)
+          .firstOrNull;
       hasActiveSubscription = activePlan != null;
 
       final initialId = activePlan?.id ?? widget.selectedId;
@@ -90,8 +98,7 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
       final newList = packagesListNotifier.value.map((item) {
         return {
           ...item,
-          "isSelected":
-              widget.showSubscribeButton && item["id"] == initialId,
+          "isSelected": widget.showSubscribeButton && item["id"] == initialId,
         };
       }).toList();
       packagesListNotifier.value = newList;
@@ -115,7 +122,10 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
                 ),
               ...value.map(
                 (element) => GestureDetector(
-                  onTap: (widget.showSubscribeButton && !isLoading && !hasActiveSubscription)
+                  onTap:
+                      (widget.showSubscribeButton &&
+                          !isLoading &&
+                          !hasActiveSubscription)
                       ? () {
                           final newList = value.map((item) {
                             return {
@@ -204,8 +214,8 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
                   title: isLoading
                       ? null
                       : hasActiveSubscription
-                          ? "You have already subscribed"
-                          : l10n.subscribeNow,
+                      ? "You have already subscribed"
+                      : l10n.subscribeNow,
                   width: double.infinity,
                   isDisabled: isLoading || hasActiveSubscription,
                   icon: isLoading
@@ -224,19 +234,37 @@ class _PackagesSectionState extends ConsumerState<PackagesSection> {
                     fontWeight: FontWeight.normal,
                   ),
                   onPressed: () async {
-                    if (_currentSelectedPlanId != null) {
-                      try {
-                        await ref
-                            .read(clubRepositoryProvider.notifier)
-                            .purchaseSubscription(_currentSelectedPlanId!);
-                        if (context.mounted) {
-                          PaymentSuccessDialog.showPaymentDialog(context);
-                        }
-                      } catch (e) {
-                        AppToast.errorToast(e.toString());
-                      }
-                    } else {
+                    final authUser = ref.read(authUiServiceProvider).value;
+                    if (authUser == null) {
+                      showLoginRequiredDialog(context);
+                      return;
+                    }
+                    if (_currentSelectedPlanId == null) {
                       AppToast.errorToast("Please select a plan");
+                      return;
+                    }
+
+                    final selectedPlan = packagesListNotifier.value
+                        .cast<Map<String, dynamic>>()
+                        .where((item) => item["isSelected"] == true)
+                        .firstOrNull;
+
+                    final confirmed = await showSubscribeConfirmationDialog(
+                      context,
+                      planTitle: selectedPlan?["title"] as String?,
+                      planPrice: selectedPlan?["price"] as String?,
+                    );
+                    if (confirmed != true || !context.mounted) return;
+
+                    try {
+                      await ref
+                          .read(clubRepositoryProvider.notifier)
+                          .purchaseSubscription(_currentSelectedPlanId!);
+                      if (context.mounted) {
+                        PaymentSuccessDialog.showPaymentDialog(context);
+                      }
+                    } catch (e) {
+                      AppToast.errorToast(e.toString());
                     }
                   },
                 ),

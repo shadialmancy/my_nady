@@ -7,10 +7,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_nady_project/core/router/app_router.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+import '../../../../app/view/app.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/helpers/session_manager.dart';
+import '../../../../core/localization/localizations.dart';
 import '../../../../core/shared/widgets/location_permission_dialog.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 import '../../../club/presentation/provider/map_location_service.dart';
@@ -30,8 +32,36 @@ class _LoginUiState extends ConsumerState<LoginUi> {
 
   bool isRemembered = false;
 
+  Future<void> _continueAsGuest(BuildContext context) async {
+    await sessionManager.clearAuthSession();
+    await sessionManager.setGuestMode(isGuest: true);
+    ref.invalidate(authUiServiceProvider);
+
+    if (!context.mounted) return;
+
+    final locationService = ref.read(mapLocationServiceProvider.notifier);
+    final hasPermission = await locationService.hasLocationPermission();
+
+    if (!hasPermission && context.mounted) {
+      await showLocationPerimssionDialog(
+        context,
+        ref,
+        onPermissionGranted: () {
+          if (context.mounted) {
+            context.router.maybePop();
+          }
+        },
+      );
+    }
+
+    if (context.mounted) {
+      context.router.replaceAll([const DashboardLayoutRoute()]);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentLangCode = Localizations.localeOf(context).languageCode;
     final (theme, l10n) = appSettingsRecord(context);
     final authRef = ref.watch(authUiServiceProvider.notifier);
     return SafeArea(
@@ -41,9 +71,119 @@ class _LoginUiState extends ConsumerState<LoginUi> {
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: .center,
-              crossAxisAlignment: .center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Align(
+                  alignment: AlignmentDirectional.topEnd,
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(20),
+                      onTap: () async {
+                        final selectedCode = await showModalBottomSheet<String>(
+                          context: context,
+                          backgroundColor: Colors.transparent,
+                          builder: (ctx) {
+                            final (theme, l10n) = appSettingsRecord(ctx);
+                            return Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 3.sw,
+                                vertical: 16,
+                              ),
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: theme.white,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    l10n.language,
+                                    style: theme.titleMedium.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: theme.fullBlack,
+                                    ),
+                                  ),
+                                  gapH12,
+                                  RadioListTile<String>(
+                                    value: english,
+                                    groupValue: currentLangCode,
+                                    onChanged: (value) =>
+                                        Navigator.of(ctx).pop(value),
+                                    title: Text(
+                                      l10n.en,
+                                      style: theme.titleMedium.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                  RadioListTile<String>(
+                                    value: arabic,
+                                    groupValue: currentLangCode,
+                                    onChanged: (value) =>
+                                        Navigator.of(ctx).pop(value),
+                                    title: Text(
+                                      l10n.ar,
+                                      style: theme.titleMedium.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+
+                        if (selectedCode != null &&
+                            selectedCode != currentLangCode) {
+                          final newLocale = await setLocale(selectedCode);
+                          if (context.mounted) {
+                            App.setLocale(context, newLocale);
+                          }
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: theme.primary.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: theme.primary, width: 1.5),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.language_rounded,
+                              color: theme.primary,
+                              size: 18,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              currentLangCode == arabic ? l10n.ar : l10n.en,
+                              style: theme.titleSmall.copyWith(
+                                color: theme.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: theme.primary,
+                              size: 18,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 Text(
                   l10n.welcomeBack,
                   style: theme.titleLarge.copyWith(
@@ -214,6 +354,21 @@ class _LoginUiState extends ConsumerState<LoginUi> {
                       },
                     );
                   },
+                ),
+                gapH12,
+                CustomButton(
+                  backgroundColor: theme.white,
+                  title: l10n.continueAsGuest,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(color: theme.primary),
+                  ),
+                  width: double.infinity,
+                  titleStyle: theme.bodyMedium.copyWith(
+                    color: theme.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  onPressed: () => _continueAsGuest(context),
                 ),
                 Padding(
                   padding: .symmetric(horizontal: 30, vertical: 1.5.sh),

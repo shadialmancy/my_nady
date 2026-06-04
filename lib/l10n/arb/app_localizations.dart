@@ -140,6 +140,18 @@ abstract class AppLocalizations {
   /// **'Filter'**
   String get filter;
 
+  /// No description provided for @gridView.
+  ///
+  /// In en, this message translates to:
+  /// **'Grid view'**
+  String get gridView;
+
+  /// No description provided for @listView.
+  ///
+  /// In en, this message translates to:
+  /// **'List view'**
+  String get listView;
+
   /// No description provided for @categories.
   ///
   /// In en, this message translates to:
@@ -253,6 +265,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Login to your account'**
   String get loginToYourAccount;
+
+  /// No description provided for @continueAsGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Login as guest'**
+  String get continueAsGuest;
 
   /// No description provided for @email.
   ///
@@ -591,6 +609,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Subscribe now'**
   String get subscribeNow;
+
+  /// No description provided for @confirmSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm subscription'**
+  String get confirmSubscription;
+
+  /// No description provided for @confirmSubscriptionMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to subscribe to this plan?'**
+  String get confirmSubscriptionMessage;
 
   /// No description provided for @nameOnCard.
   ///
@@ -1359,6 +1389,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No branches found in your area. Showing nearest ones instead.'**
   String get noBranchesInRadiusShowingNearest;
+
+  /// No description provided for @loginRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Login Required'**
+  String get loginRequired;
+
+  /// No description provided for @loginRequiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You need to be logged in to access this feature. Please login to continue.'**
+  String get loginRequiredMessage;
+
+  /// No description provided for @loginToAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Login to Access'**
+  String get loginToAccess;
 }
 
 class _AppLocalizationsDelegate

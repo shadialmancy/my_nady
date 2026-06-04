@@ -10,3 +10,4 @@ export 'custom_phone_number_text_field.dart';
 export 'birthday_dialog.dart';
 export 'custom_switch.dart';
 export 'full_screen_image_viewer.dart';
+export 'login_required_dialog.dart';

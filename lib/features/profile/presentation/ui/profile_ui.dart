@@ -4,12 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/helpers/assets_helper.dart';
-import '../../../../core/router/app_router.dart';
-import '../../../authentication/presentation/provider/auth_ui_service.dart';
-import '../../../authentication/presentation/widgets/widgets.dart';
-import '../widgets/profile_appbar.dart';
+import 'package:my_nady_project/core/constants/app_sizes.dart';
+import 'package:my_nady_project/core/helpers/assets_helper.dart';
+import 'package:my_nady_project/core/router/app_router.dart';
+import 'package:my_nady_project/core/shared/widgets/widgets.dart';
+import 'package:my_nady_project/features/authentication/presentation/provider/auth_ui_service.dart';
+import 'package:my_nady_project/features/authentication/presentation/widgets/widgets.dart';
+import 'package:my_nady_project/features/profile/presentation/widgets/profile_appbar.dart';
 
 class ProfileUi extends ConsumerWidget {
   const ProfileUi({super.key});
@@ -19,8 +20,52 @@ class ProfileUi extends ConsumerWidget {
     final (theme, l10n) = appSettingsRecord(context);
     final authRef = ref.watch(authUiServiceProvider);
     final isRtl = Localizations.localeOf(context).languageCode == 'ar';
+
+    if (authRef.value == null) {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.sw),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                AssetsHelper.profileIcon,
+                width: 80,
+                colorFilter: ColorFilter.mode(theme.primary, BlendMode.srcIn),
+              ),
+              gapH24,
+              Text(
+                l10n.loginRequired,
+                style: theme.headlineSmall.copyWith(
+                  color: theme.primary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              gapH12,
+              Text(
+                l10n.loginRequiredMessage,
+                textAlign: TextAlign.center,
+                style: theme.titleSmall.copyWith(
+                  color: theme.grey87.withValues(alpha: .80),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              gapH32,
+              CustomButton(
+                title: l10n.login,
+                onPressed: () {
+                  context.router.push(const LoginRoute());
+                },
+                width: double.infinity,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return SingleChildScrollView(
-      padding: .only(bottom: 18.sh),
+      padding: EdgeInsets.only(bottom: 18.sh),
       child: Column(
         children: [
           const ProfileAppbar(),
@@ -67,10 +112,31 @@ class ProfileUi extends ConsumerWidget {
                   onTap: () {
                     context.router.push(const EditProfileRoute());
                   },
-                  leading: SvgPicture.asset(AssetsHelper.editProfileIcon),
+                  leading: Padding(
+                    padding: const .only(left: 4),
+                    child: SvgPicture.asset(AssetsHelper.editProfileIcon),
+                  ),
                   contentPadding: .zero,
                   title: Text(
                     l10n.editProfile,
+                    style: theme.titleSmall.copyWith(
+                      color: theme.primary,
+                      fontWeight: .w400,
+                    ),
+                  ),
+                  trailing: Transform.flip(
+                    flipX: isRtl,
+                    child: SvgPicture.asset(AssetsHelper.nextIcon),
+                  ),
+                ),
+                ListTile(
+                  onTap: () {
+                    context.router.push(const AddressBookRoute());
+                  },
+                  leading: Icon(Icons.book, color: theme.primary),
+                  contentPadding: .zero,
+                  title: Text(
+                    l10n.addressBook,
                     style: theme.titleSmall.copyWith(
                       color: theme.primary,
                       fontWeight: .w400,
@@ -103,7 +169,10 @@ class ProfileUi extends ConsumerWidget {
                   onTap: () {
                     context.router.push(MapRoute());
                   },
-                  leading: SvgPicture.asset(AssetsHelper.locationIcon2),
+                  leading: Padding(
+                    padding: const .only(left: 4),
+                    child: SvgPicture.asset(AssetsHelper.locationIcon2),
+                  ),
                   contentPadding: .zero,
                   title: Text(
                     l10n.location,
@@ -121,7 +190,10 @@ class ProfileUi extends ConsumerWidget {
                   onTap: () {
                     context.router.push(const SettingsRoute());
                   },
-                  leading: SvgPicture.asset(AssetsHelper.settingsIcon),
+                  leading: Padding(
+                    padding: const .only(left: 4),
+                    child: SvgPicture.asset(AssetsHelper.settingsIcon),
+                  ),
                   contentPadding: .zero,
                   title: Text(
                     l10n.settings,
@@ -139,7 +211,10 @@ class ProfileUi extends ConsumerWidget {
                   onTap: () {
                     context.router.push(const SubscriptionRoute());
                   },
-                  leading: SvgPicture.asset(AssetsHelper.subscriptionIcon),
+                  leading: Padding(
+                    padding: const .only(left: 4),
+                    child: SvgPicture.asset(AssetsHelper.subscriptionIcon),
+                  ),
                   contentPadding: .zero,
                   title: Text(
                     l10n.subscription,

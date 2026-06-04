@@ -68,44 +68,56 @@ class ProfileAppbar extends ConsumerWidget {
               value: profileImageState,
               builder: (imagePath) {
                 final user = ref.read(authUiServiceProvider).value;
-                return CircleAvatar(
-                  radius: 50,
-                  backgroundColor: theme.white,
-                  child: imagePath != null
-                      ? ClipOval(
-                          child: Image.file(
-                            File(imagePath),
-                            fit: BoxFit.cover,
-                            width: 100,
-                            height: 100,
-                          ),
-                        )
-                      : user?.image != null
-                      ? ClipOval(
-                          child: Image.network(
-                            user!.image!,
-                            fit: BoxFit.cover,
-                            width: 100,
-                            height: 100,
-                            errorBuilder: (context, error, stackTrace) =>
-                                SvgPicture.asset(
-                                  AssetsHelper.profileIcon,
-                                  colorFilter: ColorFilter.mode(
-                                    theme.primary,
-                                    BlendMode.srcIn,
+                return Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: theme.fullBlack.withValues(alpha: 0.25),
+                        blurRadius: 4,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundColor: theme.white,
+                    child: imagePath != null
+                        ? ClipOval(
+                            child: Image.file(
+                              File(imagePath),
+                              fit: BoxFit.cover,
+                              width: 100,
+                              height: 100,
+                            ),
+                          )
+                        : user?.image != null
+                        ? ClipOval(
+                            child: Image.network(
+                              user!.image!,
+                              fit: BoxFit.cover,
+                              width: 100,
+                              height: 100,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  SvgPicture.asset(
+                                    AssetsHelper.profileIcon,
+                                    colorFilter: ColorFilter.mode(
+                                      theme.primary,
+                                      BlendMode.srcIn,
+                                    ),
                                   ),
-                                ),
+                            ),
+                          )
+                        : SvgPicture.asset(
+                            AssetsHelper.profileIcon,
+                            colorFilter: ColorFilter.mode(
+                              theme.primary,
+                              BlendMode.srcIn,
+                            ),
+                            width: 50,
+                            height: 50,
                           ),
-                        )
-                      : SvgPicture.asset(
-                          AssetsHelper.profileIcon,
-                          colorFilter: ColorFilter.mode(
-                            theme.primary,
-                            BlendMode.srcIn,
-                          ),
-                          width: 50,
-                          height: 50,
-                        ),
+                  ),
                 );
               },
             ),

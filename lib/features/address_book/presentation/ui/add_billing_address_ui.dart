@@ -5,6 +5,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/shared/widgets/widgets.dart';
+import '../../../authentication/presentation/provider/auth_ui_service.dart';
 import '../../../home/presentation/provider/home_ui_service.dart';
 import '../../data/models/address_book_dto/address_data.dart';
 
@@ -116,6 +117,12 @@ class _AddBillingAddressUiState extends ConsumerState<AddBillingAddressUi> {
               isDisabled: uiService.isLoading,
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
+                  final authUser = ref.read(authUiServiceProvider).value;
+                  if (authUser == null) {
+                    showLoginRequiredDialog(context);
+                    return;
+                  }
+
                   if (widget.addressToEdit != null) {
                     await ref
                         .read(addressBookUiServiceProvider.notifier)

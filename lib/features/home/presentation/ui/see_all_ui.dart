@@ -1,21 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/router/app_router.dart';
 import 'package:my_nady_project/features/club/data/models/club_dto/datum.dart';
 import '../widgets/widgets.dart';
 
-class SeeAllUi extends StatefulWidget {
+class SeeAllUi extends ConsumerStatefulWidget {
   const SeeAllUi({super.key, required this.clubs});
 
   final List<Datum> clubs;
 
   @override
-  State<SeeAllUi> createState() => _SeeAllUiState();
+  ConsumerState<SeeAllUi> createState() => _SeeAllUiState();
 }
 
-class _SeeAllUiState extends State<SeeAllUi> {
+class _SeeAllUiState extends ConsumerState<SeeAllUi> {
   late TextEditingController searchController;
   String searchQuery = '';
 
@@ -33,6 +33,7 @@ class _SeeAllUiState extends State<SeeAllUi> {
 
   @override
   Widget build(BuildContext context) {
+    final (theme, l10n) = appSettingsRecord(context);
     final filteredClubs = searchQuery.isEmpty
         ? widget.clubs
         : widget.clubs
@@ -54,6 +55,8 @@ class _SeeAllUiState extends State<SeeAllUi> {
                 onPressed: () => context.router.maybePop(),
                 icon: const Icon(Icons.arrow_back_ios),
               ),
+              const Spacer(),
+              const GymViewLayoutToggle(),
             ],
           ),
         ),
@@ -68,7 +71,7 @@ class _SeeAllUiState extends State<SeeAllUi> {
               });
             },
             decoration: InputDecoration(
-              hintText: 'Search for gym',
+              hintText: l10n.searchForGym,
               prefixIcon: const Icon(Icons.search),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -79,36 +82,17 @@ class _SeeAllUiState extends State<SeeAllUi> {
         ),
         gapH16,
         Expanded(
-          child: GridView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 1.sw),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.8,
-              crossAxisSpacing: 0,
-              mainAxisSpacing: 0,
-            ),
-            itemCount: filteredClubs.length,
-            itemBuilder: (context, index) {
-              final club = filteredClubs[index];
-              return GestureDetector(
-                onTap: () {
-                  context.router.push(
-                    ClubRoute(
-                      id: club.id ?? '',
-                      distance: club.distance?.toString() ?? '',
-                    ),
-                  );
-                },
-                child: ClubCard(
-                  club: club,
-                  marginBottom: 10,
-                  marginTop: 0,
-                  marginLeft: 6,
-                  marginRight: 6,
+          child: filteredClubs.isEmpty
+              ? Center(
+                  child: Text(
+                    l10n.noBranchNearBy,
+                    style: theme.titleMedium.copyWith(color: theme.grey87),
+                  ),
+                )
+              : ClubCollectionView(
+                  clubs: filteredClubs,
+                  padding: EdgeInsets.symmetric(horizontal: 1.sw),
                 ),
-              );
-            },
-          ),
         ),
       ],
     );

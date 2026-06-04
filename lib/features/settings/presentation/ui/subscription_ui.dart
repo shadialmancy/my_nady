@@ -9,6 +9,7 @@ import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/shared/widgets/widgets.dart';
 import '../provider/subscription_ui_service.dart';
 import '../widgets/widgets.dart';
+import '../../../home/presentation/widgets/widgets.dart';
 
 class SubscriptionUi extends ConsumerStatefulWidget {
   const SubscriptionUi({super.key});
@@ -94,23 +95,34 @@ class _SubscriptionUiState extends ConsumerState<SubscriptionUi>
           ),
           Container(
             color: theme.white,
-            child: TabBar(
-              controller: _tabController,
-              labelColor: theme.primary,
-              unselectedLabelColor: theme.grey9C,
-              indicatorColor: theme.primary,
-              indicatorWeight: 3,
-              labelStyle: theme.titleMedium.copyWith(
-                fontWeight: .w600,
-                fontSize: 16,
-              ),
-              unselectedLabelStyle: theme.titleMedium.copyWith(
-                fontWeight: .normal,
-                fontSize: 16,
-              ),
-              tabs: [
-                Tab(text: l10n.current),
-                Tab(text: l10n.history),
+            child: Column(
+              children: [
+                TabBar(
+                  controller: _tabController,
+                  labelColor: theme.primary,
+                  unselectedLabelColor: theme.grey9C,
+                  indicatorColor: theme.primary,
+                  indicatorWeight: 3,
+                  labelStyle: theme.titleMedium.copyWith(
+                    fontWeight: .w600,
+                    fontSize: 16,
+                  ),
+                  unselectedLabelStyle: theme.titleMedium.copyWith(
+                    fontWeight: .normal,
+                    fontSize: 16,
+                  ),
+                  tabs: [
+                    Tab(text: l10n.current),
+                    Tab(text: l10n.history),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 8, right: 3.5.sw, bottom: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [GymViewLayoutToggle()],
+                  ),
+                ),
               ],
             ),
           ),
@@ -138,20 +150,8 @@ class _SubscriptionUiState extends ConsumerState<SubscriptionUi>
                         ),
                       );
                     }
-                    return ListView.builder(
-                      padding: .only(
-                        top: 20,
-                        bottom: 40,
-                        left: 3.5.sw,
-                        right: 3.5.sw,
-                      ),
-                      itemCount: subscriptions.length,
-                      itemBuilder: (context, index) {
-                        final subscription = subscriptions[index];
-                        return CurrentSubscriptionCard(
-                          subscription: subscription,
-                        );
-                      },
+                    return CurrentSubscriptionCollectionView(
+                      subscriptions: subscriptions,
                     );
                   },
                 ),
@@ -176,18 +176,8 @@ class _SubscriptionUiState extends ConsumerState<SubscriptionUi>
                         ),
                       );
                     }
-                    return ListView.builder(
-                      padding: .only(
-                        top: 20,
-                        bottom: 40,
-                        left: 3.5.sw,
-                        right: 3.5.sw,
-                      ),
-                      itemCount: history.length,
-                      itemBuilder: (context, index) {
-                        final item = history[index];
-                        return HistorySubscriptionCard(historyItem: item);
-                      },
+                    return HistorySubscriptionCollectionView(
+                      historyItems: history,
                     );
                   },
                 ),

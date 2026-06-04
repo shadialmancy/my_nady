@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -5,7 +6,7 @@ import 'package:my_nady_project/core/shared/widgets/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/constants/app_sizes.dart';
-import '../../../club/presentation/provider/map_location_service.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../filter/presentation/provider/filter_service.dart';
 import '../widgets/widgets.dart';
 
@@ -94,60 +95,101 @@ class _HomeUiState extends ConsumerState<HomeUi> {
                       ).animate().fadeIn().scale(begin: const Offset(0.9, 0.9)),
                     ),
                   )
-                else ...[
-                  if (clubEntity?.isSuggestion ?? false)
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4.sw),
-                      child: Container(
-                        padding: const EdgeInsets.all(12),
-                        margin: .only(top: 16),
-                        decoration: BoxDecoration(
-                          color: theme.primary.withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: theme.primary.withValues(alpha: 0.2),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.tips_and_updates_outlined,
-                              color: theme.primary,
-                              size: 24,
-                            ),
-                            gapW12,
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                else
+                  ...[
+                        if (clubEntity?.isSuggestion ?? false)
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 4.sw),
+                            child: Container(
+                              padding: const EdgeInsets.all(12),
+                              margin: .only(top: 16),
+                              decoration: BoxDecoration(
+                                color: theme.primary.withValues(alpha: 0.05),
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: theme.primary.withValues(alpha: 0.2),
+                                ),
+                              ),
+                              child: Row(
                                 children: [
-                                  Text(
-                                    l10n.smartSuggestions,
-                                    style: theme.titleSmall.copyWith(
-                                      color: theme.primary,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                  Icon(
+                                    Icons.tips_and_updates_outlined,
+                                    color: theme.primary,
+                                    size: 24,
                                   ),
-                                  Text(
-                                    l10n.noBranchesInRadiusShowingNearest,
-                                    style: theme.bodySmall.copyWith(
-                                      color: theme.grey82,
+                                  gapW12,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          l10n.smartSuggestions,
+                                          style: theme.titleSmall.copyWith(
+                                            color: theme.primary,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          l10n.noBranchesInRadiusShowingNearest,
+                                          style: theme.bodySmall.copyWith(
+                                            color: theme.grey82,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  gapH16,
-                  FeaturedCarousel(featuredClubs: featuredClubs),
-                  gapH16,
-                  if (mixClubs.isNotEmpty) MixClubSection(clubs: mixClubs),
-                  if (maleClubs.isNotEmpty) MaleClubSection(clubs: maleClubs),
-                  if (femaleClubs.isNotEmpty) FemaleClubSection(clubs: femaleClubs),
-                  if (kidsClubs.isNotEmpty) KidsClubSection(clubs: kidsClubs),
-                ].animate(interval: 100.ms).fadeIn(duration: 500.ms).slideY(begin: 0.05, curve: Curves.easeOutQuad),
+                          ),
+                        gapH16,
+                        FeaturedCarousel(featuredClubs: featuredClubs),
+                        gapH16,
+                        if (mixClubs.isNotEmpty)
+                          ClubSection(
+                            title: l10n.mix,
+                            clubs: mixClubs,
+                            onSeeAll: () {
+                              context.router.push(
+                                SeeAllRoute(clubs: mixClubs),
+                              );
+                            },
+                          ),
+                        if (maleClubs.isNotEmpty)
+                          ClubSection(
+                            title: l10n.male,
+                            clubs: maleClubs,
+                            onSeeAll: () {
+                              context.router.push(
+                                SeeAllRoute(clubs: maleClubs),
+                              );
+                            },
+                          ),
+                        if (femaleClubs.isNotEmpty)
+                          ClubSection(
+                            title: l10n.female,
+                            clubs: femaleClubs,
+                            onSeeAll: () {
+                              context.router.push(
+                                SeeAllRoute(clubs: femaleClubs),
+                              );
+                            },
+                          ),
+                        if (kidsClubs.isNotEmpty)
+                          ClubSection(
+                            title: l10n.kids,
+                            clubs: kidsClubs,
+                            onSeeAll: () {
+                              context.router.push(
+                                SeeAllRoute(clubs: kidsClubs),
+                              );
+                            },
+                          ),
+                      ]
+                      .animate(interval: 100.ms)
+                      .fadeIn(duration: 500.ms)
+                      .slideY(begin: 0.05, curve: Curves.easeOutQuad),
               ],
             ),
           );
