@@ -72,7 +72,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get welcomeTo => 'مرحباً بك في ';
 
   @override
-  String get myNady => 'ماي نادي';
+  String get nadyFinder => 'نادي فايندر';
 
   @override
   String get yourFitnessJourneyBeginsHereWhereDisciplineMeetsPassion =>

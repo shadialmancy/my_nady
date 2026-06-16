@@ -72,7 +72,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeTo => 'Welcome to ';
 
   @override
-  String get myNady => 'My Nady';
+  String get nadyFinder => 'Nady Finder';
 
   @override
   String get yourFitnessJourneyBeginsHereWhereDisciplineMeetsPassion =>

@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../../core/helpers/assets_helper.dart';
 import '../../../../core/helpers/session_manager.dart';
 import '../../../../core/router/app_router.dart';
@@ -22,7 +23,7 @@ class _SplashUiState extends State<SplashUi> {
       if (mounted) {
         // log(boardingVisit.toString());
         if (boardingVisit) {
-        context.router.replaceAll([const DashboardLayoutRoute()]);
+          context.router.replaceAll([const DashboardLayoutRoute()]);
         } else {
           context.router.replaceAll([const OnboardingRoute()]);
         }
@@ -39,7 +40,7 @@ class _SplashUiState extends State<SplashUi> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Image.asset(AssetsHelper.logoIcon, width: 300, height: 300),
+      child: SvgPicture.asset(AssetsHelper.logoIcon, width: 300, height: 300),
     );
   }
 }

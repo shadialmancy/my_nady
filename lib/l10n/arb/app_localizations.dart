@@ -224,11 +224,11 @@ abstract class AppLocalizations {
   /// **'Welcome to '**
   String get welcomeTo;
 
-  /// No description provided for @myNady.
+  /// No description provided for @nadyFinder.
   ///
   /// In en, this message translates to:
-  /// **'My Nady'**
-  String get myNady;
+  /// **'Nady Finder'**
+  String get nadyFinder;
 
   /// No description provided for @yourFitnessJourneyBeginsHereWhereDisciplineMeetsPassion.
   ///

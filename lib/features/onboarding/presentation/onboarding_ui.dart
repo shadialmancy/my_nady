@@ -29,7 +29,7 @@ class OnboardingUi extends StatelessWidget {
                 ),
                 children: [
                   TextSpan(
-                    text: l10n.myNady,
+                    text: l10n.nadyFinder,
                     style: theme.headlineLarge.copyWith(
                       fontWeight: .bold,
                       fontSize: 26,
